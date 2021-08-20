@@ -37,7 +37,8 @@ public class ForestGameArea extends GameArea {
     "images/hex_grass_3.png",
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
-    "images/iso_grass_3.png"
+    "images/iso_grass_3.png",
+    "images/void_placeholder.png"
   };
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
@@ -67,6 +68,7 @@ public class ForestGameArea extends GameArea {
     player = spawnPlayer();
     spawnGhosts();
     spawnGhostKing();
+    spawnTheVoid();
 
     playMusic();
   }
@@ -142,6 +144,16 @@ public class ForestGameArea extends GameArea {
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     Entity ghostKing = NPCFactory.createGhostKing(player);
     spawnEntityAt(ghostKing, randomPos, true, true);
+  }
+
+  private void spawnTheVoid() {
+    int startPosY = terrain.getMapBounds(0).y;
+    GridPoint2 startPos = new GridPoint2();
+    startPos.set(0, startPosY/2);
+
+    Entity theVoid = NPCFactory.createTheVoid();
+    spawnEntityAt(theVoid, startPos, true, true);
+
   }
 
   private void playMusic() {
