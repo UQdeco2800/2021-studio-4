@@ -1,12 +1,14 @@
 package com.deco2800.game.components.mainmenu;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -19,20 +21,25 @@ public class MainMenuDisplay extends UIComponent {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuDisplay.class);
   private static final float Z_INDEX = 2f;
   private Table table;
+  private Sprite sprite;
 
   @Override
   public void create() {
     super.create();
     addActors();
   }
-
   private void addActors() {
-    table = new Table();
-    table.setFillParent(true);
-    Image title =
-        new Image(
-            ServiceLocator.getResourceService()
-                .getAsset("images/box_boy_title.png", Texture.class));
+      table = new Table();
+      table.setFillParent(true);
+      sprite = new Sprite(new Texture("images/box_boy_title.png"));
+      table.setBackground(new SpriteDrawable(sprite));
+
+    //table = new Table();
+    //table.setFillParent(true);
+    //Image title =
+        //new Image(
+            //ServiceLocator.getResourceService()
+                //.getAsset("images/box_boy_title.png", Texture.class));
 
     TextButton startBtn = new TextButton("Start", skin);
     TextButton loadBtn = new TextButton("Load", skin);
@@ -77,7 +84,7 @@ public class MainMenuDisplay extends UIComponent {
           }
         });
 
-    table.add(title);
+    //table.add(title);
     table.row();
     table.add(startBtn).padTop(30f);
     table.row();
