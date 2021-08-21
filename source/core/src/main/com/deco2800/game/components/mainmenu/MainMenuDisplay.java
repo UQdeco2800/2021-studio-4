@@ -29,7 +29,11 @@ public class MainMenuDisplay extends UIComponent {
     addActors();
   }
 
+    /**
+     * Added Background image and initialised buttons
+     */
   private void addActors() {
+
     table = new Table();
     table.setFillParent(true);
     sprite = new Sprite(new Texture("images/box_boy_title.png"));
@@ -38,6 +42,18 @@ public class MainMenuDisplay extends UIComponent {
 //        new Image(
 //            ServiceLocator.getResourceService()
 //                .getAsset("images/box_boy_title.png", Texture.class));
+
+      table = new Table();
+      table.setFillParent(true);
+      sprite = new Sprite(new Texture("images/box_boy_title.png"));
+      table.setBackground(new SpriteDrawable(sprite));
+
+    //table = new Table();
+    //table.setFillParent(true);
+    //Image title =
+        //new Image(
+            //ServiceLocator.getResourceService()
+                //.getAsset("images/box_boy_title.png", Texture.class));
 
     TextButton startBtn = new TextButton("Start", skin);
     TextButton loadBtn = new TextButton("Load", skin);
