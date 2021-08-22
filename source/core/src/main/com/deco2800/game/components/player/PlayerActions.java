@@ -14,6 +14,9 @@ import com.deco2800.game.services.ServiceLocator;
 public class PlayerActions extends Component {
   private static final Vector2 MAX_SPEED = new Vector2(5f, 5f); // Metres per second
 
+  private Vector2 currentSpeed = new Vector2(0f, 0f); //Current speed, in metres per second
+  private Vector2 acceleration = new Vector2(0.2f, 0.2f); //Rate of speed increase, metres per second per calucation?
+
   private PhysicsComponent physicsComponent;
   private Vector2 walkDirection = Vector2.Zero.cpy();
   private boolean moving = false;
@@ -36,7 +39,18 @@ public class PlayerActions extends Component {
   private void updateSpeed() {
     Body body = physicsComponent.getBody();
     Vector2 velocity = body.getLinearVelocity();
-    Vector2 desiredVelocity = walkDirection.cpy().scl(MAX_SPEED);
+
+    //Adds the acceleration value onto the current speed, then checks if the current speed exceeds the imposed limit
+    //If this is the case, reduces the current speed to the limit. Current implementation does not protect against BLJ's
+    currentSpeed.add(acceleration);
+    if (MAX_SPEED.x < currentSpeed.x) {
+      currentSpeed.x = MAX_SPEED.x;
+    }
+    if (MAX_SPEED.y < currentSpeed.y) {
+      currentSpeed.y = MAX_SPEED.y;
+    }
+    Vector2 desiredVelocity = walkDirection.cpy().scl(currentSpeed);
+
     // impulse = (desiredVel - currentVel) * mass
     Vector2 impulse = desiredVelocity.sub(velocity).scl(body.getMass());
     body.applyLinearImpulse(impulse, body.getWorldCenter(), true);
@@ -57,6 +71,7 @@ public class PlayerActions extends Component {
    */
   void stopWalking() {
     this.walkDirection = Vector2.Zero.cpy();
+    currentSpeed = new Vector2(-0.2f, -0.2f);
     updateSpeed();
     moving = false;
   }
