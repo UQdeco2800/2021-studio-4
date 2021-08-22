@@ -15,4 +15,9 @@ public class MusicService {
         music.setVolume(0.3f);
         music.play();
     }
+
+    public void stopMusic() {
+        Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
+        music.stop();
+    }
 }

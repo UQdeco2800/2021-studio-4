@@ -2,6 +2,8 @@ package com.deco2800.game.components.mainmenu;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.screens.MainMenuScreen;
+import com.deco2800.game.services.MusicService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,6 +25,7 @@ public class MainMenuActions extends Component {
     entity.getEvents().addListener("load", this::onLoad);
     entity.getEvents().addListener("exit", this::onExit);
     entity.getEvents().addListener("settings", this::onSettings);
+    entity.getEvents().addListener("mute", this::onMute);
   }
 
   /**
@@ -55,5 +58,14 @@ public class MainMenuActions extends Component {
   private void onSettings() {
     logger.info("Launching settings screen");
     game.setScreen(GdxGame.ScreenType.SETTINGS);
+  }
+
+  /**
+   * Mutes the MainMenuMusic
+   */
+  private void onMute() {
+    logger.info("Muting MainMenuMusic");
+    MusicService musicService = new MusicService();
+    musicService.stopMusic();
   }
 }

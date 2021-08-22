@@ -69,6 +69,7 @@ public class MainMenuDisplay extends UIComponent {
     TextButton loadBtn = new TextButton("Load", skin);
     TextButton settingsBtn = new TextButton("Settings", skin);
     TextButton exitBtn = new TextButton("Exit", skin);
+    TextButton muteBtn = new TextButton("Mute", skin);
 
     // Triggers an event when the button is pressed
     startBtn.addListener(
@@ -108,15 +109,27 @@ public class MainMenuDisplay extends UIComponent {
           }
         });
 
+      muteBtn.addListener(
+              new ChangeListener() {
+                  @Override
+                  public void changed(ChangeEvent changeEvent, Actor actor) {
+                      logger.debug("Mute button clicked");
+                      entity.getEvents().trigger("mute");
+                  }
+              });
+
     //table.add(title);
     table.row();
     table.add(startBtn).padTop(30f).top();
     table.row();
     table.add(loadBtn).padTop(40f).left();
     table.row();
+    table.add(muteBtn).padTop(15f);
+    table.row();
     table.add(settingsBtn).padTop(15f);
     table.row();
     table.add(exitBtn).padTop(15f);
+
 
     stage.addActor(table);
   }
