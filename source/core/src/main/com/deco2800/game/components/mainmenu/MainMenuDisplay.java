@@ -1,6 +1,7 @@
 package com.deco2800.game.components.mainmenu;
 
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -63,6 +64,8 @@ public class MainMenuDisplay extends UIComponent {
                 //.getAsset("images/box_boy_title.png", Texture.class));
 
     TextButton startBtn = new TextButton("Start", skin);
+    startBtn.setBounds(14, 14, 40, 41);
+    startBtn.setColor(Color.BLUE);
     TextButton loadBtn = new TextButton("Load", skin);
     TextButton settingsBtn = new TextButton("Settings", skin);
     TextButton exitBtn = new TextButton("Exit", skin);
@@ -107,9 +110,9 @@ public class MainMenuDisplay extends UIComponent {
 
     //table.add(title);
     table.row();
-    table.add(startBtn).padTop(30f);
+    table.add(startBtn).padTop(30f).top();
     table.row();
-    table.add(loadBtn).padTop(15f);
+    table.add(loadBtn).padTop(40f).left();
     table.row();
     table.add(settingsBtn).padTop(15f);
     table.row();
