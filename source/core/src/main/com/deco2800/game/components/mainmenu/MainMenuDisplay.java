@@ -1,5 +1,6 @@
 package com.deco2800.game.components.mainmenu;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -7,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -24,7 +26,12 @@ public class MainMenuDisplay extends UIComponent {
   public void create() {
     super.create();
     addActors();
+    loadTheMusic();
   }
+    public void loadTheMusic() {
+        MusicService musicScreen = new MusicService();
+        musicScreen.playMusic();
+    }
 
   private void addActors() {
     table = new Table();
@@ -89,6 +96,7 @@ public class MainMenuDisplay extends UIComponent {
 
     stage.addActor(table);
   }
+
 
   @Override
   public void draw(SpriteBatch batch) {
