@@ -52,7 +52,7 @@ public class MainMenuDisplay extends UIComponent {
 
       table = new Table();
       table.setFillParent(true);
-      sprite = new Sprite(new Texture("images/box_boy_title.png"));
+      sprite = new Sprite(new Texture("images/MainMenuImageExample.png"));
       table.setBackground(new SpriteDrawable(sprite)); // Set brackground
 
     //table = new Table();
