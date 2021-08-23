@@ -1,0 +1,40 @@
+void_animation_placeholder.png
+size: 760, 1100
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+void
+    rotate: false
+    xy: 0, 0
+    size: 150, 1080
+    orig: 150, 1080
+    offset: 0, 0
+    index: 0
+void
+    rotate: false
+    xy: 150, 0
+    size: 150, 1080
+    orig: 150, 1080
+    offset: 0, 0
+    index: 1
+void
+    rotate: false
+    xy: 300, 0
+    size: 150, 1080
+    orig: 150, 1080
+    offset: 0, 0
+    index: 2
+void
+    rotate: false
+    xy: 450, 0
+    size: 150, 1080
+    orig: 150, 1080
+    offset: 0, 0
+    index: 3
+default
+  rotate: false
+  xy: 0, 0
+  size: 150, 1080
+  orig: 150, 1080
+  offset: 0, 0
+  index: 0

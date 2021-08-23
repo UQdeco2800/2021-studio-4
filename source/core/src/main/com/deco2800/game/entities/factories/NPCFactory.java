@@ -3,15 +3,13 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.npc.GhostAnimationController;
 import com.deco2800.game.components.TouchAttackComponent;
-import com.deco2800.game.components.npc.TheVoidMove;
+import com.deco2800.game.components.npc.TheVoidController;
 import com.deco2800.game.components.tasks.ChaseTask;
-import com.deco2800.game.components.tasks.MovementTask;
-import com.deco2800.game.components.tasks.TheVoidStartMoveTask;
+import com.deco2800.game.components.tasks.TheVoidTasks;
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.BaseEntityConfig;
@@ -26,8 +24,6 @@ import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
-import com.deco2800.game.rendering.RenderComponent;
-import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
 /**
@@ -51,7 +47,13 @@ public class NPCFactory {
   public static Entity createTheVoid() {
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    .addTask(new TheVoidStartMoveTask());
+                    .addTask(new TheVoidTasks());
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/theVoid.atlas", TextureAtlas.class));
+    animator.addAnimation("void", 0.1f, Animation.PlayMode.LOOP);
 
     Entity theVoid = new Entity();
     TheVoidConfig config = configs.theVoid;
@@ -59,18 +61,17 @@ public class NPCFactory {
 
 
     theVoid
-            .addComponent(new TextureRenderComponent("images/void_placeholder.png"))
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new PhysicsComponent())
-            .addComponent(new TheVoidMove())
-            //.addComponent(new ColliderComponent())
+            .addComponent(new TheVoidController())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
             .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
-            .addComponent(aiComponent);
+            .addComponent(aiComponent)
+            .addComponent(animator);
 
 
-    theVoid.getComponent(TextureRenderComponent.class).scaleEntity();
+    theVoid.getComponent(AnimationRenderComponent.class).scaleEntity();
     return theVoid;
 
   }
