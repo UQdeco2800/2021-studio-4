@@ -25,6 +25,14 @@ public class MainMenuDisplay extends UIComponent {
   private static final float Z_INDEX = 2f;
   private Table table;
   private Sprite sprite;
+  private int switcher;
+
+    /**
+     * used tp switch between button states
+     */
+  public MainMenuDisplay() {
+      switcher = 1;
+  }
 
   @Override
   public void create() {
@@ -69,6 +77,7 @@ public class MainMenuDisplay extends UIComponent {
     TextButton loadBtn = new TextButton("Load", skin);
     TextButton settingsBtn = new TextButton("Settings", skin);
     TextButton exitBtn = new TextButton("Exit", skin);
+    TextButton muteBtn = new TextButton("Mute", skin);
 
     // Triggers an event when the button is pressed
     startBtn.addListener(
@@ -108,15 +117,33 @@ public class MainMenuDisplay extends UIComponent {
           }
         });
 
+      muteBtn.addListener(
+              new ChangeListener() {
+                  @Override
+                  public void changed(ChangeEvent changeEvent, Actor actor) {
+                      logger.debug("Mute button clicked");
+
+                      if (switcher % 2 == 1) {
+                          muteBtn.setText("Unmute");
+                      } else {
+                          muteBtn.setText("Mute");
+                      } switcher++;
+                      entity.getEvents().trigger("mute");
+                  }
+              });
+
     //table.add(title);
     table.row();
     table.add(startBtn).padTop(30f).top();
     table.row();
     table.add(loadBtn).padTop(40f).left();
     table.row();
+    table.add(muteBtn).padTop(15f);
+    table.row();
     table.add(settingsBtn).padTop(15f);
     table.row();
     table.add(exitBtn).padTop(15f);
+
 
     stage.addActor(table);
   }
