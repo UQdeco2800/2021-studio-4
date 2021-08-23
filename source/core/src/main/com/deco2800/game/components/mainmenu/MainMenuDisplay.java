@@ -25,6 +25,14 @@ public class MainMenuDisplay extends UIComponent {
   private static final float Z_INDEX = 2f;
   private Table table;
   private Sprite sprite;
+  private int switcher;
+
+    /**
+     * used tp switch between button states
+     */
+  public MainMenuDisplay() {
+      switcher = 1;
+  }
 
   @Override
   public void create() {
@@ -114,6 +122,12 @@ public class MainMenuDisplay extends UIComponent {
                   @Override
                   public void changed(ChangeEvent changeEvent, Actor actor) {
                       logger.debug("Mute button clicked");
+
+                      if (switcher % 2 == 1) {
+                          muteBtn.setText("Unmute");
+                      } else {
+                          muteBtn.setText("Mute");
+                      } switcher++;
                       entity.getEvents().trigger("mute");
                   }
               });
