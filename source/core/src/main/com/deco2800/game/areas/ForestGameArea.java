@@ -150,7 +150,7 @@ public class ForestGameArea extends GameArea {
   private void spawnTheVoid() {
     int startPosY = terrain.getMapBounds(0).y;
     GridPoint2 startPos = new GridPoint2();
-    startPos.set(0, startPosY/2);
+    startPos.set(-15, startPosY/2);
 
     Entity theVoid = NPCFactory.createTheVoid();
     spawnEntityAt(theVoid, startPos, true, true);

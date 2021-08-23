@@ -70,8 +70,9 @@ public class NPCFactory {
             .addComponent(aiComponent)
             .addComponent(animator);
 
+    theVoid.setScale(18,11.9f);
 
-    theVoid.getComponent(AnimationRenderComponent.class).scaleEntity();
+    //theVoid.getComponent(AnimationRenderComponent.class).scaleEntity();
     return theVoid;
 
   }

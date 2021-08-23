@@ -1,40 +1,19 @@
-Untitled.png
-size: 600, 1600
+tech_void.png
+size: 2082, 1355
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
 void
     rotate: false
     xy: 0, 0
-    size: 150, 1600
-    orig: 150, 800
+    size: 2082, 1355
+    orig: 2082, 1355
     offset: 0, 0
     index: 0
-void
-    rotate: false
-    xy: 150, 0
-    size: 150, 1600
-    orig: 150, 800
-    offset: 0, 0
-    index: 1
-void
-    rotate: false
-    xy: 300, 0
-    size: 150, 1600
-    orig: 150, 800
-    offset: 0, 0
-    index: 2
-void
-    rotate: false
-    xy: 450, 0
-    size: 150, 1600
-    orig: 150, 800
-    offset: 0, 0
-    index: 3
 default
   rotate: false
   xy: 0, 0
-  size: 150, 1600
-  orig: 150, 800
+  size: 2082, 1355
+  orig: 2082, 1355
   offset: 0, 0
   index: 0
