@@ -50,7 +50,7 @@ public class ForestGameArea extends GameArea {
           "images/testingenemy.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
-  private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
+  private static final String backgroundMusic = "sounds/BackingMusicWithDrums.mp3";
   private static final String[] forestMusic = {backgroundMusic};
 
   private final TerrainFactory terrainFactory;
@@ -112,7 +112,10 @@ public class ForestGameArea extends GameArea {
         false);
     // Bottom
     spawnEntityAt(
-        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), GridPoint2Utils.ZERO, false, false);
+        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
+        new GridPoint2(0, 5),   // No idea *what* these units actually are
+        false,                 // but 5 seems to work nicely
+        false);
   }
 
   private void spawnTrees() {
