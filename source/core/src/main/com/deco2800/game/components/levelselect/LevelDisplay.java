@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
-import com.deco2800.game.components.mainmenu.MainMenuDisplay;
+import com.deco2800.game.components.levelselect.LevelDisplay;
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -70,6 +70,7 @@ public class LevelDisplay extends UIComponent {
     public float getZIndex() {
         return Z_INDEX;
     }
+
 
     @Override
     public void dispose() {
