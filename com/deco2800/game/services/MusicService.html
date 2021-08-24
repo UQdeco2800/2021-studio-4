@@ -98,6 +98,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">MusicService</span>
 extends java.lang.Object</pre>
+<div class="block">Service for playing and controlling the play of game music, this is different to a loadAsset() function as
+ it doesn't control the loading of the assets, however it controls the playing and where the music plays.</div>
 </section>
 <section class="summary">
 <ul class="blockList">
@@ -119,7 +121,9 @@ extends java.lang.Object</pre>
 <tbody>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">MusicService</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Initial constructor class of the music service</div>
+</td>
 </tr>
 </tbody>
 </table>
@@ -147,17 +151,23 @@ extends java.lang.Object</pre>
 <tr class="altColor" id="i0">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getmusicPlaying()">getmusicPlaying</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Checks whether the music is playing.</div>
+</td>
 </tr>
 <tr class="rowColor" id="i1">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#playMusic()">playMusic</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">playMusic() function -- plays the music that has been chosen , does not return</div>
+</td>
 </tr>
 <tr class="altColor" id="i2">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stopMusic()">stopMusic</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">stopMusic() function -- stops the music that has been chosen, does not return</div>
+</td>
 </tr>
 </tbody>
 </table>
@@ -185,6 +195,7 @@ extends java.lang.Object</pre>
 <section class="detail">
 <h3><a id="&lt;init&gt;()">MusicService</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">MusicService</span>()</div>
+<div class="block">Initial constructor class of the music service</div>
 </section>
 </li>
 </ul>
@@ -201,18 +212,25 @@ extends java.lang.Object</pre>
 <section class="detail">
 <h3><a id="playMusic()">playMusic</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">playMusic</span>()</div>
+<div class="block">playMusic() function -- plays the music that has been chosen , does not return</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="stopMusic()">stopMusic</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">stopMusic</span>()</div>
+<div class="block">stopMusic() function -- stops the music that has been chosen, does not return</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getmusicPlaying()">getmusicPlaying</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">getmusicPlaying</span>()</div>
+<div class="block">Checks whether the music is playing.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>boolean: true - if the music is playing, false - if the music is not playing</dd>
+</dl>
 </section>
 </li>
 </ul>
