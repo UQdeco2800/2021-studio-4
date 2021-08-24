@@ -11,7 +11,6 @@ import com.deco2800.game.services.ServiceLocator;
 public class MusicService {
     private static final String backgroundMusic = "sounds/MainMenuMusic.mp3";
     private static final String[] MainMenuMusic = {backgroundMusic};
-
     private boolean musicPlaying;
     /** Initial constructor class of the music service */
     public MusicService() {
