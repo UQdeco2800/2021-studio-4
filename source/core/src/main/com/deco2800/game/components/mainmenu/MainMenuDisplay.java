@@ -49,11 +49,12 @@ public class MainMenuDisplay extends UIComponent {
      * Added Background image and initialised buttons
      */
   private void addActors() {
-
     table = new Table();
     table.setFillParent(true);
     sprite = new Sprite(new Texture("images/box_boy_title.png"));
     table.setBackground(new SpriteDrawable(sprite));
+
+
 //    Image title =
 //        new Image(
 //            ServiceLocator.getResourceService()
@@ -62,7 +63,7 @@ public class MainMenuDisplay extends UIComponent {
       table = new Table();
       table.setFillParent(true);
       sprite = new Sprite(new Texture("images/MainMenuImageExample.png"));
-      table.setBackground(new SpriteDrawable(sprite)); // Set brackground
+      table.setBackground(new SpriteDrawable(sprite)); // Set background
 
     //table = new Table();
     //table.setFillParent(true);
@@ -74,7 +75,7 @@ public class MainMenuDisplay extends UIComponent {
     TextButton startBtn = new TextButton("Start", skin);
     startBtn.setBounds(14, 14, 40, 41);
     startBtn.setColor(Color.BLUE);
-    TextButton loadBtn = new TextButton("Load", skin);
+    TextButton loadBtn = new TextButton("Level Select", skin);
     TextButton settingsBtn = new TextButton("Settings", skin);
     TextButton exitBtn = new TextButton("Exit", skin);
     TextButton muteBtn = new TextButton("Mute", skin);
