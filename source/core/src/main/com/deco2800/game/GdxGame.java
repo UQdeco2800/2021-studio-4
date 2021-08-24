@@ -4,10 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.deco2800.game.files.UserSettings;
-import com.deco2800.game.screens.LevelSelectScreen;
-import com.deco2800.game.screens.MainGameScreen;
-import com.deco2800.game.screens.MainMenuScreen;
-import com.deco2800.game.screens.SettingsScreen;
+import com.deco2800.game.screens.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,13 +72,16 @@ public class GdxGame extends Game {
         return new SettingsScreen(this);
       case LOAD_LEVELS:
         return new LevelSelectScreen(this);
+      case DEATH_SCREEN:
+        return new DeathScreen(this);
       default:
         return null;
     }
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, SETTINGS, LOAD_LEVELS
+    // PAUSE is an unused enum. Plans to implement this with the pause functionality.
+    MAIN_MENU, MAIN_GAME, SETTINGS, LOAD_LEVELS, PAUSE, DEATH_SCREEN
   }
 
   /**
