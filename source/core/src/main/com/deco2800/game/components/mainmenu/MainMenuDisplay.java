@@ -150,7 +150,6 @@ public class MainMenuDisplay extends UIComponent {
     stage.addActor(table);
   }
 
-
   @Override
   public void draw(SpriteBatch batch) {
     // draw is handled by the stage

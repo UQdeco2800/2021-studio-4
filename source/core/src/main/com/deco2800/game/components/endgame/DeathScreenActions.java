@@ -42,7 +42,7 @@ public class DeathScreenActions extends Component {
     }
 
     private void onDeath() {
-        logger.info("Show Death Screen the level");
-        game.setScreen(GdxGame.ScreenType.MAIN_GAME);
+        logger.info("Show Death Screen");
+        game.setScreen(GdxGame.ScreenType.DEATH_SCREEN);
     }
 }

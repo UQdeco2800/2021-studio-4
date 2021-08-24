@@ -1,5 +1,7 @@
 package com.deco2800.game.components;
 
+import com.badlogic.gdx.Screen;
+import com.deco2800.game.GdxGame;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -85,10 +87,18 @@ public class CombatStatsComponent extends Component {
   }
 
   public void hit(CombatStatsComponent attacker) {
+     /*
     int newHealth = getHealth() - attacker.getBaseAttack();
     setHealth(newHealth);
-    if (isDead()){
-      entity.getEvents().trigger("playerDeath");
+     */
+    if (isDead()) {
+      int newHealth = 78;
+      setHealth(newHealth);
+      //setScreen(GdxGame.ScreenType.MAIN_MENU);
+      //entity.getEvents().trigger("playerDeath");
+    } else {
+      int newHealth = getHealth() - attacker.getBaseAttack();
+      setHealth(newHealth);
     }
   }
 }
