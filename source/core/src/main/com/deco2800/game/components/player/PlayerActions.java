@@ -14,17 +14,17 @@ import com.deco2800.game.services.ServiceLocator;
  * and when triggered should call methods within this class.
  */
 public class PlayerActions extends Component {
-  private static final Vector2 MAX_SPEED = new Vector2(5f, 15f);  // Metres per second
-  private static final float NORMAL_FRICTION = 1f;                // Coefficient of friction for normal movement
-  private static final float SLIDING_FRICTION = 0.2f;             // Coefficient of friction when sliding
-  private static final float AIR_FRICTION = 0.3f;                   // Friction when in air
+  //private static final Vector2 MAX_SPEED = new Vector2(5f, 15f);      // Metres per second
+  private static final Vector2 ACCELERATION = new Vector2(15f, 0f);   // Force of acceleration, in Newtons (kg.m.s^2)
+  private static final float NORMAL_FRICTION = 0.1f;                 // Coefficient of friction for normal movement
+  private static final float SLIDING_FRICTION = 0.02f;               // Coefficient of friction when sliding
+  private static final float AIR_FRICTION = 0.03f;                   // Coefficient of friction when in air
 
-  private Vector2 currentVelocity = new Vector2(0f, 0f);  //Current speed, in metres per second
-  private Vector2 acceleration = new Vector2(0.2f, 0.2f); //Rate of speed increase, metres per second per calucation?
+  //Rate of speed increase, metres per second per calucation?
   private PlayerState playerState = PlayerState.STOPPED;  // Movement state of the player, see PlayerState
-
   private PhysicsComponent physicsComponent;
   private Vector2 walkDirection = Vector2.Zero.cpy();
+  private Body body;
 
   @Override
   public void create() {
@@ -33,6 +33,8 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
     entity.getEvents().addListener("jump", this::jump);
+
+    this.body = physicsComponent.getBody();
   }
 
   @Override
@@ -44,27 +46,11 @@ public class PlayerActions extends Component {
   }
 
   private void updateSpeed() {
-    Body body = physicsComponent.getBody();
-    Vector2 velocity = body.getLinearVelocity();
-
-    //Adds the acceleration value onto the current speed, then checks if the current speed exceeds the imposed limit
-    //If this is the case, reduces the current speed to the limit. Current implementation does not protect against BLJ's
-    currentVelocity.add(acceleration);
-    if (MAX_SPEED.x < currentVelocity.x) {
-      currentVelocity.x = MAX_SPEED.x;
-    }
-    if (MAX_SPEED.y < currentVelocity.y) {
-      currentVelocity.y = MAX_SPEED.y;
-    }
-    Vector2 desiredVelocity = walkDirection.cpy().scl(currentVelocity);
-
-    // impulse = (desiredVel - currentVel) * mass
-    //Vector2 impulse = desiredVelocity.sub(velocity).scl(body.getMass());
-    body.applyForceToCenter(desiredVelocity, true);
+    // Scale the walk direction by the acceleration, and apply that as a force
+    this.body.applyForceToCenter(walkDirection.cpy().scl(ACCELERATION), true);
   }
 
   private void applyFriction() {
-    Body body = physicsComponent.getBody();
     Vector2 friction;
     Vector2 velocity = body.getLinearVelocity();
     
@@ -82,7 +68,7 @@ public class PlayerActions extends Component {
     }
 
     // Apply friction
-    body.applyForceToCenter(friction, true);
+    this.body.applyForceToCenter(friction, true);
   }
 
   /**
@@ -100,7 +86,7 @@ public class PlayerActions extends Component {
    */
   void stopWalking() {
     this.walkDirection = Vector2.Zero.cpy();
-    currentVelocity = new Vector2(-0.2f, -0.2f);
+    //currentVelocity = new Vector2(-0.2f, -0.2f);
     //updateSpeed();
   }
 
@@ -119,6 +105,6 @@ public class PlayerActions extends Component {
    */
   void jump() {
     playerState = PlayerState.MOVING;
-    this.currentVelocity.add(0f, 15f);
+    //this.currentVelocity.add(0f, 15f);
   }
 }
