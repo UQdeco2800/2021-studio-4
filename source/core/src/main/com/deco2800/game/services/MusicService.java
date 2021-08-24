@@ -5,8 +5,8 @@ import com.badlogic.gdx.audio.Music;
 
 import com.deco2800.game.services.ServiceLocator;
 
-/** Service for loading the games music, this is different to a loadAsset() function as
- * it doesn't control the loading of the assets, however it controlls the playing and where the music plays.
+/** Service for playing and controlling the play of game music, this is different to a loadAsset() function as
+ * it doesn't control the loading of the assets, however it controls the playing and where the music plays.
  */
 public class MusicService {
     private static final String backgroundMusic = "sounds/MainMenuMusic.mp3";
