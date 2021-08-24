@@ -104,7 +104,10 @@ public class ForestGameArea extends GameArea {
         false);
     // Bottom
     spawnEntityAt(
-        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), GridPoint2Utils.ZERO, false, false);
+        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
+        new GridPoint2(0, 5),   // No idea *what* these units actually are
+        false,                 // but 5 seems to work nicely
+        false);
   }
 
   private void spawnTrees() {
