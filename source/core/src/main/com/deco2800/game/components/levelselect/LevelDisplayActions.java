@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class responds to user input and reacts by triggering the corresponding event.
+ * This class responds to user input in the level select screen and reacts by triggering the corresponding event.
  */
 public class LevelDisplayActions extends Component {
     private static final Logger logger = LoggerFactory.getLogger(LevelDisplayActions.class);
@@ -26,7 +26,7 @@ public class LevelDisplayActions extends Component {
      * Swaps to the Main Menu screen.
      */
     private void onExit() {
-        logger.info("Exiting main game screen");
+        logger.info("Exiting to main game screen");
         game.setScreen(GdxGame.ScreenType.MAIN_MENU);
     }
 }

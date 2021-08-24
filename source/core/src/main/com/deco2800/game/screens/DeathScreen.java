@@ -3,9 +3,8 @@ package com.deco2800.game.screens;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.components.levelselect.LevelDisplay;
-import com.deco2800.game.components.levelselect.LevelDisplayActions;
-import com.deco2800.game.components.mainmenu.MainMenuDisplay;
+import com.deco2800.game.components.endgame.DeathScreenActions;
+import com.deco2800.game.components.endgame.DeathScreenDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -18,21 +17,15 @@ import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-/**
- * The game that contains the level select.
- */
-public class LevelSelectScreen extends ScreenAdapter {
-    private static final Logger logger = LoggerFactory.getLogger(LevelSelectScreen.class);
+public class DeathScreen extends ScreenAdapter {
+    private static final Logger logger = LoggerFactory.getLogger(DeathScreen.class);
     private final GdxGame game;
     private final Renderer renderer;
-    private static final String[] levelSelectMenuTextures = {"images/LevelSelectScreenPlaceholder.png"};
-    private static final String backgroundMusic = "sounds/MainMenuMusic.mp3";
-    private static final String[] MainMenuMusic = {backgroundMusic};
+    private static final String[] DeathScreenTextures = {"images/FailScreenPlaceholder.png"};
 
-    public LevelSelectScreen(GdxGame game) {
+    public DeathScreen(GdxGame game) {
         this.game = game;
-        logger.debug("Initialising level selection screen services");
+        logger.debug("Initialising death screen");
         ServiceLocator.registerInputService(new InputService());
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerEntityService(new EntityService());
@@ -40,6 +33,7 @@ public class LevelSelectScreen extends ScreenAdapter {
         renderer = RenderFactory.createRenderer();
         loadAssets();
         createUI();
+
     }
 
     @Override
@@ -77,14 +71,12 @@ public class LevelSelectScreen extends ScreenAdapter {
         ServiceLocator.clear();
 
     }
-
     private void loadAssets() {
 
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(levelSelectMenuTextures);
+        resourceService.loadTextures(DeathScreenTextures);
         ServiceLocator.getResourceService().loadAll();
-        resourceService.loadMusic(MainMenuMusic);
 
         while (!resourceService.loadForMillis(10)) {
             // This could be upgraded to a loading screen
@@ -92,25 +84,22 @@ public class LevelSelectScreen extends ScreenAdapter {
         }
 
     }
-
     private void unloadAssets() {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.unloadAssets(levelSelectMenuTextures);
-        resourceService.unloadAssets(MainMenuMusic);
+        resourceService.unloadAssets(DeathScreenTextures);
     }
 
     /**
-     * Creates the level select menu's ui including components for rendering ui elements to the screen and
-     * capturing and handling ui input.
+     * Creates the death screen ui including buttons to restart the level or exit to main menu.
      */
     private void createUI() {
         logger.debug("Creating ui");
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
-        ui.addComponent(new LevelDisplay())
+        ui.addComponent(new DeathScreenDisplay())
                 .addComponent(new InputDecorator(stage, 10))
-                .addComponent(new LevelDisplayActions(game));
+                .addComponent(new DeathScreenActions(game));
         ServiceLocator.getEntityService().register(ui);
     }
 
