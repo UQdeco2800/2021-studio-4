@@ -3,6 +3,7 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.npc.GhostAnimationController;
@@ -70,7 +71,7 @@ public class NPCFactory {
             .addComponent(aiComponent)
             .addComponent(animator);
 
-    theVoid.setScale(18,11.9f);
+    theVoid.setScale(18,11f);
 
     //theVoid.getComponent(AnimationRenderComponent.class).scaleEntity();
     return theVoid;
