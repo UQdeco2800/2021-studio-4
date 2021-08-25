@@ -34,7 +34,7 @@ public class LevelDisplay extends UIComponent {
     }
 
     /**
-     * Add level select screen and buttons.
+     * Add level select screen image and buttons.
      */
     private void addActors() {
         table = new Table();
