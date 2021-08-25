@@ -13,6 +13,7 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.GdxGame.ScreenType;
 import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.files.UserSettings.DisplaySettings;
+import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import com.deco2800.game.utils.StringDecorator;
@@ -39,10 +40,16 @@ public class SettingsMenuDisplay extends UIComponent {
     this.game = game;
   }
 
+  public void loadTheMusic() {
+    MusicService musicScreen = new MusicService();
+    musicScreen.playMusic();
+  }
+
   @Override
   public void create() {
     super.create();
     addActors();
+    loadTheMusic();
   }
 
   private void addActors() {
