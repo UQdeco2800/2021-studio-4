@@ -9,6 +9,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.rendering.BackgroundRenderComponent;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
@@ -38,7 +39,8 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
     "images/iso_grass_3.png",
-          "map-textures/mapTextures_platform.png"
+    "map-textures/mapTextures_platform.png",
+    "images/game_background.png"
   };
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
@@ -61,6 +63,8 @@ public class ForestGameArea extends GameArea {
   public void create() {
     loadAssets();
 
+    displayBackground();
+
     displayUI();
 
     spawnTerrain();
@@ -75,6 +79,12 @@ public class ForestGameArea extends GameArea {
     playMusic();
   }
 
+  private void displayBackground() {
+    Entity background = new Entity();
+    background.addComponent(new BackgroundRenderComponent("images/game_background.png"));
+    spawnEntity(background);
+  }
+
   private void displayUI() {
     Entity ui = new Entity();
     ui.addComponent(new GameAreaDisplay("Box Forest"));
@@ -84,7 +94,7 @@ public class ForestGameArea extends GameArea {
   private void spawnTerrain() {
     // Background terrain
     terrain = terrainFactory.createTerrain(TerrainType.FOREST_DEMO);
-    spawnEntity(new Entity().addComponent(terrain));
+    //spawnEntity(new Entity().addComponent(terrain));
 
     // Terrain walls
     float tileSize = terrain.getTileSize();
