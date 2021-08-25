@@ -17,6 +17,9 @@ public class DeathScreenActions extends Component {
         this.game = game;
     }
 
+    public DeathScreenActions() {
+    }
+
     @Override
     public void create() {
         entity.getEvents().addListener("exit", this::onExit);
@@ -41,8 +44,12 @@ public class DeathScreenActions extends Component {
         game.setScreen(GdxGame.ScreenType.MAIN_GAME);
     }
 
+    /**
+     * Switches to the death screen when player health has reached 0.
+     */
     private void onDeath() {
         logger.info("Show Death Screen");
         game.setScreen(GdxGame.ScreenType.DEATH_SCREEN);
     }
+
 }
