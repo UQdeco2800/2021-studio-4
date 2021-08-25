@@ -38,7 +38,8 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
     "images/iso_grass_3.png",
-          "map-textures/mapTextures_platform.png"
+          "map-textures/mapTextures_platform.png",
+          "map-textures/mapTextures_platformWall.png"
   };
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
@@ -68,6 +69,8 @@ public class ForestGameArea extends GameArea {
     for (int i = 2; i < 7; i+=2) {
       spawnPlatform(i,5);
     }
+    spawnPlatformWall(8,7);
+    spawnPlatformWall(8,5);
     player = spawnPlayer();
     spawnGhosts();
     spawnGhostKing();
@@ -126,6 +129,12 @@ public class ForestGameArea extends GameArea {
     Entity platform = ObstacleFactory.createPlatform();
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(platform,position,true,false);
+  }
+
+  private void spawnPlatformWall(int posX, int posY) {
+    Entity platformWall = ObstacleFactory.createPlatformWall();
+    GridPoint2 position = new GridPoint2(posX,posY);
+    spawnEntityAt(platformWall,position,true,false);
   }
 
   private Entity spawnPlayer() {
