@@ -37,10 +37,17 @@ public class ForestGameArea extends GameArea {
     "images/hex_grass_3.png",
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
-    "images/iso_grass_3.png"
+    "images/iso_grass_3.png",
+    "images/void_placeholder.png",
+    "images/void_animation_placeholder.png",
+    "images/basicenemysprite.png",
+    "images/chasingenemy.png",
+    "images/enemyspritehsee.png"
+
   };
   private static final String[] forestTextureAtlases = {
-    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
+    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/theVoid.atlas",
+          "images/testingenemy.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BackingMusicWithDrums.mp3";
@@ -65,8 +72,9 @@ public class ForestGameArea extends GameArea {
     spawnTerrain();
     spawnTrees();
     player = spawnPlayer();
-    //spawnGhosts();
-    //spawnGhostKing();
+    spawnGhosts();
+    spawnGhostKing();
+    spawnTheVoid();
 
     playMusic();
   }
@@ -145,6 +153,16 @@ public class ForestGameArea extends GameArea {
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     Entity ghostKing = NPCFactory.createGhostKing(player);
     spawnEntityAt(ghostKing, randomPos, true, true);
+  }
+
+  private void spawnTheVoid() {
+    int startPosY = terrain.getMapBounds(0).y;
+    GridPoint2 startPos = new GridPoint2();
+    startPos.set(-18, startPosY/2 - 1);
+
+    Entity theVoid = NPCFactory.createTheVoid();
+    spawnEntityAt(theVoid, startPos, true, true);
+
   }
 
   private void playMusic() {
