@@ -49,13 +49,6 @@ public class MainMenuDisplay extends UIComponent {
      * Added Background image and initialised buttons
      */
   private void addActors() {
-      // This table not necessary?
-    table = new Table();
-    table.setFillParent(true);
-    sprite = new Sprite(new Texture("images/box_boy_title.png"));
-    table.setBackground(new SpriteDrawable(sprite));
-
-
 //    Image title =
 //        new Image(
 //            ServiceLocator.getResourceService()

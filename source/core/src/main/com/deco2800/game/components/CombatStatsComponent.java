@@ -1,7 +1,9 @@
 package com.deco2800.game.components;
 
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.components.endgame.DeathScreenActions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +17,7 @@ public class CombatStatsComponent extends Component {
   private static final Logger logger = LoggerFactory.getLogger(CombatStatsComponent.class);
   private int health;
   private int baseAttack;
+  private GdxGame game;
 
   public CombatStatsComponent(int health, int baseAttack) {
     setHealth(health);
@@ -91,14 +94,13 @@ public class CombatStatsComponent extends Component {
     int newHealth = getHealth() - attacker.getBaseAttack();
     setHealth(newHealth);
      */
-    if (isDead()) {
-      int newHealth = 78;
-      setHealth(newHealth);
-      //setScreen(GdxGame.ScreenType.MAIN_MENU);
-      //entity.getEvents().trigger("playerDeath");
-    } else {
-      int newHealth = getHealth() - attacker.getBaseAttack();
-      setHealth(newHealth);
-    }
+    //setHealth(newHealth);
+    //setScreen(GdxGame.ScreenType.MAIN_MENU);
+//    do {
+//      int newHealth = getHealth() - attacker.getBaseAttack();
+//      setHealth(newHealth);
+//    } while (!(isDead()));
+    // Add death component to the player.
+    entity.getEvents().trigger("playerDeath");
   }
 }
