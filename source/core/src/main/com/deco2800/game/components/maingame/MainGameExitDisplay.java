@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,6 +57,13 @@ public class MainGameExitDisplay extends UIComponent {
     table.add(mainMenuBtn).padTop(10f).padRight(10f);
     table.add(deathBtn).padTop(10f).padRight(10f);
     stage.addActor(table);
+  }
+
+  public void deathInitialiser() {
+    CombatStatsComponent combatStatsComponent = new CombatStatsComponent(12, 24);
+    if (combatStatsComponent.getHealth() == 0) {
+      entity.getEvents().trigger("playerDeath");
+    };
   }
 
   @Override
