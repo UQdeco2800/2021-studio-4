@@ -29,6 +29,19 @@ public class MainGameExitDisplay extends UIComponent {
     table.setFillParent(true);
 
     TextButton mainMenuBtn = new TextButton("Exit", skin);
+    // Create a button to trigger the death.
+    TextButton deathBtn = new TextButton("Death", skin);
+
+    // Causes the death screen to pop up.
+    deathBtn.addListener(
+            new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent changeEvent, Actor actor) {
+                logger.debug("death button clicked");
+                entity.getEvents().trigger("playerDeath");
+              }
+            }
+    );
 
     // Triggers an event when the button is pressed.
     mainMenuBtn.addListener(
@@ -39,7 +52,9 @@ public class MainGameExitDisplay extends UIComponent {
           entity.getEvents().trigger("exit");
         }
       });
+
     table.add(mainMenuBtn).padTop(10f).padRight(10f);
+    table.add(deathBtn).padTop(10f).padRight(10f);
     stage.addActor(table);
   }
 

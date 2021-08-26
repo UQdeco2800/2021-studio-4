@@ -65,6 +65,7 @@ public class DeathScreenDisplay extends UIComponent {
         table.add(exitBtn).center(); // Places the button in the centre.
         table.add(retryBtn).center(); // Places the button in the centre.
         stage.addActor(table);
+        //stage.
     }
 
     @Override

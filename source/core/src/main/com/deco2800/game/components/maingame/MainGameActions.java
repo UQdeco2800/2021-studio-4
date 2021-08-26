@@ -21,7 +21,7 @@ public class MainGameActions extends Component {
   public void create() {
     entity.getEvents().addListener("exit", this::onExit);
     // Add death component to the player.
-    //entity.getEvents().addListener("playerDeath", this::onDeath);
+    entity.getEvents().addListener("playerDeath", this::onDeath);
   }
 
   /**
@@ -37,6 +37,6 @@ public class MainGameActions extends Component {
    */
   private void onDeath() {
     logger.info("Show Death Screen");
-    //game.setScreen(GdxGame.ScreenType.DEATH_SCREEN);
+    game.setScreen(GdxGame.ScreenType.DEATH_SCREEN);
   }
 }
