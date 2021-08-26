@@ -71,6 +71,10 @@ public class MainGameExitDisplay extends UIComponent {
     // draw is handled by the stage
   }
 
+  public void goToDeath() {
+    entity.getEvents().trigger("playerDeath");
+  }
+
   @Override
   public float getZIndex() {
     return Z_INDEX;
