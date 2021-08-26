@@ -18,6 +18,7 @@ import com.deco2800.game.entities.configs.GhostKingConfig;
 import com.deco2800.game.entities.configs.NPCConfigs;
 import com.deco2800.game.entities.configs.TheVoidConfig;
 import com.deco2800.game.files.FileLoader;
+import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
@@ -45,7 +46,7 @@ public class NPCFactory {
    *
    * @return entity
    */
-  public static Entity createTheVoid() {
+  public static Entity createTheVoid(Entity target) {
     AITaskComponent aiComponent =
             new AITaskComponent()
                     .addTask(new TheVoidTasks());
@@ -53,7 +54,7 @@ public class NPCFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
-                            .getAsset("images/theVoid.atlas", TextureAtlas.class));
+                            .getAsset("images/the_void.atlas", TextureAtlas.class));
     animator.addAnimation("void", 0.1f, Animation.PlayMode.LOOP);
 
     Entity theVoid = new Entity();
@@ -64,16 +65,17 @@ public class NPCFactory {
     theVoid
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new PhysicsComponent())
-            .addComponent(new TheVoidController())
+            .addComponent(new TheVoidController(target))
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
             .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(aiComponent)
             .addComponent(animator);
 
-    theVoid.setScale(18,11f);
 
-    //theVoid.getComponent(AnimationRenderComponent.class).scaleEntity();
+
+    theVoid.getComponent(AnimationRenderComponent.class).scaleEntity();
+    theVoid.setScale(20f,12f);
     return theVoid;
 
   }

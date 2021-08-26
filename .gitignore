@@ -1,6 +1,14 @@
 .idea/
+<<<<<<< HEAD
 /2021-studio-4/source/desktop/build.gradle
 ### Gradle ###
 .gradle/
 /2021-studio-4/source/desktop/build.gradle
 .DS_Store
+=======
+/Users/danniecai/Documents/GitHub/Game/2021-studio-4/source/desktop/build.gradle
+### Gradle ###
+.gradle/
+
+.DS_Store
+>>>>>>> 51cd6a1eb62face48a3fa2381238bcf7dd4ec90f
