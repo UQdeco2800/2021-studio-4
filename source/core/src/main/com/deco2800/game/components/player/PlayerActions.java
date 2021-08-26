@@ -3,9 +3,7 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
-import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.services.ServiceLocator;
 
@@ -14,17 +12,15 @@ import com.deco2800.game.services.ServiceLocator;
  * and when triggered should call methods within this class.
  */
 public class PlayerActions extends Component {
-  //private static final Vector2 MAX_SPEED = new Vector2(5f, 15f);      // Metres per second
-  private static final Vector2 ACCELERATION = new Vector2(10f, 0f);   // Force of acceleration, in Newtons (kg.m.s^2)
+  private static final Vector2 ACCELERATION = new Vector2(10f, 0f);  // Force of acceleration, in Newtons (kg.m.s^2)
   private static final float NORMAL_FRICTION = 0.1f;                 // Coefficient of friction for normal movement
   private static final float SLIDING_FRICTION = 0.02f;               // Coefficient of friction when sliding
   private static final float AIR_FRICTION = 0.03f;                   // Coefficient of friction when in air
 
-  //Rate of speed increase, metres per second per calucation?
   private PlayerState playerState = PlayerState.STOPPED;  // Movement state of the player, see PlayerState
-  private PhysicsComponent physicsComponent;
-  private Vector2 walkDirection = Vector2.Zero.cpy();
-  private Body body;
+  private PhysicsComponent physicsComponent;              
+  private Vector2 walkDirection = Vector2.Zero.cpy();     // The direction the player is walking in, set by keypress.
+  private Body body;                                      // The player physics body.
 
   @Override
   public void create() {
@@ -45,11 +41,21 @@ public class PlayerActions extends Component {
     }
   }
 
+  /**
+   * Updates the player's movement speed by adding their desired direction to their vector.
+   * This function antagonistcally competetes with updateSpeed() in order to determine a 
+   * speed limit.
+   */
   private void updateSpeed() {
     // Scale the walk direction by the acceleration, and apply that as a force
     this.body.applyForceToCenter(walkDirection.cpy().scl(ACCELERATION), true);
   }
 
+  /**
+   * Applies friction to the player, as determined by the X_FRICTION constants and their
+   * current movement speed. This function antagonistcally competetes with updateSpeed()
+   * in order to determine a speed limit.
+   */
   private void applyFriction() {
     Vector2 friction;
     Vector2 velocity = body.getLinearVelocity();
@@ -100,8 +106,6 @@ public class PlayerActions extends Component {
 
   /**
    * Makes the player jump upwards
-   * 
-   * @param height the height to jump.
    */
   void jump() {
     playerState = PlayerState.MOVING;
