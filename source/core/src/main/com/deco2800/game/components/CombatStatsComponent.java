@@ -98,9 +98,10 @@ public class CombatStatsComponent extends Component {
 
     int newHealth = getHealth() - attacker.getBaseAttack();
     setHealth(newHealth);
+
     if (isDead()) {
       MainGameExitDisplay main = new MainGameExitDisplay();
-      main.goToDeath(entity);
+      main.deathInitialiser(this.entity);
 
 //      this.getEntity().getEvents().trigger("playerDeath");
 //      Actor actor = new Actor();
@@ -119,6 +120,13 @@ public class CombatStatsComponent extends Component {
 //      logger.info("Show Death Screen");
 //      this.entity.getEvents().trigger("playerDeath");
     }
+
+//    int newHealth = getHealth() - attacker.getBaseAttack();
+//    setHealth(newHealth);
+//    if (isDead()) {
+//      MainGameExitDisplay main = new MainGameExitDisplay();
+//      main.goToDeath();
+//    }
     //setHealth(newHealth);
     //setScreen(GdxGame.ScreenType.MAIN_MENU);
 //    do {
@@ -126,6 +134,8 @@ public class CombatStatsComponent extends Component {
 //      setHealth(newHealth);
 //    } while (!(isDead()));
     // Add death component to the player.
+
+    //entity.getEvents().trigger("playerDeath");
 
   }
 }

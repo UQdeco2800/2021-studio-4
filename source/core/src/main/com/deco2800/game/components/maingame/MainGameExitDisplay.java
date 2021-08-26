@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.reflect.Constructor;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.endgame.DeathScreenActions;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,26 +74,14 @@ public class MainGameExitDisplay extends UIComponent {
     stage.addActor(table);
   }
 
+  public void deathInitialiser(Entity entity) {
+    entity.create();
+    entity.getEvents().trigger("playerDeath");
+  }
+
   @Override
   public void draw(SpriteBatch batch) {
     // draw is handled by the stage
-  }
-
-  public void goToDeath(Entity entity) {
-    create();
-    entity.getEvents().trigger("playerDeath");
-
-
-
-//    ActionListener deathCall = new ActionListener() {
-//      @Override
-//      public void actionPerformed(ActionEvent e) {
-//        logger.debug("death button clicked");
-//        entity.getEvents().trigger("playerDeath");
-//      }
-//    };
-//
-//    deathCall.actionPerformed();
   }
 
   @Override
