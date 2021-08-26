@@ -12,6 +12,7 @@ task run(dependsOn: classes, type: JavaExec) {
     ignoreExitValue = true
     jvmArgs = ["-Djava.util.logging.config.file=../../logging.properties"]
 }
+   
 
 task debug(dependsOn: classes, type: JavaExec) {
     main = project.mainClassName
