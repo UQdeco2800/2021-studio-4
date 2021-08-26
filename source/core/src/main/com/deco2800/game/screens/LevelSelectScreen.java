@@ -104,8 +104,6 @@ public class LevelSelectScreen extends ScreenAdapter {
      * Creates the level select menu's ui including components for rendering ui elements to the screen and
      * capturing and handling ui input.
      */
-
-
     private void createUI() {
         logger.debug("Creating ui");
         Stage stage = ServiceLocator.getRenderService().getStage();

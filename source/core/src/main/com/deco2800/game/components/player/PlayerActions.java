@@ -1,11 +1,11 @@
 package com.deco2800.game.components.player;
 
-import java.io.Console;
-
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.services.ServiceLocator;
 
@@ -15,7 +15,7 @@ import com.deco2800.game.services.ServiceLocator;
  */
 public class PlayerActions extends Component {
   //private static final Vector2 MAX_SPEED = new Vector2(5f, 15f);      // Metres per second
-  private static final Vector2 ACCELERATION = new Vector2(15f, 0f);   // Force of acceleration, in Newtons (kg.m.s^2)
+  private static final Vector2 ACCELERATION = new Vector2(10f, 0f);   // Force of acceleration, in Newtons (kg.m.s^2)
   private static final float NORMAL_FRICTION = 0.1f;                 // Coefficient of friction for normal movement
   private static final float SLIDING_FRICTION = 0.02f;               // Coefficient of friction when sliding
   private static final float AIR_FRICTION = 0.03f;                   // Coefficient of friction when in air
@@ -105,6 +105,6 @@ public class PlayerActions extends Component {
    */
   void jump() {
     playerState = PlayerState.MOVING;
-    //this.currentVelocity.add(0f, 15f);
+    body.applyForceToCenter(new Vector2(0f, 300f), true);
   }
 }
