@@ -1,8 +1,5 @@
 package com.deco2800.game.components;
 
-import com.badlogic.gdx.Screen;
-import com.deco2800.game.GdxGame;
-import com.deco2800.game.components.endgame.DeathScreenActions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

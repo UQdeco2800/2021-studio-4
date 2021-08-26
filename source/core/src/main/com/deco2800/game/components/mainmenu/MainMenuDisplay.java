@@ -63,7 +63,7 @@ public class MainMenuDisplay extends UIComponent {
 
       table = new Table();
       table.setFillParent(true);
-      sprite = new Sprite(new Texture("images/MainMenuImageExample.png"));
+      sprite = new Sprite(new Texture("images/title_screen.png"));
       table.setBackground(new SpriteDrawable(sprite)); // Set background
 
     //table = new Table();
@@ -76,10 +76,19 @@ public class MainMenuDisplay extends UIComponent {
     TextButton startBtn = new TextButton("Start", skin);
     startBtn.setBounds(14, 14, 40, 41);
     startBtn.setColor(Color.BLUE);
+
+
     TextButton levelSelectBtn = new TextButton("Level Select", skin);
+    levelSelectBtn.setColor(Color.ROYAL);
+
     TextButton settingsBtn = new TextButton("Settings", skin);
+    settingsBtn.setColor(Color.ROYAL);
+
     TextButton exitBtn = new TextButton("Exit", skin);
+    exitBtn.setColor(Color.ROYAL);
+
     TextButton muteBtn = new TextButton("Mute", skin);
+    muteBtn.setColor(Color.ROYAL);
 
     // Triggers an event when the button is pressed
     startBtn.addListener(
@@ -136,9 +145,10 @@ public class MainMenuDisplay extends UIComponent {
 
     //table.add(title);
     table.row();
-    table.add(startBtn).padTop(30f).top();
+    table.add(startBtn).padTop(300f).width(250).height(60);
+
     table.row();
-    table.add(levelSelectBtn).padTop(40f).left();
+    table.add(levelSelectBtn).padTop(15f);
     table.row();
     table.add(muteBtn).padTop(15f);
     table.row();
