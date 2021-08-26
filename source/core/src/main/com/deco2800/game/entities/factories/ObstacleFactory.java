@@ -47,6 +47,20 @@ public class ObstacleFactory {
     return wall;
   }
 
+  public static Entity createPlatform() {
+    Entity platform =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("map-textures/mapTextures_platform.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    platform.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    platform.getComponent(TextureRenderComponent.class).scaleEntity();
+    platform.scaleHeight(1f);
+    PhysicsUtils.setScaledCollider(platform, 1f, 1f);
+    return platform;
+  }
+
   private ObstacleFactory() {
     throw new IllegalStateException("Instantiating static util class");
   }

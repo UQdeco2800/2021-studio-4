@@ -9,6 +9,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.rendering.BackgroundRenderComponent;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
@@ -37,13 +38,15 @@ public class ForestGameArea extends GameArea {
     "images/hex_grass_3.png",
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
-    "images/iso_grass_3.png"
+    "images/iso_grass_3.png",
+    "map-textures/mapTextures_platform.png",
+    "images/game_background.png"
   };
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
-  private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
+  private static final String backgroundMusic = "sounds/BackingMusicWithDrums.mp3";
   private static final String[] forestMusic = {backgroundMusic};
 
   private final TerrainFactory terrainFactory;
@@ -60,15 +63,26 @@ public class ForestGameArea extends GameArea {
   public void create() {
     loadAssets();
 
+    displayBackground();
+
     displayUI();
 
     spawnTerrain();
     spawnTrees();
+    for (int i = 2; i < 7; i+=2) {
+      spawnPlatform(i,5);
+    }
     player = spawnPlayer();
     spawnGhosts();
     spawnGhostKing();
 
     playMusic();
+  }
+
+  private void displayBackground() {
+    Entity background = new Entity();
+    background.addComponent(new BackgroundRenderComponent("images/game_background.png"));
+    spawnEntity(background);
   }
 
   private void displayUI() {
@@ -80,31 +94,31 @@ public class ForestGameArea extends GameArea {
   private void spawnTerrain() {
     // Background terrain
     terrain = terrainFactory.createTerrain(TerrainType.FOREST_DEMO);
-    spawnEntity(new Entity().addComponent(terrain));
+    //spawnEntity(new Entity().addComponent(terrain));
 
     // Terrain walls
     float tileSize = terrain.getTileSize();
     GridPoint2 tileBounds = terrain.getMapBounds(0);
     Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
 
-    // Left
-    spawnEntityAt(
-        ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y), GridPoint2Utils.ZERO, false, false);
-    // Right
-    spawnEntityAt(
-        ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y),
-        new GridPoint2(tileBounds.x, 0),
-        false,
-        false);
-    // Top
-    spawnEntityAt(
-        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
-        new GridPoint2(0, tileBounds.y),
-        false,
-        false);
-    // Bottom
-    spawnEntityAt(
-        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), GridPoint2Utils.ZERO, false, false);
+//    // Left
+//    spawnEntityAt(
+//        ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y), GridPoint2Utils.ZERO, false, false);
+//    // Right
+//    spawnEntityAt(
+//        ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y),
+//        new GridPoint2(tileBounds.x, 0),
+//        false,
+//        false);
+//    // Top
+//    spawnEntityAt(
+//        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
+//        new GridPoint2(0, tileBounds.y),
+//        false,
+//        false);
+//    // Bottom
+//    spawnEntityAt(
+//        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), GridPoint2Utils.ZERO, false, false);
   }
 
   private void spawnTrees() {
@@ -116,6 +130,12 @@ public class ForestGameArea extends GameArea {
       Entity tree = ObstacleFactory.createTree();
       spawnEntityAt(tree, randomPos, true, false);
     }
+  }
+
+  private void spawnPlatform(int posX, int posY) {
+    Entity platform = ObstacleFactory.createPlatform();
+    GridPoint2 position = new GridPoint2(posX,posY);
+    spawnEntityAt(platform,position,true,false);
   }
 
   private Entity spawnPlayer() {
