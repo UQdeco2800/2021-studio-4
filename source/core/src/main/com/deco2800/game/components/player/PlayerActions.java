@@ -3,7 +3,9 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.services.ServiceLocator;
 
@@ -12,11 +14,17 @@ import com.deco2800.game.services.ServiceLocator;
  * and when triggered should call methods within this class.
  */
 public class PlayerActions extends Component {
-  private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
+  //private static final Vector2 MAX_SPEED = new Vector2(5f, 15f);      // Metres per second
+  private static final Vector2 ACCELERATION = new Vector2(10f, 0f);   // Force of acceleration, in Newtons (kg.m.s^2)
+  private static final float NORMAL_FRICTION = 0.1f;                 // Coefficient of friction for normal movement
+  private static final float SLIDING_FRICTION = 0.02f;               // Coefficient of friction when sliding
+  private static final float AIR_FRICTION = 0.03f;                   // Coefficient of friction when in air
 
+  //Rate of speed increase, metres per second per calucation?
+  private PlayerState playerState = PlayerState.STOPPED;  // Movement state of the player, see PlayerState
   private PhysicsComponent physicsComponent;
   private Vector2 walkDirection = Vector2.Zero.cpy();
-  private boolean moving = false;
+  private Body body;
 
   @Override
   public void create() {
@@ -24,22 +32,43 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
+    entity.getEvents().addListener("jump", this::jump);
+
+    this.body = physicsComponent.getBody();
   }
 
   @Override
   public void update() {
-    if (moving) {
+    if (playerState != PlayerState.STOPPED) {
       updateSpeed();
+      applyFriction();
     }
   }
 
   private void updateSpeed() {
-    Body body = physicsComponent.getBody();
+    // Scale the walk direction by the acceleration, and apply that as a force
+    this.body.applyForceToCenter(walkDirection.cpy().scl(ACCELERATION), true);
+  }
+
+  private void applyFriction() {
+    Vector2 friction;
     Vector2 velocity = body.getLinearVelocity();
-    Vector2 desiredVelocity = walkDirection.cpy().scl(MAX_SPEED);
-    // impulse = (desiredVel - currentVel) * mass
-    Vector2 impulse = desiredVelocity.sub(velocity).scl(body.getMass());
-    body.applyLinearImpulse(impulse, body.getWorldCenter(), true);
+    
+    // Determine friction applied for each direction
+    switch (playerState) {
+      case AIR:
+        // Fall through for now
+
+      case SLIDING:
+        // Fall through for now
+
+      default:
+        friction = new Vector2(-NORMAL_FRICTION*velocity.x, -NORMAL_FRICTION*velocity.y);
+        break;
+    }
+
+    // Apply friction
+    this.body.applyForceToCenter(friction, true);
   }
 
   /**
@@ -49,7 +78,7 @@ public class PlayerActions extends Component {
    */
   void walk(Vector2 direction) {
     this.walkDirection = direction;
-    moving = true;
+    playerState = PlayerState.MOVING;
   }
 
   /**
@@ -57,8 +86,8 @@ public class PlayerActions extends Component {
    */
   void stopWalking() {
     this.walkDirection = Vector2.Zero.cpy();
-    updateSpeed();
-    moving = false;
+    //currentVelocity = new Vector2(-0.2f, -0.2f);
+    //updateSpeed();
   }
 
   /**
@@ -67,5 +96,15 @@ public class PlayerActions extends Component {
   void attack() {
     Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
     attackSound.play();
+  }
+
+  /**
+   * Makes the player jump upwards
+   * 
+   * @param height the height to jump.
+   */
+  void jump() {
+    playerState = PlayerState.MOVING;
+    body.applyForceToCenter(new Vector2(0f, 300f), true);
   }
 }
