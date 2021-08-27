@@ -9,6 +9,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.services.MusicService;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
@@ -166,10 +167,8 @@ public class ForestGameArea extends GameArea {
   }
 
   private void playMusic() {
-    Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
-    music.setLooping(true);
-    music.setVolume(0.3f);
-    music.play();
+    MusicService musicService = new MusicService("sounds/BackingMusicWithDrums.mp3");
+    musicService.playMusic();
   }
 
   private void loadAssets() {
