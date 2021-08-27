@@ -40,8 +40,8 @@ public class SettingsMenuDisplay extends UIComponent {
     this.game = game;
   }
 
-  public void loadTheMusic() {
-    MusicService musicScreen = new MusicService();
+  public void playTheMusic() {
+    MusicService musicScreen = new MusicService("sounds/MainMenuMusic.mp3");
     musicScreen.playMusic();
   }
 
@@ -49,7 +49,7 @@ public class SettingsMenuDisplay extends UIComponent {
   public void create() {
     super.create();
     addActors();
-    loadTheMusic();
+    playTheMusic();
   }
 
   private void addActors() {
