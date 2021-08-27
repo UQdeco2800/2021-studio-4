@@ -30,6 +30,7 @@ public class PlayerActions extends Component {
   public void update() {
     if (moving) {
       updateSpeed();
+      ServiceLocator.getCamera().getEntity().setPosition(entity.getCenterPosition());
     }
   }
 
