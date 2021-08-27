@@ -49,18 +49,46 @@ public class MainMenuDisplay extends UIComponent {
      * Added Background image and initialised buttons
      */
   private void addActors() {
+      // This table not necessary?
     table = new Table();
     table.setFillParent(true);
-    sprite = new Sprite(new Texture("images/MainMenuImageExample.png"));
-    table.setBackground(new SpriteDrawable(sprite)); // Set background
+    sprite = new Sprite(new Texture("images/box_boy_title.png"));
+    table.setBackground(new SpriteDrawable(sprite));
+
+
+//    Image title =
+//        new Image(
+//            ServiceLocator.getResourceService()
+//                .getAsset("images/box_boy_title.png", Texture.class));
+
+      table = new Table();
+      table.setFillParent(true);
+      sprite = new Sprite(new Texture("images/title_screen.png"));
+      table.setBackground(new SpriteDrawable(sprite)); // Set background
+
+    //table = new Table();
+    //table.setFillParent(true);
+    //Image title =
+        //new Image(
+            //ServiceLocator.getResourceService()
+                //.getAsset("images/box_boy_title.png", Texture.class));
 
     TextButton startBtn = new TextButton("Start", skin);
     startBtn.setBounds(14, 14, 40, 41);
     startBtn.setColor(Color.BLUE);
-    TextButton loadBtn = new TextButton("Load", skin);
+
+
+    TextButton levelSelectBtn = new TextButton("Level Select", skin);
+    levelSelectBtn.setColor(Color.ROYAL);
+
     TextButton settingsBtn = new TextButton("Settings", skin);
+    settingsBtn.setColor(Color.ROYAL);
+
     TextButton exitBtn = new TextButton("Exit", skin);
+    exitBtn.setColor(Color.ROYAL);
+
     TextButton muteBtn = new TextButton("Mute", skin);
+    muteBtn.setColor(Color.ROYAL);
 
     // Triggers an event when the button is pressed
     startBtn.addListener(
@@ -72,12 +100,12 @@ public class MainMenuDisplay extends UIComponent {
           }
         });
 
-    loadBtn.addListener(
+    levelSelectBtn.addListener(
         new ChangeListener() {
           @Override
           public void changed(ChangeEvent changeEvent, Actor actor) {
-            logger.debug("Load button clicked");
-            entity.getEvents().trigger("load");
+            logger.debug("Level select button clicked");
+            entity.getEvents().trigger("levelSelect");
           }
         });
 
@@ -117,9 +145,10 @@ public class MainMenuDisplay extends UIComponent {
 
     //table.add(title);
     table.row();
-    table.add(startBtn).padTop(30f).top();
+    table.add(startBtn).padTop(300f).width(250).height(60);
+
     table.row();
-    table.add(loadBtn).padTop(40f).left();
+    table.add(levelSelectBtn).padTop(15f);
     table.row();
     table.add(muteBtn).padTop(15f);
     table.row();
@@ -130,7 +159,6 @@ public class MainMenuDisplay extends UIComponent {
 
     stage.addActor(table);
   }
-
 
   @Override
   public void draw(SpriteBatch batch) {

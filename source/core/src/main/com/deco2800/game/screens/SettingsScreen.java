@@ -20,11 +20,13 @@ import org.slf4j.LoggerFactory;
 /** The game screen containing the settings. */
 public class SettingsScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(SettingsScreen.class);
-
+  private static final String backgroundMusic = "sounds/MainMenuMusic.mp3";
+  private static final String[] MainMenuMusic = {backgroundMusic};
   private final GdxGame game;
   private final Renderer renderer;
 
   public SettingsScreen(GdxGame game) {
+
     this.game = game;
 
     logger.debug("Initialising settings screen services");
@@ -36,14 +38,20 @@ public class SettingsScreen extends ScreenAdapter {
 
     renderer = RenderFactory.createRenderer();
     renderer.getCamera().getEntity().setPosition(5f, 5f);
+<<<<<<< HEAD
 
     ServiceLocator.registerCamera(renderer.getCamera());
 
+=======
+    loadAssets();
+>>>>>>> 51cd6a1eb62face48a3fa2381238bcf7dd4ec90f
     createUI();
+
   }
 
   @Override
   public void render(float delta) {
+
     ServiceLocator.getEntityService().update();
     renderer.render();
   }
@@ -55,7 +63,9 @@ public class SettingsScreen extends ScreenAdapter {
 
   @Override
   public void dispose() {
+
     renderer.dispose();
+    unloadAssets();
     ServiceLocator.getRenderService().dispose();
     ServiceLocator.getEntityService().dispose();
 
@@ -66,6 +76,8 @@ public class SettingsScreen extends ScreenAdapter {
    * Creates the setting screen's ui including components for rendering ui elements to the screen
    * and capturing and handling ui input.
    */
+
+
   private void createUI() {
     logger.debug("Creating ui");
     Stage stage = ServiceLocator.getRenderService().getStage();
@@ -73,4 +85,28 @@ public class SettingsScreen extends ScreenAdapter {
     ui.addComponent(new SettingsMenuDisplay(game)).addComponent(new InputDecorator(stage, 10));
     ServiceLocator.getEntityService().register(ui);
   }
+
+  /**
+   * Load Settings page music
+   */
+  private void loadAssets() {
+
+    logger.debug("Loading assets");
+    ResourceService resourceService = ServiceLocator.getResourceService();
+    ServiceLocator.getResourceService().loadAll();
+    resourceService.loadMusic(MainMenuMusic);
+
+    while (!resourceService.loadForMillis(10)) {
+      // This could be upgraded to a loading screen
+      logger.info("Loading... {}%", resourceService.getProgress());
+    }
+
+  }
+
+  private void unloadAssets() {
+    logger.debug("Unloading assets");
+    ResourceService resourceService = ServiceLocator.getResourceService();
+    resourceService.unloadAssets(MainMenuMusic);
+  }
+
 }

@@ -22,7 +22,7 @@ public class MainMenuActions extends Component {
   @Override
   public void create() {
     entity.getEvents().addListener("start", this::onStart);
-    entity.getEvents().addListener("load", this::onLoad);
+    entity.getEvents().addListener("levelSelect", this::onLoad);
     entity.getEvents().addListener("exit", this::onExit);
     entity.getEvents().addListener("settings", this::onSettings);
     entity.getEvents().addListener("mute", this::onMute);
@@ -41,7 +41,8 @@ public class MainMenuActions extends Component {
    * Load functionality is not actually implemented.
    */
   private void onLoad() {
-    logger.info("Load game");
+    logger.info("Load completed levels");
+    game.setScreen(GdxGame.ScreenType.LOAD_LEVELS);
   }
 
   /**
