@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
@@ -61,22 +62,6 @@ public class MainMenuDisplay extends UIComponent {
      * Added Background image and initialised buttons
      */
     private void addActors() {
-        // This table not necessary?
-        table = new Table();
-        table.setFillParent(true);
-        sprite = new Sprite(new Texture("images/box_boy_title.png"));
-        table.setBackground(new SpriteDrawable(sprite));
-
-
-//    Image title =
-//        new Image(
-//            ServiceLocator.getResourceService()
-//                .getAsset("images/box_boy_title.png", Texture.class));
-
-        table = new Table();
-        table.setFillParent(true);
-        sprite = new Sprite(new Texture("images/title_screen_clean.png"));
-        table.setBackground(new SpriteDrawable(sprite)); // Set background
 
         //table = new Table();
         //table.setFillParent(true);
@@ -84,6 +69,29 @@ public class MainMenuDisplay extends UIComponent {
         //new Image(
         //ServiceLocator.getResourceService()
         //.getAsset("images/box_boy_title.png", Texture.class));
+
+        table = new Table();
+        table.setFillParent(true);
+        sprite = new Sprite(new Texture("images/title_screen_clean.png"));
+        table.setBackground(new SpriteDrawable(sprite)); // Set background
+
+        /**
+         * Creates the button size and position based off
+         * of the users computer screen dimensions.
+         */
+        int centreWidth1 = Gdx.graphics.getWidth()/2;
+        int centreHeight1 = Gdx.graphics.getHeight()/2;
+        int ButtonDimensions = (int) Math.round(centreWidth1*0.2 + centreHeight1*0.2);
+        int centreWidth = centreWidth1 - ButtonDimensions/2; // Moves middle of button to Centre
+        int centreHeight = centreWidth1 - ButtonDimensions/2;
+
+        int Width25Percent = (int) Math.round(centreWidth*0.35);
+        int Width60Percent = (int) Math.round(centreWidth*0.35);
+
+        int Height45Percent = (int) Math.round(centreHeight*0.50);
+        int Height66Percent = (int) Math.round(centreHeight*0.65);
+        int Height95Percent = (int) Math.round(centreHeight*0.90);
+        int Height110Percent = (int) Math.round(centreHeight*1.05);
 
         /**
          * Creates the button texture for the Start Button (Currently Level Button as
@@ -97,9 +105,8 @@ public class MainMenuDisplay extends UIComponent {
          */
         //startBtn.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2-80);
         //startBtn.setSize(250, 250);
-        startBtn.setBounds(Gdx.graphics.getWidth()/2-125,Gdx.graphics.getHeight()/2-200, 300, 300);
-
-
+        startBtn.setBounds(centreWidth,centreHeight-Height45Percent,
+                ButtonDimensions, ButtonDimensions);
         /**
          * Creates the button texture for the Level Selection Button.
          */
@@ -113,7 +120,8 @@ public class MainMenuDisplay extends UIComponent {
          */
         //levelSelectBtn.setPosition(Gdx.graphics.getWidth()/2-160, Gdx.graphics.getHeight()/2-220);
         //levelSelectBtn.setSize(250, 250);
-        levelSelectBtn.setBounds(Gdx.graphics.getWidth()/2-425,Gdx.graphics.getHeight()/2-300, 300, 300);
+        levelSelectBtn.setBounds(centreWidth-Width60Percent,centreHeight-Height66Percent,
+                ButtonDimensions, ButtonDimensions);
 
 
         /**
@@ -130,7 +138,8 @@ public class MainMenuDisplay extends UIComponent {
          */
         //settingsBtn.setPosition(Gdx.graphics.getWidth()/2-160, Gdx.graphics.getHeight()/2-360);
         //settingsBtn.setSize(100, 100);
-        settingsBtn.setBounds(Gdx.graphics.getWidth()/2-425,Gdx.graphics.getHeight()/2-495, 300, 300);
+        settingsBtn.setBounds(centreWidth-Width60Percent,centreHeight-Height95Percent,
+                ButtonDimensions, ButtonDimensions);
 
 
         /**
@@ -147,7 +156,8 @@ public class MainMenuDisplay extends UIComponent {
          */
         //exitBtn.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2-500);
         //exitBtn.setSize(100, 100);
-        exitBtn.setBounds(Gdx.graphics.getWidth()/2-125,Gdx.graphics.getHeight()/2-595, 300, 300);
+        exitBtn.setBounds(centreWidth,centreHeight-Height110Percent,
+                ButtonDimensions, ButtonDimensions);
 
 
         /**
@@ -167,7 +177,8 @@ public class MainMenuDisplay extends UIComponent {
          */
         //muteBtn.setPosition(Gdx.graphics.getWidth()/2+160, Gdx.graphics.getHeight()/2-360);
         //muteBtn.setSize(100, 100);
-        muteBtn.setBounds(Gdx.graphics.getWidth()/2+175,Gdx.graphics.getHeight()/2-495, 300, 300);
+        muteBtn.setBounds(centreWidth+Width25Percent,centreHeight-Height95Percent,
+                ButtonDimensions, ButtonDimensions);
         //currentlyMutedButton.setPosition(Gdx.graphics.getWidth()/2+160, Gdx.graphics.getHeight()/2-360);
         //currentlyMutedButton.setSize(100, 100);
 
@@ -185,7 +196,8 @@ public class MainMenuDisplay extends UIComponent {
          */
         //leaderBoardBtn.setPosition(Gdx.graphics.getWidth()/2+160, Gdx.graphics.getHeight()/2-220);
         //leaderBoardBtn.setSize(100, 100);
-        leaderBoardBtn.setBounds(Gdx.graphics.getWidth()/2+175,Gdx.graphics.getHeight()/2-300, 300, 300);
+        leaderBoardBtn.setBounds(centreWidth+Width25Percent,centreHeight-Height66Percent,
+                ButtonDimensions, ButtonDimensions);
 
         // Triggers an event when the button is pressed
         startBtn.addListener(
@@ -240,20 +252,6 @@ public class MainMenuDisplay extends UIComponent {
                     }
                 });
 
-    /*//table.add(title);
-    table.row();
-    table.add(startBtn).padTop(300f).width(250).height(60);
-
-    table.row();
-    table.add(levelSelectBtn).padTop(15f);
-    table.row();
-    table.add(muteBtn).padTop(15f);
-    table.row();
-    table.add(settingsBtn).padTop(15f);
-    table.row();
-    table.add(exitBtn).padTop(15f);
-
-    */
         stage.addActor(table);
         stage.addActor(startBtn);
         stage.addActor(levelSelectBtn);
