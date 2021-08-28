@@ -98,7 +98,7 @@ public class CombatStatsComponent extends Component {
     int newHealth = getHealth() - attacker.getBaseAttack();
     setHealth(newHealth);
 
-    if (isDead()) {
+    if (this.health == 0) { // could be isDead()
       //entity.scaleHeight(12);
       entity.getEvents().trigger("playerDeath");
 //      MainGameExitDisplay main = new MainGameExitDisplay();
