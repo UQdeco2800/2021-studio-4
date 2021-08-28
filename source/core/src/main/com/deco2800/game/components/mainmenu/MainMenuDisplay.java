@@ -85,27 +85,39 @@ public class MainMenuDisplay extends UIComponent {
         int centreWidth = centreWidth1 - ButtonDimensions/2; // Moves middle of button to Centre
         int centreHeight = centreWidth1 - ButtonDimensions/2;
 
-        int Width25Percent = (int) Math.round(centreWidth*0.35);
-        int Width60Percent = (int) Math.round(centreWidth*0.35);
+        int Width35Percent = (int) Math.round(centreWidth*0.35);
 
-        int Height45Percent = (int) Math.round(centreHeight*0.50);
-        int Height66Percent = (int) Math.round(centreHeight*0.65);
-        int Height95Percent = (int) Math.round(centreHeight*0.90);
-        int Height110Percent = (int) Math.round(centreHeight*1.05);
+        int Height50Percent = (int) Math.round(centreHeight*0.45);
+        int Height65Percent = (int) Math.round(centreHeight*0.60);
+        int Height78Percent = (int) Math.round(centreHeight*0.75);
+        int Height90Percent = (int) Math.round(centreHeight*0.90);
+        int Height105Percent = (int) Math.round(centreHeight*1.05);
+
+        /**
+         * Creates the VirusHead texture for the virus image
+         */
+        Texture virusTexture = new Texture(Gdx.files.internal("images/VirusHead.png"));
+        Drawable virusDrawable = new TextureRegionDrawable(new TextureRegion(virusTexture));
+        ImageButton virusHead = new ImageButton(virusDrawable);
+        /**
+         * Sets the size and position of the virusHead after texture applied.
+         */
+        virusHead.setBounds(centreWidth,centreHeight-Height78Percent,
+                ButtonDimensions, ButtonDimensions);
 
         /**
          * Creates the button texture for the Start Button (Currently Level Button as
          * placeholder until font decided upon).
          */
         Texture startTexture = new Texture(Gdx.files.internal("images/button_start.png"));
-        Drawable drawable = new TextureRegionDrawable(new TextureRegion(startTexture));
-        ImageButton startBtn = new ImageButton(drawable);
+        Drawable startDrawable = new TextureRegionDrawable(new TextureRegion(startTexture));
+        ImageButton startBtn = new ImageButton(startDrawable);
         /**
          * Sets the size and position of the button after texture applied.
          */
         //startBtn.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2-80);
         //startBtn.setSize(250, 250);
-        startBtn.setBounds(centreWidth,centreHeight-Height45Percent,
+        startBtn.setBounds(centreWidth,centreHeight-Height50Percent,
                 ButtonDimensions, ButtonDimensions);
         /**
          * Creates the button texture for the Level Selection Button.
@@ -120,7 +132,7 @@ public class MainMenuDisplay extends UIComponent {
          */
         //levelSelectBtn.setPosition(Gdx.graphics.getWidth()/2-160, Gdx.graphics.getHeight()/2-220);
         //levelSelectBtn.setSize(250, 250);
-        levelSelectBtn.setBounds(centreWidth-Width60Percent,centreHeight-Height66Percent,
+        levelSelectBtn.setBounds(centreWidth-Width35Percent,centreHeight-Height65Percent,
                 ButtonDimensions, ButtonDimensions);
 
 
@@ -138,7 +150,7 @@ public class MainMenuDisplay extends UIComponent {
          */
         //settingsBtn.setPosition(Gdx.graphics.getWidth()/2-160, Gdx.graphics.getHeight()/2-360);
         //settingsBtn.setSize(100, 100);
-        settingsBtn.setBounds(centreWidth-Width60Percent,centreHeight-Height95Percent,
+        settingsBtn.setBounds(centreWidth-Width35Percent,centreHeight-Height90Percent,
                 ButtonDimensions, ButtonDimensions);
 
 
@@ -156,9 +168,8 @@ public class MainMenuDisplay extends UIComponent {
          */
         //exitBtn.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2-500);
         //exitBtn.setSize(100, 100);
-        exitBtn.setBounds(centreWidth,centreHeight-Height110Percent,
+        exitBtn.setBounds(centreWidth,centreHeight-Height105Percent,
                 ButtonDimensions, ButtonDimensions);
-
 
         /**
          * Creates the button texture for the Mute Button (Currently Level Button as
@@ -177,7 +188,7 @@ public class MainMenuDisplay extends UIComponent {
          */
         //muteBtn.setPosition(Gdx.graphics.getWidth()/2+160, Gdx.graphics.getHeight()/2-360);
         //muteBtn.setSize(100, 100);
-        muteBtn.setBounds(centreWidth+Width25Percent,centreHeight-Height95Percent,
+        muteBtn.setBounds(centreWidth+Width35Percent,centreHeight-Height90Percent,
                 ButtonDimensions, ButtonDimensions);
         //currentlyMutedButton.setPosition(Gdx.graphics.getWidth()/2+160, Gdx.graphics.getHeight()/2-360);
         //currentlyMutedButton.setSize(100, 100);
@@ -196,7 +207,7 @@ public class MainMenuDisplay extends UIComponent {
          */
         //leaderBoardBtn.setPosition(Gdx.graphics.getWidth()/2+160, Gdx.graphics.getHeight()/2-220);
         //leaderBoardBtn.setSize(100, 100);
-        leaderBoardBtn.setBounds(centreWidth+Width25Percent,centreHeight-Height66Percent,
+        leaderBoardBtn.setBounds(centreWidth+Width35Percent,centreHeight-Height65Percent,
                 ButtonDimensions, ButtonDimensions);
 
         // Triggers an event when the button is pressed
@@ -259,6 +270,7 @@ public class MainMenuDisplay extends UIComponent {
         stage.addActor(settingsBtn);
         stage.addActor(exitBtn);
         stage.addActor(leaderBoardBtn);
+        stage.addActor(virusHead);
     }
 
     @Override
