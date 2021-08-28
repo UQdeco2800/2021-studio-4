@@ -41,11 +41,8 @@ public class PlayerActions extends Component {
   public void update() {
     if (playerState != PlayerState.STOPPED) {
       updateSpeed();
-<<<<<<< HEAD
       ServiceLocator.getCamera().getEntity().setPosition(entity.getCenterPosition());
-=======
       applyFriction();
->>>>>>> 51cd6a1eb62face48a3fa2381238bcf7dd4ec90f
     }
   }
 
@@ -105,7 +102,7 @@ public class PlayerActions extends Component {
   /**
    * Makes the player jump upwards
    * 
-   * @param height the height to jump.
+   * @param //height the height to jump.
    */
   void jump() {
     playerState = PlayerState.MOVING;

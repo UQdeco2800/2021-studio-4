@@ -41,7 +41,9 @@ public class ForestGameArea extends GameArea {
     "images/the_void.png",
     "images/basicenemysprite.png",
     "images/chasingenemy.png",
-    "images/enemyspritehsee.png"
+    "images/enemyspritehsee.png",
+    "map-textures/mapTextures_Platforms.png",
+    "map-textures/mapTextures_Middle-Platform.png"
 
   };
   private static final String[] forestTextureAtlases = {
@@ -69,7 +71,8 @@ public class ForestGameArea extends GameArea {
     displayUI();
 
     spawnTerrain();
-    spawnTrees();
+    //spawnTrees();
+    spawnLevel();
     player = spawnPlayer();
     spawnGhosts();
     spawnGhostKing();
@@ -98,11 +101,11 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(
         ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y), GridPoint2Utils.ZERO, false, false);
     // Right
-    spawnEntityAt(
-        ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y),
-        new GridPoint2(tileBounds.x, 0),
-        false,
-        false);
+//    spawnEntityAt(
+//        ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y),
+//        new GridPoint2(tileBounds.x, 0),
+//        false,
+//        false);
     // Top
     spawnEntityAt(
         ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
@@ -125,6 +128,28 @@ public class ForestGameArea extends GameArea {
       GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
       Entity tree = ObstacleFactory.createTree();
       spawnEntityAt(tree, randomPos, true, false);
+    }
+  }
+
+  private void spawnPlatform(int posX, int posY) {
+    Entity platform = ObstacleFactory.createPlatform();
+    GridPoint2 position = new GridPoint2(posX,posY);
+    spawnEntityAt(platform, position, true, true);
+  }
+
+  private void spawnMiddlePlatform(int posX, int posY) {
+    Entity middlePlatform = ObstacleFactory.createMiddlePlatform();
+    GridPoint2 position = new GridPoint2(posX,posY);
+    spawnEntityAt(middlePlatform, position, true, true);
+  }
+
+  private void spawnLevel() {
+    int c,i;
+    for (c = 0; c < 3; c++) {
+      for (i = 0; i < 8; i++) {
+        spawnPlatform(c*8+i, c+5);
+      }
+      spawnMiddlePlatform(c*8+8,c+5);
     }
   }
 

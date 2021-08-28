@@ -50,7 +50,7 @@ public class ObstacleFactory {
   public static Entity createPlatform() {
     Entity platform =
             new Entity()
-                    .addComponent(new TextureRenderComponent("map-textures/mapTextures_platform.png"))
+                    .addComponent(new TextureRenderComponent("map-textures/mapTextures_Platforms.png"))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
@@ -61,10 +61,10 @@ public class ObstacleFactory {
     return platform;
   }
 
-  public static Entity createPlatformWall() {
+  public static Entity createMiddlePlatform() {
     Entity platformWall =
             new Entity()
-                    .addComponent(new TextureRenderComponent("map-textures/mapTextures_platformWall.png"))
+                    .addComponent(new TextureRenderComponent("map-textures/mapTextures_Middle-Platform.png"))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 

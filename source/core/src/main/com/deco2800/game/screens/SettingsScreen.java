@@ -38,13 +38,9 @@ public class SettingsScreen extends ScreenAdapter {
 
     renderer = RenderFactory.createRenderer();
     renderer.getCamera().getEntity().setPosition(5f, 5f);
-<<<<<<< HEAD
 
     ServiceLocator.registerCamera(renderer.getCamera());
-
-=======
     loadAssets();
->>>>>>> 51cd6a1eb62face48a3fa2381238bcf7dd4ec90f
     createUI();
 
   }
