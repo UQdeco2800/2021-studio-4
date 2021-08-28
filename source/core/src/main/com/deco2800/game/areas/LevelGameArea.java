@@ -1,14 +1,23 @@
 package com.deco2800.game.areas;
 
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.*;
 import com.deco2800.game.areas.terrain.TerrainFactory;
-import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
+import com.deco2800.game.areas.terrain.TerrainTile;
+import com.deco2800.game.areas.terrain.TerrainTileDefinition;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.physics.PhysicsLayer;
+import com.deco2800.game.physics.components.ColliderComponent;
+import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.BackgroundRenderComponent;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
@@ -18,13 +27,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
-public class ForestGameArea extends GameArea {
-  private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
+public class LevelGameArea extends GameArea {
+  private static final Logger logger = LoggerFactory.getLogger(LevelGameArea.class);
   private static final int NUM_TREES = 7;
   private static final int NUM_GHOSTS = 2;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
   private static final float WALL_WIDTH = 0.1f;
-  private static final String[] forestTextures = {
+  private static final String[] gameTextures = {
     "images/box_boy_leaf.png",
     "images/tree.png",
     "images/ghost_king.png",
@@ -46,19 +55,23 @@ public class ForestGameArea extends GameArea {
     "map-textures/mapTextures_Platforms.png",
     "map-textures/mapTextures_Middle-Platform.png",
   };
-  private static final String[] forestTextureAtlases = {
-    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/the_void.atlas",
-          "images/testingenemy.atlas"
+  private static final String[] gameTextureAtlases = {
+    "images/terrain_iso_grass.atlas",
+    "images/ghost.atlas",
+    "images/ghostKing.atlas",
+    "images/the_void.atlas",
+    "images/testingenemy.atlas",
+    "map-spritesheets/mapTextures.atlas",
   };
-  private static final String[] forestSounds = {"sounds/Impact4.ogg"};
+  private static final String[] gameSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BackingMusicWithDrums.mp3";
-  private static final String[] forestMusic = {backgroundMusic};
+  private static final String[] gameMusic = {backgroundMusic};
 
   private final TerrainFactory terrainFactory;
 
   private Entity player;
 
-  public ForestGameArea(TerrainFactory terrainFactory) {
+  public LevelGameArea(TerrainFactory terrainFactory) {
     super();
     this.terrainFactory = terrainFactory;
   }
@@ -75,9 +88,9 @@ public class ForestGameArea extends GameArea {
     //spawnTrees();
     spawnLevel();
     player = spawnPlayer();
-    spawnGhosts();
-    spawnGhostKing();
-    spawnTheVoid();
+    //spawnGhosts();
+    //spawnGhostKing();
+    //spawnTheVoid();
 
     playMusic();
   }
@@ -94,37 +107,46 @@ public class ForestGameArea extends GameArea {
     spawnEntity(background);
   }
 
+
+  public static Shape getShapeFromRectangle(Rectangle rectangle){
+    PolygonShape polygonShape = new PolygonShape();
+    polygonShape.setAsBox(rectangle.width*0.5F / TerrainTileDefinition.TILE_X,rectangle.height*0.5F/ TerrainTileDefinition.TILE_Y);
+    return polygonShape;
+  }
+
+  public static Vector2 getTransformedCenterForRectangle(Rectangle rectangle){
+    Vector2 center = new Vector2();
+    rectangle.getCenter(center);
+    return center.scl(1/TerrainTileDefinition.TILE_X);
+  }
+
   private void spawnTerrain() {
-    // Background terrain
-    terrain = terrainFactory.createTerrain(TerrainType.FOREST_DEMO);
-    spawnEntity(new Entity().addComponent(terrain));
+    // Generate terrain
+    terrain = terrainFactory.createTerrain();
+    MapObjects objects = terrain.getMap().getLayers().get(0).getObjects();
 
-    // Terrain walls
-    float tileSize = terrain.getTileSize();
-    GridPoint2 tileBounds = terrain.getMapBounds(0);
-    Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
+    for (MapObject object : objects) {
+      Rectangle rectangle = ((RectangleMapObject)object).getRectangle();
 
-    // Left
-//    spawnEntityAt(
-//        ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y), GridPoint2Utils.ZERO, false, false);
-    // Right
-//    spawnEntityAt(
-//        ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y),
-//        new GridPoint2(tileBounds.x, 0),
-//        false,
-//        false);
-    // Top
-//    spawnEntityAt(
-//        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
-//        new GridPoint2(0, tileBounds.y),
-//        false,
-//        false);
-//    // Bottom
-//    spawnEntityAt(
-//        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
-//        new GridPoint2(0, 5),   // No idea *what* these units actually are
-//        false,                 // but 5 seems to work nicely
-//        false);
+      //create a dynamic within the world body (also can be KinematicBody or StaticBody
+      BodyDef bodyDef = new BodyDef();
+      bodyDef.type = BodyDef.BodyType.DynamicBody;
+      Body body = ServiceLocator.getPhysicsService().getPhysics().createBody(bodyDef);
+
+      Fixture fixture = body.createFixture(getShapeFromRectangle(rectangle),1);
+
+      body.setTransform(getTransformedCenterForRectangle(rectangle),0);
+    }
+
+    Entity terrainEntity = new Entity();
+    terrainEntity
+      .addComponent(terrain)
+      .addComponent(new PhysicsComponent())
+      .addComponent(new ColliderComponent().setLayer(PhysicsLayer.ALL));
+
+    terrainEntity.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
+
+    spawnEntity(terrainEntity);
   }
 
   private void spawnTrees() {
@@ -206,10 +228,10 @@ public class ForestGameArea extends GameArea {
   private void loadAssets() {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
-    resourceService.loadTextures(forestTextures);
-    resourceService.loadTextureAtlases(forestTextureAtlases);
-    resourceService.loadSounds(forestSounds);
-    resourceService.loadMusic(forestMusic);
+    resourceService.loadTextures(gameTextures);
+    resourceService.loadTextureAtlases(gameTextureAtlases);
+    resourceService.loadSounds(gameSounds);
+    resourceService.loadMusic(gameMusic);
 
     while (!resourceService.loadForMillis(10)) {
       // This could be upgraded to a loading screen
@@ -220,10 +242,10 @@ public class ForestGameArea extends GameArea {
   private void unloadAssets() {
     logger.debug("Unloading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
-    resourceService.unloadAssets(forestTextures);
-    resourceService.unloadAssets(forestTextureAtlases);
-    resourceService.unloadAssets(forestSounds);
-    resourceService.unloadAssets(forestMusic);
+    resourceService.unloadAssets(gameTextures);
+    resourceService.unloadAssets(gameTextureAtlases);
+    resourceService.unloadAssets(gameSounds);
+    resourceService.unloadAssets(gameMusic);
   }
 
   @Override
