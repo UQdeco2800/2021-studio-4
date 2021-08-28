@@ -44,7 +44,7 @@ public class MainMenuDisplay extends UIComponent {
      * used tp switch between button states
      */
     public MainMenuDisplay() {
-        switcher = 1;
+        switcher = 0;
     }
 
     @Override
@@ -62,13 +62,6 @@ public class MainMenuDisplay extends UIComponent {
      * Added Background image and initialised buttons
      */
     private void addActors() {
-
-        //table = new Table();
-        //table.setFillParent(true);
-        //Image title =
-        //new Image(
-        //ServiceLocator.getResourceService()
-        //.getAsset("images/box_boy_title.png", Texture.class));
 
         table = new Table();
         table.setFillParent(true);

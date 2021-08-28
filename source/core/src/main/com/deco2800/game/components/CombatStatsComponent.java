@@ -27,10 +27,10 @@ public class CombatStatsComponent extends Component {
   private int baseAttack;
   private GdxGame game;
 
-  public CombatStatsComponent(int health, int baseAttack) {
+  public CombatStatsComponent(int health, int baseAttack) { // Could initialise GDXGame in here
     setHealth(health);
     setBaseAttack(baseAttack);
-    game = new GdxGame();
+    this.game = game; // Doesn;t work
   }
 
   @Override
