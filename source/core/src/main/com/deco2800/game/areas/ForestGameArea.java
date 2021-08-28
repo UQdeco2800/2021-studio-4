@@ -9,7 +9,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
-import com.deco2800.game.utils.math.GridPoint2Utils;
+import com.deco2800.game.rendering.BackgroundRenderComponent;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
@@ -42,9 +42,9 @@ public class ForestGameArea extends GameArea {
     "images/basicenemysprite.png",
     "images/chasingenemy.png",
     "images/enemyspritehsee.png",
+    "images/game_background.png",
     "map-textures/mapTextures_Platforms.png",
-    "map-textures/mapTextures_Middle-Platform.png"
-
+    "map-textures/mapTextures_Middle-Platform.png",
   };
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/the_void.atlas",
@@ -68,6 +68,7 @@ public class ForestGameArea extends GameArea {
   public void create() {
     loadAssets();
 
+    displayBackground(); // Display background at the back first
     displayUI();
 
     spawnTerrain();
@@ -87,6 +88,12 @@ public class ForestGameArea extends GameArea {
     spawnEntity(ui);
   }
 
+  private void displayBackground() {
+    Entity background = new Entity();
+    background.addComponent(new BackgroundRenderComponent("images/game_background.png"));
+    spawnEntity(background);
+  }
+
   private void spawnTerrain() {
     // Background terrain
     terrain = terrainFactory.createTerrain(TerrainType.FOREST_DEMO);
@@ -98,8 +105,8 @@ public class ForestGameArea extends GameArea {
     Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
 
     // Left
-    spawnEntityAt(
-        ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y), GridPoint2Utils.ZERO, false, false);
+//    spawnEntityAt(
+//        ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y), GridPoint2Utils.ZERO, false, false);
     // Right
 //    spawnEntityAt(
 //        ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y),
@@ -107,17 +114,17 @@ public class ForestGameArea extends GameArea {
 //        false,
 //        false);
     // Top
-    spawnEntityAt(
-        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
-        new GridPoint2(0, tileBounds.y),
-        false,
-        false);
-    // Bottom
-    spawnEntityAt(
-        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
-        new GridPoint2(0, 5),   // No idea *what* these units actually are
-        false,                 // but 5 seems to work nicely
-        false);
+//    spawnEntityAt(
+//        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
+//        new GridPoint2(0, tileBounds.y),
+//        false,
+//        false);
+//    // Bottom
+//    spawnEntityAt(
+//        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
+//        new GridPoint2(0, 5),   // No idea *what* these units actually are
+//        false,                 // but 5 seems to work nicely
+//        false);
   }
 
   private void spawnTrees() {
