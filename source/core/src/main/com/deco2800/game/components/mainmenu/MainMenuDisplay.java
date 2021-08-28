@@ -85,11 +85,11 @@ public class MainMenuDisplay extends UIComponent {
         int width35Percent = (int) Math.round(centreWidth*0.40);
 
         //int titleHeight = (int) Math.round(centreHeight*0.13);
-        int height50Percent = (int) Math.round(centreHeight*0.40);
-        int height65Percent = (int) Math.round(centreHeight*0.55);
-        int height78Percent = (int) Math.round(centreHeight*0.81);
-        int height90Percent = (int) Math.round(centreHeight*0.85);
-        int height105Percent = (int) Math.round(centreHeight*1.0);
+        int height50Percent = (int) Math.round(centreHeight*0.38);
+        int height65Percent = (int) Math.round(centreHeight*0.53);
+        int height78Percent = (int) Math.round(centreHeight*0.78);
+        int height90Percent = (int) Math.round(centreHeight*0.83);
+        int height105Percent = (int) Math.round(centreHeight*0.98);
 
         /**
          * Creates the 'RUNTIME' title texture.
@@ -120,8 +120,10 @@ public class MainMenuDisplay extends UIComponent {
          * Creates the button texture for the Start Button.
          */
         Texture startTexture = new Texture(Gdx.files.internal("images/button_start.png"));
+        Texture startHoverTexture = new Texture(Gdx.files.internal("images/button_start_hover.png"));
         Drawable startDrawable = new TextureRegionDrawable(new TextureRegion(startTexture));
         ImageButton startBtn = new ImageButton(startDrawable);
+        startBtn.getStyle().imageOver = new TextureRegionDrawable(startHoverTexture);
         /**
          * Sets the size and position of the button after texture applied.
          */
@@ -133,8 +135,10 @@ public class MainMenuDisplay extends UIComponent {
          * Creates the button texture for the Level Selection Button.
          */
         Texture levelSelTexture = new Texture(Gdx.files.internal("images/button_levels.png"));
+        Texture levelSelHoverTexture = new Texture(Gdx.files.internal("images/button_levels_hover.png"));
         Drawable levelSelDrawing = new TextureRegionDrawable(new TextureRegion(levelSelTexture));
         ImageButton levelSelectBtn = new ImageButton(levelSelDrawing);
+        levelSelectBtn.getStyle().imageOver = new TextureRegionDrawable(levelSelHoverTexture);
         /**
          * Sets the size and position of the button after texture applied.
          */
