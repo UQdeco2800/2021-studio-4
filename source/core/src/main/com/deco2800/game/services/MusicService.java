@@ -48,6 +48,7 @@ public class MusicService {
     }
     public void setTime(float time) {
         music.setPosition(time);
+        music.play();
     }
 
 
@@ -59,10 +60,12 @@ public class MusicService {
     }
     public void changeVolume(float vol) {
         music.setVolume(vol);
+        music.play();
     }
-    public void changeSpeed() {
+    public void setSpeed(float speed) {
 
     }
+
 
 
 }
