@@ -78,6 +78,7 @@ public class MainGameScreen extends ScreenAdapter {
     ServiceLocator.getEntityService().update();
     renderer.render();
     if (gameOver) {
+      gameOver = false;
       logger.info("Show Death Screen");
       game.setScreen(GdxGame.ScreenType.DEATH_SCREEN);
     }
