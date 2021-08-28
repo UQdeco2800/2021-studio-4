@@ -44,7 +44,9 @@ public class ForestGameArea extends GameArea {
     "images/enemyspritehsee.png",
     "map-textures/mapTextures_Platforms.png",
     "map-textures/mapTextures_Middle-Platform.png",
-    "map-textures/mapTextures_Button-On.png"
+    "map-textures/mapTextures_Button-On.png",
+    "map-textures/mapTextures_bridge.png",
+    "map-textures/mapTextures_door.png"
 
   };
   private static final String[] forestTextureAtlases = {
@@ -75,9 +77,9 @@ public class ForestGameArea extends GameArea {
     //spawnTrees();
     spawnLevel();
     player = spawnPlayer();
-//    spawnGhosts();
-//    spawnGhostKing();
-//    spawnTheVoid();
+    spawnGhosts();
+    spawnGhostKing();
+    spawnTheVoid();
 
     playMusic();
   }
@@ -150,6 +152,18 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(button, position, false, true);
   }
 
+  private void spawnBridge(int posX, int posY) {
+    Entity bridge = ObstacleFactory.createBridge();
+    GridPoint2 position = new GridPoint2(posX,posY);
+    spawnEntityAt(bridge, position, false, true);
+  }
+
+  private void spawnDoor(int posX, int posY) {
+    Entity door = ObstacleFactory.createDoor();
+    GridPoint2 position = new GridPoint2(posX,posY);
+    spawnEntityAt(door, position, false, true);
+  }
+
   private void spawnLevel() {
     int c;
     int i;
@@ -168,6 +182,11 @@ public class ForestGameArea extends GameArea {
       spawnPlatform(40+i,14);
     }
     spawnButton(40,15);
+    for (i = 0; i < 6; i++) {
+      spawnBridge(48+i,14);
+      spawnPlatform(54+i,14);
+    }
+    spawnDoor(56,15);
   }
 
   private void spawnLadderPlatforms(int x, int y) {

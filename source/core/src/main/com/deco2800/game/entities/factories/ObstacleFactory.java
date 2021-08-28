@@ -99,6 +99,34 @@ public class ObstacleFactory {
     return button;
   }
 
+  public static Entity createBridge() {
+    Entity bridge =
+      new Entity()
+        .addComponent(new TextureRenderComponent("map-textures/mapTextures_bridge.png"))
+        .addComponent(new PhysicsComponent())
+        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    bridge.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    bridge.getComponent(TextureRenderComponent.class).scaleEntity();
+    bridge.scaleHeight(0.5f);
+    PhysicsUtils.setScaledCollider(bridge, 1f, 1f);
+    return bridge;
+  }
+
+  public static Entity createDoor() {
+    Entity door =
+      new Entity()
+        .addComponent(new TextureRenderComponent("map-textures/mapTextures_door.png"))
+        .addComponent(new PhysicsComponent())
+        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    door.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    door.getComponent(TextureRenderComponent.class).scaleEntity();
+    door.scaleHeight(0.5f);
+    PhysicsUtils.setScaledCollider(door, 1f, 1f);
+    return door;
+  }
+
   private ObstacleFactory() {
     throw new IllegalStateException("Instantiating static util class");
   }
