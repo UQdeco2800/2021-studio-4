@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.endgame.DeathScreenActions;
+import com.deco2800.game.components.maingame.MainGameActions;
 import com.deco2800.game.components.maingame.MainGameExitDisplay;
 import com.deco2800.game.entities.Entity;
 import org.slf4j.Logger;
@@ -25,22 +26,10 @@ public class CombatStatsComponent extends Component {
   private static final Logger logger = LoggerFactory.getLogger(CombatStatsComponent.class);
   private int health;
   private int baseAttack;
-  private GdxGame game;
 
-  public CombatStatsComponent(int health, int baseAttack) { // Could initialise GDXGame in here
+  public CombatStatsComponent(int health, int baseAttack) {
     setHealth(health);
     setBaseAttack(baseAttack);
-    this.game = game; // Doesn;t work
-  }
-
-  @Override
-  public void create() {
-    entity.getEvents().addListener("playerDeath", this::onDeath);
-  }
-
-  private void onDeath() {
-    logger.info("Show Death Screen");
-    game.setScreen(GdxGame.ScreenType.DEATH_SCREEN);
   }
 
   /**
@@ -110,6 +99,7 @@ public class CombatStatsComponent extends Component {
     setHealth(newHealth);
 
     if (isDead()) {
+      //entity.scaleHeight(12);
       entity.getEvents().trigger("playerDeath");
 //      MainGameExitDisplay main = new MainGameExitDisplay();
 //      main.deathInitialiser();

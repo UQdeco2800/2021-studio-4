@@ -75,15 +75,15 @@ public class MainMenuDisplay extends UIComponent {
         int centreWidth1 = Gdx.graphics.getWidth()/2;
         int centreHeight1 = Gdx.graphics.getHeight()/2;
         int buttonDimensions = (int) Math.round(centreWidth1*0.2 + centreHeight1*0.2);
-        int titleDimension = (int) Math.round(centreWidth1*0.8 + centreHeight1*0.8);
+        //int titleDimension = (int) Math.round(centreWidth1*0.8 + centreHeight1*0.8);
         int centreWidth = centreWidth1 - buttonDimensions/2; // Moves middle of button to Centre
         int centreHeight = centreWidth1 - buttonDimensions/2;
-        int centreTitleWidth = centreWidth1 - titleDimension/2; // Moves middle of button to Centre
-        int centreTitleHeight = centreWidth1 - titleDimension/2;
+        //int centreTitleWidth = centreWidth1 - titleDimension/2; // Moves middle of button to Centre
+        //int centreTitleHeight = centreWidth1 - titleDimension/2;
 
         int width35Percent = (int) Math.round(centreWidth*0.35);
 
-        int titleHeight = (int) Math.round(centreHeight*0.13);
+        //int titleHeight = (int) Math.round(centreHeight*0.13);
         int height50Percent = (int) Math.round(centreHeight*0.45);
         int height65Percent = (int) Math.round(centreHeight*0.60);
         int height78Percent = (int) Math.round(centreHeight*0.75);
@@ -93,14 +93,14 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Creates the 'RUNTIME' title texture.
          */
-        Texture runtimeTitleTexture = new Texture(Gdx.files.internal("images/runtime_title.png"));
-        Drawable runtimeTitleDrawable = new TextureRegionDrawable(new TextureRegion(runtimeTitleTexture));
-        ImageButton runtimeTitle = new ImageButton(runtimeTitleDrawable);
-        /**
-         * Sets the size and position of the Runtime Title after texture applied.
-         */
-        runtimeTitle.setBounds(centreTitleWidth, centreTitleHeight-titleHeight,
-                titleDimension, titleDimension);
+//        Texture runtimeTitleTexture = new Texture(Gdx.files.internal("images/runtime_title.png"));
+//        Drawable runtimeTitleDrawable = new TextureRegionDrawable(new TextureRegion(runtimeTitleTexture));
+//        ImageButton runtimeTitle = new ImageButton(runtimeTitleDrawable);
+//        /**
+//         * Sets the size and position of the Runtime Title after texture applied.
+//         */
+//        runtimeTitle.setBounds(centreTitleWidth, centreTitleHeight-titleHeight,
+//                titleDimension, titleDimension);
 
         /**
          * Creates the VirusHead texture for the virus image
@@ -254,7 +254,6 @@ public class MainMenuDisplay extends UIComponent {
         stage.addActor(exitBtn);
         stage.addActor(leaderBoardBtn);
         stage.addActor(virusHead);
-        stage.addActor(runtimeTitle);
     }
 
     @Override
