@@ -74,21 +74,22 @@ public class MainMenuDisplay extends UIComponent {
          */
         int centreWidth1 = Gdx.graphics.getWidth()/2;
         int centreHeight1 = Gdx.graphics.getHeight()/2;
-        int buttonDimensions = (int) Math.round(centreWidth1*0.2 + centreHeight1*0.2);
+        int buttonDimensionsWidth = (int) Math.round(centreWidth1*0.35);
+        int buttonDimensionsHeight = (int) Math.round(centreHeight1*0.31);
         //int titleDimension = (int) Math.round(centreWidth1*0.8 + centreHeight1*0.8);
-        int centreWidth = centreWidth1 - buttonDimensions/2; // Moves middle of button to Centre
-        int centreHeight = centreWidth1 - buttonDimensions/2;
+        int centreWidth = centreWidth1 - buttonDimensionsWidth/2; // Moves middle of button to Centre
+        int centreHeight = centreWidth1 - buttonDimensionsHeight/2;
         //int centreTitleWidth = centreWidth1 - titleDimension/2; // Moves middle of button to Centre
         //int centreTitleHeight = centreWidth1 - titleDimension/2;
 
-        int width35Percent = (int) Math.round(centreWidth*0.35);
+        int width35Percent = (int) Math.round(centreWidth*0.40);
 
         //int titleHeight = (int) Math.round(centreHeight*0.13);
-        int height50Percent = (int) Math.round(centreHeight*0.45);
-        int height65Percent = (int) Math.round(centreHeight*0.60);
-        int height78Percent = (int) Math.round(centreHeight*0.75);
-        int height90Percent = (int) Math.round(centreHeight*0.90);
-        int height105Percent = (int) Math.round(centreHeight*1.05);
+        int height50Percent = (int) Math.round(centreHeight*0.40);
+        int height65Percent = (int) Math.round(centreHeight*0.55);
+        int height78Percent = (int) Math.round(centreHeight*0.81);
+        int height90Percent = (int) Math.round(centreHeight*0.85);
+        int height105Percent = (int) Math.round(centreHeight*1.0);
 
         /**
          * Creates the 'RUNTIME' title texture.
@@ -112,7 +113,7 @@ public class MainMenuDisplay extends UIComponent {
          * Sets the size and position of the virusHead after texture applied.
          */
         virusHead.setBounds(centreWidth,centreHeight-height78Percent,
-                buttonDimensions, buttonDimensions);
+                buttonDimensionsWidth, buttonDimensionsHeight*2);
 
 
         /**
@@ -125,7 +126,7 @@ public class MainMenuDisplay extends UIComponent {
          * Sets the size and position of the button after texture applied.
          */
         startBtn.setBounds(centreWidth,centreHeight-height50Percent,
-                buttonDimensions, buttonDimensions);
+                buttonDimensionsWidth, buttonDimensionsHeight);
 
 
         /**
@@ -138,7 +139,7 @@ public class MainMenuDisplay extends UIComponent {
          * Sets the size and position of the button after texture applied.
          */
         levelSelectBtn.setBounds(centreWidth-width35Percent,centreHeight-height65Percent,
-                buttonDimensions, buttonDimensions);
+                buttonDimensionsWidth, buttonDimensionsHeight);
 
 
         /**
@@ -151,7 +152,7 @@ public class MainMenuDisplay extends UIComponent {
          * Sets the size and position of the button after texture applied.
          */
         settingsBtn.setBounds(centreWidth-width35Percent,centreHeight-height90Percent,
-                buttonDimensions, buttonDimensions);
+                buttonDimensionsWidth, buttonDimensionsHeight);
 
 
         /**
@@ -164,7 +165,7 @@ public class MainMenuDisplay extends UIComponent {
          * Sets the size and position of the button after texture applied.
          */
         exitBtn.setBounds(centreWidth,centreHeight-height105Percent,
-                buttonDimensions, buttonDimensions);
+                buttonDimensionsWidth, buttonDimensionsHeight);
 
         /**
          * Creates the button texture for the Mute Button. Also loads the 'Muted' button.
@@ -177,7 +178,7 @@ public class MainMenuDisplay extends UIComponent {
          * Sets the size and position of the button after texture applied, for Mute and Currently Muted both.
          */
         muteBtn.setBounds(centreWidth+width35Percent,centreHeight-height90Percent,
-                buttonDimensions, buttonDimensions);
+                buttonDimensionsWidth, buttonDimensionsHeight);
 
 
         /**
@@ -190,7 +191,7 @@ public class MainMenuDisplay extends UIComponent {
          * Sets the size and position of the button after texture applied.
          */
         leaderBoardBtn.setBounds(centreWidth+width35Percent,centreHeight-height65Percent,
-                buttonDimensions, buttonDimensions);
+                buttonDimensionsWidth, buttonDimensionsHeight);
 
 
         // Triggers an event when the button is pressed
