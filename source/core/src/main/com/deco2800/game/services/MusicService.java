@@ -3,8 +3,6 @@ package com.deco2800.game.services;
 
 import com.badlogic.gdx.audio.Music;
 
-import com.deco2800.game.services.ServiceLocator;
-
 /**
  * Service for playing and controlling the play of game music, this is different to a loadAsset() function as
  *          it doesn't control the loading of the assets, however it controls the playing and where the music plays.
@@ -20,6 +18,18 @@ public class MusicService {
         music = ServiceLocator.getResourceService().getAsset(musicLocation, Music.class);
         isMusicPlaying = music.isPlaying();
     }
+    public void loadAssets(String[] MusicStringArray) {
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        ServiceLocator.getResourceService().loadAll();
+        resourceService.loadMusic(MusicStringArray);
+        while (!resourceService.loadForMillis(10)) {
+            // This could be upgraded to a loading screen
+        }
+    }
+    public void unloadAssets(String[] MusicStringArray) {
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.unloadAssets(MusicStringArray);
+    }
 
     public void stopMusic() {
         //Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
@@ -32,6 +42,12 @@ public class MusicService {
      */
     public boolean isMusicPlaying() {
         return isMusicPlaying;
+    }
+    public float getTime() {
+        return music.getPosition();
+    }
+    public void setTime(float time) {
+        music.setPosition(time);
     }
 
 

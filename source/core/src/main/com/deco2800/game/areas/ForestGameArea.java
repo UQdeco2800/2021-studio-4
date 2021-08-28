@@ -76,7 +76,7 @@ public class ForestGameArea extends GameArea {
     spawnGhostKing();
     spawnTheVoid();
 
-    playMusic();
+    //playMusic();
   }
 
   private void displayUI() {
@@ -165,10 +165,10 @@ public class ForestGameArea extends GameArea {
 
   }
 
-  private void playMusic() {
+ /* private void playMusic() {
     MusicService musicService = new MusicService("sounds/BackingMusicWithDrums.mp3");
     musicService.playMusic();
-  }
+  }*/
 
   private void loadAssets() {
     logger.debug("Loading assets");

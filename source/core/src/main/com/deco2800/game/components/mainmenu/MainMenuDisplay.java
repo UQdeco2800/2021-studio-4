@@ -26,6 +26,7 @@ public class MainMenuDisplay extends UIComponent {
   private Table table;
   private Sprite sprite;
   private int switcher;
+  public static float musicTime;
   public MusicService musicScreen = new MusicService("sounds/MainMenuMusic.mp3");
     /**
      * used tp switch between button states
@@ -43,7 +44,6 @@ public class MainMenuDisplay extends UIComponent {
     public void loadTheMusic() {
 
         musicScreen.playMusic();
-
     }
 
     /**
@@ -173,6 +173,7 @@ public class MainMenuDisplay extends UIComponent {
 
   @Override
   public void dispose() {
+      musicTime = musicScreen.getTime();
       table.clear();
     super.dispose();
   }

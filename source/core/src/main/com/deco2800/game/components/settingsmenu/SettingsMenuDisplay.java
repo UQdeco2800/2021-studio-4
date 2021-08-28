@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.GdxGame.ScreenType;
+import com.deco2800.game.components.mainmenu.MainMenuDisplay;
 import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.files.UserSettings.DisplaySettings;
 import com.deco2800.game.services.MusicService;
@@ -42,6 +43,8 @@ public class SettingsMenuDisplay extends UIComponent {
 
   public void playTheMusic() {
     MusicService musicScreen = new MusicService("sounds/MainMenuMusic.mp3");
+    float musicTime = (float) 0.9;
+    musicScreen.setTime(musicTime);
     musicScreen.playMusic();
   }
 

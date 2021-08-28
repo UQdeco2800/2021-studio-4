@@ -8,6 +8,7 @@ import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.badlogic.gdx.math.Vector2;
 
+import com.deco2800.game.services.MusicService;
 import com.deco2800.game.utils.math.Vector2Utils;
 
 public class TheVoidController extends Component {
@@ -56,13 +57,9 @@ public class TheVoidController extends Component {
 
      void updateSound(){
          float distance_from_player = getPlayerDistance();
-
+         MusicService musicService = new MusicService("sounds/BackingMusicWithDrums.mp3");
+         musicService.playMusic();
     }
-
-
-
-
-
 
 
 

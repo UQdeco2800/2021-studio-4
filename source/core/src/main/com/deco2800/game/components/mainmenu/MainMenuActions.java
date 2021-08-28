@@ -66,7 +66,7 @@ public class MainMenuActions extends Component {
    */
   private void onMute() {
     logger.info("Muting MainMenuMusic");
-    MusicService musicService = new MusicService("");
+    MusicService musicService = new MusicService("sounds/MainMenuMusic.mp3");
     if (musicService.isMusicPlaying()) {
       musicService.stopMusic();
     } else {
