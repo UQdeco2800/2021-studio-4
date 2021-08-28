@@ -74,8 +74,7 @@ public class MainGameExitDisplay extends UIComponent {
     stage.addActor(table);
   }
 
-  public void deathInitialiser(Entity entity) {
-    entity.create();
+  public void deathInitialiser() {
     entity.getEvents().trigger("playerDeath");
   }
 

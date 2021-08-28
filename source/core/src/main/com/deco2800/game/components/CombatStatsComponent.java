@@ -33,6 +33,16 @@ public class CombatStatsComponent extends Component {
     game = new GdxGame();
   }
 
+  @Override
+  public void create() {
+    entity.getEvents().addListener("playerDeath", this::onDeath);
+  }
+
+  private void onDeath() {
+    logger.info("Show Death Screen");
+    game.setScreen(GdxGame.ScreenType.DEATH_SCREEN);
+  }
+
   /**
    * Returns true if the entity's has 0 health, otherwise false.
    *
@@ -100,8 +110,9 @@ public class CombatStatsComponent extends Component {
     setHealth(newHealth);
 
     if (isDead()) {
-      MainGameExitDisplay main = new MainGameExitDisplay();
-      main.deathInitialiser(this.entity);
+      entity.getEvents().trigger("playerDeath");
+//      MainGameExitDisplay main = new MainGameExitDisplay();
+//      main.deathInitialiser();
 
 //      this.getEntity().getEvents().trigger("playerDeath");
 //      Actor actor = new Actor();
