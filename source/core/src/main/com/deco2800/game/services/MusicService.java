@@ -57,6 +57,12 @@ public class MusicService {
         music.setVolume(0.3f);
         music.play();
     }
+    public void changeVolume(float vol) {
+        music.setVolume(vol);
+    }
+    public void changeSpeed() {
+
+    }
 
 
 }

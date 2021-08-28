@@ -58,6 +58,7 @@ public class TheVoidController extends Component {
      void updateSound(){
          float distance_from_player = getPlayerDistance();
          MusicService musicService = new MusicService("sounds/BackingMusicWithDrums.mp3");
+         musicService.changeVolume((float) 0.9);
          musicService.playMusic();
     }
 
