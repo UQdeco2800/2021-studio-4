@@ -54,7 +54,7 @@ public class MainMenuDisplay extends UIComponent {
         loadTheMusic();
     }
     public void loadTheMusic() {
-        MusicService musicScreen = new MusicService();
+        MusicService musicScreen = new MusicService("sounds/MainMenuMusic.mp3");
         musicScreen.playMusic();
     }
 
