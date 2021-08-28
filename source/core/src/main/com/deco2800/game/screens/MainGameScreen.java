@@ -27,6 +27,8 @@ import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static com.deco2800.game.components.player.PlayerStatsDisplay.gameOver;
+
 /**
  * The game screen containing the main game.
  *
@@ -75,6 +77,10 @@ public class MainGameScreen extends ScreenAdapter {
     physicsEngine.update();
     ServiceLocator.getEntityService().update();
     renderer.render();
+    if (gameOver) {
+      logger.info("Show Death Screen");
+      game.setScreen(GdxGame.ScreenType.DEATH_SCREEN);
+    }
   }
 
   @Override
