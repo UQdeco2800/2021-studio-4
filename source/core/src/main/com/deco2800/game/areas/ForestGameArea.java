@@ -39,15 +39,14 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
     "images/iso_grass_3.png",
-    "images/void_placeholder.png",
-    "images/void_animation_placeholder.png",
+    "images/the_void.png",
     "images/basicenemysprite.png",
     "images/chasingenemy.png",
     "images/enemyspritehsee.png"
 
   };
   private static final String[] forestTextureAtlases = {
-    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/theVoid.atlas",
+    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/the_void.atlas",
           "images/testingenemy.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
@@ -159,9 +158,9 @@ public class ForestGameArea extends GameArea {
   private void spawnTheVoid() {
     int startPosY = terrain.getMapBounds(0).y;
     GridPoint2 startPos = new GridPoint2();
-    startPos.set(-18, startPosY/2 - 1);
+    startPos.set(-20, startPosY/2 - 1);
 
-    Entity theVoid = NPCFactory.createTheVoid();
+    Entity theVoid = NPCFactory.createTheVoid(player);
     spawnEntityAt(theVoid, startPos, true, true);
 
   }

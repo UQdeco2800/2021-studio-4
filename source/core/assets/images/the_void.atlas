@@ -1,0 +1,68 @@
+the_void.png
+size: 15360, 1081
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+void
+    rotate: false
+    xy: 0, 0
+    size: 1920, 1080
+    orig: 1920, 1080
+    offset: 0, 0
+    index: 0
+void
+    rotate: false
+    xy: 1920, 0
+    size: 1920, 1080
+    orig: 1920, 1080
+    offset: 0, 0
+    index: 1
+void
+    rotate: false
+    xy: 3840, 0
+    size: 1920, 1080
+    orig: 1920, 1080
+    offset: 0, 0
+    index: 2
+void
+    rotate: false
+    xy: 5760, 0
+    size: 1920, 1080
+    orig: 1920, 1080
+    offset: 0, 0
+    index: 3
+void
+    rotate: false
+    xy: 7680, 0
+    size: 1920, 1080
+    orig: 1920, 1080
+    offset: 0, 0
+    index: 4
+void
+    rotate: false
+    xy: 9600, 0
+    size: 1920, 1080
+    orig: 1920, 1080
+    offset: 0, 0
+    index: 5
+void
+    rotate: false
+    xy: 11520, 0
+    size: 1920, 1080
+    orig: 1920, 1080
+    offset: 0, 0
+    index: 6
+void
+    rotate: false
+    xy: 13440, 0
+    size: 1920, 1080
+    orig: 1920, 1080
+    offset: 0, 0
+    index: 7
+default
+  rotate: false
+  xy: 0, 0
+  size: 1920, 1080
+  orig: 1920, 1080
+  offset: 0, 0
+  index: 0
