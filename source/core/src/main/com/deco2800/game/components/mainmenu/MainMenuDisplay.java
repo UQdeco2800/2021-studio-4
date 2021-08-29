@@ -149,8 +149,10 @@ public class MainMenuDisplay extends UIComponent {
          * Creates the button texture for the Settings Button.
          */
         Texture settingsTexture = new Texture(Gdx.files.internal("images/button_settings.png"));
+        Texture settingsHoverTexture = new Texture(Gdx.files.internal("images/button_settings_hover.png"));
         Drawable settingsDrawing = new TextureRegionDrawable(new TextureRegion(settingsTexture));
         ImageButton settingsBtn = new ImageButton(settingsDrawing);
+        settingsBtn.getStyle().imageOver = new TextureRegionDrawable(settingsHoverTexture);
         /**
          * Sets the size and position of the button after texture applied.
          */
@@ -162,8 +164,10 @@ public class MainMenuDisplay extends UIComponent {
          * Creates the button texture for the Exit Button.
          */
         Texture exitTexture = new Texture(Gdx.files.internal("images/button_exit.png"));
+        Texture exitHoverTexture = new Texture(Gdx.files.internal("images/button_exit_hover.png"));
         Drawable exitDrawing = new TextureRegionDrawable(new TextureRegion(exitTexture));
         ImageButton exitBtn = new ImageButton(exitDrawing);
+        exitBtn.getStyle().imageOver = new TextureRegionDrawable(exitHoverTexture);
         /**
          * Sets the size and position of the button after texture applied.
          */
@@ -174,7 +178,9 @@ public class MainMenuDisplay extends UIComponent {
          * Creates the button texture for the Mute Button. Also loads the 'Muted' button.
          */
         Texture muteTexture = new Texture(Gdx.files.internal("images/button_mute.png"));
+        Texture muteHoverTexture = new Texture(Gdx.files.internal("images/button_mute_hover.png"));
         Texture currentlyMutedTexture = new Texture(Gdx.files.internal("images/button_unmute.png"));
+        Texture currentlyMutedHoverTexture = new Texture(Gdx.files.internal("images/button_unmute_hover.png"));
         Drawable muteDrawing = new TextureRegionDrawable(new TextureRegion(muteTexture));
         ImageButton muteBtn = new ImageButton(muteDrawing);
         /**
@@ -188,8 +194,10 @@ public class MainMenuDisplay extends UIComponent {
          * Creates the button texture for the Leaderboard Button.
          */
         Texture leaderTexture = new Texture(Gdx.files.internal("images/button_leader_board.png"));
+        Texture leaderHoverTexture = new Texture(Gdx.files.internal("images/button_leader_board_hover.png"));
         Drawable leaderDrawing = new TextureRegionDrawable(new TextureRegion(leaderTexture));
         ImageButton leaderBoardBtn = new ImageButton(leaderDrawing);
+        leaderBoardBtn.getStyle().imageOver = new TextureRegionDrawable(leaderHoverTexture);
         /**
          * Sets the size and position of the button after texture applied.
          */
@@ -243,8 +251,10 @@ public class MainMenuDisplay extends UIComponent {
 
                         if (switcher % 2 == 1) {
                             muteBtn.getStyle().imageUp = new TextureRegionDrawable(muteTexture);
+                            muteBtn.getStyle().imageOver = new TextureRegionDrawable(muteHoverTexture);
                         } else {
                             muteBtn.getStyle().imageChecked = new TextureRegionDrawable(currentlyMutedTexture);
+                            muteBtn.getStyle().imageOver = new TextureRegionDrawable(currentlyMutedHoverTexture);
                         } switcher++;
                         entity.getEvents().trigger("mute");
                     }
