@@ -185,6 +185,10 @@ public class MainMenuDisplay extends UIComponent {
         Texture currentlyMutedHoverTexture = new Texture(Gdx.files.internal("images/button_unmute_hover.png"));
         Drawable muteDrawing = new TextureRegionDrawable(new TextureRegion(muteTexture));
         ImageButton muteBtn = new ImageButton(muteDrawing);
+        // Initialise the image of the button to muteTexture.
+        muteBtn.getStyle().imageUp = new TextureRegionDrawable(muteTexture);
+        muteBtn.getStyle().imageOver = new TextureRegionDrawable(muteHoverTexture);
+
         /**
          * Sets the size and position of the button after texture applied, for Mute and Currently Muted both.
          */
@@ -252,16 +256,31 @@ public class MainMenuDisplay extends UIComponent {
                         logger.debug("Mute button clicked");
 
                         if (switcher % 2 == 1) {
+                            // Rewrite the existing imageUp and imageOver enums to be muteTexture.
+                            // When the if condition is passed, imageUp and imageOver will be currentlyMuteTexture.
                             muteBtn.getStyle().imageUp = new TextureRegionDrawable(muteTexture);
                             muteBtn.getStyle().imageOver = new TextureRegionDrawable(muteHoverTexture);
                         } else {
-                            muteBtn.getStyle().imageChecked = new TextureRegionDrawable(currentlyMutedTexture);
+                            // Rewrite the existing imageUp and imageOver enums to be currentlyMutedTexutre.
+                            // When the else condition is passed, imageUp and imageOver will be muteTexutre.
+                            muteBtn.getStyle().imageUp = new TextureRegionDrawable(currentlyMutedTexture);
                             muteBtn.getStyle().imageOver = new TextureRegionDrawable(currentlyMutedHoverTexture);
                         } switcher++;
+
                         entity.getEvents().trigger("mute");
                     }
                 });
-
+/*
+        unmuteBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.debug("Unmute button clicked");
+                        entity.getEvents().trigger("mute");
+                    }
+                }
+        );
+*/
         stage.addActor(table);
         stage.addActor(startBtn);
         stage.addActor(levelSelectBtn);
