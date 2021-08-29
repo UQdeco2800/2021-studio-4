@@ -94,7 +94,7 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Creates the 'RUNTIME' title texture.
          */
-        Texture runtimeTitleTexture = new Texture(Gdx.files.internal("images/runtime_title.png"));
+        Texture runtimeTitleTexture = new Texture(Gdx.files.internal("images/runtime-title.png"));
         Drawable runtimeTitleDrawable = new TextureRegionDrawable(new TextureRegion(runtimeTitleTexture));
         ImageButton runtimeTitle = new ImageButton(runtimeTitleDrawable);
         /**
