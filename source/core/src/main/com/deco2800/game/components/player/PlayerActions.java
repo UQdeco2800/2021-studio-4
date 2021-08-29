@@ -22,6 +22,8 @@ public class PlayerActions extends Component {
   private Vector2 walkDirection = Vector2.Zero.cpy();     // The direction the player is walking in, set by keypress.
   private Body body;                                      // The player physics body.
 
+  private boolean canJump = true; // Whether the player can jump
+
   @Override
   public void create() {
     physicsComponent = entity.getComponent(PhysicsComponent.class);
@@ -29,6 +31,7 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
     entity.getEvents().addListener("jump", this::jump);
+    entity.getEvents().addListener("togglePlayerJumping", this::togglePlayerJumping);
 
     this.body = physicsComponent.getBody();
   }
@@ -69,7 +72,7 @@ public class PlayerActions extends Component {
         // Fall through for now
 
       default:
-        friction = new Vector2(-NORMAL_FRICTION*velocity.x, -NORMAL_FRICTION*velocity.y);
+        friction = new Vector2(-NORMAL_FRICTION * velocity.x, -NORMAL_FRICTION * velocity.y);
         break;
     }
 
@@ -108,7 +111,21 @@ public class PlayerActions extends Component {
    * Makes the player jump upwards
    */
   void jump() {
-    playerState = PlayerState.MOVING;
-    body.applyForceToCenter(new Vector2(0f, 300f), true);
+    System.out.println("trying to jump and " + canJump + "state is " + playerState); // Testing print
+
+    if (playerState != PlayerState.AIR && canJump) {
+
+      System.out.println("in air"); // More testing prints
+
+      playerState = PlayerState.AIR;
+      body.applyForceToCenter(new Vector2(0f, 300f), true);
+      canJump = false;
+    }
+  }
+
+  public void togglePlayerJumping() {
+      // Allows the player to jump and sets their state back to moving
+      canJump = true;
+      playerState = PlayerState.MOVING;
   }
 }
