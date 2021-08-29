@@ -5,6 +5,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
@@ -40,9 +41,9 @@ public class TerrainFactory {
   public TerrainComponent createTerrain() {
     GridPoint2 tilePixelSize = new GridPoint2(TerrainTileDefinition.TILE_X, TerrainTileDefinition.TILE_Y);
     TiledMap tiledMap = loadTiles(tilePixelSize);
-    TiledMapRenderer renderer = new OrthogonalTiledMapRenderer(tiledMap, 0.5f/tilePixelSize.x);
+    OrthoCachedTiledMapRenderer renderer = new OrthoCachedTiledMapRenderer(tiledMap, TILE_SIZE/tilePixelSize.x);
     generateBodies(tiledMap);
-    return new TerrainComponent(camera, tiledMap, renderer, ORIENTATION, 0.5f);
+    return new TerrainComponent(camera, tiledMap, renderer, ORIENTATION, TILE_SIZE);
   }
 
   /**

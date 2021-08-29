@@ -1,6 +1,5 @@
 package com.deco2800.game.areas.terrain;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -13,8 +12,8 @@ import com.deco2800.game.services.ServiceLocator;
 public enum TerrainTileDefinition {
   TILE_FULL_MIDDLE("mapTextures_Middle-Platform", false),
   TILE_FULL_TOP("mapTextures_Platforms", true),
-  TILE_HALF_TOP("mapTextures_Middle-Platform", true),
-  TILE_HALF_BOTTOM("mapTextures_Middle-Platform", true);
+  TILE_HALF_TOP("mapTextures_Half-Top", true),
+  TILE_HALF_BOTTOM("mapTextures_Half-Bottom", true);
 
   public static final int TILE_X = 500;
   public static final int TILE_Y = 500;
