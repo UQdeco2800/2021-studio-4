@@ -14,25 +14,14 @@ import com.deco2800.game.physics.components.PhysicsComponent;
 
 public class PlayerMovementComponent extends Component {
     private short targetLayer;
-    private String effect;
     private HitboxComponent hitboxComponent;
 
     /**
-     * Create a component which interacts with entities on collision, without effect.
+     * Create a component which interacts with entities on collision.
      * @param targetLayer The physics layer of the target's collider.
      */
     public PlayerMovementComponent(short targetLayer) {
         this.targetLayer = targetLayer;
-    }
-
-    /**
-     * Create a component which interacts with entities on collision, with effect.
-     * @param targetLayer The physics layer of the target's collider.
-     * @param effect The effect of the collision.
-     */
-    public PlayerMovementComponent(short targetLayer, String effect) {
-        this.targetLayer = targetLayer;
-        this.effect = effect;
     }
 
     @Override
@@ -41,6 +30,12 @@ public class PlayerMovementComponent extends Component {
         hitboxComponent = entity.getComponent(HitboxComponent.class);
     }
 
+    /**
+     * Communicate with the player's action ability through monitoring
+     * collision with the ground.
+     * @param me The first fixture (player).
+     * @param other The second fixture.
+     */
     private void onCollisionStart(Fixture me, Fixture other) {
         if (hitboxComponent.getFixture() != me) {
             // Not triggered by hitbox, ignore

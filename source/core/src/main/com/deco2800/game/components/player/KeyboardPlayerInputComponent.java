@@ -27,6 +27,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   public boolean keyDown(int keycode) {
     switch (keycode) {
       case Keys.W:
+      case Keys.SPACE:
         entity.getEvents().trigger("jump");
         return true;
       case Keys.A:
@@ -41,8 +42,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         walkDirection.add(Vector2Utils.RIGHT);
         triggerWalkEvent();
         return true;
-      case Keys.SPACE:
-        entity.getEvents().trigger("jump");
+      case Keys.SHIFT_RIGHT:
+        entity.getEvents().trigger("slide");
         return true;
       default:
         return false;
