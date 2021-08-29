@@ -60,16 +60,17 @@ public class TheVoidController extends Component {
 
      void updateSound(){
         Sound voidSound = Gdx.audio.newSound(Gdx.files.internal("sounds/BackingMusicWithDrums.mp3"));
-       long id = voidSound.play();
+         long id = voidSound.play();
          float distance_from_player = getPlayerDistance();
          float min = 0;
          float max = 1;
-         if (distance_from_player > (float)0.01) {
-             voidSound.setVolume(id,0.2f); //A value of 0 is silent, while 1 is full volume
-             voidSound.setPitch(id,0.5f); /* The value should be > 0.5 and < 2.0.
+
+             voidSound.setVolume(id,distance_from_player); //A value of 0 is silent, while 1 is full volume
+             voidSound.setPitch(id,distance_from_player); /* The value should be > 0.5 and < 2.0.
              Less than 1 is slower, greater than 1 is faster.*/
-         }
-         if (distance_from_player < (float)0.99) {
+         
+
+        /* if (distance_from_player < (float)0.99) {
              voidSound.setVolume(id,1f);
              voidSound.setPitch(id,1.5f);
          }
