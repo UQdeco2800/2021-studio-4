@@ -37,7 +37,6 @@ public class MainMenuDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(MainMenuDisplay.class);
     private static final float Z_INDEX = 2f;
     private Table table;
-    private Sprite sprite;
     private int switcher;
 
     /**
@@ -65,7 +64,7 @@ public class MainMenuDisplay extends UIComponent {
 
         table = new Table();
         table.setFillParent(true);
-        sprite = new Sprite(new Texture("images/title_screen_clean.png"));
+        Sprite sprite = new Sprite(new Texture("images/title_screen_clean.png"));
         table.setBackground(new SpriteDrawable(sprite)); // Set background
 
         /**
