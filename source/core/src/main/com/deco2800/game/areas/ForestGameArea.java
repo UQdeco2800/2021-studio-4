@@ -25,7 +25,7 @@ public class ForestGameArea extends GameArea {
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
-    "images/box_boy_leaf.png",
+    "images/virus_man.png",
     "images/tree.png",
     "images/ghost_king.png",
     "images/ghost_1.png",
@@ -47,7 +47,7 @@ public class ForestGameArea extends GameArea {
   };
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/theVoid.atlas",
-          "images/testingenemy.atlas"
+          "images/testingenemy.atlas", "images/Virus_Textures.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BackingMusicWithDrums.mp3";
@@ -70,10 +70,10 @@ public class ForestGameArea extends GameArea {
     displayUI();
 
     spawnTerrain();
-    spawnTrees();
+    //spawnTrees();
     player = spawnPlayer();
-    spawnGhosts();
-    spawnGhostKing();
+    //spawnGhosts();
+    //spawnGhostKing();
     spawnTheVoid();
 
     playMusic();
