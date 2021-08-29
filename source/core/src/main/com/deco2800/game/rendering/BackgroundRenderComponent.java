@@ -1,29 +1,40 @@
 package com.deco2800.game.rendering;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.deco2800.game.services.ServiceLocator;
 
 /** Render a static background texture, similar to TextureRenderComponent however image is at z=0 and is scaled to fit
  * the screen
  */
 public class BackgroundRenderComponent extends RenderComponent {
-  private final Texture texture;
+  private Texture texture;
+  private String texturePath;
 
   public BackgroundRenderComponent(String texturePath) {
-    this(ServiceLocator.getResourceService().getAsset(texturePath, Texture.class));
+    this.texturePath = texturePath;
   }
 
-  /** @param texture Static texture to render. Will be scaled to the entity's scale. */
-  public BackgroundRenderComponent(Texture texture) {
-    this.texture = texture;
+  @Override
+  public void create() {
+    super.create();
+    texture = ServiceLocator.getResourceService().getAsset(texturePath, Texture.class);
   }
 
   @Override
   public void draw(SpriteBatch batch) {
-    batch.draw(texture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+    // The background must follow the camera
+    Camera cam = ServiceLocator.getCamera().getCamera();
+    Vector3 position = cam.position;
+
+    // Get actual viewport width and height, not screen width and height (not always fullscreen)
+    float screenWidth = cam.viewportWidth;
+    float screenHeight = cam.viewportHeight;
+
+    // Draw texture
+    batch.draw(texture, position.x-(screenWidth/2), position.y-(screenHeight/2), screenWidth, screenHeight);
   }
 
   @Override
