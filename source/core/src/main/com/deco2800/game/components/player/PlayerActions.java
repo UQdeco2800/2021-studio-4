@@ -22,7 +22,7 @@ public class PlayerActions extends Component {
   private Vector2 walkDirection = Vector2.Zero.cpy();     // The direction the player is walking in, set by keypress.
   private Body body;                                      // The player physics body.
 
-  private boolean canJump = true; // Whether the player can jump
+  private boolean canJump = false; // Whether the player can jump
 
   @Override
   public void create() {
@@ -87,7 +87,7 @@ public class PlayerActions extends Component {
    */
   void walk(Vector2 direction) {
     this.walkDirection = direction;
-    playerState = PlayerState.MOVING;
+    this.playerState = PlayerState.MOVING;
   }
 
   /**
@@ -117,15 +117,44 @@ public class PlayerActions extends Component {
 
       System.out.println("in air"); // More testing prints
 
-      playerState = PlayerState.AIR;
+      this.playerState = PlayerState.AIR;
       body.applyForceToCenter(new Vector2(0f, 300f), true);
       canJump = false;
     }
   }
 
+  /**
+   * Makes the player slide.
+   */
+  void slide() {
+    this.playerState = PlayerState.SLIDING;
+    body.applyForceToCenter(new Vector2(300f, 0f), true);
+  }
+
+
+  /**
+   * Allows the player to jump after colliding with the ground.
+   */
   public void togglePlayerJumping() {
       // Allows the player to jump and sets their state back to moving
-      canJump = true;
-      playerState = PlayerState.MOVING;
+      // Can't make this private, not sure if that is bad or not
+      this.canJump = true;
+      this.playerState = PlayerState.MOVING;
+  }
+
+  /**
+   * Get the player's state.
+   * @return Current player's state.
+   */
+  public PlayerState getPlayerState() {
+    return this.playerState;
+  }
+
+  /**
+   * Get whether the player can jump.
+   * @return Whether the player can jump. False if the player is in the air.
+   */
+  public Boolean getCanJump() {
+    return this.canJump;
   }
 }
