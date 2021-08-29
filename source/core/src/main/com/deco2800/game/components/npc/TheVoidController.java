@@ -1,5 +1,8 @@
 package com.deco2800.game.components.npc;
-
+// To play sound (not music)
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
+//
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
@@ -56,7 +59,26 @@ public class TheVoidController extends Component {
     }
 
      void updateSound(){
+        Sound voidSound = Gdx.audio.newSound(Gdx.files.internal("sounds/BackingMusicWithDrums.mp3"));
+       long id = voidSound.play();
          float distance_from_player = getPlayerDistance();
+         float min = 0;
+         float max = 1;
+         if (distance_from_player > (float)0.01) {
+             voidSound.setVolume(id,0.2f); //A value of 0 is silent, while 1 is full volume
+             voidSound.setPitch(id,0.5f); /* The value should be > 0.5 and < 2.0.
+             Less than 1 is slower, greater than 1 is faster.*/
+         }
+         if (distance_from_player < (float)0.99) {
+             voidSound.setVolume(id,1f);
+             voidSound.setPitch(id,1.5f);
+         }
+         else {
+             // musicService.changeVolume((float)0.5);
+         }
+         //musicService.playMusic();
+
+         /*float distance_from_player = getPlayerDistance();
          MusicService musicService = new MusicService("sounds/BackingMusicWithDrums.mp3");
          float min = 0;
          float max = 1;
@@ -69,7 +91,7 @@ public class TheVoidController extends Component {
          else {
             // musicService.changeVolume((float)0.5);
          }
-         //musicService.playMusic();
+         //musicService.playMusic();*/
     }
 
 

@@ -1,7 +1,16 @@
 package com.deco2800.game.services;
 
 
+
 import com.badlogic.gdx.audio.Music;
+
+
+
+import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
+
 
 /**
  * Service for playing and controlling the play of game music, this is different to a loadAsset() function as
@@ -62,8 +71,12 @@ public class MusicService {
         music.setVolume(vol);
         music.play();
     }
-    public void setSpeed(float speed) {
 
+    public void setSpeed(float speed) {
+       /* Sound mp3Sound = Gdx.audio.newSound(Gdx.files.internal("sounds/BackingMusicWithDrums.mp3"));
+       long id = mp3Sound.play();
+
+        mp3Sound.setPitch(id,speed);*/
     }
 
 
