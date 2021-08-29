@@ -75,15 +75,16 @@ public class MainMenuDisplay extends UIComponent {
         int centreHeight1 = Gdx.graphics.getHeight()/2;
         int buttonDimensionsWidth = (int) Math.round(centreWidth1*0.35);
         int buttonDimensionsHeight = (int) Math.round(centreHeight1*0.31);
-        //int titleDimension = (int) Math.round(centreWidth1*0.8 + centreHeight1*0.8);
+        int titleHeightDimension = (int) Math.round(centreHeight1*1.3);
+        int titleWidthDimension = (int) Math.round(centreWidth1*1.3);
         int centreWidth = centreWidth1 - buttonDimensionsWidth/2; // Moves middle of button to Centre
         int centreHeight = centreWidth1 - buttonDimensionsHeight/2;
-        //int centreTitleWidth = centreWidth1 - titleDimension/2; // Moves middle of button to Centre
-        //int centreTitleHeight = centreWidth1 - titleDimension/2;
+        int centreTitleWidth = centreWidth1 - titleWidthDimension/2; // Moves middle of button to Centre
+        int centreTitleHeight = centreHeight1 - titleHeightDimension/2;
 
         int width35Percent = (int) Math.round(centreWidth*0.40);
 
-        //int titleHeight = (int) Math.round(centreHeight*0.13);
+        int titleHeight = (int) Math.round(centreHeight*0.35);
         int height50Percent = (int) Math.round(centreHeight*0.38);
         int height65Percent = (int) Math.round(centreHeight*0.53);
         int height78Percent = (int) Math.round(centreHeight*0.78);
@@ -93,14 +94,15 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Creates the 'RUNTIME' title texture.
          */
-//        Texture runtimeTitleTexture = new Texture(Gdx.files.internal("images/runtime_title.png"));
-//        Drawable runtimeTitleDrawable = new TextureRegionDrawable(new TextureRegion(runtimeTitleTexture));
-//        ImageButton runtimeTitle = new ImageButton(runtimeTitleDrawable);
-//        /**
-//         * Sets the size and position of the Runtime Title after texture applied.
-//         */
-//        runtimeTitle.setBounds(centreTitleWidth, centreTitleHeight-titleHeight,
-//                titleDimension, titleDimension);
+        Texture runtimeTitleTexture = new Texture(Gdx.files.internal("images/runtime-title.png"));
+        Drawable runtimeTitleDrawable = new TextureRegionDrawable(new TextureRegion(runtimeTitleTexture));
+        ImageButton runtimeTitle = new ImageButton(runtimeTitleDrawable);
+        /**
+         * Sets the size and position of the Runtime Title after texture applied.
+         */
+        runtimeTitle.setBounds(centreTitleWidth, centreTitleHeight+titleHeight,
+                titleWidthDimension, titleHeightDimension);
+
 
         /**
          * Creates the VirusHead texture for the virus image
@@ -183,6 +185,10 @@ public class MainMenuDisplay extends UIComponent {
         Texture currentlyMutedHoverTexture = new Texture(Gdx.files.internal("images/button_unmute_hover.png"));
         Drawable muteDrawing = new TextureRegionDrawable(new TextureRegion(muteTexture));
         ImageButton muteBtn = new ImageButton(muteDrawing);
+        // Initialise the image of the button to muteTexture.
+        muteBtn.getStyle().imageUp = new TextureRegionDrawable(muteTexture);
+        muteBtn.getStyle().imageOver = new TextureRegionDrawable(muteHoverTexture);
+
         /**
          * Sets the size and position of the button after texture applied, for Mute and Currently Muted both.
          */
@@ -250,16 +256,31 @@ public class MainMenuDisplay extends UIComponent {
                         logger.debug("Mute button clicked");
 
                         if (switcher % 2 == 1) {
+                            // Rewrite the existing imageUp and imageOver enums to be muteTexture.
+                            // When the if condition is passed, imageUp and imageOver will be currentlyMuteTexture.
                             muteBtn.getStyle().imageUp = new TextureRegionDrawable(muteTexture);
                             muteBtn.getStyle().imageOver = new TextureRegionDrawable(muteHoverTexture);
                         } else {
-                            muteBtn.getStyle().imageChecked = new TextureRegionDrawable(currentlyMutedTexture);
+                            // Rewrite the existing imageUp and imageOver enums to be currentlyMutedTexutre.
+                            // When the else condition is passed, imageUp and imageOver will be muteTexutre.
+                            muteBtn.getStyle().imageUp = new TextureRegionDrawable(currentlyMutedTexture);
                             muteBtn.getStyle().imageOver = new TextureRegionDrawable(currentlyMutedHoverTexture);
                         } switcher++;
+
                         entity.getEvents().trigger("mute");
                     }
                 });
-
+/*
+        unmuteBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.debug("Unmute button clicked");
+                        entity.getEvents().trigger("mute");
+                    }
+                }
+        );
+*/
         stage.addActor(table);
         stage.addActor(startBtn);
         stage.addActor(levelSelectBtn);
@@ -268,6 +289,7 @@ public class MainMenuDisplay extends UIComponent {
         stage.addActor(exitBtn);
         stage.addActor(leaderBoardBtn);
         stage.addActor(virusHead);
+        stage.addActor(runtimeTitle);
     }
 
     @Override
