@@ -43,7 +43,7 @@ public class MainMenuDisplay extends UIComponent {
      * used tp switch between button states
      */
     public MainMenuDisplay() {
-        switcher = 2;
+        switcher = 0;
     }
 
     @Override
