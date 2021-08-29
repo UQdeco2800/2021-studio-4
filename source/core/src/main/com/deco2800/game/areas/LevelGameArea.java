@@ -1,23 +1,12 @@
 package com.deco2800.game.areas;
 
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
 import com.deco2800.game.areas.terrain.TerrainFactory;
-import com.deco2800.game.areas.terrain.TerrainTile;
-import com.deco2800.game.areas.terrain.TerrainTileDefinition;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
-import com.deco2800.game.physics.PhysicsLayer;
-import com.deco2800.game.physics.components.ColliderComponent;
-import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.BackgroundRenderComponent;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
@@ -111,44 +100,12 @@ public class LevelGameArea extends GameArea {
     spawnEntity(background);
   }
 
-
-  public static Shape getShapeFromRectangle(Rectangle rectangle){
-    PolygonShape polygonShape = new PolygonShape();
-    polygonShape.setAsBox(rectangle.width*0.5F / TerrainTileDefinition.TILE_X,rectangle.height*0.5F/ TerrainTileDefinition.TILE_Y);
-    return polygonShape;
-  }
-
-  public static Vector2 getTransformedCenterForRectangle(Rectangle rectangle){
-    Vector2 center = new Vector2();
-    rectangle.getCenter(center);
-    return center.scl(1/TerrainTileDefinition.TILE_X);
-  }
-
   private void spawnTerrain() {
     // Generate terrain
     terrain = terrainFactory.createTerrain();
-    MapObjects objects = terrain.getMap().getLayers().get(0).getObjects();
-
-    for (MapObject object : objects) {
-      Rectangle rectangle = ((RectangleMapObject)object).getRectangle();
-
-      //create a dynamic within the world body (also can be KinematicBody or StaticBody
-      BodyDef bodyDef = new BodyDef();
-      bodyDef.type = BodyDef.BodyType.DynamicBody;
-      Body body = ServiceLocator.getPhysicsService().getPhysics().createBody(bodyDef);
-
-      Fixture fixture = body.createFixture(getShapeFromRectangle(rectangle),1);
-
-      body.setTransform(getTransformedCenterForRectangle(rectangle),0);
-    }
 
     Entity terrainEntity = new Entity();
-    terrainEntity
-      .addComponent(terrain)
-      .addComponent(new PhysicsComponent())
-      .addComponent(new ColliderComponent().setLayer(PhysicsLayer.ALL));
-
-    terrainEntity.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
+    terrainEntity.addComponent(terrain);
 
     spawnEntity(terrainEntity);
   }
