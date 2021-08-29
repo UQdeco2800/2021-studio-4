@@ -137,6 +137,5 @@ public class CombatStatsComponent extends Component {
     // Add death component to the player.
 
     //entity.getEvents().trigger("playerDeath");
-
   }
 }

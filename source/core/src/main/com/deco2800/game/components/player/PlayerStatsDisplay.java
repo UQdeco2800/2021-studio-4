@@ -24,7 +24,7 @@ public class PlayerStatsDisplay extends UIComponent {
   private Image heartImage;
   private Label healthLabel;
   private static final Logger logger = LoggerFactory.getLogger(MainMenuDisplay.class);
-
+  public static boolean gameOver = false;
   /**
    * Creates reusable ui styles and adds actors to the stage.
    */
@@ -72,6 +72,9 @@ public class PlayerStatsDisplay extends UIComponent {
   public void updatePlayerHealthUI(int health) {
     CharSequence text = String.format("Health: %d", health);
     healthLabel.setText(text);
+    if (health == 0) {
+      gameOver = true;
+    }
   }
 
   @Override
