@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.services.MusicService;
+import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -54,7 +55,8 @@ public class MainMenuDisplay extends UIComponent {
         loadTheMusic();
     }
     public void loadTheMusic() {
-        MusicService musicScreen = new MusicService();
+        MusicServiceDirectory dict = new  MusicServiceDirectory();
+        MusicService musicScreen = new MusicService(dict.main_menu);
         musicScreen.playMusic();
     }
 
@@ -245,6 +247,16 @@ public class MainMenuDisplay extends UIComponent {
                         entity.getEvents().trigger("mute");
                     }
                 });
+
+        virusHead.addListener(
+          new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent changeEvent, Actor actor) {
+
+                  logger.debug("Level editor button clicked");
+                  entity.getEvents().trigger("levelEditor");
+              }
+          });
 
         stage.addActor(table);
         stage.addActor(startBtn);
