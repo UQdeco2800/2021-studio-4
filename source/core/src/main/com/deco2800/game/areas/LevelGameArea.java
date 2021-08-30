@@ -153,33 +153,52 @@ public class LevelGameArea extends GameArea {
   }
 
   public void spawnPlatform(int posX, int posY, int width) {
+    this.spawnPlatform(posX, posY, width, true, true);
+  }
+  
+  public void spawnPlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
     Entity platform = ObstacleFactory.createPlatform(width);
     GridPoint2 position = new GridPoint2(posX,posY);
-    spawnEntityAt(platform, position, true, true);
+    spawnEntityAt(platform, position, centerX, centerY);
   }
 
   public void spawnMiddlePlatform(int posX, int posY, int width) {
-    Entity middlePlatform = ObstacleFactory.createMiddlePlatform(width);
-    GridPoint2 position = new GridPoint2(posX,posY);
-    spawnEntityAt(middlePlatform, position, true, true);
+    this.spawnMiddlePlatform(posX, posY, width, true, true);
   }
 
+  public void spawnMiddlePlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
+    Entity platform = ObstacleFactory.createMiddlePlatform(width);
+    GridPoint2 position = new GridPoint2(posX,posY);
+    spawnEntityAt(platform, position, centerX, centerY);
+  }
   public void spawnButton(int posX, int posY) {
+    spawnButton(posX, posY, false, true);
+  }
+
+  public void spawnButton(int posX, int posY, boolean centerX, boolean centerY) {
     Entity button = ObstacleFactory.createButton();
     GridPoint2 position = new GridPoint2(posX,posY);
-    spawnEntityAt(button, position, false, true);
+    spawnEntityAt(button, position, centerX, centerY);
   }
 
   public void spawnBridge(int posX, int posY, int width) {
+    spawnBridge(posX, posY, width, false, true);
+  }
+
+  public void spawnBridge(int posX, int posY, int width, boolean centerX, boolean centerY) {
     Entity bridge = ObstacleFactory.createBridge(width);
     GridPoint2 position = new GridPoint2(posX,posY);
-    spawnEntityAt(bridge, position, false, true);
+    spawnEntityAt(bridge, position, centerX, centerY);
   }
 
   public void spawnDoor(int posX, int posY, int height) {
+    spawnDoor(posX, posY, height, false, true);
+  }
+
+  public void spawnDoor(int posX, int posY, int height, boolean centerX, boolean centerY) {
     Entity door = ObstacleFactory.createDoor(height);
     GridPoint2 position = new GridPoint2(posX,posY);
-    spawnEntityAt(door, position, false, true);
+    spawnEntityAt(door, position, centerX, centerY);
   }
 
   private void spawnLevel() {

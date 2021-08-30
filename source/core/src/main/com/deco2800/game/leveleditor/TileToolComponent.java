@@ -10,12 +10,15 @@ import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.areas.terrain.TerrainTileDefinition;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.rendering.SpriteRenderComponent;
+import com.deco2800.game.screens.LevelEditorScreen;
 import com.deco2800.game.services.ServiceLocator;
 
 /**
  * Component for editing the terrain map
  */
 public class TileToolComponent extends InputComponent {
+  private final LevelEditorScreen screen;
+
   private TerrainTileDefinition tileDefinition = TerrainTileDefinition.TILE_FULL_MIDDLE;
   private Sprite currentSprite;
   private LevelGameArea levelGameArea;
@@ -23,8 +26,9 @@ public class TileToolComponent extends InputComponent {
   private boolean placing = false;
   private boolean removing = false;
 
-  public TileToolComponent(LevelGameArea levelGameArea) {
+  public TileToolComponent(LevelGameArea levelGameArea, LevelEditorScreen screen) {
     this.levelGameArea = levelGameArea;
+    this.screen = screen;
   }
 
   /**
@@ -113,6 +117,12 @@ public class TileToolComponent extends InputComponent {
   }
 
   @Override
+  public boolean touchDragged(int screenX, int screenY, int pointer) {
+    repositionEntity();
+    return true;
+  }
+
+  @Override
   public boolean mouseMoved(int screenX, int screenY) {
     repositionEntity();
     return true;
@@ -136,7 +146,7 @@ public class TileToolComponent extends InputComponent {
       placing = false;
       return true;
     } else if (button == Input.Buttons.RIGHT) {
-      removing = true;
+      removing = false;
       return true;
     }
     return super.touchUp(screenX, screenY, pointer, button);
@@ -150,6 +160,10 @@ public class TileToolComponent extends InputComponent {
       this.getEntity().getComponent(SpriteRenderComponent.class).flipY();
     } else if (tileDefinition.isFlipable() && keycode == Input.Keys.RIGHT) {
       this.getEntity().getComponent(SpriteRenderComponent.class).flipX();
+    }
+
+    if (keycode == Input.Keys.TAB) {
+      this.screen.selectObstacleHand();
     }
     return super.keyUp(keycode);
   }

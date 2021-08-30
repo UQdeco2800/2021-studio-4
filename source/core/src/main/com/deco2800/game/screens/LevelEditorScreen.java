@@ -2,6 +2,7 @@ package com.deco2800.game.screens;
 
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.LevelGameArea;
@@ -16,9 +17,12 @@ import com.deco2800.game.entities.factories.RenderFactory;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.input.InputDecorator;
 import com.deco2800.game.input.InputService;
+import com.deco2800.game.leveleditor.ObstacleToolComponent;
 import com.deco2800.game.leveleditor.TileToolComponent;
 import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsService;
+import com.deco2800.game.physics.components.ColliderComponent;
+import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.rendering.SpriteRenderComponent;
@@ -79,7 +83,7 @@ public class LevelEditorScreen extends ScreenAdapter {
     levelGameArea = new LevelGameArea(terrainFactory);
     levelGameArea.init();
 
-    createHand();
+    selectTileHand();
   }
 
   @Override
@@ -131,28 +135,37 @@ public class LevelEditorScreen extends ScreenAdapter {
   /**
    * Creates an entity which will follow the cursor and allow the user to place items
    */
-  private void createHand() {
+  public void selectTileHand() {
+    if (hand != null) hand.dispose();
+
     hand = new Entity();
     hand
       .addComponent(new SpriteRenderComponent(TerrainTileDefinition.TILE_FULL_MIDDLE.getSprite()))
-      .addComponent(new TileToolComponent(levelGameArea));
+      .addComponent(new TileToolComponent(levelGameArea, this));
     hand.scaleHeight(0.5f);
 
     ServiceLocator.getEntityService().register(hand);
   }
 
   /**
-   * Sets the editor tool by replacing the hand
+   * Creates an entity which will follow the cursor and allow the user to place obstacles
    */
-  private void setTool() {
+  public void selectObstacleHand() {
+    if (hand != null) hand.dispose();
 
+    hand = new Entity();
+    hand
+      .addComponent(new ObstacleToolComponent(levelGameArea, this));
+    hand.scaleHeight(0.5f);
+
+    ServiceLocator.getEntityService().register(hand);
   }
 
   /**
    * Creates the main game's ui including components for rendering ui elements to the screen and
    * capturing and handling ui input.
    */
-  private void createUI() {
+  public void createUI() {
     logger.debug("Creating ui");
     Stage stage = ServiceLocator.getRenderService().getStage();
     InputComponent inputComponent =
