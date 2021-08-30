@@ -92,6 +92,9 @@ public class MainMenuDisplay extends UIComponent {
         int height83Percent = (int) Math.round(centreHeight*0.83);
         int height98Percent = (int) Math.round(centreHeight*0.98);
 
+        int topLeftWidth = (int) Math.round(Gdx.graphics.getWidth()*0.01);
+        int topLeftHeight = (int) Math.round(Gdx.graphics.getHeight()*0.93);
+
         /**
          * Creates the 'RUNTIME' title texture.
          */
@@ -211,6 +214,18 @@ public class MainMenuDisplay extends UIComponent {
         leaderBoardBtn.setBounds(centreWidth+width35Percent,centreHeight-height53Percent,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
+        TextButton levelEditorBtn = new TextButton("LevelEditor", skin);
+        levelEditorBtn.setColor(Color.ROYAL);
+        levelEditorBtn.setBounds(topLeftWidth, topLeftHeight, 200, 50);
+
+        levelEditorBtn.addListener(
+                new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+                logger.debug("level button clicked");
+                entity.getEvents().trigger("levelEditor");
+            }
+        });
 
         // Triggers an event when the button is pressed
         startBtn.addListener(
@@ -291,6 +306,7 @@ public class MainMenuDisplay extends UIComponent {
         stage.addActor(leaderBoardBtn);
         stage.addActor(virusHead);
         stage.addActor(runtimeTitle);
+        stage.addActor(levelEditorBtn);
     }
 
     /**
