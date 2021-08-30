@@ -77,7 +77,7 @@ public class NPCFactory {
 
 
     theVoid.getComponent(AnimationRenderComponent.class).scaleEntity();
-    theVoid.setScale(20f,12f);
+    theVoid.setScale(20f,20f);
     return theVoid;
 
   }
