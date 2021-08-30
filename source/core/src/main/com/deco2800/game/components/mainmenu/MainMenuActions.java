@@ -26,6 +26,7 @@ public class MainMenuActions extends Component {
     entity.getEvents().addListener("exit", this::onExit);
     entity.getEvents().addListener("settings", this::onSettings);
     entity.getEvents().addListener("mute", this::onMute);
+    entity.getEvents().addListener("scoreSelect", this::onScore);
   }
 
   /**
@@ -72,5 +73,13 @@ public class MainMenuActions extends Component {
     } else {
       musicService.playMusic();
     }
+  }
+
+  /**
+   * Swaps to score screen.
+   */
+  private void onScore() {
+    logger.info("Launching score screen");
+    game.setScreen(GdxGame.ScreenType.SCORE_SCREEN);
   }
 }

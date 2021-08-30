@@ -270,17 +270,17 @@ public class MainMenuDisplay extends UIComponent {
                         entity.getEvents().trigger("mute");
                     }
                 });
-/*
-        unmuteBtn.addListener(
+
+        leaderBoardBtn.addListener(
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
-                        logger.debug("Unmute button clicked");
-                        entity.getEvents().trigger("mute");
+                        // LeaderBoardBtn should be changed to Score button when the button is renamed.
+                        logger.debug("Leaderboard button clicked");
+                        entity.getEvents().trigger("scoreSelect");
                     }
-                }
-        );
-*/
+                });
+
         stage.addActor(table);
         stage.addActor(startBtn);
         stage.addActor(levelSelectBtn);

@@ -45,7 +45,7 @@ public class DeathScreenDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
 
-                        logger.debug("Exit button clicked");
+                        logger.debug("Exit button from death screen is clicked");
                         entity.getEvents().trigger("exit");
                     }
                 });
