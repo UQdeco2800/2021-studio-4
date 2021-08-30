@@ -18,6 +18,8 @@ import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
@@ -39,14 +41,14 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
     "images/iso_grass_3.png",
-    "images/the_void.png",
     "images/basicenemysprite.png",
     "images/chasingenemy.png",
-    "images/enemyspritehsee.png"
+    "images/enemyspritehsee.png",
+    "images/animatedvoid.png"
 
   };
   private static final String[] forestTextureAtlases = {
-    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/the_void.atlas",
+    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/void.atlas",
           "images/testingenemy.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
@@ -72,8 +74,9 @@ public class ForestGameArea extends GameArea {
     spawnTerrain();
     spawnTrees();
     player = spawnPlayer();
-    spawnGhosts();
-    spawnGhostKing();
+    //spawnGhosts();
+    //spawnGhostKing();
+    spawnGroundEnemy();
     spawnTheVoid();
 
     //playMusic();
@@ -133,6 +136,27 @@ public class ForestGameArea extends GameArea {
     Entity newPlayer = PlayerFactory.createPlayer();
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     return newPlayer;
+  }
+
+  /**
+   * Spawn the ground enemy
+   * It generate a random x cord and a fix y cord to ensure the enemy spawn on the ground
+   * There is list that checks whether a x coordinate exist already to ensure the
+   * enemy do not overlap
+   */
+  private void spawnGroundEnemy() {
+    ArrayList<Integer>  check = new ArrayList<>();
+    for (int i = 0; i < 2; i++) {
+      int xCord = 20 + (int)(Math.random() * ((WALL_WIDTH - 5) + 1));
+
+      while (check.contains(xCord) == true) {
+        xCord = 20 + (int)(Math.random() * ((WALL_WIDTH - 5) + 1));
+      }
+      check.add(xCord);
+      GridPoint2 randomPos = new GridPoint2(xCord,6);
+      Entity ghost = NPCFactory.createGhost(player);
+      spawnEntityAt(ghost, randomPos, true, true);
+    }
   }
 
   private void spawnGhosts() {

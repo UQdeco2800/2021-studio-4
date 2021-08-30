@@ -53,7 +53,6 @@ public class TheVoidController extends Component {
         float distance_x;
         float void_length = this.entity.getScale().x;
         Vector2 void_pos = this.entity.getPosition();
-
         distance_x = player.getPosition().sub(void_pos).x - void_length;
         return distance_x;
     }
