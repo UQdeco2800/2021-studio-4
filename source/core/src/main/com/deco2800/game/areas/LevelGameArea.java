@@ -210,7 +210,7 @@ public class LevelGameArea extends GameArea {
     for (int i = 0; i < 2; i++) {
       int xCord = 20 + (int)(Math.random() * ((WALL_WIDTH - 5) + 1));
 
-      while (check.contains(xCord) == true) {
+      while (check.contains(xCord)) {
         xCord = 20 + (int)(Math.random() * ((WALL_WIDTH - 5) + 1));
       }
       check.add(xCord);
