@@ -97,7 +97,7 @@ public class LevelGameArea extends GameArea {
     //spawnGhosts();
     //spawnGhostKing();
     spawnGroundEnemy();
-    //spawnTheVoid();
+    spawnTheVoid();
 
     playMusic();
 
