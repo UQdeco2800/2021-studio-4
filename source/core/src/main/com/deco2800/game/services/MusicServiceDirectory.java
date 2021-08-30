@@ -14,6 +14,8 @@ public class MusicServiceDirectory {
     public String void_death = "sounds/VOID_LoseGame_VirusHit.mp3";
     public String void_noise = "sounds/VOID_void sound.mp3";
     public String main_menu = "sounds/MainMenuMusic.mp3";
+
+    /* Empty constructor method for calling */
     public MusicServiceDirectory() {
 
     }

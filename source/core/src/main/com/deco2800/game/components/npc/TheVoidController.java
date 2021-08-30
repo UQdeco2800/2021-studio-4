@@ -64,7 +64,7 @@ public class TheVoidController extends Component {
          MusicService musicService = new MusicService(dict.game_level_1);
          float min = 0;
          float max = 1;
-         if (distance_from_player > (float)0.01) {
+        /* if (distance_from_player > (float)0.01) {
              float change1 = 1 - distance_from_player;
              musicService.changeVolume(change1);
          }
@@ -74,7 +74,7 @@ public class TheVoidController extends Component {
          }
          else {
              musicService.changeVolume((float)0.5);
-         }
+         }*/
 
          // Sound voidSound = Gdx.audio.newSound(Gdx.files.internal("sounds/BackingMusicWithDrums.mp3"));
          // long id = voidSound.play();
