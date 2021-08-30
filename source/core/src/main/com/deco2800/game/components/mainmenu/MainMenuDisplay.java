@@ -38,6 +38,7 @@ public class MainMenuDisplay extends UIComponent {
     private static final float Z_INDEX = 2f;
     private Table table;
     private int switcher;
+    private ImageButton muteBtn;
 
     /**
      * used tp switch between button states
@@ -184,7 +185,7 @@ public class MainMenuDisplay extends UIComponent {
         Texture currentlyMutedTexture = new Texture(Gdx.files.internal("images/button_unmute.png"));
         Texture currentlyMutedHoverTexture = new Texture(Gdx.files.internal("images/button_unmute_hover.png"));
         Drawable muteDrawing = new TextureRegionDrawable(new TextureRegion(muteTexture));
-        ImageButton muteBtn = new ImageButton(muteDrawing);
+        muteBtn = new ImageButton(muteDrawing);
         // Initialise the image of the button to muteTexture.
         muteBtn.getStyle().imageUp = new TextureRegionDrawable(muteTexture);
         muteBtn.getStyle().imageOver = new TextureRegionDrawable(muteHoverTexture);
@@ -290,6 +291,22 @@ public class MainMenuDisplay extends UIComponent {
         stage.addActor(leaderBoardBtn);
         stage.addActor(virusHead);
         stage.addActor(runtimeTitle);
+    }
+
+    /**
+     * Return switcher value for testing mute button
+     * @return int switcher
+     */
+    public int getSwitcher() {
+        return switcher;
+    }
+
+    /**
+     * Return Mute Button for testing purposes
+     * @return ImageButton MuteBtn
+     */
+    public ImageButton getMuteBtn() {
+        return muteBtn;
     }
 
     @Override
