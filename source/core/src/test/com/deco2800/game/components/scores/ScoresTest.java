@@ -13,19 +13,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class ScoresTest {
 
-
-
-
     // Cannot initialise the ScoreDisplay tester;
-
 
     // ScoreDisplay tester;
     // @BeforeEach
     // void beforeEach() {
         // tester = new ScoreDisplay(); // This scheisse ain't working.
     // }
-
-
 
     @Test
     void testNewHighScore() throws NullPointerException {

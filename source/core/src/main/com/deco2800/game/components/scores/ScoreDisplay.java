@@ -30,7 +30,7 @@ public class ScoreDisplay extends UIComponent {
     private Label scoreLabel; // Shows the score.
     private Label levelLabel; // Shows the current level.
     int newScore = timeScore;
-    int highScore = 0;
+    int highScore;
     private int level = 0; // The current Level. Levels need to be implemented later in development
                            // when multiple levels are available. For now, it will be 0.
 
@@ -39,6 +39,7 @@ public class ScoreDisplay extends UIComponent {
     @Override
     public void create() {
         readHighScores();
+        highScore = highScores.get(level);
         if (newScore > highScore) { // For now, this only works for level 1
             highScore = newScore;
             System.out.println(highScore);
@@ -95,7 +96,7 @@ public class ScoreDisplay extends UIComponent {
                 });
 
         // Text to display the score for the current Level.
-        CharSequence levelText = String.format("Level %d Scores", level);
+        CharSequence levelText = String.format("Level %d Highest Score ever", level);
         CharSequence scoreText = String.format("%d", highScore);
         scoreLabel = new Label(scoreText, skin, "large");
         levelLabel = new Label(levelText, skin, "large");

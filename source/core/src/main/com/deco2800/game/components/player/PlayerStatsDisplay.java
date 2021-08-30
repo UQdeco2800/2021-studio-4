@@ -67,7 +67,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
     long time = timeScore;
 
-    CharSequence timer = String.format("           Previous score: %d", time);
+    CharSequence timer = String.format("           Your previous Score: %d", time);
     timeLabel = new Label(timer, skin, "large");
     table.add(timeLabel);
     stage.addActor(table);
