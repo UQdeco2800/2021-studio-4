@@ -9,6 +9,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
+import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import org.w3c.dom.Text;
@@ -52,15 +53,18 @@ public class ObstacleFactory {
     return wall;
   }
 
-  public static Entity createPlatform() {
-//    Texture platform1 = new Texture("map-textures/mapTextures_Platforms.png");
-//    platform1.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-//    TextureRegion textureRegion = new TextureRegion(platform1);
-//    textureRegion.setRegion(0,0, 2*platform1.getWidth(), 2*platform1.getHeight() );
-//    Image image = new Image(textureRegion);
+  public static Entity createPlatform(int blocks) {
+    Texture platformTexture = new Texture("map-textures/mapTextures_Platforms.png");
+    platformTexture.getTextureData().prepare();
+    Pixmap platformPixmap = platformTexture.getTextureData().consumePixmap();
+    Pixmap pixmap = new Pixmap(blocks*platformTexture.getWidth(),platformTexture.getHeight(), Pixmap.Format.RGBA8888);
+    for (int i = 0; i < blocks; i++) {
+      pixmap.drawPixmap(platformPixmap,i*platformTexture.getWidth(),0);
+    }
+    Texture finalTexture = new Texture(pixmap);
     Entity platform =
             new Entity()
-                    .addComponent(new TextureRenderComponent("map-textures/mapTextures_Platforms.png"))
+                    .addComponent(new TextureRenderComponent(finalTexture))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
@@ -71,10 +75,18 @@ public class ObstacleFactory {
     return platform;
   }
 
-  public static Entity createMiddlePlatform() {
+  public static Entity createMiddlePlatform(int blocks) {
+    Texture platformTexture = new Texture("map-textures/mapTextures_Middle-Platform.png");
+    platformTexture.getTextureData().prepare();
+    Pixmap platformPixmap = platformTexture.getTextureData().consumePixmap();
+    Pixmap pixmap = new Pixmap(platformTexture.getWidth(),blocks*platformTexture.getHeight(), Pixmap.Format.RGBA8888);
+    for (int i = 0; i < blocks; i++) {
+      pixmap.drawPixmap(platformPixmap,0,i*platformTexture.getHeight());
+    }
+    Texture finalTexture = new Texture(pixmap);
     Entity platformWall =
             new Entity()
-                    .addComponent(new TextureRenderComponent("map-textures/mapTextures_Middle-Platform.png"))
+                    .addComponent(new TextureRenderComponent(finalTexture))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
@@ -90,7 +102,8 @@ public class ObstacleFactory {
       new Entity()
         .addComponent(new TextureRenderComponent("map-textures/mapTextures_Button-On.png"))
         .addComponent(new PhysicsComponent())
-        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE));
 
     button.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     button.getComponent(TextureRenderComponent.class).scaleEntity();
@@ -99,10 +112,18 @@ public class ObstacleFactory {
     return button;
   }
 
-  public static Entity createBridge() {
+  public static Entity createBridge(int blocks) {
+    Texture bridgeTexture = new Texture("map-textures/mapTextures_bridge.png");
+    bridgeTexture.getTextureData().prepare();
+    Pixmap platformPixmap = bridgeTexture.getTextureData().consumePixmap();
+    Pixmap pixmap = new Pixmap(blocks*bridgeTexture.getWidth(),bridgeTexture.getHeight(), Pixmap.Format.RGBA8888);
+    for (int i = 0; i < blocks; i++) {
+      pixmap.drawPixmap(platformPixmap,i*bridgeTexture.getWidth(),0);
+    }
+    Texture finalTexture = new Texture(pixmap);
     Entity bridge =
       new Entity()
-        .addComponent(new TextureRenderComponent("map-textures/mapTextures_bridge.png"))
+        .addComponent(new TextureRenderComponent(finalTexture))
         .addComponent(new PhysicsComponent())
         .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 

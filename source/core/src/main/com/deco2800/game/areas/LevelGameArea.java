@@ -92,9 +92,9 @@ public class LevelGameArea extends GameArea {
     //spawnTrees();
     spawnLevel();
     player = spawnPlayer();
-    //spawnGhosts();
-    //spawnGhostKing();
-    //spawnTheVoid();
+//    spawnGhosts();
+//    spawnGhostKing();
+//    spawnTheVoid();
 
     playMusic();
   }
@@ -164,16 +164,16 @@ public class LevelGameArea extends GameArea {
     }
   }
 
-  private void spawnPlatform(int posX, int posY) {
-    Entity platform = ObstacleFactory.createPlatform();
+  private void spawnPlatform(int posX, int posY, int blocks) {
+    Entity platform = ObstacleFactory.createPlatform(blocks);
     GridPoint2 position = new GridPoint2(posX,posY);
-    spawnEntityAt(platform, position, true, true);
+    spawnEntityAt(platform, position, false, true);
   }
 
-  private void spawnMiddlePlatform(int posX, int posY) {
-    Entity middlePlatform = ObstacleFactory.createMiddlePlatform();
+  private void spawnMiddlePlatform(int posX, int posY, int blocks) {
+    Entity middlePlatform = ObstacleFactory.createMiddlePlatform(blocks);
     GridPoint2 position = new GridPoint2(posX,posY);
-    spawnEntityAt(middlePlatform, position, true, true);
+    spawnEntityAt(middlePlatform, position, true, false);
   }
 
   private void spawnButton(int posX, int posY) {
@@ -182,8 +182,8 @@ public class LevelGameArea extends GameArea {
     spawnEntityAt(button, position, false, true);
   }
 
-  private void spawnBridge(int posX, int posY) {
-    Entity bridge = ObstacleFactory.createBridge();
+  private void spawnBridge(int posX, int posY, int blocks) {
+    Entity bridge = ObstacleFactory.createBridge(blocks);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(bridge, position, false, true);
   }
@@ -198,39 +198,33 @@ public class LevelGameArea extends GameArea {
     int c;
     int i;
     for (c = 0; c < 4; c++) {
-      for (i = 0; i < 8; i++) {
-        spawnPlatform(c*8+i, c+5);
-      }
-      spawnMiddlePlatform(c*8+8,c+5);
+      spawnPlatform(c*8,c+5,8);
+      spawnMiddlePlatform(c*8+8,c+5,1);
     }
     int x = 32;
     int y = 8;
     spawnLadderPlatforms(x,y);
+    spawnPlatform(32,22,8);
+    spawnMiddlePlatform(39,30,2);
+    spawnPlatform(40,14,8);
     for (i = 0; i < 8; i++) {
-      spawnPlatform(32+i,22);
-      spawnMiddlePlatform(39,22-i-1);
-      spawnPlatform(40+i,14);
+      spawnMiddlePlatform(39,22-i-1,1);
     }
     spawnButton(40,15);
-    for (i = 0; i < 6; i++) {
-      spawnBridge(48+i,14);
-      spawnPlatform(54+i,14);
-    }
-    spawnDoor(56,15);
+    spawnBridge(48,14,8);
+    spawnPlatform(56,14,6);
+    spawnDoor(58,15);
   }
 
   private void spawnLadderPlatforms(int x, int y) {
-
     for (int i = 0; i < 13; i++) {
-      spawnMiddlePlatform(x,y+1+i);
-      spawnMiddlePlatform(x-9,y+6+i);
+      spawnMiddlePlatform(x,y+1+i,1);
+      spawnMiddlePlatform(x-9,y+6+i,1);
     }
-    for (int i = 0; i < 3; i++) {
-      spawnPlatform(x-3+i,y+3);
-      spawnPlatform(x-8+i,y+6);
-      spawnPlatform(x-3+i,y+9);
-      spawnPlatform(x-8+i,y+12);
-    }
+    spawnPlatform(x-3,y+3,3);
+    spawnPlatform(x-8,y+6,3);
+    spawnPlatform(x-3,y+9,3);
+    spawnPlatform(x-8,y+12,3);
   }
 
   private Entity spawnPlayer() {
