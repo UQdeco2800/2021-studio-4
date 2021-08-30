@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.utils.math.Vector2Utils;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
@@ -17,10 +18,11 @@ public class PlayerActions extends Component {
   private static final float SLIDING_FRICTION = 0.02f;               // Coefficient of friction when sliding
   private static final float AIR_FRICTION = 0.03f;                   // Coefficient of friction when in air
 
-  private PlayerState playerState = PlayerState.STOPPED;  // Movement state of the player, see PlayerState
-  private PhysicsComponent physicsComponent;              
-  private Vector2 walkDirection = Vector2.Zero.cpy();     // The direction the player is walking in, set by keypress.
-  private Body body;                                      // The player physics body.
+  private PlayerState playerState = PlayerState.STOPPED;        // Movement state of the player, see PlayerState
+  private PhysicsComponent physicsComponent;
+  private Vector2 walkDirection = Vector2.Zero.cpy();           // The direction the player is walking in, set by keypress.
+  private Vector2 previousWalkDirection = Vector2.Zero.cpy();   // The direction the player was moving in last.
+  private Body body;                                            // The player physics body.
 
   private boolean canJump = false; // Whether the player can jump
 
@@ -32,6 +34,8 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("attack", this::attack);
     entity.getEvents().addListener("jump", this::jump);
     entity.getEvents().addListener("togglePlayerJumping", this::togglePlayerJumping);
+    entity.getEvents().addListener("slide", this::slide);
+    entity.getEvents().addListener("setPreviousWalkDirection", this::setPreviousWalkDirection);
 
     this.body = physicsComponent.getBody();
   }
@@ -128,7 +132,19 @@ public class PlayerActions extends Component {
    */
   void slide() {
     this.playerState = PlayerState.SLIDING;
-    body.applyForceToCenter(new Vector2(300f, 0f), true);
+    if (previousWalkDirection.epsilonEquals(Vector2Utils.LEFT)) {
+      body.applyForceToCenter(new Vector2(-300f, 0f), true);
+    } else {
+      body.applyForceToCenter(new Vector2(300f, 0f), true);
+    }
+  }
+
+  /**
+   * Tracks the last direction the player was moving in.
+   * @param previousWalkDirection The direction the player was last moving in.
+   */
+  void setPreviousWalkDirection(Vector2 previousWalkDirection) {
+    this.previousWalkDirection = previousWalkDirection;
   }
 
 
@@ -148,6 +164,14 @@ public class PlayerActions extends Component {
    */
   public PlayerState getPlayerState() {
     return this.playerState;
+  }
+
+  /**
+   * Get the player's walking direction.
+   * @return Current player's walking direction.
+   */
+  public Vector2 getWalkDirection() {
+    return this.walkDirection;
   }
 
   /**

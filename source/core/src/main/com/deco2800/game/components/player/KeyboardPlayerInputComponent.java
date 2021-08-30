@@ -12,6 +12,7 @@ import com.deco2800.game.utils.math.Vector2Utils;
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
+  private Vector2 previousWalkDirection = Vector2.Zero.cpy();
 
   public KeyboardPlayerInputComponent() {
     super(5);
@@ -33,6 +34,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.A:
         walkDirection.add(Vector2Utils.LEFT);
         triggerWalkEvent();
+        entity.getEvents().trigger("setPreviousWalkDirection", Vector2Utils.LEFT);
         return true;
       case Keys.S:
         walkDirection.add(Vector2Utils.DOWN);
@@ -41,6 +43,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.D:
         walkDirection.add(Vector2Utils.RIGHT);
         triggerWalkEvent();
+        entity.getEvents().trigger("setPreviousWalkDirection", Vector2Utils.RIGHT);
         return true;
       case Keys.SHIFT_RIGHT:
         entity.getEvents().trigger("slide");
