@@ -58,41 +58,31 @@ public class TheVoidController extends Component {
     }
 
      void updateSound(){
-        Sound voidSound = Gdx.audio.newSound(Gdx.files.internal("sounds/BackingMusicWithDrums.mp3"));
-        // long id = voidSound.play();
-        // float distance_from_player = getPlayerDistance();
-        // float min = 0;
-        // float max = 1;
-         //voidSound.play();
-             //voidSound.setVolume(id,distance_from_player); //A value of 0 is silent, while 1 is full volume
-             //voidSound.setPitch(id,distance_from_player); /* The value should be > 0.5 and < 2.0.
-             //Less than 1 is slower, greater than 1 is faster.*/
-         
-
-        /* if (distance_from_player < (float)0.99) {
-             voidSound.setVolume(id,1f);
-             voidSound.setPitch(id,1.5f);
-         }
-         else {
-             // musicService.changeVolume((float)0.5);
-         }
-         //musicService.playMusic();
-
-         */
          float distance_from_player = getPlayerDistance();
          MusicService musicService = new MusicService("sounds/BackingMusicWithDrums.mp3");
          float min = 0;
          float max = 1;
          if (distance_from_player > (float)0.01) {
-            musicService.changeVolume(distance_from_player);
+             float change1 = 1 - distance_from_player;
+             musicService.changeVolume(change1);
          }
-         if (distance_from_player < (float)0.99) {
-            musicService.changeVolume(distance_from_player);
+         else if (distance_from_player < (float)0.99) {
+             float change2 = 1 - distance_from_player;
+             musicService.changeVolume(change2);
          }
          else {
-            musicService.changeVolume((float)0.5);
+             musicService.changeVolume((float)0.5);
          }
-         //musicService.playMusic();*/
+
+         // Sound voidSound = Gdx.audio.newSound(Gdx.files.internal("sounds/BackingMusicWithDrums.mp3"));
+         // long id = voidSound.play();
+         // float distance_from_player = getPlayerDistance();
+         // float min = 0;
+         // float max = 1;
+         //voidSound.play();
+         //voidSound.setVolume(id,distance_from_player); //A value of 0 is silent, while 1 is full volume
+         //voidSound.setPitch(id,distance_from_player); /* The value should be > 0.5 and < 2.0.
+         //Less than 1 is slower, greater than 1 is faster.*/
     }
 
 

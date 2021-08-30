@@ -27,18 +27,6 @@ public class MusicService {
         music = ServiceLocator.getResourceService().getAsset(musicLocation, Music.class);
         isMusicPlaying = music.isPlaying();
     }
-    public void loadAssets(String[] MusicStringArray) {
-        ResourceService resourceService = ServiceLocator.getResourceService();
-        ServiceLocator.getResourceService().loadAll();
-        resourceService.loadMusic(MusicStringArray);
-        while (!resourceService.loadForMillis(10)) {
-            // This could be upgraded to a loading screen
-        }
-    }
-    public void unloadAssets(String[] MusicStringArray) {
-        ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.unloadAssets(MusicStringArray);
-    }
 
     public void stopMusic() {
         //Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
