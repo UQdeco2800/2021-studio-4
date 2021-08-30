@@ -3,6 +3,8 @@ package com.deco2800.game.services;
 
 import com.badlogic.gdx.audio.Music;
 
+import com.deco2800.game.services.ServiceLocator;
+
 /**
  * Service for playing and controlling the play of game music, this is different to a loadAsset() function as
  * it doesn't control the loading of the assets, however it controls the playing and where the music plays.

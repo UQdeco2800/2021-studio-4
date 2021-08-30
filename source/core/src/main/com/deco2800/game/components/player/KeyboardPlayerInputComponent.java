@@ -3,6 +3,7 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.utils.math.Vector2Utils;
 
@@ -12,7 +13,6 @@ import com.deco2800.game.utils.math.Vector2Utils;
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
-  private Vector2 previousWalkDirection = Vector2.Zero.cpy();
 
   public KeyboardPlayerInputComponent() {
     super(5);
@@ -28,13 +28,12 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   public boolean keyDown(int keycode) {
     switch (keycode) {
       case Keys.W:
-      case Keys.SPACE:
-        entity.getEvents().trigger("jump");
+        walkDirection.add(Vector2Utils.UP);
+        triggerWalkEvent();
         return true;
       case Keys.A:
         walkDirection.add(Vector2Utils.LEFT);
         triggerWalkEvent();
-        entity.getEvents().trigger("setPreviousWalkDirection", Vector2Utils.LEFT);
         return true;
       case Keys.S:
         walkDirection.add(Vector2Utils.DOWN);
@@ -43,10 +42,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.D:
         walkDirection.add(Vector2Utils.RIGHT);
         triggerWalkEvent();
-        entity.getEvents().trigger("setPreviousWalkDirection", Vector2Utils.RIGHT);
         return true;
-      case Keys.SHIFT_RIGHT:
-        entity.getEvents().trigger("slide");
+      case Keys.SPACE:
+        entity.getEvents().trigger("jump");
         return true;
       default:
         return false;
