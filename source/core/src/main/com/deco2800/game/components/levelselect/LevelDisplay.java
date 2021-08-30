@@ -30,7 +30,7 @@ public class LevelDisplay extends UIComponent {
     }
 
     private void loadTheMusic() {
-        MusicService musicScreen = new MusicService();
+        MusicService musicScreen = new MusicService("sounds/MainMenuMusic.mp3");
         musicScreen.playMusic();
     }
 
