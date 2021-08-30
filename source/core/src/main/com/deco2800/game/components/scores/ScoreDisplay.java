@@ -20,6 +20,8 @@ import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static com.deco2800.game.screens.MainGameScreen.timeScore;
+
 public class ScoreDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(ScoreDisplay.class);
     private static final float Z_INDEX = 2f;
@@ -27,7 +29,7 @@ public class ScoreDisplay extends UIComponent {
     private Sprite sprite;
     private Label scoreLabel; // Shows the score.
     private Label levelLabel; // Shows the current level.
-    int score = 1000000000; // The scoring system will be implemented later into development. For now, it will be
+    long score = timeScore; // The scoring system will be implemented later into development. For now, it will be
                             // Initialised to 1 billion.
     private int level = 0; // The current Level. Levels need to be implemented later in development
                            // when multiple levels are available. For now, it will be 0.

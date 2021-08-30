@@ -43,6 +43,9 @@ public class MainGameScreen extends ScreenAdapter {
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
 
+  private final long timeStarted = System.currentTimeMillis();
+  public static long timeScore = 0;
+
   public MainGameScreen(GdxGame game) {
     this.game = game;
 
@@ -72,6 +75,8 @@ public class MainGameScreen extends ScreenAdapter {
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     LevelGameArea levelGameArea = new LevelGameArea(terrainFactory);
     levelGameArea.create();
+
+
   }
 
   @Override
@@ -84,6 +89,7 @@ public class MainGameScreen extends ScreenAdapter {
       logger.info("Show Death Screen");
       game.setScreen(GdxGame.ScreenType.DEATH_SCREEN);
     }
+    timeScore = (System.currentTimeMillis() - timeStarted) / 1000;
   }
 
   @Override
@@ -150,4 +156,8 @@ public class MainGameScreen extends ScreenAdapter {
 
     ServiceLocator.getEntityService().register(ui);
   }
+
+
+
+
 }
