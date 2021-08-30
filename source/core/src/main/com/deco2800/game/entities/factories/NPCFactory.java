@@ -41,9 +41,11 @@ import com.deco2800.game.services.ServiceLocator;
 public class NPCFactory {
   private static final NPCConfigs configs =
       FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
+
   /**
-   * Creates theVoid entity
+   * Creates the void entity
    *
+   * @param target entity whose distance from the void will be tracked (the player)
    * @return entity
    */
   public static Entity createTheVoid(Entity target) {

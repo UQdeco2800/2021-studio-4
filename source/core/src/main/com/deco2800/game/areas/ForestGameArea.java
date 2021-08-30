@@ -178,6 +178,14 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(ghostKing, randomPos, true, true);
   }
 
+  /**
+   * Spawns the void on the map by calling the createTheVoid() method in NPCFactory
+   * with player as its parameter. The void's vertical placement is determined by 1/2 of
+   * the maps height and the horizontal placement is chosen to spawn the void to the far
+   * left of the screen.
+   *
+   * @return void
+   */
   private void spawnTheVoid() {
     int startPosY = terrain.getMapBounds(0).y;
     GridPoint2 startPos = new GridPoint2();
