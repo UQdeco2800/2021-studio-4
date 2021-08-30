@@ -32,7 +32,7 @@ public class DeathScreenDisplay extends UIComponent {
     private void addActors() {
         table = new Table();
         table.setFillParent(true);
-        sprite = new Sprite(new Texture("images/DeathScreenPlaceholder.png"));
+        sprite = new Sprite(new Texture("images/gameover-screen.png"));
         table.setBackground(new SpriteDrawable(sprite)); // Set background.
 
         // Add exit button to go back to main menu.

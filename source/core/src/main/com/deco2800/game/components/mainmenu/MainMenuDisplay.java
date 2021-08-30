@@ -75,7 +75,7 @@ public class MainMenuDisplay extends UIComponent {
         int centreHeight1 = Gdx.graphics.getHeight()/2;
         int buttonDimensionsWidth = (int) Math.round(centreWidth1*0.35);
         int buttonDimensionsHeight = (int) Math.round(centreHeight1*0.31);
-        int titleHeightDimension = (int) Math.round(centreHeight1*1.3);
+        int titleHeightDimension = (int) Math.round(centreHeight1*0.4);
         int titleWidthDimension = (int) Math.round(centreWidth1*1.3);
         int centreWidth = centreWidth1 - buttonDimensionsWidth/2; // Moves middle of button to Centre
         int centreHeight = centreWidth1 - buttonDimensionsHeight/2;
@@ -85,11 +85,11 @@ public class MainMenuDisplay extends UIComponent {
         int width35Percent = (int) Math.round(centreWidth*0.40);
 
         int titleHeight = (int) Math.round(centreHeight*0.35);
-        int height50Percent = (int) Math.round(centreHeight*0.38);
-        int height65Percent = (int) Math.round(centreHeight*0.53);
-        int height78Percent = (int) Math.round(centreHeight*0.78);
-        int height90Percent = (int) Math.round(centreHeight*0.83);
-        int height105Percent = (int) Math.round(centreHeight*0.98);
+        int height38Percent = (int) Math.round(centreHeight*0.38);
+        int height53Percent = (int) Math.round(centreHeight*0.53);
+        int height79Percent = (int) Math.round(centreHeight*0.79);
+        int height83Percent = (int) Math.round(centreHeight*0.83);
+        int height98Percent = (int) Math.round(centreHeight*0.98);
 
         /**
          * Creates the 'RUNTIME' title texture.
@@ -113,7 +113,7 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Sets the size and position of the virusHead after texture applied.
          */
-        virusHead.setBounds(centreWidth,centreHeight-height78Percent,
+        virusHead.setBounds(centreWidth,centreHeight-height79Percent,
                 buttonDimensionsWidth, buttonDimensionsHeight*2);
 
 
@@ -128,7 +128,7 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Sets the size and position of the button after texture applied.
          */
-        startBtn.setBounds(centreWidth,centreHeight-height50Percent,
+        startBtn.setBounds(centreWidth,centreHeight-height38Percent,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
 
@@ -143,7 +143,7 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Sets the size and position of the button after texture applied.
          */
-        levelSelectBtn.setBounds(centreWidth-width35Percent,centreHeight-height65Percent,
+        levelSelectBtn.setBounds(centreWidth-width35Percent,centreHeight-height53Percent,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
 
@@ -158,7 +158,7 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Sets the size and position of the button after texture applied.
          */
-        settingsBtn.setBounds(centreWidth-width35Percent,centreHeight-height90Percent,
+        settingsBtn.setBounds(centreWidth-width35Percent,centreHeight-height83Percent,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
 
@@ -173,7 +173,7 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Sets the size and position of the button after texture applied.
          */
-        exitBtn.setBounds(centreWidth,centreHeight-height105Percent,
+        exitBtn.setBounds(centreWidth,centreHeight-height98Percent,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         /**
@@ -192,7 +192,7 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Sets the size and position of the button after texture applied, for Mute and Currently Muted both.
          */
-        muteBtn.setBounds(centreWidth+width35Percent,centreHeight-height90Percent,
+        muteBtn.setBounds(centreWidth+width35Percent,centreHeight-height83Percent,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
 
@@ -207,7 +207,7 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Sets the size and position of the button after texture applied.
          */
-        leaderBoardBtn.setBounds(centreWidth+width35Percent,centreHeight-height65Percent,
+        leaderBoardBtn.setBounds(centreWidth+width35Percent,centreHeight-height53Percent,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
 

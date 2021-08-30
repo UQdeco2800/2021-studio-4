@@ -88,16 +88,21 @@ public class ScoreDisplay extends UIComponent {
         scoreLabel = new Label(scoreText, skin, "large");
         levelLabel = new Label(levelText, skin, "large");
 
+        int widthLabel = (int) Math.round(Gdx.graphics.getWidth()*0.3);
+        int centreScreenLevelWidth = (int) Math.round(scoreLabel.getWidth());
+        int centreScreenScoreWidth = (int) Math.round(levelLabel.getWidth());
+        int levelHeight = (int) Math.round(Gdx.graphics.getHeight()*0.8);
+        int scoreHeight = (int) Math.round(Gdx.graphics.getHeight()*0.75);
+        int textDimenstionWidth = (int) Math.round(Gdx.graphics.getWidth()*0.1);
+        int textDimenstionHeight = (int) Math.round(Gdx.graphics.getHeight()*0.1);
+
         /**
          * Sets the position of the label.
          */
-        // These numbers were chosen at random. Levels and Scores are displayed separately in order to have
-        // greater control on their respective placements.
-        levelLabel.setBounds(Gdx.graphics.getWidth()/2 - 100,Gdx.graphics.getHeight() - 200,0,0);
-        scoreLabel.setBounds(Gdx.graphics.getWidth()/2 - 100,Gdx.graphics.getHeight() - 250,0,0);
-        //table.row();
-        //table.add(scoreLabel);
-        //table.row();
+        levelLabel.setBounds(widthLabel + centreScreenLevelWidth,levelHeight,
+                textDimenstionWidth,textDimenstionHeight);
+        scoreLabel.setBounds(widthLabel + centreScreenScoreWidth,scoreHeight,
+                textDimenstionWidth,textDimenstionHeight);
 
         stage.addActor(table);
         stage.addActor(exitBtn);
