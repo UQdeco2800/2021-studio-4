@@ -60,7 +60,8 @@ public class LevelGameArea extends GameArea {
   };
   private static final String[] gameSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BackingMusicWithDrums.mp3";
-  private static final String[] gameMusic = {backgroundMusic};
+  private static final String[] gameMusic = {"sounds/BackingMusicWithDrums.mp3","sounds/CLICK_Click.mp3", "sounds/End credits.mp3", "sounds/ENEMY_Collision.mp3", "sounds/Enemy_Little enemy wobble sound.mp3", "sounds/OBSTACLE_Button.mp3", "sounds/OBSTACLE_Player Jumping", "sounds/PLAYER_Player Getting Power.mp3", "sounds/PLAYER_Running Into.mp3", "sounds/VOID_LoseGame_VirusHit.mp3", "sounds/VOID_void sound.mp3", "sounds/MainMenuMusic.mp3"};
+
 
   private final TerrainFactory terrainFactory;
 
@@ -210,7 +211,7 @@ public class LevelGameArea extends GameArea {
     for (int i = 0; i < 2; i++) {
       int xCord = 20 + (int)(Math.random() * ((WALL_WIDTH - 5) + 1));
 
-      while (check.contains(xCord) == true) {
+      while (check.contains(xCord)) {
         xCord = 20 + (int)(Math.random() * ((WALL_WIDTH - 5) + 1));
       }
       check.add(xCord);
