@@ -246,6 +246,16 @@ public class MainMenuDisplay extends UIComponent {
                     }
                 });
 
+        virusHead.addListener(
+          new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent changeEvent, Actor actor) {
+
+                  logger.debug("Level editor button clicked");
+                  entity.getEvents().trigger("levelEditor");
+              }
+          });
+
         stage.addActor(table);
         stage.addActor(startBtn);
         stage.addActor(levelSelectBtn);
