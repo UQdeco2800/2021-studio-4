@@ -63,6 +63,14 @@ public class PlayerActionsTest {
         assertEquals(false, playerActions.getCanJump());
     }
 
+    @Test
+    void shouldSlide() {
+        PlayerActions playerActions = new PlayerActions();
+        playerActions.slide();
+
+        assertEquals(PlayerState.SLIDING, playerActions.getPlayerState());
+    }
+
     Entity createPlayer(short playerLayer) {
         Entity entity =
                 new Entity()
