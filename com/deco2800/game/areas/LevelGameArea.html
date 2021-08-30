@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -166,17 +166,115 @@ extends <a href="GameArea.html" title="class in com.deco2800.game.areas">GameAre
 <tbody>
 <tr class="altColor" id="i0">
 <td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#clearTerrainCell(int,int)">clearTerrainCell</a></span>&#8203;(int&nbsp;x,
+int&nbsp;y)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i1">
+<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#create()">create</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Create the game area, including terrain, static entities (trees), dynamic entities (player)</div>
 </td>
 </tr>
-<tr class="rowColor" id="i1">
+<tr class="altColor" id="i2">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispose()">dispose</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Dispose of all internal entities in the area</div>
 </td>
+</tr>
+<tr class="rowColor" id="i3">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#init()">init</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Initializes basic components such as loading assets, background and terrain</div>
+</td>
+</tr>
+<tr class="altColor" id="i4">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTerrainCell(com.deco2800.game.areas.terrain.TerrainTile,int,int)">setTerrainCell</a></span>&#8203;(<a href="terrain/TerrainTile.html" title="class in com.deco2800.game.areas.terrain">TerrainTile</a>&nbsp;tile,
+int&nbsp;x,
+int&nbsp;y)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i5">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnBridge(int,int,int)">spawnBridge</a></span>&#8203;(int&nbsp;posX,
+int&nbsp;posY,
+int&nbsp;width)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i6">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnBridge(int,int,int,boolean,boolean)">spawnBridge</a></span>&#8203;(int&nbsp;posX,
+int&nbsp;posY,
+int&nbsp;width,
+boolean&nbsp;centerX,
+boolean&nbsp;centerY)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i7">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnButton(int,int)">spawnButton</a></span>&#8203;(int&nbsp;posX,
+int&nbsp;posY)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i8">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnButton(int,int,boolean,boolean)">spawnButton</a></span>&#8203;(int&nbsp;posX,
+int&nbsp;posY,
+boolean&nbsp;centerX,
+boolean&nbsp;centerY)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i9">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnDoor(int,int,int)">spawnDoor</a></span>&#8203;(int&nbsp;posX,
+int&nbsp;posY,
+int&nbsp;height)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i10">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnDoor(int,int,int,boolean,boolean)">spawnDoor</a></span>&#8203;(int&nbsp;posX,
+int&nbsp;posY,
+int&nbsp;height,
+boolean&nbsp;centerX,
+boolean&nbsp;centerY)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i11">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnMiddlePlatform(int,int,int)">spawnMiddlePlatform</a></span>&#8203;(int&nbsp;posX,
+int&nbsp;posY,
+int&nbsp;width)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i12">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnMiddlePlatform(int,int,int,boolean,boolean)">spawnMiddlePlatform</a></span>&#8203;(int&nbsp;posX,
+int&nbsp;posY,
+int&nbsp;width,
+boolean&nbsp;centerX,
+boolean&nbsp;centerY)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i13">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnPlatform(int,int,int)">spawnPlatform</a></span>&#8203;(int&nbsp;posX,
+int&nbsp;posY,
+int&nbsp;width)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i14">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnPlatform(int,int,int,boolean,boolean)">spawnPlatform</a></span>&#8203;(int&nbsp;posX,
+int&nbsp;posY,
+int&nbsp;width,
+boolean&nbsp;centerX,
+boolean&nbsp;centerY)</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -186,7 +284,7 @@ extends <a href="GameArea.html" title="class in com.deco2800.game.areas">GameAre
 <h3>Methods inherited from class&nbsp;com.deco2800.game.areas.<a href="GameArea.html" title="class in com.deco2800.game.areas">GameArea</a></h3>
 <a id="methods.inherited.from.class.com.deco2800.game.areas.GameArea">
 <!--   -->
-</a><code><a href="GameArea.html#spawnEntity(com.deco2800.game.entities.Entity)">spawnEntity</a>, <a href="GameArea.html#spawnEntityAt(com.deco2800.game.entities.Entity,com.badlogic.gdx.math.GridPoint2,boolean,boolean)">spawnEntityAt</a></code></div>
+</a><code><a href="GameArea.html#getEntities(com.badlogic.gdx.math.Vector2)">getEntities</a>, <a href="GameArea.html#spawnEntity(com.deco2800.game.entities.Entity)">spawnEntity</a>, <a href="GameArea.html#spawnEntityAt(com.deco2800.game.entities.Entity,com.badlogic.gdx.math.GridPoint2,boolean,boolean)">spawnEntityAt</a>, <a href="GameArea.html#untrackEntity(com.deco2800.game.entities.Entity)">untrackEntity</a></code></div>
 <div class="inheritedList">
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
 <a id="methods.inherited.from.class.java.lang.Object">
@@ -223,6 +321,13 @@ extends <a href="GameArea.html" title="class in com.deco2800.game.areas">GameAre
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
+<h3><a id="init()">init</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">init</span>()</div>
+<div class="block">Initializes basic components such as loading assets, background and terrain</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
 <h3><a id="create()">create</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">create</span>()</div>
 <div class="block">Create the game area, including terrain, static entities (trees), dynamic entities (player)</div>
@@ -230,6 +335,109 @@ extends <a href="GameArea.html" title="class in com.deco2800.game.areas">GameAre
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="GameArea.html#create()">create</a></code>&nbsp;in class&nbsp;<code><a href="GameArea.html" title="class in com.deco2800.game.areas">GameArea</a></code></dd>
 </dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="clearTerrainCell(int,int)">clearTerrainCell</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">clearTerrainCell</span>&#8203;(<span class="arguments">int&nbsp;x,
+int&nbsp;y)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="setTerrainCell(com.deco2800.game.areas.terrain.TerrainTile,int,int)">setTerrainCell</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setTerrainCell</span>&#8203;(<span class="arguments"><a href="terrain/TerrainTile.html" title="class in com.deco2800.game.areas.terrain">TerrainTile</a>&nbsp;tile,
+int&nbsp;x,
+int&nbsp;y)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnPlatform(int,int,int)">spawnPlatform</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnPlatform</span>&#8203;(<span class="arguments">int&nbsp;posX,
+int&nbsp;posY,
+int&nbsp;width)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnPlatform(int,int,int,boolean,boolean)">spawnPlatform</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnPlatform</span>&#8203;(<span class="arguments">int&nbsp;posX,
+int&nbsp;posY,
+int&nbsp;width,
+boolean&nbsp;centerX,
+boolean&nbsp;centerY)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnMiddlePlatform(int,int,int)">spawnMiddlePlatform</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnMiddlePlatform</span>&#8203;(<span class="arguments">int&nbsp;posX,
+int&nbsp;posY,
+int&nbsp;width)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnMiddlePlatform(int,int,int,boolean,boolean)">spawnMiddlePlatform</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnMiddlePlatform</span>&#8203;(<span class="arguments">int&nbsp;posX,
+int&nbsp;posY,
+int&nbsp;width,
+boolean&nbsp;centerX,
+boolean&nbsp;centerY)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnButton(int,int)">spawnButton</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnButton</span>&#8203;(<span class="arguments">int&nbsp;posX,
+int&nbsp;posY)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnButton(int,int,boolean,boolean)">spawnButton</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnButton</span>&#8203;(<span class="arguments">int&nbsp;posX,
+int&nbsp;posY,
+boolean&nbsp;centerX,
+boolean&nbsp;centerY)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnBridge(int,int,int)">spawnBridge</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnBridge</span>&#8203;(<span class="arguments">int&nbsp;posX,
+int&nbsp;posY,
+int&nbsp;width)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnBridge(int,int,int,boolean,boolean)">spawnBridge</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnBridge</span>&#8203;(<span class="arguments">int&nbsp;posX,
+int&nbsp;posY,
+int&nbsp;width,
+boolean&nbsp;centerX,
+boolean&nbsp;centerY)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnDoor(int,int,int)">spawnDoor</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnDoor</span>&#8203;(<span class="arguments">int&nbsp;posX,
+int&nbsp;posY,
+int&nbsp;height)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="spawnDoor(int,int,int,boolean,boolean)">spawnDoor</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnDoor</span>&#8203;(<span class="arguments">int&nbsp;posX,
+int&nbsp;posY,
+int&nbsp;height,
+boolean&nbsp;centerX,
+boolean&nbsp;centerY)</span></div>
 </section>
 </li>
 <li class="blockList">

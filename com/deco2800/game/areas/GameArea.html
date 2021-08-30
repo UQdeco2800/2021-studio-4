@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":6,"i1":10,"i2":10,"i3":10};
+<script type="text/javascript">var data = {"i0":6,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -206,13 +206,20 @@ implements <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/b
 </td>
 </tr>
 <tr class="altColor" id="i2">
+<td class="colFirst"><code>java.util.ArrayList&lt;<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEntities(com.badlogic.gdx.math.Vector2)">getEntities</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a>&nbsp;pos)</code></th>
+<td class="colLast">
+<div class="block">Given a position, get a list of entities which overlap this position</div>
+</td>
+</tr>
+<tr class="rowColor" id="i3">
 <td class="colFirst"><code>protected void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnEntity(com.deco2800.game.entities.Entity)">spawnEntity</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;entity)</code></th>
 <td class="colLast">
 <div class="block">Spawn entity at its current position</div>
 </td>
 </tr>
-<tr class="rowColor" id="i3">
+<tr class="altColor" id="i4">
 <td class="colFirst"><code>protected void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnEntityAt(com.deco2800.game.entities.Entity,com.badlogic.gdx.math.GridPoint2,boolean,boolean)">spawnEntityAt</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;entity,
 <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;tilePos,
@@ -220,6 +227,13 @@ boolean&nbsp;centerX,
 boolean&nbsp;centerY)</code></th>
 <td class="colLast">
 <div class="block">Spawn entity on a given tile.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i5">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#untrackEntity(com.deco2800.game.entities.Entity)">untrackEntity</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;entity)</code></th>
+<td class="colLast">
+<div class="block">Remove an entity from the list of entities within the area</div>
 </td>
 </tr>
 </tbody>
@@ -297,6 +311,30 @@ boolean&nbsp;centerY)</code></th>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Disposable.html?is-external=true#dispose()" title="class or interface in com.badlogic.gdx.utils" class="externalLink">dispose</a></code>&nbsp;in interface&nbsp;<code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Disposable.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Disposable</a></code></dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getEntities(com.badlogic.gdx.math.Vector2)">getEntities</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.ArrayList&lt;<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&gt;</span>&nbsp;<span class="memberName">getEntities</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a>&nbsp;pos)</span></div>
+<div class="block">Given a position, get a list of entities which overlap this position</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>pos</code> - Position to check</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>ArrayList of entities</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="untrackEntity(com.deco2800.game.entities.Entity)">untrackEntity</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">untrackEntity</span>&#8203;(<span class="arguments"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;entity)</span></div>
+<div class="block">Remove an entity from the list of entities within the area</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>entity</code> - Entity to remove</dd>
 </dl>
 </section>
 </li>
