@@ -23,7 +23,7 @@ import static com.deco2800.game.screens.MainGameScreen.timeScore;
  */
 public class PlayerStatsDisplay extends UIComponent {
   Table table;
-  private Image heartImage;
+
   private Label healthLabel;
   private Label timeLabel;
   private static final Logger logger = LoggerFactory.getLogger(MainMenuDisplay.class);
@@ -93,7 +93,6 @@ public class PlayerStatsDisplay extends UIComponent {
   @Override
   public void dispose() {
     super.dispose();
-    heartImage.remove();
     healthLabel.remove();
   }
 }

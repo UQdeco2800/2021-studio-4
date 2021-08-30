@@ -19,11 +19,19 @@ import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class ScoreScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(ScoreScreen.class);
     private final GdxGame game;
     private final Renderer renderer;
     private static final String[] scoreScreenTextures = {"images/title_screen_clean.png"};
+
 
     public ScoreScreen (GdxGame game) {
         this.game = game;

@@ -9,16 +9,16 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.deco2800.game.GdxGame;
-import com.deco2800.game.components.mainmenu.MainMenuDisplay;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.*;
+import java.util.ArrayList;
 
 import static com.deco2800.game.screens.MainGameScreen.timeScore;
 
@@ -29,13 +29,23 @@ public class ScoreDisplay extends UIComponent {
     private Sprite sprite;
     private Label scoreLabel; // Shows the score.
     private Label levelLabel; // Shows the current level.
-    long score = timeScore; // The scoring system will be implemented later into development. For now, it will be
-                            // Initialised to 1 billion.
+    int newScore = timeScore;
+    int highScore = 0;
     private int level = 0; // The current Level. Levels need to be implemented later in development
                            // when multiple levels are available. For now, it will be 0.
 
+    private ArrayList<Integer> highScores = new ArrayList<>();
+
     @Override
     public void create() {
+        readHighScores();
+        if (newScore > highScores.get(level)) { // For now, this only works for level 1
+            highScores.set(level, newScore);
+            // writeHighScores();  // Implement in sprint 2 to store high score in file
+            highScore = newScore;
+        } else {
+            highScore = highScores.get(level);
+        }
         super.create();
         addActors();
     }
@@ -86,7 +96,7 @@ public class ScoreDisplay extends UIComponent {
 
         // Text to display the score for the current Level.
         CharSequence levelText = String.format("Level %d Scores", level);
-        CharSequence scoreText = String.format("%d", score);
+        CharSequence scoreText = String.format("%d", highScore);
         scoreLabel = new Label(scoreText, skin, "large");
         levelLabel = new Label(levelText, skin, "large");
 
@@ -127,5 +137,43 @@ public class ScoreDisplay extends UIComponent {
     public void dispose() {
         table.clear();
         super.dispose();
+    }
+
+
+
+    /**
+     * Reads the high scores recorded in a file
+     */
+    private void readHighScores() {
+        try {
+            File scoresReader = new File("High_Scores.txt");
+            BufferedReader myScoresReader = new BufferedReader(new FileReader(scoresReader));
+            String str;
+            while ((str = myScoresReader.readLine()) != null) {
+                int score = Integer.parseInt(str);
+                highScores.add(score);
+            }
+            myScoresReader.close();
+        } catch (FileNotFoundException e) {
+            System.err.println("High_Scores.txt is corrupted or missing.");
+
+        } catch(IOException e) {
+            System.err.println("High_Scores.txt is corrupted or missing.");
+        }
+    }
+
+    /**
+     * Writes the score to the text file
+     */
+    private void writeHighScores() {
+        try {
+            FileWriter scoresWriter = new FileWriter("High_Scores.txt");
+            BufferedWriter myScoresWriter = new BufferedWriter(scoresWriter);
+            System.out.println("I am a big dick boi");
+            myScoresWriter.write(String.valueOf(highScore));
+            scoresWriter.close();
+        } catch (IOException e) {
+            System.err.println("High_Scores.txt is corrupted or missing.");
+        }
     }
 }
