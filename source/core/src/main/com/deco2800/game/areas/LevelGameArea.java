@@ -8,6 +8,8 @@ import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.rendering.BackgroundRenderComponent;
+import com.deco2800.game.services.MusicService;
+import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
@@ -58,9 +60,18 @@ public class LevelGameArea extends GameArea {
     "map-spritesheets/mapTextures.atlas",
     "images/void.atlas",
   };
+  private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
+  private static final String[] gameMusic = {gameSong.click, gameSong.game_level_1,gameSong.end_credits,
+    gameSong.enemy_collision,gameSong.enemy_death, gameSong.obstacle_boost, gameSong.obstacle_button,
+    gameSong.player_collision, gameSong.player_power_up, gameSong.void_death, gameSong.void_noise};
   private static final String[] gameSounds = {"sounds/Impact4.ogg"};
-  private static final String backgroundMusic = "sounds/BackingMusicWithDrums.mp3";
-  private static final String[] gameMusic = {"sounds/BackingMusicWithDrums.mp3","sounds/CLICK_Click.mp3", "sounds/End credits.mp3", "sounds/ENEMY_Collision.mp3", "sounds/Enemy_Little enemy wobble sound.mp3", "sounds/OBSTACLE_Button.mp3", "sounds/OBSTACLE_Player Jumping", "sounds/PLAYER_Player Getting Power.mp3", "sounds/PLAYER_Running Into.mp3", "sounds/VOID_LoseGame_VirusHit.mp3", "sounds/VOID_void sound.mp3", "sounds/MainMenuMusic.mp3"};
+  /*private static final String backgroundMusic = "sounds/BackingMusicWithDrums.mp3";
+  private static final String[] gameMusic = {"sounds/BackingMusicWithDrums.mp3",
+          "sounds/CLICK_Click.mp3", "sounds/End credits.mp3", "sounds/ENEMY_Collision.mp3",
+          "sounds/Enemy_Little enemy wobble sound.mp3", "sounds/OBSTACLE_Button.mp3",
+          "sounds/OBSTACLE_Player Jumping", "sounds/PLAYER_Player Getting Power.mp3",
+          "sounds/PLAYER_Running Into.mp3", "sounds/VOID_LoseGame_VirusHit.mp3",
+          "sounds/VOID_void sound.mp3", "sounds/MainMenuMusic.mp3"};*/
 
 
   private final TerrainFactory terrainFactory;
@@ -89,7 +100,7 @@ public class LevelGameArea extends GameArea {
     spawnGroundEnemy();
     spawnTheVoid();
 
-    playMusic();
+    playTheMusic("game_level_1");
   }
 
   private void displayUI() {
@@ -251,11 +262,50 @@ public class LevelGameArea extends GameArea {
 
   }
 
-  private void playMusic() {
-    Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
-    music.setLooping(true);
-    music.setVolume(0.3f);
-    music.play();
+  private void playTheMusic(String musicPath) {
+    //Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
+    //music.setLooping(true);
+   // music.setVolume(0.3f);
+    //music.playMusic();
+    MusicServiceDirectory dict = new  MusicServiceDirectory();
+    MusicService gameMusic = null;
+    switch (musicPath) {
+      case "click":
+        gameMusic = new MusicService(dict.click);
+        break;
+      case "end_credits":
+        gameMusic = new MusicService(dict.end_credits);
+        break;
+      case "enemy_collision":
+        gameMusic = new MusicService(dict.enemy_collision);
+        break;
+      case "enemy_death":
+        gameMusic = new MusicService(dict.enemy_death);
+        break;
+      case "obstacle_boost":
+        gameMusic = new MusicService(dict.obstacle_boost);
+        break;
+      case "obstacle_button":
+        gameMusic = new MusicService(dict.obstacle_button);
+        break;
+      case "player_power_up":
+        gameMusic = new MusicService(dict.player_power_up);
+        break;
+      case "player_collision":
+        gameMusic = new MusicService(dict.player_collision);
+        break;
+      case "void_death":
+        gameMusic = new MusicService(dict.void_death);
+        break;
+      case "void_noise":
+        gameMusic = new MusicService(dict.void_noise);
+        break;
+      default:
+        gameMusic = new MusicService(dict.game_level_1);//To make sure gameMusic is never null
+    }
+
+
+    gameMusic.playMusic();
   }
 
   private void loadAssets() {
@@ -284,7 +334,7 @@ public class LevelGameArea extends GameArea {
   @Override
   public void dispose() {
     super.dispose();
-    ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
+    //ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
     this.unloadAssets();
   }
 }
