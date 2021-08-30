@@ -1,8 +1,10 @@
 package com.deco2800.game.areas;
 
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
+import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
@@ -83,15 +85,23 @@ public class LevelGameArea extends GameArea {
     this.terrainFactory = terrainFactory;
   }
 
+  /**
+   * Initializes basic components such as loading assets, background and terrain
+   */
+  public void init() {
+    loadAssets();
+
+    displayBackground();
+    spawnTerrain();
+  }
+
   /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
   @Override
   public void create() {
-    loadAssets();
+    init();
 
-    displayBackground(); // Display background at the back first
     displayUI();
 
-    spawnTerrain();
     //spawnTrees();
     spawnLevel();
     player = spawnPlayer();
@@ -101,6 +111,10 @@ public class LevelGameArea extends GameArea {
     spawnTheVoid();
 
     playTheMusic("game_level_1");
+    //playMusic();
+
+    spawnPlatform(8, 21, 5);
+    spawnDoor(9, 23, 5);
   }
 
   private void displayUI() {
@@ -136,34 +150,68 @@ public class LevelGameArea extends GameArea {
     }
   }
 
-  private void spawnPlatform(int posX, int posY) {
-    Entity platform = ObstacleFactory.createPlatform();
-    GridPoint2 position = new GridPoint2(posX,posY);
-    spawnEntityAt(platform, position, true, true);
+  public void clearTerrainCell(int x, int y) {
+    TiledMapTileLayer layer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
+    layer.setCell(x, y, null);
+
+    terrain.invalidateCache();
   }
 
-  private void spawnMiddlePlatform(int posX, int posY) {
-    Entity middlePlatform = ObstacleFactory.createMiddlePlatform();
-    GridPoint2 position = new GridPoint2(posX,posY);
-    spawnEntityAt(middlePlatform, position, true, true);
+  public void setTerrainCell(TerrainTile tile, int x, int y) {
+    TiledMapTileLayer layer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
+    TiledMapTileLayer.Cell cell = tile.generateCell();
+    layer.setCell(x, y, cell);
+
+    terrain.invalidateCache();
   }
 
-  private void spawnButton(int posX, int posY) {
+  public void spawnPlatform(int posX, int posY, int width) {
+    this.spawnPlatform(posX, posY, width, true, true);
+  }
+  
+  public void spawnPlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
+    Entity platform = ObstacleFactory.createPlatform(width);
+    GridPoint2 position = new GridPoint2(posX,posY);
+    spawnEntityAt(platform, position, centerX, centerY);
+  }
+
+  public void spawnMiddlePlatform(int posX, int posY, int width) {
+    this.spawnMiddlePlatform(posX, posY, width, true, true);
+  }
+
+  public void spawnMiddlePlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
+    Entity platform = ObstacleFactory.createMiddlePlatform(width);
+    GridPoint2 position = new GridPoint2(posX,posY);
+    spawnEntityAt(platform, position, centerX, centerY);
+  }
+  public void spawnButton(int posX, int posY) {
+    spawnButton(posX, posY, false, true);
+  }
+
+  public void spawnButton(int posX, int posY, boolean centerX, boolean centerY) {
     Entity button = ObstacleFactory.createButton();
     GridPoint2 position = new GridPoint2(posX,posY);
-    spawnEntityAt(button, position, false, true);
+    spawnEntityAt(button, position, centerX, centerY);
   }
 
-  private void spawnBridge(int posX, int posY) {
-    Entity bridge = ObstacleFactory.createBridge();
-    GridPoint2 position = new GridPoint2(posX,posY);
-    spawnEntityAt(bridge, position, false, true);
+  public void spawnBridge(int posX, int posY, int width) {
+    spawnBridge(posX, posY, width, false, true);
   }
 
-  private void spawnDoor(int posX, int posY) {
-    Entity door = ObstacleFactory.createDoor();
+  public void spawnBridge(int posX, int posY, int width, boolean centerX, boolean centerY) {
+    Entity bridge = ObstacleFactory.createBridge(width);
     GridPoint2 position = new GridPoint2(posX,posY);
-    spawnEntityAt(door, position, false, true);
+    spawnEntityAt(bridge, position, centerX, centerY);
+  }
+
+  public void spawnDoor(int posX, int posY, int height) {
+    spawnDoor(posX, posY, height, false, true);
+  }
+
+  public void spawnDoor(int posX, int posY, int height, boolean centerX, boolean centerY) {
+    Entity door = ObstacleFactory.createDoor(height);
+    GridPoint2 position = new GridPoint2(posX,posY);
+    spawnEntityAt(door, position, centerX, centerY);
   }
 
   private void spawnLevel() {
@@ -171,37 +219,37 @@ public class LevelGameArea extends GameArea {
     int i;
     for (c = 0; c < 4; c++) {
       for (i = 0; i < 8; i++) {
-        spawnPlatform(c*8+i, c+5);
+        spawnPlatform(c*8+i, c+5, 1);
       }
-      spawnMiddlePlatform(c*8+8,c+5);
+      spawnMiddlePlatform(c*8+8,c+5, 1);
     }
     int x = 32;
     int y = 8;
     spawnLadderPlatforms(x,y);
     for (i = 0; i < 8; i++) {
-      spawnPlatform(32+i,22);
-      spawnMiddlePlatform(39,22-i-1);
-      spawnPlatform(40+i,14);
+      spawnPlatform(32+i,22,1);
+      spawnMiddlePlatform(39,22-i-1, 1);
+      spawnPlatform(40+i,14, 1);
     }
     spawnButton(40,15);
     for (i = 0; i < 6; i++) {
-      spawnBridge(48+i,14);
-      spawnPlatform(54+i,14);
+      spawnBridge(48+i,14, 1);
+      spawnPlatform(54+i,14, 1);
     }
-    spawnDoor(56,15);
+    spawnDoor(56,15, 4);
   }
 
   private void spawnLadderPlatforms(int x, int y) {
 
     for (int i = 0; i < 13; i++) {
-      spawnMiddlePlatform(x,y+1+i);
-      spawnMiddlePlatform(x-9,y+6+i);
+      spawnMiddlePlatform(x,y+1+i, 1);
+      spawnMiddlePlatform(x-9,y+6+i, 1);
     }
     for (int i = 0; i < 3; i++) {
-      spawnPlatform(x-3+i,y+3);
-      spawnPlatform(x-8+i,y+6);
-      spawnPlatform(x-3+i,y+9);
-      spawnPlatform(x-8+i,y+12);
+      spawnPlatform(x-3+i,y+3, 1);
+      spawnPlatform(x-8+i,y+6, 1);
+      spawnPlatform(x-3+i,y+9, 1);
+      spawnPlatform(x-8+i,y+12, 1);
     }
   }
 

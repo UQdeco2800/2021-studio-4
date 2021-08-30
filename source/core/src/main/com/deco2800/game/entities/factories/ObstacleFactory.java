@@ -2,6 +2,8 @@ package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.TextureData;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -10,7 +12,9 @@ import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.rendering.SpriteRenderComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
+import com.deco2800.game.services.ServiceLocator;
 import org.w3c.dom.Text;
 
 /**
@@ -19,6 +23,35 @@ import org.w3c.dom.Text;
  * <p>Each obstacle entity type should have a creation method that returns a corresponding entity.
  */
 public class ObstacleFactory {
+  /**
+   * Uses pixmap to make a wider version of the same texture by repeating the texture widthways
+   * @param texture Base texture
+   * @param width Number of textures wide to make the new texture
+   * @return The widened texture
+   */
+  private static Texture expandTexture(TextureRegion texture, int width, int height) {
+    TextureData textureData = texture.getTexture().getTextureData();
+    textureData.prepare();
+    Pixmap tilePixmap = textureData.consumePixmap();
+    Pixmap widePixmap = new Pixmap(
+      texture.getRegionWidth()*width, texture.getRegionHeight()*height, Pixmap.Format.RGBA8888);
+
+    for (int y = 0; y < height; y++) {
+      for (int x = 0; x < width; x++) {
+        widePixmap.drawPixmap(tilePixmap,
+          x*texture.getRegionWidth(), y*texture.getRegionHeight(),
+          texture.getRegionX(), texture.getRegionY(),
+          texture.getRegionWidth(), texture.getRegionHeight());
+      }
+    }
+
+    Texture wideTexture = new Texture(widePixmap);
+
+    tilePixmap.dispose();
+    widePixmap.dispose();
+
+    return wideTexture;
+  }
 
   /**
    * Creates a tree entity.
@@ -52,15 +85,15 @@ public class ObstacleFactory {
     return wall;
   }
 
-  public static Entity createPlatform() {
-//    Texture platform1 = new Texture("map-textures/mapTextures_Platforms.png");
-//    platform1.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-//    TextureRegion textureRegion = new TextureRegion(platform1);
-//    textureRegion.setRegion(0,0, 2*platform1.getWidth(), 2*platform1.getHeight() );
-//    Image image = new Image(textureRegion);
+  public static Entity createPlatform(int width) {
+    TextureAtlas atlas = ServiceLocator.getResourceService()
+      .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
+
+    Texture platformTexture = expandTexture(atlas.findRegion("mapTextures_Platforms"), width, 1);
+
     Entity platform =
             new Entity()
-                    .addComponent(new TextureRenderComponent("map-textures/mapTextures_Platforms.png"))
+                    .addComponent(new TextureRenderComponent(platformTexture))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
@@ -71,10 +104,15 @@ public class ObstacleFactory {
     return platform;
   }
 
-  public static Entity createMiddlePlatform() {
+  public static Entity createMiddlePlatform(int width) {
+    TextureAtlas atlas = ServiceLocator.getResourceService()
+      .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
+
+    Texture platformTexture = expandTexture(atlas.findRegion("mapTextures_Middle-Platform"), width, 1);
+
     Entity platformWall =
             new Entity()
-                    .addComponent(new TextureRenderComponent("map-textures/mapTextures_Middle-Platform.png"))
+                    .addComponent(new TextureRenderComponent(platformTexture))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
@@ -99,10 +137,15 @@ public class ObstacleFactory {
     return button;
   }
 
-  public static Entity createBridge() {
+  public static Entity createBridge(int width) {
+    TextureAtlas atlas = ServiceLocator.getResourceService()
+      .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
+
+    Texture platformTexture = expandTexture(atlas.findRegion("mapTextures_bridge"), width, 1);
+
     Entity bridge =
       new Entity()
-        .addComponent(new TextureRenderComponent("map-textures/mapTextures_bridge.png"))
+        .addComponent(new TextureRenderComponent(platformTexture))
         .addComponent(new PhysicsComponent())
         .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
@@ -113,10 +156,15 @@ public class ObstacleFactory {
     return bridge;
   }
 
-  public static Entity createDoor() {
+  public static Entity createDoor(int height) {
+    TextureAtlas atlas = ServiceLocator.getResourceService()
+      .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
+
+    Texture platformTexture = expandTexture(atlas.findRegion("mapTextures_door"), 1, height);
+
     Entity door =
       new Entity()
-        .addComponent(new TextureRenderComponent("map-textures/mapTextures_door.png"))
+        .addComponent(new TextureRenderComponent(platformTexture))
         .addComponent(new PhysicsComponent())
         .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 

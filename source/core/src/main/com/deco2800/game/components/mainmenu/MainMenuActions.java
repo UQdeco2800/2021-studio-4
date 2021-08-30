@@ -26,6 +26,7 @@ public class MainMenuActions extends Component {
     entity.getEvents().addListener("exit", this::onExit);
     entity.getEvents().addListener("settings", this::onSettings);
     entity.getEvents().addListener("mute", this::onMute);
+    entity.getEvents().addListener("levelEditor", this::onLevelEditor);
   }
 
   /**
@@ -72,5 +73,13 @@ public class MainMenuActions extends Component {
     } else {
       musicService.playMusic();
     }
+  }
+
+  /**
+   * Launches level editor
+   */
+  private void onLevelEditor(){
+    logger.info("Launching level editor");
+    game.setScreen(GdxGame.ScreenType.LEVEL_EDITOR);
   }
 }
