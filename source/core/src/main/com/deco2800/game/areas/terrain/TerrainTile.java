@@ -1,5 +1,6 @@
 package com.deco2800.game.areas.terrain;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
@@ -12,12 +13,22 @@ import com.badlogic.gdx.maps.tiled.TiledMapTile;
 public class TerrainTile implements TiledMapTile {
   private int id;
   private BlendMode blendMode = BlendMode.ALPHA;
-  private TextureRegion textureRegion;
+  private TerrainTileDefinition definition;
+  private Sprite sprite;
   private float offsetX;
   private float offsetY;
 
-  public TerrainTile(TextureRegion textureRegion) {
-    this.textureRegion = textureRegion;
+  public TerrainTile(TerrainTileDefinition definition) {
+    this(definition, 0);
+  }
+
+  public TerrainTile(TerrainTileDefinition definition, int rotation) {
+    this.definition = definition;
+    this.sprite = definition.getSprite();
+
+    if (definition.isRotateable()) {
+      this.sprite.setRotation(rotation);
+    }
   }
 
   @Override
@@ -42,12 +53,20 @@ public class TerrainTile implements TiledMapTile {
 
   @Override
   public TextureRegion getTextureRegion() {
-    return textureRegion;
+    return sprite;
   }
 
   @Override
   public void setTextureRegion(TextureRegion textureRegion) {
-    this.textureRegion = textureRegion;
+    this.sprite = (Sprite)textureRegion;
+  }
+
+  public Sprite getSprite() {
+    return sprite;
+  }
+
+  public void setSprite(Sprite sprite) {
+    this.sprite = sprite;
   }
 
   @Override
