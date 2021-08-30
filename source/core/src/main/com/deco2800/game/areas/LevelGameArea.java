@@ -310,6 +310,10 @@ public class LevelGameArea extends GameArea {
 
   }
 
+  /**
+   * Music Dictionary for intialisation of various sound effects
+   * @param musicPath - String (see Music Directory for more information)
+   */
   private void playTheMusic(String musicPath) {
     //Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
     //music.setLooping(true);
