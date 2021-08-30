@@ -40,7 +40,7 @@ public class LevelGameArea extends GameArea {
     "images/iso_grass_3.png",
     "images/basicenemysprite.png",
     "images/chasingenemy.png",
-    "images/enemyspritehsee.png",
+    "images/enemyspritehseet.png",
     "images/game_background.png",
     "map-textures/mapTextures_Platforms.png",
     "map-textures/mapTextures_Middle-Platform.png",
@@ -48,6 +48,7 @@ public class LevelGameArea extends GameArea {
     "map-textures/mapTextures_bridge.png",
     "map-textures/mapTextures_door.png",
     "images/animatedvoid.png",
+    "images/gorgonGear2.png"
   };
 
   private static final String[] gameTextureAtlases = {
@@ -56,6 +57,7 @@ public class LevelGameArea extends GameArea {
     "images/ghostKing.atlas",
     "images/the_void.atlas",
     "images/testingenemy.atlas",
+    "images/gorgonGear.atlas",
     "map-spritesheets/mapTextures.atlas",
     "images/void.atlas",
   };
@@ -86,7 +88,8 @@ public class LevelGameArea extends GameArea {
     player = spawnPlayer();
     //spawnGhosts();
     //spawnGhostKing();
-    spawnGroundEnemy();
+    //spawnGroundEnemy();
+    //spawnGorgonGear();
     spawnTheVoid();
 
     playMusic();
@@ -221,6 +224,22 @@ public class LevelGameArea extends GameArea {
     }
   }
 
+  /**
+   * Spawns the flying enemy (the GorgonGear)
+   *
+   * the spawn point of the enemy will be dependent on the map of each level and will be implemented further
+   * in the second sprint. The range that the enemy can attack will be fixed to a certain point for chasing the
+   * character when the player is in range of the enemy.
+   *
+   * @param xCoord This is the X-coordinate of where the enemy will spawn.
+   * @param yCoord This is the Y-coordinate of where the enemy will spawn.
+   */
+  private void spawnGorgonGear(int xCoord, int yCoord) {
+    GridPoint2 distinctPos = new GridPoint2(xCoord, yCoord);
+    Entity gorgonGear = NPCFactory.createGorgonGear(player);
+    spawnEntityAt(gorgonGear, distinctPos, true, true);
+  }
+
   private void spawnGhosts() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
@@ -231,7 +250,7 @@ public class LevelGameArea extends GameArea {
       spawnEntityAt(ghost, randomPos, true, true);
     }
   }
-
+/*
   private void spawnGhostKing() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
@@ -240,7 +259,7 @@ public class LevelGameArea extends GameArea {
     Entity ghostKing = NPCFactory.createGhostKing(player);
     spawnEntityAt(ghostKing, randomPos, true, true);
   }
-
+*/
   /**
    * Spawns the void on the map by calling the createTheVoid() method in NPCFactory
    * with player as its parameter. The void's vertical placement is determined by 1/2 of
