@@ -39,10 +39,10 @@ public class ScoreDisplay extends UIComponent {
     @Override
     public void create() {
         readHighScores();
-        if (newScore > highScores.get(level)) { // For now, this only works for level 1
-            highScores.set(level, newScore);
-            // writeHighScores();  // Implement in sprint 2 to store high score in file
+        if (newScore > highScore) { // For now, this only works for level 1
             highScore = newScore;
+            System.out.println(highScore);
+            writeHighScores();  // Implement in sprint 2 to store high score in file
         } else {
             highScore = highScores.get(level);
         }
@@ -168,9 +168,7 @@ public class ScoreDisplay extends UIComponent {
     private void writeHighScores() {
         try {
             FileWriter scoresWriter = new FileWriter("High_Scores.txt");
-            BufferedWriter myScoresWriter = new BufferedWriter(scoresWriter);
-            System.out.println("I am a big dick boi");
-            myScoresWriter.write(String.valueOf(highScore));
+            scoresWriter.write(String.valueOf(highScore));
             scoresWriter.close();
         } catch (IOException e) {
             System.err.println("High_Scores.txt is corrupted or missing.");
