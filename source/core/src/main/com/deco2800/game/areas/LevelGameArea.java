@@ -15,6 +15,8 @@ import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class LevelGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(LevelGameArea.class);
@@ -36,7 +38,6 @@ public class LevelGameArea extends GameArea {
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
     "images/iso_grass_3.png",
-    "images/the_void.png",
     "images/basicenemysprite.png",
     "images/chasingenemy.png",
     "images/enemyspritehsee.png",
@@ -45,8 +46,8 @@ public class LevelGameArea extends GameArea {
     "map-textures/mapTextures_Middle-Platform.png",
     "map-textures/mapTextures_Button-On.png",
     "map-textures/mapTextures_bridge.png",
-    "map-textures/mapTextures_door.png"
-    
+    "map-textures/mapTextures_door.png",
+    "images/animatedvoid.png",
   };
   private static final String[] gameTextureAtlases = {
     "images/terrain_iso_grass.atlas",
@@ -55,6 +56,7 @@ public class LevelGameArea extends GameArea {
     "images/the_void.atlas",
     "images/testingenemy.atlas",
     "map-spritesheets/mapTextures.atlas",
+    "images/void.atlas",
   };
   private static final String[] gameSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BackingMusicWithDrums.mp3";
@@ -83,7 +85,8 @@ public class LevelGameArea extends GameArea {
     player = spawnPlayer();
     //spawnGhosts();
     //spawnGhostKing();
-    //spawnTheVoid();
+    spawnGroundEnemy();
+    spawnTheVoid();
 
     playMusic();
   }
@@ -194,6 +197,27 @@ public class LevelGameArea extends GameArea {
     Entity newPlayer = PlayerFactory.createPlayer();
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     return newPlayer;
+  }
+
+  /**
+   * Spawn the ground enemy
+   * It generate a random x cord and a fix y cord to ensure the enemy spawn on the ground
+   * There is list that checks whether a x coordinate exist already to ensure the
+   * enemy do not overlap
+   */
+  private void spawnGroundEnemy() {
+    ArrayList<Integer>  check = new ArrayList<>();
+    for (int i = 0; i < 2; i++) {
+      int xCord = 20 + (int)(Math.random() * ((WALL_WIDTH - 5) + 1));
+
+      while (check.contains(xCord) == true) {
+        xCord = 20 + (int)(Math.random() * ((WALL_WIDTH - 5) + 1));
+      }
+      check.add(xCord);
+      GridPoint2 randomPos = new GridPoint2(xCord,6);
+      Entity ghost = NPCFactory.createGhost(player);
+      spawnEntityAt(ghost, randomPos, true, true);
+    }
   }
 
   private void spawnGhosts() {
