@@ -2,11 +2,9 @@ package com.deco2800.game.areas.terrain;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -123,15 +121,14 @@ public class TerrainFactory {
 
     tiles.add(new TerrainTile(TerrainTileDefinition.TILE_FULL_MIDDLE));
     tiles.add(new TerrainTile(TerrainTileDefinition.TILE_FULL_TOP));
-    tiles.add(new TerrainTile(TerrainTileDefinition.TILE_FULL_TOP, 90));
+    tiles.add(new TerrainTile(TerrainTileDefinition.TILE_FULL_TOP, 90, false, false));
     tiles.add(new TerrainTile(TerrainTileDefinition.TILE_HALF_BOTTOM));
-    tiles.add(new TerrainTile(TerrainTileDefinition.TILE_HALF_BOTTOM, 90));
+    tiles.add(new TerrainTile(TerrainTileDefinition.TILE_HALF_BOTTOM, 90, false, false));
     tiles.add(new TerrainTile(TerrainTileDefinition.TILE_HALF_TOP));
 
     int x = 0;
     for (TerrainTile tile : tiles) {
-      Cell cell = new Cell();
-      cell.setTile(tile);
+      Cell cell = tile.generateCell();
       layer.setCell(x, 20, cell);
 
       x++;
