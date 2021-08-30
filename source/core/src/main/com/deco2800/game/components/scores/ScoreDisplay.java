@@ -163,7 +163,7 @@ public class ScoreDisplay extends UIComponent {
     }
 
     /**
-     * Writes the score to the text file
+     * Writes the high score to the text file. Only works for level 0
      */
     private void writeHighScores() {
         try {
@@ -173,5 +173,14 @@ public class ScoreDisplay extends UIComponent {
         } catch (IOException e) {
             System.err.println("High_Scores.txt is corrupted or missing.");
         }
+    }
+
+
+    public int getHighScore() {
+        return highScore;
+    }
+
+    public void setNewScore(int input) {
+        newScore = input;
     }
 }
