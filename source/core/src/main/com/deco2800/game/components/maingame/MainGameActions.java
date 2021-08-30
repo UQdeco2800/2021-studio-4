@@ -20,6 +20,8 @@ public class MainGameActions extends Component {
   @Override
   public void create() {
     entity.getEvents().addListener("exit", this::onExit);
+    // Add death component to the player.
+    entity.getEvents().addListener("playerDeath", this::onDeath);
   }
 
   /**
@@ -28,5 +30,13 @@ public class MainGameActions extends Component {
   private void onExit() {
     logger.info("Exiting main game screen");
     game.setScreen(GdxGame.ScreenType.MAIN_MENU);
+  }
+
+  /**
+   * Switches to the death screen when player health has reached 0.
+   */
+  private void onDeath() {
+    logger.info("Show Death Screen");
+    game.setScreen(GdxGame.ScreenType.DEATH_SCREEN);
   }
 }
