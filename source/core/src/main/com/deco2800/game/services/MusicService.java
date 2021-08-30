@@ -17,8 +17,6 @@ import com.badlogic.gdx.audio.Sound;
  */
 public class MusicService {
     private static final String musicLocation = "";
-    // private static final String backgroundMusic = "sounds/MainMenuMusic.mp3";
-    // private static final String[] MainMenuMusic = {backgroundMusic};
     private boolean isMusicPlaying;
     private Music music;
 
@@ -28,45 +26,52 @@ public class MusicService {
         isMusicPlaying = music.isPlaying();
     }
 
+    /**
+     * Stop this music.
+     */
     public void stopMusic() {
-        //Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
         music.stop();
     }
 
-    /** Checks whether the music is playing.
-     *
+    /**
+     *  Checks whether this music is playing.
      * @return boolean: true - if the music is playing, false - if the music is not playing
      */
     public boolean isMusicPlaying() {
         return isMusicPlaying;
     }
+
+    /**
+     * Get the playback position of this music in seconds.
+     * @return the playback position.
+     */
     public float getTime() {
         return music.getPosition();
     }
+
+    /**
+     * Start playing this music from the given time.
+     */
     public void setTime(float time) {
         music.setPosition(time);
         music.play();
     }
 
-
+    /**
+     * Play this music in the loop.
+     */
     public void playMusic() {
-        //Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
         music.setLooping(true);
         music.setVolume(0.3f);
         music.play();
     }
+
+    /**
+     * Play this music with the given volume.
+     */
     public void changeVolume(float vol) {
         music.setVolume(vol);
         music.play();
     }
-
-    public void setSpeed(float speed) {
-       /* Sound mp3Sound = Gdx.audio.newSound(Gdx.files.internal("sounds/BackingMusicWithDrums.mp3"));
-       long id = mp3Sound.play();
-
-        mp3Sound.setPitch(id,speed);*/
-    }
-
-
 
 }
