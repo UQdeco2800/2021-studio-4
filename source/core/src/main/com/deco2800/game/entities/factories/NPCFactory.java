@@ -54,7 +54,7 @@ public class NPCFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
-                            .getAsset("images/the_void.atlas", TextureAtlas.class));
+                            .getAsset("images/void.atlas", TextureAtlas.class));
     animator.addAnimation("void", 0.1f, Animation.PlayMode.LOOP);
 
     Entity theVoid = new Entity();
@@ -87,7 +87,7 @@ public class NPCFactory {
    * @return entity
    */
   public static Entity createGhost(Entity target) {
-    Entity ghost = createBaseNPC(target);
+    Entity ghost = createGroundNPC(target);
     BaseEntityConfig config = configs.ghost;
 
     AnimationRenderComponent animator =
@@ -130,6 +130,29 @@ public class NPCFactory {
 
     ghostKing.getComponent(AnimationRenderComponent.class).scaleEntity();
     return ghostKing;
+  }
+
+  /**
+   * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
+   *
+   * @return entity
+   */
+  private static Entity createGroundNPC(Entity target) {
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new WanderTask(new Vector2(2, 0), 2f))
+                    .addTask(new ChaseTask(target, 10, 3f, 4f));
+    Entity npc =
+            new Entity()
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new PhysicsMovementComponent())
+                    .addComponent(new ColliderComponent())
+                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+                    .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
+                    .addComponent(aiComponent);
+
+    PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
+    return npc;
   }
 
 

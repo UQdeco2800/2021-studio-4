@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
 /**
  * Custom terrain tile implementation for tiled map terrain that stores additional properties we
@@ -18,17 +19,41 @@ public class TerrainTile implements TiledMapTile {
   private float offsetX;
   private float offsetY;
 
+  private final boolean flipX;
+  private final boolean flipY;
+  private final int rotation;
+
   public TerrainTile(TerrainTileDefinition definition) {
-    this(definition, 0);
+    this(definition, 0, false, false);
   }
 
-  public TerrainTile(TerrainTileDefinition definition, int rotation) {
+  public TerrainTile(TerrainTileDefinition definition, int rotation, boolean flipX, boolean flipY) {
     this.definition = definition;
     this.sprite = definition.getSprite();
 
+    this.rotation = rotation;
+    this.flipX = flipX;
+    this.flipY = flipY;
+  }
+
+  /**
+   * Generate a cell to this TerrainTile's cell definitions. Includes setting texture, rotation and flipX/Y
+   */
+  public Cell generateCell(){
+    Cell cell = new Cell();
+
+    cell.setTile(this);
+
     if (definition.isRotateable()) {
-      this.sprite.setRotation(rotation);
+      cell.setRotation(this.rotation / 90);
     }
+
+    if (definition.isFlipable()) {
+      cell.setFlipHorizontally(flipX);
+      cell.setFlipVertically(flipY);
+    }
+
+    return cell;
   }
 
   @Override

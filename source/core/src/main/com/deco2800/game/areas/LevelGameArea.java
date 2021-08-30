@@ -1,23 +1,14 @@
 package com.deco2800.game.areas;
 
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainTile;
-import com.deco2800.game.areas.terrain.TerrainTileDefinition;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
-import com.deco2800.game.physics.PhysicsLayer;
-import com.deco2800.game.physics.components.ColliderComponent;
-import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.BackgroundRenderComponent;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
@@ -25,6 +16,8 @@ import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class LevelGameArea extends GameArea {
@@ -47,7 +40,6 @@ public class LevelGameArea extends GameArea {
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
     "images/iso_grass_3.png",
-    "images/the_void.png",
     "images/basicenemysprite.png",
     "images/chasingenemy.png",
     "images/enemyspritehsee.png",
@@ -56,8 +48,8 @@ public class LevelGameArea extends GameArea {
     "map-textures/mapTextures_Middle-Platform.png",
     "map-textures/mapTextures_Button-On.png",
     "map-textures/mapTextures_bridge.png",
-    "map-textures/mapTextures_door.png"
-    
+    "map-textures/mapTextures_door.png",
+    "images/animatedvoid.png",
   };
   private static final String[] gameTextureAtlases = {
     "images/terrain_iso_grass.atlas",
@@ -66,10 +58,25 @@ public class LevelGameArea extends GameArea {
     "images/the_void.atlas",
     "images/testingenemy.atlas",
     "map-spritesheets/mapTextures.atlas",
+    "images/void.atlas",
   };
   private static final String[] gameSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BackingMusicWithDrums.mp3";
-  private static final String[] gameMusic = {backgroundMusic};
+  private static final String[] gameMusic = {
+    "sounds/BackingMusicWithDrums.mp3",
+    "sounds/CLICK_Click.mp3",
+    "sounds/End credits.mp3",
+    "sounds/ENEMY_Collision.mp3",
+    "sounds/Enemy_Little enemy wobble sound.mp3",
+    "sounds/OBSTACLE_Button.mp3",
+    "sounds/OBSTACLE_Player Jumping",
+    "sounds/PLAYER_Player Getting Power.mp3",
+    "sounds/PLAYER_Running Into.mp3",
+    "sounds/VOID_LoseGame_VirusHit.mp3",
+    "sounds/VOID_void sound.mp3",
+    "sounds/MainMenuMusic.mp3"
+  };
+
 
   private final TerrainFactory terrainFactory;
 
@@ -80,23 +87,35 @@ public class LevelGameArea extends GameArea {
     this.terrainFactory = terrainFactory;
   }
 
+  /**
+   * Initializes basic components such as loading assets, background and terrain
+   */
+  public void init() {
+    loadAssets();
+
+    displayBackground();
+    spawnTerrain();
+  }
+
   /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
   @Override
   public void create() {
-    loadAssets();
+    init();
 
-    displayBackground(); // Display background at the back first
     displayUI();
 
-    spawnTerrain();
     //spawnTrees();
     spawnLevel();
     player = spawnPlayer();
-//    spawnGhosts();
-//    spawnGhostKing();
-//    spawnTheVoid();
+    //spawnGhosts();
+    //spawnGhostKing();
+    spawnGroundEnemy();
+    spawnTheVoid();
 
     playMusic();
+
+    spawnPlatform(8, 21, 5);
+    spawnDoor(9, 23, 5);
   }
 
   private void displayUI() {
@@ -111,44 +130,12 @@ public class LevelGameArea extends GameArea {
     spawnEntity(background);
   }
 
-
-  public static Shape getShapeFromRectangle(Rectangle rectangle){
-    PolygonShape polygonShape = new PolygonShape();
-    polygonShape.setAsBox(rectangle.width*0.5F / TerrainTileDefinition.TILE_X,rectangle.height*0.5F/ TerrainTileDefinition.TILE_Y);
-    return polygonShape;
-  }
-
-  public static Vector2 getTransformedCenterForRectangle(Rectangle rectangle){
-    Vector2 center = new Vector2();
-    rectangle.getCenter(center);
-    return center.scl(1/TerrainTileDefinition.TILE_X);
-  }
-
   private void spawnTerrain() {
     // Generate terrain
     terrain = terrainFactory.createTerrain();
-    MapObjects objects = terrain.getMap().getLayers().get(0).getObjects();
-
-    for (MapObject object : objects) {
-      Rectangle rectangle = ((RectangleMapObject)object).getRectangle();
-
-      //create a dynamic within the world body (also can be KinematicBody or StaticBody
-      BodyDef bodyDef = new BodyDef();
-      bodyDef.type = BodyDef.BodyType.DynamicBody;
-      Body body = ServiceLocator.getPhysicsService().getPhysics().createBody(bodyDef);
-
-      Fixture fixture = body.createFixture(getShapeFromRectangle(rectangle),1);
-
-      body.setTransform(getTransformedCenterForRectangle(rectangle),0);
-    }
 
     Entity terrainEntity = new Entity();
-    terrainEntity
-      .addComponent(terrain)
-      .addComponent(new PhysicsComponent())
-      .addComponent(new ColliderComponent().setLayer(PhysicsLayer.ALL));
-
-    terrainEntity.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
+    terrainEntity.addComponent(terrain);
 
     spawnEntity(terrainEntity);
   }
@@ -164,42 +151,78 @@ public class LevelGameArea extends GameArea {
     }
   }
 
-  private void spawnPlatform(int posX, int posY, int blocks) {
-    Entity platform = ObstacleFactory.createPlatform(blocks);
-    GridPoint2 position = new GridPoint2(posX,posY);
-    spawnEntityAt(platform, position, false, true);
+  public void clearTerrainCell(int x, int y) {
+    TiledMapTileLayer layer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
+    layer.setCell(x, y, null);
+
+    terrain.invalidateCache();
   }
 
-  private void spawnMiddlePlatform(int posX, int posY, int blocks) {
-    Entity middlePlatform = ObstacleFactory.createMiddlePlatform(blocks);
-    GridPoint2 position = new GridPoint2(posX,posY);
-    spawnEntityAt(middlePlatform, position, true, false);
+  public void setTerrainCell(TerrainTile tile, int x, int y) {
+    TiledMapTileLayer layer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
+    TiledMapTileLayer.Cell cell = tile.generateCell();
+    layer.setCell(x, y, cell);
+
+    terrain.invalidateCache();
   }
 
-  private void spawnButton(int posX, int posY) {
+  public void spawnPlatform(int posX, int posY, int width) {
+    this.spawnPlatform(posX, posY, width, true, true);
+  }
+  
+  public void spawnPlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
+    Entity platform = ObstacleFactory.createPlatform(width);
+    GridPoint2 position = new GridPoint2(posX,posY);
+    spawnEntityAt(platform, position, centerX, centerY);
+  }
+
+  public void spawnMiddlePlatform(int posX, int posY, int width) {
+    this.spawnMiddlePlatform(posX, posY, width, true, true);
+  }
+
+  public void spawnMiddlePlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
+    Entity platform = ObstacleFactory.createMiddlePlatform(width);
+    GridPoint2 position = new GridPoint2(posX,posY);
+    spawnEntityAt(platform, position, centerX, centerY);
+  }
+  public void spawnButton(int posX, int posY) {
+    spawnButton(posX, posY, false, true);
+  }
+
+  public void spawnButton(int posX, int posY, boolean centerX, boolean centerY) {
     Entity button = ObstacleFactory.createButton();
     GridPoint2 position = new GridPoint2(posX,posY);
-    spawnEntityAt(button, position, false, true);
+    spawnEntityAt(button, position, centerX, centerY);
   }
 
-  private void spawnBridge(int posX, int posY, int blocks) {
-    Entity bridge = ObstacleFactory.createBridge(blocks);
-    GridPoint2 position = new GridPoint2(posX,posY);
-    spawnEntityAt(bridge, position, false, true);
+  public void spawnBridge(int posX, int posY, int width) {
+    spawnBridge(posX, posY, width, false, true);
   }
 
-  private void spawnDoor(int posX, int posY) {
-    Entity door = ObstacleFactory.createDoor();
+  public void spawnBridge(int posX, int posY, int width, boolean centerX, boolean centerY) {
+    Entity bridge = ObstacleFactory.createBridge(width);
     GridPoint2 position = new GridPoint2(posX,posY);
-    spawnEntityAt(door, position, false, true);
+    spawnEntityAt(bridge, position, centerX, centerY);
+  }
+
+  public void spawnDoor(int posX, int posY, int height) {
+    spawnDoor(posX, posY, height, false, true);
+  }
+
+  public void spawnDoor(int posX, int posY, int height, boolean centerX, boolean centerY) {
+    Entity door = ObstacleFactory.createDoor(height);
+    GridPoint2 position = new GridPoint2(posX,posY);
+    spawnEntityAt(door, position, centerX, centerY);
   }
 
   private void spawnLevel() {
     int c;
     int i;
     for (c = 0; c < 4; c++) {
-      spawnPlatform(c*8,c+5,8);
-      spawnMiddlePlatform(c*8+8,c+5,1);
+      for (i = 0; i < 8; i++) {
+        spawnPlatform(c*8+i, c+5, 1);
+      }
+      spawnMiddlePlatform(c*8+8,c+5, 1);
     }
     int x = 32;
     int y = 8;
@@ -208,18 +231,28 @@ public class LevelGameArea extends GameArea {
     spawnMiddlePlatform(39,30,2);
     spawnPlatform(40,14,8);
     for (i = 0; i < 8; i++) {
-      spawnMiddlePlatform(39,22-i-1,1);
+      spawnPlatform(32+i,22,1);
+      spawnMiddlePlatform(39,22-i-1, 1);
+      spawnPlatform(40+i,14, 1);
     }
     spawnButton(40,15);
-    spawnBridge(48,14,8);
-    spawnPlatform(56,14,6);
-    spawnDoor(58,15);
+    for (i = 0; i < 6; i++) {
+      spawnBridge(48+i,14, 1);
+      spawnPlatform(54+i,14, 1);
+    }
+    spawnDoor(56,15, 4);
   }
 
   private void spawnLadderPlatforms(int x, int y) {
     for (int i = 0; i < 13; i++) {
-      spawnMiddlePlatform(x,y+1+i,1);
-      spawnMiddlePlatform(x-9,y+6+i,1);
+      spawnMiddlePlatform(x,y+1+i, 1);
+      spawnMiddlePlatform(x-9,y+6+i, 1);
+    }
+    for (int i = 0; i < 3; i++) {
+      spawnPlatform(x-3+i,y+3, 1);
+      spawnPlatform(x-8+i,y+6, 1);
+      spawnPlatform(x-3+i,y+9, 1);
+      spawnPlatform(x-8+i,y+12, 1);
     }
     spawnPlatform(x-3,y+3,3);
     spawnPlatform(x-8,y+6,3);
@@ -231,6 +264,27 @@ public class LevelGameArea extends GameArea {
     Entity newPlayer = PlayerFactory.createPlayer();
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     return newPlayer;
+  }
+
+  /**
+   * Spawn the ground enemy
+   * It generate a random x cord and a fix y cord to ensure the enemy spawn on the ground
+   * There is list that checks whether a x coordinate exist already to ensure the
+   * enemy do not overlap
+   */
+  private void spawnGroundEnemy() {
+    ArrayList<Integer>  check = new ArrayList<>();
+    for (int i = 0; i < 2; i++) {
+      int xCord = 20 + (int)(Math.random() * ((WALL_WIDTH - 5) + 1));
+
+      while (check.contains(xCord) == true) {
+        xCord = 20 + (int)(Math.random() * ((WALL_WIDTH - 5) + 1));
+      }
+      check.add(xCord);
+      GridPoint2 randomPos = new GridPoint2(xCord,6);
+      Entity ghost = NPCFactory.createGhost(player);
+      spawnEntityAt(ghost, randomPos, true, true);
+    }
   }
 
   private void spawnGhosts() {
