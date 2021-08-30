@@ -15,6 +15,7 @@ import com.deco2800.game.components.mainmenu.MainMenuDisplay;
 import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.files.UserSettings.DisplaySettings;
 import com.deco2800.game.services.MusicService;
+import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import com.deco2800.game.utils.StringDecorator;
@@ -42,9 +43,8 @@ public class SettingsMenuDisplay extends UIComponent {
   }
 
   public void playTheMusic() {
-    MusicService musicScreen = new MusicService("sounds/MainMenuMusic.mp3");
-    float musicTime = (float) 0.9;
-    musicScreen.setTime(musicTime);
+    MusicServiceDirectory dict = new  MusicServiceDirectory();
+    MusicService musicScreen = new MusicService(dict.main_menu);
     musicScreen.playMusic();
   }
 

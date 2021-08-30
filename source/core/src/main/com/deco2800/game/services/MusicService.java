@@ -11,7 +11,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
-
 /**
  * Service for playing and controlling the play of game music, this is different to a loadAsset() function as
  *          it doesn't control the loading of the assets, however it controls the playing and where the music plays.
@@ -22,6 +21,7 @@ public class MusicService {
     // private static final String[] MainMenuMusic = {backgroundMusic};
     private boolean isMusicPlaying;
     private Music music;
+
     /** Initial constructor class of the music service */
     public MusicService(String musicLocation) {
         music = ServiceLocator.getResourceService().getAsset(musicLocation, Music.class);

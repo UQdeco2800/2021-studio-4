@@ -12,6 +12,7 @@ import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.badlogic.gdx.math.Vector2;
 
 import com.deco2800.game.services.MusicService;
+import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.utils.math.Vector2Utils;
 
 public class TheVoidController extends Component {
@@ -59,7 +60,8 @@ public class TheVoidController extends Component {
 
      void updateSound(){
          float distance_from_player = getPlayerDistance();
-         MusicService musicService = new MusicService("sounds/BackingMusicWithDrums.mp3");
+         MusicServiceDirectory dict = new  MusicServiceDirectory();
+         MusicService musicService = new MusicService(dict.game_level_1);
          float min = 0;
          float max = 1;
          if (distance_from_player > (float)0.01) {

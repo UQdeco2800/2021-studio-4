@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.services.MusicService;
+import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -54,7 +55,8 @@ public class MainMenuDisplay extends UIComponent {
         loadTheMusic();
     }
     public void loadTheMusic() {
-        MusicService musicScreen = new MusicService("sounds/MainMenuMusic.mp3");
+        MusicServiceDirectory dict = new  MusicServiceDirectory();
+        MusicService musicScreen = new MusicService(dict.main_menu);
         musicScreen.playMusic();
     }
 
