@@ -52,9 +52,9 @@ public class MainMenuDisplay extends UIComponent {
     public void create() {
         super.create();
         addActors();
-        loadTheMusic();
+        playTheMusic();
     }
-    public void loadTheMusic() {
+    public void playTheMusic() {
         MusicServiceDirectory dict = new  MusicServiceDirectory();
         MusicService musicScreen = new MusicService(dict.main_menu);
         musicScreen.playMusic();

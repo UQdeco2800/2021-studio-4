@@ -18,6 +18,7 @@ import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.services.GameTime;
+import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.terminal.Terminal;
@@ -36,6 +37,9 @@ public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private static final String[] mainGameTextures = {"images/heart.png"};
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
+
+  private static final MusicServiceDirectory levelOneBackSong = new MusicServiceDirectory();
+  private static final String[] levelOneSong = {levelOneBackSong.game_level_1};
 
   private final GdxGame game;
   private final Renderer renderer;
@@ -110,16 +114,23 @@ public class MainGameScreen extends ScreenAdapter {
   }
 
   private void loadAssets() {
-    logger.debug("Loading assets");
+    logger.debug("Loading assets in main game screen");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainGameTextures);
     ServiceLocator.getResourceService().loadAll();
+    resourceService.loadMusic(levelOneSong);
+
+    while (!resourceService.loadForMillis(10)) {
+      // This could be upgraded to a loading screen
+      logger.info("Loading... {}%", resourceService.getProgress());
+    }
   }
 
   private void unloadAssets() {
-    logger.debug("Unloading assets");
+    logger.debug("Unloading assets in main game screen");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.unloadAssets(mainGameTextures);
+    resourceService.unloadAssets(levelOneSong);
   }
 
   /**
