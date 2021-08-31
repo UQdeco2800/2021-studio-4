@@ -45,7 +45,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("setPreviousWalkDirection", Vector2Utils.RIGHT);
         return true;
       case Keys.SHIFT_RIGHT:
-      case Keys.SHIFT_LEFT:
         entity.getEvents().trigger("slide");
         return true;
       default:
