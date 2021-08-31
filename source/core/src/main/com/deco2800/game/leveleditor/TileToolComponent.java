@@ -112,7 +112,12 @@ public class TileToolComponent extends InputComponent {
 
   @Override
   public boolean scrolled(float amountX, float amountY) {
-    scrollTile((int)amountY);
+    if ((int)amountY > 0) {
+      scrollTile(1);
+    } else if ((int)amountY < 0) {
+      scrollTile(-1);
+    }
+
     return super.scrolled(amountX, amountY);
   }
 
