@@ -159,7 +159,11 @@ public class ObstacleToolComponent extends InputComponent {
 
   @Override
   public boolean scrolled(float amountX, float amountY) {
-    scrollSize(((int)amountY) * -1);
+    if ((int)amountY*-1 > 0) {
+      scrollSize(1);
+    } else if ((int)amountY*-1 < 0) {
+      scrollSize(-1);
+    }
     refreshHeldEntity();
     return super.scrolled(amountX, amountY);
   }
