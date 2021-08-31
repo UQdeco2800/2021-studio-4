@@ -34,54 +34,55 @@ public class LevelGameArea extends GameArea {
   public List<ObstacleEntity> obstacleEntities = new ArrayList<>();
   public static ArrayList<TerrainTile> terrainTiles = new ArrayList<>();
   private static final String[] gameTextures = {
-    "images/box_boy_leaf.png",
-    "images/tree.png",
-    "images/ghost_king.png",
-    "images/ghost_1.png",
-    "images/grass_1.png",
-    "images/grass_2.png",
-    "images/grass_3.png",
-    "images/hex_grass_1.png",
-    "images/hex_grass_2.png",
-    "images/hex_grass_3.png",
-    "images/iso_grass_1.png",
-    "images/iso_grass_2.png",
-    "images/iso_grass_3.png",
-    "images/basicenemysprite.png",
-    "images/chasingenemy.png",
-    "images/enemyspritehsee.png",
-    "images/game_background.png",
-    "map-textures/mapTextures_Platforms.png",
-    "map-textures/mapTextures_Middle-Platform.png",
-    "map-textures/mapTextures_Button-On.png",
-    "map-textures/mapTextures_bridge.png",
-    "map-textures/mapTextures_door.png",
-    "images/animatedvoid.png",
+          "images/virus_man.png",
+          "images/box_boy_leaf.png",
+          "images/tree.png",
+          "images/ghost_king.png",
+          "images/ghost_1.png",
+          "images/grass_1.png",
+          "images/grass_2.png",
+          "images/grass_3.png",
+          "images/hex_grass_1.png",
+          "images/hex_grass_2.png",
+          "images/hex_grass_3.png",
+          "images/iso_grass_1.png",
+          "images/iso_grass_2.png",
+          "images/iso_grass_3.png",
+          "images/basicenemysprite.png",
+          "images/chasingenemy.png",
+          "images/enemyspritehsee.png",
+          "images/game_background.png",
+          "map-textures/mapTextures_Platforms.png",
+          "map-textures/mapTextures_Middle-Platform.png",
+          "map-textures/mapTextures_Button-On.png",
+          "map-textures/mapTextures_bridge.png",
+          "map-textures/mapTextures_door.png",
+          "images/animatedvoid.png",
   };
   private static final String[] gameTextureAtlases = {
-    "images/terrain_iso_grass.atlas",
-    "images/ghost.atlas",
-    "images/ghostKing.atlas",
-    "images/the_void.atlas",
-    "images/testingenemy.atlas",
-    "map-spritesheets/mapTextures.atlas",
-    "images/void.atlas",
+          "images/terrain_iso_grass.atlas",
+          "images/ghost.atlas",
+          "images/ghostKing.atlas",
+          "images/the_void.atlas",
+          "images/testingenemy.atlas",
+          "map-spritesheets/mapTextures.atlas",
+          "images/void.atlas",
   };
   private static final String[] gameSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BackingMusicWithDrums.mp3";
   private static final String[] gameMusic = {
-    "sounds/BackingMusicWithDrums.mp3",
-    "sounds/CLICK_Click.mp3",
-    "sounds/End credits.mp3",
-    "sounds/ENEMY_Collision.mp3",
-    "sounds/Enemy_Little enemy wobble sound.mp3",
-    "sounds/OBSTACLE_Button.mp3",
-    "sounds/OBSTACLE_Player Jumping",
-    "sounds/PLAYER_Player Getting Power.mp3",
-    "sounds/PLAYER_Running Into.mp3",
-    "sounds/VOID_LoseGame_VirusHit.mp3",
-    "sounds/VOID_void sound.mp3",
-    "sounds/MainMenuMusic.mp3"
+          "sounds/BackingMusicWithDrums.mp3",
+          "sounds/CLICK_Click.mp3",
+          "sounds/End credits.mp3",
+          "sounds/ENEMY_Collision.mp3",
+          "sounds/Enemy_Little enemy wobble sound.mp3",
+          "sounds/OBSTACLE_Button.mp3",
+          "sounds/OBSTACLE_Player Jumping",
+          "sounds/PLAYER_Player Getting Power.mp3",
+          "sounds/PLAYER_Running Into.mp3",
+          "sounds/VOID_LoseGame_VirusHit.mp3",
+          "sounds/VOID_void sound.mp3",
+          "sounds/MainMenuMusic.mp3"
   };
 
 
@@ -102,6 +103,7 @@ public class LevelGameArea extends GameArea {
 
     displayBackground();
     spawnTerrain();
+    spawnLevelFromFile();
   }
 
   /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
@@ -121,8 +123,6 @@ public class LevelGameArea extends GameArea {
     spawnTheVoid();
 
     playMusic();
-
-    spawnLevelFromFile();
   }
 
   private void displayUI() {
@@ -176,7 +176,7 @@ public class LevelGameArea extends GameArea {
   public void spawnPlatform(int posX, int posY, int width) {
     this.spawnPlatform(posX, posY, width, true, true);
   }
-  
+
   public void spawnPlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
     ObstacleEntity platform = (ObstacleEntity) ObstacleFactory.createPlatform(width);
     GridPoint2 position = new GridPoint2(posX,posY);
@@ -308,21 +308,23 @@ public class LevelGameArea extends GameArea {
   }
 
   private void spawnObstacle(ObstacleToolComponent.Obstacle selectedObstacle, int x, int y, int size) {
+    x = x*2;
+    y = y*2;
     switch (selectedObstacle){
       case PLATFORM:
-        spawnPlatform(x, y, size, true, true);
+        spawnPlatform(x, y, size, false, false);
         break;
       case MIDDLE_PLATFORM:
-        spawnMiddlePlatform(x, y, size, false, true);
+        spawnMiddlePlatform(x, y, size, false, false);
         break;
       case DOOR:
-        spawnDoor(x, y, size, false, true);
+        spawnDoor(x, y, size, false, false);
         break;
       case BRIDGE:
-        spawnBridge(x, y, size, false, true);
+        spawnBridge(x, y, size, false, false);
         break;
       case BUTTON:
-        spawnButton(x, y, false, true);
+        spawnButton(x, y, false, false);
         break;
     }
   }
@@ -389,7 +391,7 @@ public class LevelGameArea extends GameArea {
     for (int i = 0; i < 2; i++) {
       int xCord = 20 + (int)(Math.random() * ((WALL_WIDTH - 5) + 1));
 
-      while (check.contains(xCord) == true) {
+      while (check.contains(xCord)) {
         xCord = 20 + (int)(Math.random() * ((WALL_WIDTH - 5) + 1));
       }
       check.add(xCord);
