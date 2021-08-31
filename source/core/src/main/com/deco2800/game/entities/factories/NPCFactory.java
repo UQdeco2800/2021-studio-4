@@ -132,6 +132,8 @@ public class NPCFactory {
     return ghostKing;
   }
 
+
+
   /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
    *
