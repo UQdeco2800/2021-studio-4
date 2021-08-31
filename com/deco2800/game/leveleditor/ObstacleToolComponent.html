@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -55,7 +55,7 @@ loadScripts(document, 'script');</script>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
@@ -110,6 +110,33 @@ extends <a href="../input/InputComponent.html" title="class in com.deco2800.game
 </section>
 <section class="summary">
 <ul class="blockList">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<li class="blockList">
+<section class="nestedClassSummary"><a id="nested.class.summary">
+<!--   -->
+</a>
+<h2>Nested Class Summary</h2>
+<div class="memberSummary">
+<table>
+<caption><span>Nested Classes</span><span class="tabEnd">&nbsp;</span></caption>
+<thead>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Class</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="ObstacleToolComponent.Obstacle.html" title="enum in com.deco2800.game.leveleditor">ObstacleToolComponent.Obstacle</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</li>
 <!-- =========== FIELD SUMMARY =========== -->
 <li class="blockList">
 <section class="fieldSummary"><a id="field.summary">
@@ -180,37 +207,44 @@ extends <a href="../input/InputComponent.html" title="class in com.deco2800.game
 </td>
 </tr>
 <tr class="rowColor" id="i1">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispose()">dispose</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Called when the component is disposed.</div>
+</td>
+</tr>
+<tr class="altColor" id="i2">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#keyUp(int)">keyUp</a></span>&#8203;(int&nbsp;keycode)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor" id="i2">
+<tr class="rowColor" id="i3">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#mouseMoved(int,int)">mouseMoved</a></span>&#8203;(int&nbsp;screenX,
 int&nbsp;screenY)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i3">
+<tr class="altColor" id="i4">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#repositionEntity()">repositionEntity</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Reposition the parent entity, ie when the mouse is moved.</div>
 </td>
 </tr>
-<tr class="altColor" id="i4">
+<tr class="rowColor" id="i5">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#scrolled(float,float)">scrolled</a></span>&#8203;(float&nbsp;amountX,
 float&nbsp;amountY)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i5">
+<tr class="altColor" id="i6">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#scrollSize(int)">scrollSize</a></span>&#8203;(int&nbsp;step)</code></th>
 <td class="colLast">
 <div class="block">This function will adjust the selected obstacle size by the selected step</div>
 </td>
 </tr>
-<tr class="altColor" id="i6">
+<tr class="rowColor" id="i7">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#touchDown(int,int,int,int)">touchDown</a></span>&#8203;(int&nbsp;screenX,
 int&nbsp;screenY,
@@ -218,14 +252,14 @@ int&nbsp;pointer,
 int&nbsp;button)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i7">
+<tr class="altColor" id="i8">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#touchDragged(int,int,int)">touchDragged</a></span>&#8203;(int&nbsp;screenX,
 int&nbsp;screenY,
 int&nbsp;pointer)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor" id="i8">
+<tr class="rowColor" id="i9">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#touchUp(int,int,int,int)">touchUp</a></span>&#8203;(int&nbsp;screenX,
 int&nbsp;screenY,
@@ -233,7 +267,7 @@ int&nbsp;pointer,
 int&nbsp;button)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i9">
+<tr class="altColor" id="i10">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update()">update</a></span>()</code></th>
 <td class="colLast">
@@ -248,7 +282,7 @@ int&nbsp;button)</code></th>
 <h3>Methods inherited from class&nbsp;com.deco2800.game.input.<a href="../input/InputComponent.html" title="class in com.deco2800.game.input">InputComponent</a></h3>
 <a id="methods.inherited.from.class.com.deco2800.game.input.InputComponent">
 <!--   -->
-</a><code><a href="../input/InputComponent.html#dispose()">dispose</a>, <a href="../input/InputComponent.html#fling(float,float,int)">fling</a>, <a href="../input/InputComponent.html#getPriority()">getPriority</a>, <a href="../input/InputComponent.html#keyDown(int)">keyDown</a>, <a href="../input/InputComponent.html#keyTyped(char)">keyTyped</a>, <a href="../input/InputComponent.html#longPress(float,float)">longPress</a>, <a href="../input/InputComponent.html#pan(float,float,float,float)">pan</a>, <a href="../input/InputComponent.html#panStop(float,float,int,int)">panStop</a>, <a href="../input/InputComponent.html#pinch(com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2)">pinch</a>, <a href="../input/InputComponent.html#pinchStop()">pinchStop</a>, <a href="../input/InputComponent.html#pinchStopHandled()">pinchStopHandled</a>, <a href="../input/InputComponent.html#setPriority(int)">setPriority</a>, <a href="../input/InputComponent.html#tap(float,float,int,int)">tap</a>, <a href="../input/InputComponent.html#touchDown(float,float,int,int)">touchDown</a>, <a href="../input/InputComponent.html#zoom(float,float)">zoom</a></code></div>
+</a><code><a href="../input/InputComponent.html#fling(float,float,int)">fling</a>, <a href="../input/InputComponent.html#getPriority()">getPriority</a>, <a href="../input/InputComponent.html#keyDown(int)">keyDown</a>, <a href="../input/InputComponent.html#keyTyped(char)">keyTyped</a>, <a href="../input/InputComponent.html#longPress(float,float)">longPress</a>, <a href="../input/InputComponent.html#pan(float,float,float,float)">pan</a>, <a href="../input/InputComponent.html#panStop(float,float,int,int)">panStop</a>, <a href="../input/InputComponent.html#pinch(com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2)">pinch</a>, <a href="../input/InputComponent.html#pinchStop()">pinchStop</a>, <a href="../input/InputComponent.html#pinchStopHandled()">pinchStopHandled</a>, <a href="../input/InputComponent.html#setPriority(int)">setPriority</a>, <a href="../input/InputComponent.html#tap(float,float,int,int)">tap</a>, <a href="../input/InputComponent.html#touchDown(float,float,int,int)">touchDown</a>, <a href="../input/InputComponent.html#zoom(float,float)">zoom</a></code></div>
 <div class="inheritedList">
 <h3>Methods inherited from class&nbsp;com.deco2800.game.components.<a href="../components/Component.html" title="class in com.deco2800.game.components">Component</a></h3>
 <a id="methods.inherited.from.class.com.deco2800.game.components.Component">
@@ -319,6 +353,18 @@ int&nbsp;button)</code></th>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code><a href="../input/InputComponent.html#create()">create</a></code>&nbsp;in class&nbsp;<code><a href="../input/InputComponent.html" title="class in com.deco2800.game.input">InputComponent</a></code></dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="dispose()">dispose</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">dispose</span>()</div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../components/Component.html#dispose()">Component</a></code></span></div>
+<div class="block">Called when the component is disposed. Dispose of any internal resources here.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../input/InputComponent.html#dispose()">dispose</a></code>&nbsp;in class&nbsp;<code><a href="../input/InputComponent.html" title="class in com.deco2800.game.input">InputComponent</a></code></dd>
 </dl>
 </section>
 </li>
@@ -461,7 +507,7 @@ int&nbsp;button)</span></div>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
