@@ -160,6 +160,8 @@ public class TileToolComponent extends InputComponent {
       this.getEntity().getComponent(SpriteRenderComponent.class).flipY();
     } else if (tileDefinition.isFlipable() && keycode == Input.Keys.RIGHT) {
       this.getEntity().getComponent(SpriteRenderComponent.class).flipX();
+    } else if (keycode == Input.Keys.SHIFT_LEFT) {
+      scrollTile(-1);
     }
 
     if (keycode == Input.Keys.TAB) {
