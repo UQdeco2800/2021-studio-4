@@ -68,7 +68,6 @@ public class MainGameExitDisplay extends UIComponent {
           entity.getEvents().trigger("exit");
         }
       });
-
     table.add(mainMenuBtn).padTop(10f).padRight(10f);
     table.add(deathBtn).padTop(10f).padRight(10f);
     stage.addActor(table);

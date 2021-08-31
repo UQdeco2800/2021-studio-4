@@ -94,49 +94,18 @@ public class CombatStatsComponent extends Component {
   }
 
   public void hit(CombatStatsComponent attacker) {
-
+     /*
     int newHealth = getHealth() - attacker.getBaseAttack();
     setHealth(newHealth);
-
+     */
     if (isDead()) {
-      //entity.scaleHeight(12);
-      entity.getEvents().trigger("playerDeath");
-//      MainGameExitDisplay main = new MainGameExitDisplay();
-//      main.deathInitialiser();
-
-//      this.getEntity().getEvents().trigger("playerDeath");
-//      Actor actor = new Actor();
-//      ActionEvent action = new ActionEvent(true, entity.getId(), "playerDeath");
-//      EventListener eventListener = new ChangeListener() {
-//        @Override
-//        public void changed(ChangeEvent event, Actor actor) {
-//
-//        }
-//      };
-//      ChangeListener.ChangeEvent event1 = new ChangeListener.ChangeEvent();
-//      eventListener;
-//      actor.addCaptureListener();
-//      event.setListenerActor(actor);
-      //main.getEntity().getEvents().trigger("playerDeath");
-//      logger.info("Show Death Screen");
-//      this.entity.getEvents().trigger("playerDeath");
+      int newHealth = 78;
+      setHealth(newHealth);
+      //setScreen(GdxGame.ScreenType.MAIN_MENU);
+      //entity.getEvents().trigger("playerDeath");
+    } else {
+      int newHealth = getHealth() - attacker.getBaseAttack();
+      setHealth(newHealth);
     }
-
-//    int newHealth = getHealth() - attacker.getBaseAttack();
-//    setHealth(newHealth);
-//    if (isDead()) {
-//      MainGameExitDisplay main = new MainGameExitDisplay();
-//      main.goToDeath();
-//    }
-    //setHealth(newHealth);
-    //setScreen(GdxGame.ScreenType.MAIN_MENU);
-//    do {
-//      int newHealth = getHealth() - attacker.getBaseAttack();
-//      setHealth(newHealth);
-//    } while (!(isDead()));
-    // Add death component to the player.
-
-    //entity.getEvents().trigger("playerDeath");
-
   }
 }
