@@ -21,8 +21,6 @@ public class DeathScreenActions extends Component {
     public void create() {
         entity.getEvents().addListener("exit", this::onExit);
         entity.getEvents().addListener("retry", this::onRestart);
-        // Add death component to the player.
-        entity.getEvents().addListener("playerDeath", this::onDeath);
     }
 
     /**
@@ -39,10 +37,5 @@ public class DeathScreenActions extends Component {
     private void onRestart() {
         logger.info("Restart the level");
         game.setScreen(GdxGame.ScreenType.MAIN_GAME);
-    }
-
-    private void onDeath() {
-        logger.info("Show Death Screen");
-        game.setScreen(GdxGame.ScreenType.DEATH_SCREEN);
     }
 }

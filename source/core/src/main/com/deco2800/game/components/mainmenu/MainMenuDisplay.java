@@ -38,8 +38,8 @@ public class MainMenuDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(MainMenuDisplay.class);
     private static final float Z_INDEX = 2f;
     private Table table;
-    private Sprite sprite;
     private int switcher;
+    private ImageButton muteBtn;
 
     /**
      * used tp switch between button states
@@ -67,7 +67,7 @@ public class MainMenuDisplay extends UIComponent {
 
         table = new Table();
         table.setFillParent(true);
-        sprite = new Sprite(new Texture("images/title_screen_clean.png"));
+        Sprite sprite = new Sprite(new Texture("images/title_screen_clean.png"));
         table.setBackground(new SpriteDrawable(sprite)); // Set background
 
         /**
@@ -76,33 +76,39 @@ public class MainMenuDisplay extends UIComponent {
          */
         int centreWidth1 = Gdx.graphics.getWidth()/2;
         int centreHeight1 = Gdx.graphics.getHeight()/2;
-        int buttonDimensions = (int) Math.round(centreWidth1*0.2 + centreHeight1*0.2);
-        //int titleDimension = (int) Math.round(centreWidth1*0.8 + centreHeight1*0.8);
-        int centreWidth = centreWidth1 - buttonDimensions/2; // Moves middle of button to Centre
-        int centreHeight = centreWidth1 - buttonDimensions/2;
-        //int centreTitleWidth = centreWidth1 - titleDimension/2; // Moves middle of button to Centre
-        //int centreTitleHeight = centreWidth1 - titleDimension/2;
+        int buttonDimensionsWidth = (int) Math.round(centreWidth1*0.35);
+        int buttonDimensionsHeight = (int) Math.round(centreHeight1*0.31);
+        int titleHeightDimension = (int) Math.round(centreHeight1*0.4);
+        int titleWidthDimension = (int) Math.round(centreWidth1*1.3);
+        int centreWidth = centreWidth1 - buttonDimensionsWidth/2; // Moves middle of button to Centre
+        int centreHeight = centreWidth1 - buttonDimensionsHeight/2;
+        int centreTitleWidth = centreWidth1 - titleWidthDimension/2; // Moves middle of button to Centre
+        int centreTitleHeight = centreHeight1 - titleHeightDimension/2;
 
-        int width35Percent = (int) Math.round(centreWidth*0.35);
+        int width35Percent = (int) Math.round(centreWidth*0.40);
 
-        //int titleHeight = (int) Math.round(centreHeight*0.13);
-        int height50Percent = (int) Math.round(centreHeight*0.45);
-        int height65Percent = (int) Math.round(centreHeight*0.60);
-        int height78Percent = (int) Math.round(centreHeight*0.75);
-        int height90Percent = (int) Math.round(centreHeight*0.90);
-        int height105Percent = (int) Math.round(centreHeight*1.05);
+        int titleHeight = (int) Math.round(centreHeight*0.35);
+        int height38Percent = (int) Math.round(centreHeight*0.38);
+        int height53Percent = (int) Math.round(centreHeight*0.53);
+        int height79Percent = (int) Math.round(centreHeight*0.79);
+        int height83Percent = (int) Math.round(centreHeight*0.83);
+        int height98Percent = (int) Math.round(centreHeight*0.98);
+
+        int topLeftWidth = (int) Math.round(Gdx.graphics.getWidth()*0.01);
+        int topLeftHeight = (int) Math.round(Gdx.graphics.getHeight()*0.93);
 
         /**
          * Creates the 'RUNTIME' title texture.
          */
-//        Texture runtimeTitleTexture = new Texture(Gdx.files.internal("images/runtime_title.png"));
-//        Drawable runtimeTitleDrawable = new TextureRegionDrawable(new TextureRegion(runtimeTitleTexture));
-//        ImageButton runtimeTitle = new ImageButton(runtimeTitleDrawable);
-//        /**
-//         * Sets the size and position of the Runtime Title after texture applied.
-//         */
-//        runtimeTitle.setBounds(centreTitleWidth, centreTitleHeight-titleHeight,
-//                titleDimension, titleDimension);
+        Texture runtimeTitleTexture = new Texture(Gdx.files.internal("images/runtime-title.png"));
+        Drawable runtimeTitleDrawable = new TextureRegionDrawable(new TextureRegion(runtimeTitleTexture));
+        ImageButton runtimeTitle = new ImageButton(runtimeTitleDrawable);
+        /**
+         * Sets the size and position of the Runtime Title after texture applied.
+         */
+        runtimeTitle.setBounds(centreTitleWidth, centreTitleHeight+titleHeight,
+                titleWidthDimension, titleHeightDimension);
+
 
         /**
          * Creates the VirusHead texture for the virus image
@@ -113,87 +119,115 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Sets the size and position of the virusHead after texture applied.
          */
-        virusHead.setBounds(centreWidth,centreHeight-height78Percent,
-                buttonDimensions, buttonDimensions);
+        virusHead.setBounds(centreWidth,centreHeight-height79Percent,
+                buttonDimensionsWidth, buttonDimensionsHeight*2);
 
 
         /**
          * Creates the button texture for the Start Button.
          */
         Texture startTexture = new Texture(Gdx.files.internal("images/button_start.png"));
+        Texture startHoverTexture = new Texture(Gdx.files.internal("images/button_start_hover.png"));
         Drawable startDrawable = new TextureRegionDrawable(new TextureRegion(startTexture));
         ImageButton startBtn = new ImageButton(startDrawable);
+        startBtn.getStyle().imageOver = new TextureRegionDrawable(startHoverTexture);
         /**
          * Sets the size and position of the button after texture applied.
          */
-        startBtn.setBounds(centreWidth,centreHeight-height50Percent,
-                buttonDimensions, buttonDimensions);
+        startBtn.setBounds(centreWidth,centreHeight-height38Percent,
+                buttonDimensionsWidth, buttonDimensionsHeight);
 
 
         /**
          * Creates the button texture for the Level Selection Button.
          */
         Texture levelSelTexture = new Texture(Gdx.files.internal("images/button_levels.png"));
+        Texture levelSelHoverTexture = new Texture(Gdx.files.internal("images/button_levels_hover.png"));
         Drawable levelSelDrawing = new TextureRegionDrawable(new TextureRegion(levelSelTexture));
         ImageButton levelSelectBtn = new ImageButton(levelSelDrawing);
+        levelSelectBtn.getStyle().imageOver = new TextureRegionDrawable(levelSelHoverTexture);
         /**
          * Sets the size and position of the button after texture applied.
          */
-        levelSelectBtn.setBounds(centreWidth-width35Percent,centreHeight-height65Percent,
-                buttonDimensions, buttonDimensions);
+        levelSelectBtn.setBounds(centreWidth-width35Percent,centreHeight-height53Percent,
+                buttonDimensionsWidth, buttonDimensionsHeight);
 
 
         /**
          * Creates the button texture for the Settings Button.
          */
         Texture settingsTexture = new Texture(Gdx.files.internal("images/button_settings.png"));
+        Texture settingsHoverTexture = new Texture(Gdx.files.internal("images/button_settings_hover.png"));
         Drawable settingsDrawing = new TextureRegionDrawable(new TextureRegion(settingsTexture));
         ImageButton settingsBtn = new ImageButton(settingsDrawing);
+        settingsBtn.getStyle().imageOver = new TextureRegionDrawable(settingsHoverTexture);
         /**
          * Sets the size and position of the button after texture applied.
          */
-        settingsBtn.setBounds(centreWidth-width35Percent,centreHeight-height90Percent,
-                buttonDimensions, buttonDimensions);
+        settingsBtn.setBounds(centreWidth-width35Percent,centreHeight-height83Percent,
+                buttonDimensionsWidth, buttonDimensionsHeight);
 
 
         /**
          * Creates the button texture for the Exit Button.
          */
         Texture exitTexture = new Texture(Gdx.files.internal("images/button_exit.png"));
+        Texture exitHoverTexture = new Texture(Gdx.files.internal("images/button_exit_hover.png"));
         Drawable exitDrawing = new TextureRegionDrawable(new TextureRegion(exitTexture));
         ImageButton exitBtn = new ImageButton(exitDrawing);
+        exitBtn.getStyle().imageOver = new TextureRegionDrawable(exitHoverTexture);
         /**
          * Sets the size and position of the button after texture applied.
          */
-        exitBtn.setBounds(centreWidth,centreHeight-height105Percent,
-                buttonDimensions, buttonDimensions);
+        exitBtn.setBounds(centreWidth,centreHeight-height98Percent,
+                buttonDimensionsWidth, buttonDimensionsHeight);
 
         /**
          * Creates the button texture for the Mute Button. Also loads the 'Muted' button.
          */
         Texture muteTexture = new Texture(Gdx.files.internal("images/button_mute.png"));
+        Texture muteHoverTexture = new Texture(Gdx.files.internal("images/button_mute_hover.png"));
         Texture currentlyMutedTexture = new Texture(Gdx.files.internal("images/button_unmute.png"));
+        Texture currentlyMutedHoverTexture = new Texture(Gdx.files.internal("images/button_unmute_hover.png"));
         Drawable muteDrawing = new TextureRegionDrawable(new TextureRegion(muteTexture));
-        ImageButton muteBtn = new ImageButton(muteDrawing);
+        muteBtn = new ImageButton(muteDrawing);
+        // Initialise the image of the button to muteTexture.
+        muteBtn.getStyle().imageUp = new TextureRegionDrawable(muteTexture);
+        muteBtn.getStyle().imageOver = new TextureRegionDrawable(muteHoverTexture);
+
         /**
          * Sets the size and position of the button after texture applied, for Mute and Currently Muted both.
          */
-        muteBtn.setBounds(centreWidth+width35Percent,centreHeight-height90Percent,
-                buttonDimensions, buttonDimensions);
+        muteBtn.setBounds(centreWidth+width35Percent,centreHeight-height83Percent,
+                buttonDimensionsWidth, buttonDimensionsHeight);
 
 
         /**
          * Creates the button texture for the Leaderboard Button.
          */
         Texture leaderTexture = new Texture(Gdx.files.internal("images/button_leader_board.png"));
+        Texture leaderHoverTexture = new Texture(Gdx.files.internal("images/button_leader_board_hover.png"));
         Drawable leaderDrawing = new TextureRegionDrawable(new TextureRegion(leaderTexture));
         ImageButton leaderBoardBtn = new ImageButton(leaderDrawing);
+        leaderBoardBtn.getStyle().imageOver = new TextureRegionDrawable(leaderHoverTexture);
         /**
          * Sets the size and position of the button after texture applied.
          */
-        leaderBoardBtn.setBounds(centreWidth+width35Percent,centreHeight-height65Percent,
-                buttonDimensions, buttonDimensions);
+        leaderBoardBtn.setBounds(centreWidth+width35Percent,centreHeight-height53Percent,
+                buttonDimensionsWidth, buttonDimensionsHeight);
 
+        TextButton levelEditorBtn = new TextButton("LevelEditor", skin);
+        levelEditorBtn.setColor(Color.ROYAL);
+        levelEditorBtn.setBounds(topLeftWidth, topLeftHeight, 200, 50);
+
+        levelEditorBtn.addListener(
+                new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+                logger.debug("level button clicked");
+                entity.getEvents().trigger("levelEditor");
+            }
+        });
 
         // Triggers an event when the button is pressed
         startBtn.addListener(
@@ -240,11 +274,29 @@ public class MainMenuDisplay extends UIComponent {
                         logger.debug("Mute button clicked");
 
                         if (switcher % 2 == 1) {
+                            // Rewrite the existing imageUp and imageOver enums to be muteTexture.
+                            // When the if condition is passed, imageUp and imageOver will be currentlyMuteTexture.
                             muteBtn.getStyle().imageUp = new TextureRegionDrawable(muteTexture);
+                            muteBtn.getStyle().imageOver = new TextureRegionDrawable(muteHoverTexture);
                         } else {
-                            muteBtn.getStyle().imageChecked = new TextureRegionDrawable(currentlyMutedTexture);
+                            // Rewrite the existing imageUp and imageOver enums to be currentlyMutedTexutre.
+                            // When the else condition is passed, imageUp and imageOver will be muteTexutre.
+                            muteBtn.getStyle().imageUp = new TextureRegionDrawable(currentlyMutedTexture);
+                            muteBtn.getStyle().imageOver = new TextureRegionDrawable(currentlyMutedHoverTexture);
                         } switcher++;
+
                         entity.getEvents().trigger("mute");
+                    }
+                });
+
+
+        leaderBoardBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        // LeaderBoardBtn should be changed to Score button when the button is renamed.
+                        logger.debug("Leaderboard button clicked");
+                        entity.getEvents().trigger("scoreSelect");
                     }
                 });
 
@@ -258,6 +310,7 @@ public class MainMenuDisplay extends UIComponent {
               }
           });
 
+
         stage.addActor(table);
         stage.addActor(startBtn);
         stage.addActor(levelSelectBtn);
@@ -266,6 +319,24 @@ public class MainMenuDisplay extends UIComponent {
         stage.addActor(exitBtn);
         stage.addActor(leaderBoardBtn);
         stage.addActor(virusHead);
+        stage.addActor(runtimeTitle);
+        stage.addActor(levelEditorBtn);
+    }
+
+    /**
+     * Return switcher value for testing mute button
+     * @return int switcher
+     */
+    public int getSwitcher() {
+        return switcher;
+    }
+
+    /**
+     * Return Mute Button for testing purposes
+     * @return ImageButton MuteBtn
+     */
+    public ImageButton getMuteBtn() {
+        return muteBtn;
     }
 
     @Override
