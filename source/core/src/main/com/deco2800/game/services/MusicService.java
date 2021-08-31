@@ -53,7 +53,7 @@ public class MusicService {
 
     /**
      * Start playing this music from the given time.
-     * @requires: an integer of the time of the music track being modified by the service.
+     * Required:  an integer of the time of the music track being modified by the service.
      */
     public void setTime(float time) {
         music.setPosition(time);
@@ -71,7 +71,7 @@ public class MusicService {
 
     /**
      * Play this music with the given volume.
-     * @requires: an integer between 0 and 1
+     * Required: an integer between 0 and 1
      */
     public void changeVolume(float vol) {
         music.setVolume(vol);
