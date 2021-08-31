@@ -14,6 +14,7 @@ import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
+import com.deco2800.game.physics.components.JumpableComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.SpriteRenderComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
@@ -83,7 +84,9 @@ public class ObstacleFactory {
   public static Entity createWall(float width, float height) {
     Entity wall = new Entity()
         .addComponent(new PhysicsComponent().setBodyType(BodyType.StaticBody))
-        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
+        .addComponent(new JumpableComponent()); //Added for jump functionality
     wall.setScale(width, height);
     return wall;
   }
@@ -98,7 +101,9 @@ public class ObstacleFactory {
             new ObstacleEntity(ObstacleDefinition.PLATFORM,width)
                     .addComponent(new TextureRenderComponent(platformTexture))
                     .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
+                    .addComponent(new JumpableComponent()); //Added for jump functionality
 
     platform.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     platform.getComponent(TextureRenderComponent.class).scaleEntity();
@@ -117,7 +122,9 @@ public class ObstacleFactory {
             new ObstacleEntity(ObstacleDefinition.MIDDLE_PLATFORM,width)
                     .addComponent(new TextureRenderComponent(platformTexture))
                     .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
+                    .addComponent(new JumpableComponent()); //Added for jump functionality
 
     platformWall.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     platformWall.getComponent(TextureRenderComponent.class).scaleEntity();
@@ -151,7 +158,9 @@ public class ObstacleFactory {
       new ObstacleEntity(ObstacleDefinition.BRIDGE,width)
         .addComponent(new TextureRenderComponent(platformTexture))
         .addComponent(new PhysicsComponent())
-        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
+        .addComponent(new JumpableComponent()); //Added for jump functionality
 
     bridge.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     bridge.getComponent(TextureRenderComponent.class).scaleEntity();
