@@ -15,7 +15,9 @@ import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.rendering.SpriteRenderComponent;
 import com.deco2800.game.screens.LevelEditorScreen;
 import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.areas.GameArea;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -140,6 +142,13 @@ public class ObstacleToolComponent extends InputComponent {
   }
 
   @Override
+  public void dispose() {
+    ServiceLocator.getEntityService().unregister(this.heldEntity);
+    this.heldEntity.dispose();
+    super.dispose();
+  }
+
+  @Override
   public void update() {
     if (removing) {
       removeLock = true;
@@ -157,7 +166,11 @@ public class ObstacleToolComponent extends InputComponent {
 
   @Override
   public boolean scrolled(float amountX, float amountY) {
-    scrollSize(((int)amountY) * -1);
+    if ((int)amountY*-1 > 0) {
+      scrollSize(1);
+    } else if ((int)amountY*-1 < 0) {
+      scrollSize(-1);
+    }
     refreshHeldEntity();
     return super.scrolled(amountX, amountY);
   }
@@ -224,10 +237,14 @@ public class ObstacleToolComponent extends InputComponent {
       this.screen.selectTileHand();
     }
 
+    if (keycode == Input.Keys.P) {
+      this.levelGameArea.saveAll();
+    }
+
     return super.keyUp(keycode);
   }
 
-  private enum Obstacle {
+  public enum Obstacle {
     PLATFORM, MIDDLE_PLATFORM, BUTTON, DOOR, BRIDGE
   }
 }

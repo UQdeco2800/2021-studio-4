@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.ObstacleDefinition;
+import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
@@ -95,8 +97,8 @@ public class ObstacleFactory {
 
     Texture platformTexture = expandTexture(atlas.findRegion("mapTextures_Platforms"), width, 1);
 
-    Entity platform =
-            new Entity()
+    ObstacleEntity platform =
+            new ObstacleEntity(ObstacleDefinition.PLATFORM,width)
                     .addComponent(new TextureRenderComponent(platformTexture))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
@@ -116,8 +118,8 @@ public class ObstacleFactory {
 
     Texture platformTexture = expandTexture(atlas.findRegion("mapTextures_Middle-Platform"), width, 1);
 
-    Entity platformWall =
-            new Entity()
+    ObstacleEntity platformWall =
+            new ObstacleEntity(ObstacleDefinition.MIDDLE_PLATFORM,width)
                     .addComponent(new TextureRenderComponent(platformTexture))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
@@ -132,11 +134,12 @@ public class ObstacleFactory {
   }
 
   public static Entity createButton() {
-    Entity button =
-      new Entity()
+    ObstacleEntity button =
+      new ObstacleEntity(ObstacleDefinition.BUTTON,1)
         .addComponent(new TextureRenderComponent("map-textures/mapTextures_Button-On.png"))
         .addComponent(new PhysicsComponent())
-        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE));
 
     button.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     button.getComponent(TextureRenderComponent.class).scaleEntity();
@@ -151,8 +154,8 @@ public class ObstacleFactory {
 
     Texture platformTexture = expandTexture(atlas.findRegion("mapTextures_bridge"), width, 1);
 
-    Entity bridge =
-      new Entity()
+    ObstacleEntity bridge =
+      new ObstacleEntity(ObstacleDefinition.BRIDGE,width)
         .addComponent(new TextureRenderComponent(platformTexture))
         .addComponent(new PhysicsComponent())
         .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
@@ -172,8 +175,8 @@ public class ObstacleFactory {
 
     Texture platformTexture = expandTexture(atlas.findRegion("mapTextures_door"), 1, height);
 
-    Entity door =
-      new Entity()
+    ObstacleEntity door =
+      new ObstacleEntity(ObstacleDefinition.DOOR,height)
         .addComponent(new TextureRenderComponent(platformTexture))
         .addComponent(new PhysicsComponent())
         .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
