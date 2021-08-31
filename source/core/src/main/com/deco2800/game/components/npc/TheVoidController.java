@@ -15,6 +15,8 @@ import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.utils.math.Vector2Utils;
 
+import static java.lang.Math.abs;
+
 public class TheVoidController extends Component {
     private static final Vector2 ACCELERATION = new Vector2(8f, 0f);
 
@@ -22,6 +24,9 @@ public class TheVoidController extends Component {
     private AnimationRenderComponent animator;
     private Body body;
     private Entity player;
+    //
+    MusicServiceDirectory dict = new  MusicServiceDirectory();
+    MusicService musicService = new MusicService(dict.void_noise);
 
     public TheVoidController(Entity target){
         player = target;
@@ -60,11 +65,28 @@ public class TheVoidController extends Component {
 
      void updateSound(){
          float distance_from_player = getPlayerDistance();
-         MusicServiceDirectory dict = new  MusicServiceDirectory();
-         MusicService musicService = new MusicService(dict.game_level_1);
          float min = 0;
          float max = 1;
-        /* if (distance_from_player > (float)0.01) {
+         if (distance_from_player < (float)(-8)){
+             musicService.stopMusic(); //It should be fine for now. Later when the void team could detect void-player
+             // collision, we stop the music at that point.
+         } else if (distance_from_player > (float)0.01) {
+             float change1 = abs(1 - distance_from_player);
+             if (change1 > (float)1) {
+                 musicService.changeVolume((float)0.2);
+             } else {
+                 musicService.changeVolume((float)0.4);
+             }
+         }
+         else if (distance_from_player < (float)0.99) {
+             float change2 = abs(1 - distance_from_player);
+             if (change2 > (float)1) {
+                 musicService.changeVolume((float)0.9);
+             } else {
+                 musicService.changeVolume((float)0.6);
+             }
+         }
+        /*if (distance_from_player > (float)0.01) {
              float change1 = 1 - distance_from_player;
              musicService.changeVolume(change1);
          }
@@ -73,18 +95,9 @@ public class TheVoidController extends Component {
              musicService.changeVolume(change2);
          }
          else {
-             musicService.changeVolume((float)0.5);
+             //musicService.changeVolume((float)0.5);
          }*/
 
-         // Sound voidSound = Gdx.audio.newSound(Gdx.files.internal("sounds/BackingMusicWithDrums.mp3"));
-         // long id = voidSound.play();
-         // float distance_from_player = getPlayerDistance();
-         // float min = 0;
-         // float max = 1;
-         //voidSound.play();
-         //voidSound.setVolume(id,distance_from_player); //A value of 0 is silent, while 1 is full volume
-         //voidSound.setPitch(id,distance_from_player); /* The value should be > 0.5 and < 2.0.
-         //Less than 1 is slower, greater than 1 is faster.*/
     }
 
 
