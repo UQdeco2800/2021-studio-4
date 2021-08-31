@@ -1,9 +1,11 @@
 package com.deco2800.game.areas;
 
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.GridPoint3;
 import com.deco2800.game.areas.terrain.TerrainFactory;
+import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
@@ -41,7 +43,7 @@ public class LevelGameArea extends GameArea {
     "images/iso_grass_3.png",
     "images/basicenemysprite.png",
     "images/chasingenemy.png",
-    "images/enemyspritehsee.png",
+    "images/enemyspritehseet.png",
     "images/game_background.png",
     "map-textures/mapTextures_Platforms.png",
     "map-textures/mapTextures_Middle-Platform.png",
@@ -49,6 +51,7 @@ public class LevelGameArea extends GameArea {
     "map-textures/mapTextures_bridge.png",
     "map-textures/mapTextures_door.png",
     "images/animatedvoid.png",
+    "images/gorgonGear2.png"
   };
 
   private static final String[] gameTextureAtlases = {
@@ -57,12 +60,27 @@ public class LevelGameArea extends GameArea {
     "images/ghostKing.atlas",
     "images/the_void.atlas",
     "images/testingenemy.atlas",
+    "images/gorgonGear.atlas",
     "map-spritesheets/mapTextures.atlas",
     "images/void.atlas",
   };
   private static final String[] gameSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BackingMusicWithDrums.mp3";
-  private static final String[] gameMusic = {backgroundMusic};
+  private static final String[] gameMusic = {
+    "sounds/BackingMusicWithDrums.mp3",
+    "sounds/CLICK_Click.mp3",
+    "sounds/End credits.mp3",
+    "sounds/ENEMY_Collision.mp3",
+    "sounds/Enemy_Little enemy wobble sound.mp3",
+    "sounds/OBSTACLE_Button.mp3",
+    "sounds/OBSTACLE_Player Jumping",
+    "sounds/PLAYER_Player Getting Power.mp3",
+    "sounds/PLAYER_Running Into.mp3",
+    "sounds/VOID_LoseGame_VirusHit.mp3",
+    "sounds/VOID_void sound.mp3",
+    "sounds/MainMenuMusic.mp3"
+  };
+
 
   private final TerrainFactory terrainFactory;
 
@@ -73,24 +91,36 @@ public class LevelGameArea extends GameArea {
     this.terrainFactory = terrainFactory;
   }
 
+  /**
+   * Initializes basic components such as loading assets, background and terrain
+   */
+  public void init() {
+    loadAssets();
+
+    displayBackground();
+    spawnTerrain();
+  }
+
   /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
   @Override
   public void create() {
-    loadAssets();
+    init();
 
-    displayBackground(); // Display background at the back first
     displayUI();
 
-    spawnTerrain();
     //spawnTrees();
     spawnLevel();
     player = spawnPlayer();
     //spawnGhosts();
     //spawnGhostKing();
     //spawnGroundEnemy();
+    //spawnGorgonGear();
     spawnTheVoid();
 
     playMusic();
+
+    spawnPlatform(8, 21, 5);
+    spawnDoor(9, 23, 5);
   }
 
   private void displayUI() {
@@ -126,34 +156,68 @@ public class LevelGameArea extends GameArea {
     }
   }
 
-  private void spawnPlatform(int posX, int posY) {
-    Entity platform = ObstacleFactory.createPlatform();
-    GridPoint2 position = new GridPoint2(posX,posY);
-    spawnEntityAt(platform, position, true, true);
+  public void clearTerrainCell(int x, int y) {
+    TiledMapTileLayer layer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
+    layer.setCell(x, y, null);
+
+    terrain.invalidateCache();
   }
 
-  private void spawnMiddlePlatform(int posX, int posY) {
-    Entity middlePlatform = ObstacleFactory.createMiddlePlatform();
-    GridPoint2 position = new GridPoint2(posX,posY);
-    spawnEntityAt(middlePlatform, position, true, true);
+  public void setTerrainCell(TerrainTile tile, int x, int y) {
+    TiledMapTileLayer layer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
+    TiledMapTileLayer.Cell cell = tile.generateCell();
+    layer.setCell(x, y, cell);
+
+    terrain.invalidateCache();
   }
 
-  private void spawnButton(int posX, int posY) {
+  public void spawnPlatform(int posX, int posY, int width) {
+    this.spawnPlatform(posX, posY, width, true, true);
+  }
+  
+  public void spawnPlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
+    Entity platform = ObstacleFactory.createPlatform(width);
+    GridPoint2 position = new GridPoint2(posX,posY);
+    spawnEntityAt(platform, position, centerX, centerY);
+  }
+
+  public void spawnMiddlePlatform(int posX, int posY, int width) {
+    this.spawnMiddlePlatform(posX, posY, width, true, true);
+  }
+
+  public void spawnMiddlePlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
+    Entity platform = ObstacleFactory.createMiddlePlatform(width);
+    GridPoint2 position = new GridPoint2(posX,posY);
+    spawnEntityAt(platform, position, centerX, centerY);
+  }
+  public void spawnButton(int posX, int posY) {
+    spawnButton(posX, posY, false, true);
+  }
+
+  public void spawnButton(int posX, int posY, boolean centerX, boolean centerY) {
     Entity button = ObstacleFactory.createButton();
     GridPoint2 position = new GridPoint2(posX,posY);
-    spawnEntityAt(button, position, false, true);
+    spawnEntityAt(button, position, centerX, centerY);
   }
 
-  private void spawnBridge(int posX, int posY) {
-    Entity bridge = ObstacleFactory.createBridge();
-    GridPoint2 position = new GridPoint2(posX,posY);
-    spawnEntityAt(bridge, position, false, true);
+  public void spawnBridge(int posX, int posY, int width) {
+    spawnBridge(posX, posY, width, false, true);
   }
 
-  private void spawnDoor(int posX, int posY) {
-    Entity door = ObstacleFactory.createDoor();
+  public void spawnBridge(int posX, int posY, int width, boolean centerX, boolean centerY) {
+    Entity bridge = ObstacleFactory.createBridge(width);
     GridPoint2 position = new GridPoint2(posX,posY);
-    spawnEntityAt(door, position, false, true);
+    spawnEntityAt(bridge, position, centerX, centerY);
+  }
+
+  public void spawnDoor(int posX, int posY, int height) {
+    spawnDoor(posX, posY, height, false, true);
+  }
+
+  public void spawnDoor(int posX, int posY, int height, boolean centerX, boolean centerY) {
+    Entity door = ObstacleFactory.createDoor(height);
+    GridPoint2 position = new GridPoint2(posX,posY);
+    spawnEntityAt(door, position, centerX, centerY);
   }
 
   private void spawnLevel() {
@@ -161,37 +225,37 @@ public class LevelGameArea extends GameArea {
     int i;
     for (c = 0; c < 4; c++) {
       for (i = 0; i < 8; i++) {
-        spawnPlatform(c*8+i, c+5);
+        spawnPlatform(c*8+i, c+5, 1);
       }
-      spawnMiddlePlatform(c*8+8,c+5);
+      spawnMiddlePlatform(c*8+8,c+5, 1);
     }
     int x = 32;
     int y = 8;
     spawnLadderPlatforms(x,y);
     for (i = 0; i < 8; i++) {
-      spawnPlatform(32+i,22);
-      spawnMiddlePlatform(39,22-i-1);
-      spawnPlatform(40+i,14);
+      spawnPlatform(32+i,22,1);
+      spawnMiddlePlatform(39,22-i-1, 1);
+      spawnPlatform(40+i,14, 1);
     }
     spawnButton(40,15);
     for (i = 0; i < 6; i++) {
-      spawnBridge(48+i,14);
-      spawnPlatform(54+i,14);
+      spawnBridge(48+i,14, 1);
+      spawnPlatform(54+i,14, 1);
     }
-    spawnDoor(56,15);
+    spawnDoor(56,15, 4);
   }
 
   private void spawnLadderPlatforms(int x, int y) {
 
     for (int i = 0; i < 13; i++) {
-      spawnMiddlePlatform(x,y+1+i);
-      spawnMiddlePlatform(x-9,y+6+i);
+      spawnMiddlePlatform(x,y+1+i, 1);
+      spawnMiddlePlatform(x-9,y+6+i, 1);
     }
     for (int i = 0; i < 3; i++) {
-      spawnPlatform(x-3+i,y+3);
-      spawnPlatform(x-8+i,y+6);
-      spawnPlatform(x-3+i,y+9);
-      spawnPlatform(x-8+i,y+12);
+      spawnPlatform(x-3+i,y+3, 1);
+      spawnPlatform(x-8+i,y+6, 1);
+      spawnPlatform(x-3+i,y+9, 1);
+      spawnPlatform(x-8+i,y+12, 1);
     }
   }
 
@@ -222,6 +286,22 @@ public class LevelGameArea extends GameArea {
     }
   }
 
+  /**
+   * Spawns the flying enemy (the GorgonGear)
+   *
+   * the spawn point of the enemy will be dependent on the map of each level and will be implemented further
+   * in the second sprint. The range that the enemy can attack will be fixed to a certain point for chasing the
+   * character when the player is in range of the enemy.
+   *
+   * @param xCoord This is the X-coordinate of where the enemy will spawn.
+   * @param yCoord This is the Y-coordinate of where the enemy will spawn.
+   */
+  private void spawnGorgonGear(int xCoord, int yCoord) {
+    GridPoint2 distinctPos = new GridPoint2(xCoord, yCoord);
+    Entity gorgonGear = NPCFactory.createGorgonGear(player);
+    spawnEntityAt(gorgonGear, distinctPos, true, true);
+  }
+
   private void spawnGhosts() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
@@ -232,7 +312,7 @@ public class LevelGameArea extends GameArea {
       spawnEntityAt(ghost, randomPos, true, true);
     }
   }
-
+/*
   private void spawnGhostKing() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
@@ -241,7 +321,7 @@ public class LevelGameArea extends GameArea {
     Entity ghostKing = NPCFactory.createGhostKing(player);
     spawnEntityAt(ghostKing, randomPos, true, true);
   }
-
+*/
   /**
    * Spawns the void on the map by calling the createTheVoid() method in NPCFactory
    * with player as its parameter. The void's vertical placement is determined by 1/2 of

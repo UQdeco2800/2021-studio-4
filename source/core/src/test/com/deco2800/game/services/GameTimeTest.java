@@ -42,7 +42,7 @@ class GameTimeTest {
     shouldScale(2f, 20f, 10f);
   }
 
-  @Test
+  @org.junit.Test
   void shouldScaleToZero() {
     shouldScale(0f, 0f, 10f);
   }
