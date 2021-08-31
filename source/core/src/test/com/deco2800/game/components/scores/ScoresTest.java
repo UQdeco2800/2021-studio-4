@@ -39,7 +39,7 @@ public class ScoresTest {
      */
     @Test
     void testNewHighScore() {
-//        tester.setNewScore(1); //Not workng atm. Possibly due to 
+//        tester.setNewScore(1); //Not workng atm. Possibly due to
 //        tester.create();
 //        int highScore = 1;
 //        assertEquals(highScore, tester.getHighScore());
