@@ -155,11 +155,9 @@ public class ScoreDisplay extends UIComponent {
                 highScores.add(score);
             }
             myScoresReader.close();
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             System.err.println("High_Scores.txt is corrupted or missing.");
 
-        } catch(IOException e) {
-            System.err.println("High_Scores.txt is corrupted or missing.");
         }
     }
 
@@ -175,7 +173,6 @@ public class ScoreDisplay extends UIComponent {
             System.err.println("High_Scores.txt is corrupted or missing.");
         }
     }
-
 
     public int getHighScore() {
         return highScore;

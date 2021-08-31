@@ -23,6 +23,7 @@ public class ScoresTest {
 
      ScoreDisplay tester = mock(ScoreDisplay.class);
 
+
     /**
      * check initial high score it 0
      */
@@ -38,7 +39,7 @@ public class ScoresTest {
      */
     @Test
     void testNewHighScore() {
-//        tester.setNewScore(1);
+//        tester.setNewScore(1); //Not workng atm. Possibly due to 
 //        tester.create();
 //        int highScore = 1;
 //        assertEquals(highScore, tester.getHighScore());
