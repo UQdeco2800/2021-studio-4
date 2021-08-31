@@ -51,14 +51,14 @@ public class PlayerMovementComponent extends Component {
         Entity player = ((BodyUserData) me.getBody().getUserData()).entity;
         Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
 
-        //Get the
+        //Get the relevant components from the target entity
         PhysicsComponent physicsComponent = target.getComponent(PhysicsComponent.class); // probably don't need this
         JumpableComponent jumpableComponent = target.getComponent(JumpableComponent.class);
 
         PlayerActions playerActions = player.getComponent(PlayerActions.class);
 
         if (physicsComponent != null && jumpableComponent != null) {
-            System.out.println("on ground"); // Test print
+            //System.out.println("on ground"); // Test print
             playerActions.togglePlayerJumping();
         }
 

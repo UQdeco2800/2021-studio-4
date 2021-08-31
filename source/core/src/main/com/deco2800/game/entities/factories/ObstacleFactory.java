@@ -84,7 +84,7 @@ public class ObstacleFactory {
         .addComponent(new PhysicsComponent().setBodyType(BodyType.StaticBody))
         .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
         .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
-        .addComponent(new JumpableComponent()); //Added this and hitbox for possible jump functionality
+        .addComponent(new JumpableComponent()); //Added for jump functionality
     wall.setScale(width, height);
     return wall;
   }
@@ -99,7 +99,9 @@ public class ObstacleFactory {
             new Entity()
                     .addComponent(new TextureRenderComponent(platformTexture))
                     .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
+                    .addComponent(new JumpableComponent()); //Added for jump functionality
 
     platform.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     platform.getComponent(TextureRenderComponent.class).scaleEntity();
@@ -118,7 +120,9 @@ public class ObstacleFactory {
             new Entity()
                     .addComponent(new TextureRenderComponent(platformTexture))
                     .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
+                    .addComponent(new JumpableComponent()); //Added for jump functionality
 
     platformWall.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     platformWall.getComponent(TextureRenderComponent.class).scaleEntity();
@@ -151,7 +155,9 @@ public class ObstacleFactory {
       new Entity()
         .addComponent(new TextureRenderComponent(platformTexture))
         .addComponent(new PhysicsComponent())
-        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
+        .addComponent(new JumpableComponent()); //Added for jump functionality
 
     bridge.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     bridge.getComponent(TextureRenderComponent.class).scaleEntity();

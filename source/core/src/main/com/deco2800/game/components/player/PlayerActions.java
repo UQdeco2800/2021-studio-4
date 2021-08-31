@@ -116,11 +116,10 @@ public class PlayerActions extends Component {
    * Makes the player jump upwards
    */
   void jump() {
-    System.out.println("trying to jump and " + canJump + "state is " + playerState); // Testing print
+    //System.out.println("trying to jump and " + canJump + "state is " + playerState); // Testing print
 
     if (playerState != PlayerState.AIR && canJump) {
-
-      System.out.println("in air"); // More testing prints
+      //System.out.println("in air"); // More testing prints
 
       this.playerState = PlayerState.AIR;
       body.applyForceToCenter(new Vector2(0f, 300f), true);

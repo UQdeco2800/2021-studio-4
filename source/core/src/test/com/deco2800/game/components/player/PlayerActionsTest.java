@@ -65,9 +65,10 @@ public class PlayerActionsTest {
 
     @Test
     void shouldSlide() {
-        PlayerActions playerActions = new PlayerActions();
-        playerActions.slide();
+        short playerLayer = (1 << 1);
+        Entity entity = createPlayer(playerLayer);
 
+        PlayerActions playerActions = entity.getComponent(PlayerActions.class);playerActions.slide();
         assertEquals(PlayerState.SLIDING, playerActions.getPlayerState());
     }
 
