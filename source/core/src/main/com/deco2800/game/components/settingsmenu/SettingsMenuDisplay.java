@@ -43,7 +43,7 @@ public class SettingsMenuDisplay extends UIComponent {
   }
 
   public void loadTheMusic() {
-    MusicService musicScreen = new MusicService();
+    MusicService musicScreen = new MusicService("sounds/MainMenuMusic.mp3");
     musicScreen.playMusic();
   }
 

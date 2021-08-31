@@ -50,6 +50,7 @@ public class LevelGameArea extends GameArea {
     "map-textures/mapTextures_bridge.png",
     "map-textures/mapTextures_door.png",
     "images/animatedvoid.png",
+    "images/virus_man.png",
   };
   private static final String[] gameTextureAtlases = {
     "images/terrain_iso_grass.atlas",
