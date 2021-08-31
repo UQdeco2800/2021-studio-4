@@ -175,11 +175,7 @@ public class TileToolComponent extends InputComponent {
       this.screen.selectObstacleHand();
     }
     if (keycode == Input.Keys.P) {
-      try {
-        this.levelGameArea.saveObstacles();
-      } catch (IOException e) {
-        //
-      }
+      this.levelGameArea.saveAll();
     }
 
     return super.keyUp(keycode);

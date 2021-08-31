@@ -119,8 +119,7 @@ public class LevelGameArea extends GameArea {
 
     playMusic();
 
-    spawnPlatform(8, 21, 5);
-    spawnDoor(9, 23, 5);
+    spawnLevelFromFile();
   }
 
   private void displayUI() {
@@ -221,8 +220,25 @@ public class LevelGameArea extends GameArea {
     spawnEntityAt(door, position, centerX, centerY);
   }
 
-  public void saveTerrain() throws IOException {
-    BufferedWriter writer = new BufferedWriter(new FileWriter("level.txt"));
+  public void saveAll(){
+    FileWriter writer = null;
+    try {
+      writer = new FileWriter("level.txt");
+      saveTerrain(writer);
+      saveObstacles(writer);
+      writer.flush();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        writer.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  private void saveTerrain(FileWriter writer) throws IOException {
     TiledMapTileLayer mapTileLayer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
     for (int x = 0; x < mapTileLayer.getWidth(); x++) {
       for (int y = 0; y < mapTileLayer.getHeight(); y++) {
@@ -231,50 +247,61 @@ public class LevelGameArea extends GameArea {
         if (cell != null) {
           TerrainTile terrainTile = (TerrainTile)cell.getTile();
           String tileInfo = terrainTile.serialize(x, y);
-          writer.append(tileInfo);
+          writer.write("T:"+tileInfo);
         }
       }
     }
   }
 
-  public void saveObstacles() throws IOException {
-    spawnPlatform(5,5,1,true,true);
-    BufferedWriter writer = new BufferedWriter(new FileWriter("level.txt"));
-    //writer.write("lesgo\n");
+  private void saveObstacles(FileWriter writer) throws IOException {
     for (ObstacleEntity obstacle: obstacleEntities) {
-      //ObstacleEntity obstacleEntity= (ObstacleEntity)areaEntity;
       String obstacleInfo = obstacle.serialise();
-      writer.append(obstacleInfo);
-    }
-    writer.close();
-  }
-
-  private void spawnLevelFromFile() throws IOException {
-    BufferedReader reader = new BufferedReader(new FileReader("level.txt"));
-    String line;
-    while ((line = reader.readLine()) != null) {
-      String[] obstacleInfo = line.split(":");
-      ObstacleToolComponent.Obstacle obstacle = ObstacleToolComponent.Obstacle.valueOf(obstacleInfo[0]);
-      int x = Integer.parseInt(obstacleInfo[2]);
-      int y = Integer.parseInt(obstacleInfo[3]);
-      int width = Integer.parseInt(obstacleInfo[1]);
-      spawnObstacle(obstacle,x,y);
+      writer.write("O:"+obstacleInfo);
     }
   }
 
-  private void spawnObstacle(ObstacleToolComponent.Obstacle selectedObstacle, int x, int y) {
+  private void spawnLevelFromFile() {
+    BufferedReader reader = null;
+    try {
+      reader = new BufferedReader(new FileReader("level.txt"));
+
+      String line;
+      while ((line = reader.readLine()) != null) {
+        String[] lineInfo = line.split(":");
+        if (lineInfo[0].equals("O")){
+          ObstacleToolComponent.Obstacle obstacle = ObstacleToolComponent.Obstacle.valueOf(lineInfo[1]);
+          int x = Integer.parseInt(lineInfo[3]);
+          int y = Integer.parseInt(lineInfo[4]);
+          int size = Integer.parseInt(lineInfo[2]);
+          spawnObstacle(obstacle,x,y,size);
+        } else {
+          //setTerrainCell();
+        }
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        reader.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  private void spawnObstacle(ObstacleToolComponent.Obstacle selectedObstacle, int x, int y, int size) {
     switch (selectedObstacle){
       case PLATFORM:
-        spawnPlatform(x, y, 1, false, true);
+        spawnPlatform(x, y, size, true, true);
         break;
       case MIDDLE_PLATFORM:
-        spawnMiddlePlatform(x, y, 1, false, true);
+        spawnMiddlePlatform(x, y, size, false, true);
         break;
       case DOOR:
-        spawnDoor(x, y, 1, false, true);
+        spawnDoor(x, y, size, false, true);
         break;
       case BRIDGE:
-        spawnBridge(x, y, 1, false, true);
+        spawnBridge(x, y, size, false, true);
         break;
       case BUTTON:
         spawnButton(x, y, false, true);

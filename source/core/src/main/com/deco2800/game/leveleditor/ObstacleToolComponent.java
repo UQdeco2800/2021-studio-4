@@ -231,12 +231,7 @@ public class ObstacleToolComponent extends InputComponent {
     }
 
     if (keycode == Input.Keys.P) {
-      try {
-        this.levelGameArea.saveObstacles();
-        this.levelGameArea.saveTerrain();
-      } catch (IOException e) {
-        //
-      }
+      this.levelGameArea.saveAll();
     }
 
     return super.keyUp(keycode);
