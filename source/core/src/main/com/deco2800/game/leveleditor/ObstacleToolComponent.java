@@ -142,6 +142,13 @@ public class ObstacleToolComponent extends InputComponent {
   }
 
   @Override
+  public void dispose() {
+    ServiceLocator.getEntityService().unregister(this.heldEntity);
+    this.heldEntity.dispose();
+    super.dispose();
+  }
+
+  @Override
   public void update() {
     if (removing) {
       removeLock = true;
