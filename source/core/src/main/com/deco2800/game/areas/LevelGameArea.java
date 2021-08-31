@@ -5,6 +5,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainTile;
+import com.deco2800.game.areas.terrain.TerrainTileDefinition;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.entities.factories.NPCFactory;
@@ -31,6 +32,7 @@ public class LevelGameArea extends GameArea {
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
   private static final float WALL_WIDTH = 0.1f;
   public List<ObstacleEntity> obstacleEntities = new ArrayList<>();
+  public static ArrayList<TerrainTile> terrainTiles = new ArrayList<>();
   private static final String[] gameTextures = {
     "images/box_boy_leaf.png",
     "images/tree.png",
@@ -110,10 +112,11 @@ public class LevelGameArea extends GameArea {
     displayUI();
 
     //spawnTrees();
-    spawnLevel();
+    //spawnLevel();
     player = spawnPlayer();
     //spawnGhosts();
     //spawnGhostKing();
+    spawnLevelFromFile();
     spawnGroundEnemy();
     spawnTheVoid();
 
@@ -186,7 +189,7 @@ public class LevelGameArea extends GameArea {
   }
 
   public void spawnMiddlePlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
-    Entity platform = ObstacleFactory.createMiddlePlatform(width);
+    ObstacleEntity platform = (ObstacleEntity) ObstacleFactory.createMiddlePlatform(width);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(platform, position, centerX, centerY);
   }
@@ -195,7 +198,7 @@ public class LevelGameArea extends GameArea {
   }
 
   public void spawnButton(int posX, int posY, boolean centerX, boolean centerY) {
-    Entity button = ObstacleFactory.createButton();
+    ObstacleEntity button = (ObstacleEntity) ObstacleFactory.createButton();
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(button, position, centerX, centerY);
   }
@@ -205,7 +208,7 @@ public class LevelGameArea extends GameArea {
   }
 
   public void spawnBridge(int posX, int posY, int width, boolean centerX, boolean centerY) {
-    Entity bridge = ObstacleFactory.createBridge(width);
+    ObstacleEntity bridge = (ObstacleEntity) ObstacleFactory.createBridge(width);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(bridge, position, centerX, centerY);
   }
@@ -215,7 +218,7 @@ public class LevelGameArea extends GameArea {
   }
 
   public void spawnDoor(int posX, int posY, int height, boolean centerX, boolean centerY) {
-    Entity door = ObstacleFactory.createDoor(height);
+    ObstacleEntity door = (ObstacleEntity) ObstacleFactory.createDoor(height);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(door, position, centerX, centerY);
   }
@@ -270,12 +273,17 @@ public class LevelGameArea extends GameArea {
         String[] lineInfo = line.split(":");
         if (lineInfo[0].equals("O")){
           ObstacleToolComponent.Obstacle obstacle = ObstacleToolComponent.Obstacle.valueOf(lineInfo[1]);
+          int size = Integer.parseInt(lineInfo[2]);
           int x = Integer.parseInt(lineInfo[3]);
           int y = Integer.parseInt(lineInfo[4]);
-          int size = Integer.parseInt(lineInfo[2]);
           spawnObstacle(obstacle,x,y,size);
         } else {
-          //setTerrainCell();
+          TerrainTileDefinition definition = TerrainTileDefinition.valueOf(lineInfo[1]);
+          int rotation = Integer.parseInt(lineInfo[2]);
+          int x = Integer.parseInt(lineInfo[3]);
+          int y = Integer.parseInt(lineInfo[4]);
+          TiledMapTileLayer mapTileLayer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
+          TerrainFactory.loadTilesFromFile(mapTileLayer,definition,rotation,x,y);
         }
       }
     } catch (IOException e) {
