@@ -2,6 +2,7 @@ package com.deco2800.game.components.mainmenu;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.screens.MainMenuScreen;
 import com.deco2800.game.services.MusicService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,7 @@ public class MainMenuActions extends Component {
     entity.getEvents().addListener("exit", this::onExit);
     entity.getEvents().addListener("settings", this::onSettings);
     entity.getEvents().addListener("mute", this::onMute);
+    entity.getEvents().addListener("levelEditor", this::onLevelEditor);
   }
 
   /**
@@ -65,11 +67,19 @@ public class MainMenuActions extends Component {
    */
   private void onMute() {
     logger.info("Muting MainMenuMusic");
-    MusicService musicService = new MusicService();
-    if (musicService.getmusicPlaying()) {
+    MusicService musicService = new MusicService("sounds/MainMenuMusic.mp3");
+    if (musicService.isMusicPlaying()) {
       musicService.stopMusic();
     } else {
       musicService.playMusic();
     }
+  }
+
+  /**
+   * Launches level editor
+   */
+  private void onLevelEditor(){
+    logger.info("Launching level editor");
+    game.setScreen(GdxGame.ScreenType.LEVEL_EDITOR);
   }
 }
