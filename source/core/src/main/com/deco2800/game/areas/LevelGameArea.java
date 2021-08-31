@@ -103,6 +103,7 @@ public class LevelGameArea extends GameArea {
 
     displayBackground();
     spawnTerrain();
+    spawnLevelFromFile();
   }
 
   /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
@@ -122,8 +123,6 @@ public class LevelGameArea extends GameArea {
     spawnTheVoid();
 
     playMusic();
-
-    spawnLevelFromFile();
   }
 
   private void displayUI() {
@@ -309,21 +308,23 @@ public class LevelGameArea extends GameArea {
   }
 
   private void spawnObstacle(ObstacleToolComponent.Obstacle selectedObstacle, int x, int y, int size) {
+    x = x*2;
+    y = y*2;
     switch (selectedObstacle){
       case PLATFORM:
-        spawnPlatform(x, y, size, true, true);
+        spawnPlatform(x, y, size, false, false);
         break;
       case MIDDLE_PLATFORM:
-        spawnMiddlePlatform(x, y, size, false, true);
+        spawnMiddlePlatform(x, y, size, false, false);
         break;
       case DOOR:
-        spawnDoor(x, y, size, false, true);
+        spawnDoor(x, y, size, false, false);
         break;
       case BRIDGE:
-        spawnBridge(x, y, size, false, true);
+        spawnBridge(x, y, size, false, false);
         break;
       case BUTTON:
-        spawnButton(x, y, false, true);
+        spawnButton(x, y, false, false);
         break;
     }
   }
