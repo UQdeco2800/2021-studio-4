@@ -17,6 +17,10 @@ import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.FileWriter;
+
+
+
 public class DeathScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(DeathScreen.class);
     private final GdxGame game;
@@ -61,7 +65,7 @@ public class DeathScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        logger.debug("Disposing level select screen");
+        logger.debug("Disposing death screen");
 
         renderer.dispose();
         unloadAssets();
@@ -102,5 +106,8 @@ public class DeathScreen extends ScreenAdapter {
                 .addComponent(new DeathScreenActions(game));
         ServiceLocator.getEntityService().register(ui);
     }
+
+
+
 
 }
