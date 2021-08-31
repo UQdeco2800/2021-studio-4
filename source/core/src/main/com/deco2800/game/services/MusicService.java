@@ -12,8 +12,10 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
 /**
- * Service for playing and controlling the play of game music, this is different to a loadAsset() function as
- *          it doesn't control the loading of the assets, however it controls the playing and where the music plays.
+ * Service for playing and controlling the play of game music, this is different
+ * to a loadAsset() function as
+ * it doesn't control the loading of the assets,
+ * however it controls the playing and where the music plays.
  */
 public class MusicService {
     private static final String musicLocation = "";
@@ -51,6 +53,7 @@ public class MusicService {
 
     /**
      * Start playing this music from the given time.
+     * @requires: an integer of the time of the music track being modified by the service.
      */
     public void setTime(float time) {
         music.setPosition(time);
@@ -68,6 +71,7 @@ public class MusicService {
 
     /**
      * Play this music with the given volume.
+     * @requires: an integer between 0 and 1
      */
     public void changeVolume(float vol) {
         music.setVolume(vol);
