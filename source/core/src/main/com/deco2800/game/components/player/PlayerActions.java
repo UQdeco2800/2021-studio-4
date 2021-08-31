@@ -15,8 +15,6 @@ import com.deco2800.game.utils.math.Vector2Utils;
 public class PlayerActions extends Component {
   private static final Vector2 ACCELERATION = new Vector2(10f, 0f);  // Force of acceleration, in Newtons (kg.m.s^2)
   private static final float NORMAL_FRICTION = 0.1f;                 // Coefficient of friction for normal movement
-  private static final float SLIDING_FRICTION = 0.02f;               // Coefficient of friction when sliding
-  private static final float AIR_FRICTION = 0.03f;                   // Coefficient of friction when in air
 
   private PlayerState playerState = PlayerState.STOPPED;        // Movement state of the player, see PlayerState
   private PhysicsComponent physicsComponent;
