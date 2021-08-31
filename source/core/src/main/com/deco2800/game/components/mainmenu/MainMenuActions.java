@@ -27,6 +27,7 @@ public class MainMenuActions extends Component {
     entity.getEvents().addListener("settings", this::onSettings);
     entity.getEvents().addListener("mute", this::onMute);
     entity.getEvents().addListener("scoreSelect", this::onScore);
+    entity.getEvents().addListener("levelEditor", this::onLevelEditor);
   }
 
   /**
@@ -81,5 +82,13 @@ public class MainMenuActions extends Component {
   private void onScore() {
     logger.info("Launching score screen");
     game.setScreen(GdxGame.ScreenType.SCORE_SCREEN);
+  }
+
+    /**
+    * Launches level editor
+    */
+  private void onLevelEditor(){
+    logger.info("Launching level editor");
+    game.setScreen(GdxGame.ScreenType.LEVEL_EDITOR);
   }
 }
