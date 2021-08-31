@@ -263,6 +263,12 @@ public class LevelGameArea extends GameArea {
     }
   }
 
+  @Override
+  public void untrackEntity(Entity entity) {
+    this.obstacleEntities.remove(entity);
+    super.untrackEntity(entity);
+  }
+
   private void spawnLevelFromFile() {
     BufferedReader reader = null;
     try {
