@@ -1,20 +1,7 @@
 package com.deco2800.game.components;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.deco2800.game.GdxGame;
-import com.deco2800.game.components.endgame.DeathScreenActions;
-import com.deco2800.game.components.maingame.MainGameActions;
-import com.deco2800.game.components.maingame.MainGameExitDisplay;
-import com.deco2800.game.entities.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.awt.event.ActionEvent;
-import java.nio.file.AccessMode;
 
 /**
  * Component used to store information related to combat such as health, attack, etc. Any entities
@@ -94,18 +81,8 @@ public class CombatStatsComponent extends Component {
   }
 
   public void hit(CombatStatsComponent attacker) {
-     /*
+
     int newHealth = getHealth() - attacker.getBaseAttack();
     setHealth(newHealth);
-     */
-    if (isDead()) {
-      int newHealth = 78;
-      setHealth(newHealth);
-      //setScreen(GdxGame.ScreenType.MAIN_MENU);
-      //entity.getEvents().trigger("playerDeath");
-    } else {
-      int newHealth = getHealth() - attacker.getBaseAttack();
-      setHealth(newHealth);
-    }
   }
 }

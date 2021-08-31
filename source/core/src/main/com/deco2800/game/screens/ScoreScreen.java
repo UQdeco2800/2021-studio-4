@@ -3,8 +3,10 @@ package com.deco2800.game.screens;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.components.endgame.DeathScreenActions;
-import com.deco2800.game.components.endgame.DeathScreenDisplay;
+import com.deco2800.game.components.mainmenu.MainMenuActions;
+import com.deco2800.game.components.mainmenu.MainMenuDisplay;
+import com.deco2800.game.components.scores.ScoreActions;
+import com.deco2800.game.components.scores.ScoreDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -17,19 +19,23 @@ import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-
-
-public class DeathScreen extends ScreenAdapter {
-    private static final Logger logger = LoggerFactory.getLogger(DeathScreen.class);
+public class ScoreScreen extends ScreenAdapter {
+    private static final Logger logger = LoggerFactory.getLogger(ScoreScreen.class);
     private final GdxGame game;
     private final Renderer renderer;
-    private static final String[] DeathScreenTextures = {"images/FailScreenPlaceholder.png"};
+    private static final String[] scoreScreenTextures = {"images/title_screen_clean.png"};
 
-    public DeathScreen(GdxGame game) {
+
+    public ScoreScreen (GdxGame game) {
         this.game = game;
-        logger.debug("Initialising death screen");
+        logger.debug("Initialising score screen");
         ServiceLocator.registerInputService(new InputService());
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerEntityService(new EntityService());
@@ -37,9 +43,7 @@ public class DeathScreen extends ScreenAdapter {
         renderer = RenderFactory.createRenderer();
         loadAssets();
         createUI();
-
     }
-
     @Override
     public void render(float delta) {
         ServiceLocator.getEntityService().update();
@@ -51,8 +55,6 @@ public class DeathScreen extends ScreenAdapter {
         renderer.resize(width, height);
         logger.trace("Resized renderer: ({} x {})", width, height);
     }
-
-
     @Override
     public void pause() {
         logger.info("Game paused");
@@ -65,7 +67,7 @@ public class DeathScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        logger.debug("Disposing death screen");
+        logger.debug("Disposing score screen");
 
         renderer.dispose();
         unloadAssets();
@@ -75,39 +77,37 @@ public class DeathScreen extends ScreenAdapter {
         ServiceLocator.clear();
 
     }
-    private void loadAssets() {
 
+    private void loadAssets() {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(DeathScreenTextures);
+        resourceService.loadTextures(scoreScreenTextures);
         ServiceLocator.getResourceService().loadAll();
 
         while (!resourceService.loadForMillis(10)) {
             // This could be upgraded to a loading screen
             logger.info("Loading... {}%", resourceService.getProgress());
         }
-
     }
+
     private void unloadAssets() {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.unloadAssets(DeathScreenTextures);
+        resourceService.unloadAssets(scoreScreenTextures);
     }
 
     /**
-     * Creates the death screen ui including buttons to restart the level or exit to main menu.
+     * Creates the score screen's ui including components for rendering ui elements to the screen and
+     * capturing and handling ui input.
      */
     private void createUI() {
         logger.debug("Creating ui");
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
-        ui.addComponent(new DeathScreenDisplay())
+        ui.addComponent(new ScoreDisplay())
                 .addComponent(new InputDecorator(stage, 10))
-                .addComponent(new DeathScreenActions(game));
+                .addComponent(new ScoreActions(game));
         ServiceLocator.getEntityService().register(ui);
+
     }
-
-
-
-
 }
