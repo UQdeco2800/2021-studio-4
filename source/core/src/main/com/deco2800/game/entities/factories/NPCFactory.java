@@ -142,7 +142,7 @@ public class NPCFactory {
   private static Entity createGroundNPC(Entity target) {
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    .addTask(new WanderTask(new Vector2(5, 0), 0.5f));
+                    .addTask(new WanderTask(new Vector2(7, 0), 0.3f));
 //                    .addTask(new ChaseTask(target, 10, 3f, 4f));
     Entity npc =
             new Entity()

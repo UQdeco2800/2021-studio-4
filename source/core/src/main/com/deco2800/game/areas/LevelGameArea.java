@@ -2,6 +2,7 @@ package com.deco2800.game.areas;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.GridPoint3;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
@@ -86,7 +87,7 @@ public class LevelGameArea extends GameArea {
     player = spawnPlayer();
     //spawnGhosts();
     //spawnGhostKing();
-    spawnGroundEnemy();
+    //spawnGroundEnemy();
     spawnTheVoid();
 
     playMusic();
@@ -215,7 +216,7 @@ public class LevelGameArea extends GameArea {
         xCord = 20 + (int)(Math.random() * ((WALL_WIDTH - 5) + 1));
       }
       check.add(xCord);
-      GridPoint2 randomPos = new GridPoint2(xCord,6);
+      GridPoint2 randomPos = new GridPoint2(xCord,8);
       Entity ghost = NPCFactory.createGhost(player);
       spawnEntityAt(ghost, randomPos, true, true);
     }
