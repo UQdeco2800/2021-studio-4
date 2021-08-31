@@ -15,7 +15,9 @@ import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.rendering.SpriteRenderComponent;
 import com.deco2800.game.screens.LevelEditorScreen;
 import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.areas.GameArea;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -224,10 +226,19 @@ public class ObstacleToolComponent extends InputComponent {
       this.screen.selectTileHand();
     }
 
+    if (keycode == Input.Keys.P) {
+      try {
+        this.levelGameArea.saveObstacles();
+        this.levelGameArea.saveTerrain();
+      } catch (IOException e) {
+        //
+      }
+    }
+
     return super.keyUp(keycode);
   }
 
-  private enum Obstacle {
+  public enum Obstacle {
     PLATFORM, MIDDLE_PLATFORM, BUTTON, DOOR, BRIDGE
   }
 }

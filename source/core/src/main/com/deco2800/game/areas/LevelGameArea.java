@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
@@ -16,8 +17,11 @@ import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.deco2800.game.leveleditor.ObstacleToolComponent;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class LevelGameArea extends GameArea {
@@ -26,6 +30,7 @@ public class LevelGameArea extends GameArea {
   private static final int NUM_GHOSTS = 2;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
   private static final float WALL_WIDTH = 0.1f;
+  public List<ObstacleEntity> obstacleEntities = new ArrayList<>();
   private static final String[] gameTextures = {
     "images/box_boy_leaf.png",
     "images/tree.png",
@@ -171,9 +176,10 @@ public class LevelGameArea extends GameArea {
   }
   
   public void spawnPlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
-    Entity platform = ObstacleFactory.createPlatform(width);
+    ObstacleEntity platform = (ObstacleEntity) ObstacleFactory.createPlatform(width);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(platform, position, centerX, centerY);
+    obstacleEntities.add(platform);
   }
 
   public void spawnMiddlePlatform(int posX, int posY, int width) {
@@ -213,6 +219,67 @@ public class LevelGameArea extends GameArea {
     Entity door = ObstacleFactory.createDoor(height);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(door, position, centerX, centerY);
+  }
+
+  public void saveTerrain() throws IOException {
+    BufferedWriter writer = new BufferedWriter(new FileWriter("level.txt"));
+    TiledMapTileLayer mapTileLayer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
+    for (int x = 0; x < mapTileLayer.getWidth(); x++) {
+      for (int y = 0; y < mapTileLayer.getHeight(); y++) {
+        TiledMapTileLayer.Cell cell = mapTileLayer.getCell(x, y);
+
+        if (cell != null) {
+          TerrainTile terrainTile = (TerrainTile)cell.getTile();
+          String tileInfo = terrainTile.serialize(x, y);
+          writer.append(tileInfo);
+        }
+      }
+    }
+  }
+
+  public void saveObstacles() throws IOException {
+    spawnPlatform(5,5,1,true,true);
+    BufferedWriter writer = new BufferedWriter(new FileWriter("level.txt"));
+    //writer.write("lesgo\n");
+    for (ObstacleEntity obstacle: obstacleEntities) {
+      //ObstacleEntity obstacleEntity= (ObstacleEntity)areaEntity;
+      String obstacleInfo = obstacle.serialise();
+      writer.append(obstacleInfo);
+    }
+    writer.close();
+  }
+
+  private void spawnLevelFromFile() throws IOException {
+    BufferedReader reader = new BufferedReader(new FileReader("level.txt"));
+    String line;
+    while ((line = reader.readLine()) != null) {
+      String[] obstacleInfo = line.split(":");
+      ObstacleToolComponent.Obstacle obstacle = ObstacleToolComponent.Obstacle.valueOf(obstacleInfo[0]);
+      int x = Integer.parseInt(obstacleInfo[2]);
+      int y = Integer.parseInt(obstacleInfo[3]);
+      int width = Integer.parseInt(obstacleInfo[1]);
+      spawnObstacle(obstacle,x,y);
+    }
+  }
+
+  private void spawnObstacle(ObstacleToolComponent.Obstacle selectedObstacle, int x, int y) {
+    switch (selectedObstacle){
+      case PLATFORM:
+        spawnPlatform(x, y, 1, false, true);
+        break;
+      case MIDDLE_PLATFORM:
+        spawnMiddlePlatform(x, y, 1, false, true);
+        break;
+      case DOOR:
+        spawnDoor(x, y, 1, false, true);
+        break;
+      case BRIDGE:
+        spawnBridge(x, y, 1, false, true);
+        break;
+      case BUTTON:
+        spawnButton(x, y, false, true);
+        break;
+    }
   }
 
   private void spawnLevel() {

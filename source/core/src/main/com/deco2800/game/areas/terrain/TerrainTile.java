@@ -131,4 +131,10 @@ public class TerrainTile implements TiledMapTile {
   public MapObjects getObjects() {
     return null;
   }
+
+  public String serialize(int x, int y) {
+    // X -> x coordinate
+    // Y -> y coordinate
+    return String.format("%s:%s:%s:%s\n",this.definition,this.rotation,x,y);
+  }
 }

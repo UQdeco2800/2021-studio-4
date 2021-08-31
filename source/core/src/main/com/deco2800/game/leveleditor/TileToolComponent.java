@@ -13,6 +13,8 @@ import com.deco2800.game.rendering.SpriteRenderComponent;
 import com.deco2800.game.screens.LevelEditorScreen;
 import com.deco2800.game.services.ServiceLocator;
 
+import java.io.IOException;
+
 /**
  * Component for editing the terrain map
  */
@@ -165,6 +167,14 @@ public class TileToolComponent extends InputComponent {
     if (keycode == Input.Keys.TAB) {
       this.screen.selectObstacleHand();
     }
+    if (keycode == Input.Keys.P) {
+      try {
+        this.levelGameArea.saveObstacles();
+      } catch (IOException e) {
+        //
+      }
+    }
+
     return super.keyUp(keycode);
   }
 }
