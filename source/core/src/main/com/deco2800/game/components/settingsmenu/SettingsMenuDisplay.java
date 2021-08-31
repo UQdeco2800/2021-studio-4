@@ -42,9 +42,8 @@ public class SettingsMenuDisplay extends UIComponent {
     this.game = game;
   }
 
-  public void playTheMusic() {
-    MusicServiceDirectory dict = new  MusicServiceDirectory();
-    MusicService musicScreen = new MusicService(dict.main_menu);
+  public void loadTheMusic() {
+    MusicService musicScreen = new MusicService("sounds/MainMenuMusic.mp3");
     musicScreen.playMusic();
   }
 
@@ -52,7 +51,7 @@ public class SettingsMenuDisplay extends UIComponent {
   public void create() {
     super.create();
     addActors();
-    playTheMusic();
+    loadTheMusic();
   }
 
   private void addActors() {

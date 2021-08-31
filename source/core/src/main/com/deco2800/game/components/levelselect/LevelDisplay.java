@@ -1,5 +1,6 @@
 package com.deco2800.game.components.levelselect;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -41,11 +42,25 @@ public class LevelDisplay extends UIComponent {
     private void addActors() {
         table = new Table();
         table.setFillParent(true);
-        sprite = new Sprite(new Texture("images/LevelSelectScreenPlaceholder.png"));
+        sprite = new Sprite(new Texture("images/title_screen_clean.png"));
         table.setBackground(new SpriteDrawable(sprite)); // Set background.
 
         // Add exit button to go back to main menu.
         TextButton exitBtn = new TextButton("Exit", skin);
+        // Add exit button to go back to main menu.
+        TextButton level1Btn = new TextButton("Level1", skin);
+
+        // Level1 button event.
+        level1Btn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+
+                        logger.debug("Level1 button clicked");
+                        entity.getEvents().trigger("start");
+                    }
+                });
+        level1Btn.setColor(Color.ROYAL);
 
         // Exit button event.
         exitBtn.addListener(
@@ -57,9 +72,11 @@ public class LevelDisplay extends UIComponent {
                         entity.getEvents().trigger("exit");
                     }
                 });
+        exitBtn.setColor(Color.ROYAL);
 
         table.row();
         table.add(exitBtn).center(); // Places the button in the centre.
+        table.add(level1Btn).center();
         stage.addActor(table);
     }
 
