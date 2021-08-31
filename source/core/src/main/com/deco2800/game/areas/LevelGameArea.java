@@ -114,7 +114,7 @@ public class LevelGameArea extends GameArea {
     //spawnGhosts();
     //spawnGhostKing();
     //spawnGroundEnemy();
-    //spawnGorgonGear();
+    //spawnGorgonGear(20,8);
     spawnTheVoid();
 
     playMusic();
