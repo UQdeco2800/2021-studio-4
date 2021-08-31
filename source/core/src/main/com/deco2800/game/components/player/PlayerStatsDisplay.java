@@ -16,15 +16,18 @@ import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static com.deco2800.game.screens.MainGameScreen.timeScore;
+
 /**
  * A ui component for displaying player stats, e.g. health.
  */
 public class PlayerStatsDisplay extends UIComponent {
   Table table;
-  private Image heartImage;
-  private Label healthLabel;
-  private static final Logger logger = LoggerFactory.getLogger(MainMenuDisplay.class);
 
+  private Label healthLabel;
+  private Label timeLabel;
+  private static final Logger logger = LoggerFactory.getLogger(MainMenuDisplay.class);
+  public static boolean gameOver = false;
   /**
    * Creates reusable ui styles and adds actors to the stage.
    */
@@ -44,19 +47,29 @@ public class PlayerStatsDisplay extends UIComponent {
     table = new Table();
     table.top().left();
     table.setFillParent(true);
-    table.padTop(45f).padLeft(5f);
+    table.padTop(45f);
 
     // Heart image
     float heartSideLength = 30f;
-    heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
+
 
     // Health text
     int health = entity.getComponent(CombatStatsComponent.class).getHealth();
     CharSequence healthText = String.format("Health: %d", health);
     healthLabel = new Label(healthText, skin, "large");
 
-    table.add(heartImage).size(heartSideLength).pad(5);
+
     table.add(healthLabel);
+
+
+    table.row();
+
+
+    long time = timeScore;
+
+    CharSequence timer = String.format("           Your previous Score: %d", time);
+    timeLabel = new Label(timer, skin, "large");
+    table.add(timeLabel);
     stage.addActor(table);
   }
 
@@ -72,12 +85,14 @@ public class PlayerStatsDisplay extends UIComponent {
   public void updatePlayerHealthUI(int health) {
     CharSequence text = String.format("Health: %d", health);
     healthLabel.setText(text);
+    if (health == 0) {
+      gameOver = true;
+    }
   }
 
   @Override
   public void dispose() {
     super.dispose();
-    heartImage.remove();
     healthLabel.remove();
   }
 }
