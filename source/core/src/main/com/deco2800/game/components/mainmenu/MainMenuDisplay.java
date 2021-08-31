@@ -289,7 +289,7 @@ public class MainMenuDisplay extends UIComponent {
                     }
                 });
 
-<<<<<<< HEAD
+
         leaderBoardBtn.addListener(
                 new ChangeListener() {
                     @Override
@@ -299,7 +299,7 @@ public class MainMenuDisplay extends UIComponent {
                         entity.getEvents().trigger("scoreSelect");
                     }
                 });
-=======
+
         virusHead.addListener(
           new ChangeListener() {
               @Override
@@ -309,7 +309,7 @@ public class MainMenuDisplay extends UIComponent {
                   entity.getEvents().trigger("levelEditor");
               }
           });
->>>>>>> 50f014a1767ee0d4b469a57f629e4ea1c30aa46a
+
 
         stage.addActor(table);
         stage.addActor(startBtn);
