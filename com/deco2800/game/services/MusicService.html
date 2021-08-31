@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -98,8 +98,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">MusicService</span>
 extends java.lang.Object</pre>
-<div class="block">Service for playing and controlling the play of game music, this is different to a loadAsset() function as
-          it doesn't control the loading of the assets, however it controls the playing and where the music plays.</div>
+<div class="block">Service for playing and controlling the play of game music, this is different
+ to a loadAsset() function as
+ it doesn't control the loading of the assets,
+ however it controls the playing and where the music plays.</div>
 </section>
 <section class="summary">
 <ul class="blockList">
@@ -151,39 +153,44 @@ extends java.lang.Object</pre>
 <tr class="altColor" id="i0">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#changeVolume(float)">changeVolume</a></span>&#8203;(float&nbsp;vol)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Play this music with the given volume.</div>
+</td>
 </tr>
 <tr class="rowColor" id="i1">
 <td class="colFirst"><code>float</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTime()">getTime</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Get the playback position of this music in seconds.</div>
+</td>
 </tr>
 <tr class="altColor" id="i2">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isMusicPlaying()">isMusicPlaying</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Checks whether the music is playing.</div>
+<div class="block">Checks whether this music is playing.</div>
 </td>
 </tr>
 <tr class="rowColor" id="i3">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#playMusic()">playMusic</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Play this music in the loop.</div>
+</td>
 </tr>
 <tr class="altColor" id="i4">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSpeed(float)">setSpeed</a></span>&#8203;(float&nbsp;speed)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTime(float)">setTime</a></span>&#8203;(float&nbsp;time)</code></th>
+<td class="colLast">
+<div class="block">Start playing this music from the given time.</div>
+</td>
 </tr>
 <tr class="rowColor" id="i5">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTime(float)">setTime</a></span>&#8203;(float&nbsp;time)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor" id="i6">
-<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stopMusic()">stopMusic</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Stop this music.</div>
+</td>
 </tr>
 </tbody>
 </table>
@@ -228,13 +235,14 @@ extends java.lang.Object</pre>
 <section class="detail">
 <h3><a id="stopMusic()">stopMusic</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">stopMusic</span>()</div>
+<div class="block">Stop this music.</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="isMusicPlaying()">isMusicPlaying</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">isMusicPlaying</span>()</div>
-<div class="block">Checks whether the music is playing.</div>
+<div class="block">Checks whether this music is playing.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>boolean: true - if the music is playing, false - if the music is not playing</dd>
@@ -245,30 +253,34 @@ extends java.lang.Object</pre>
 <section class="detail">
 <h3><a id="getTime()">getTime</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">float</span>&nbsp;<span class="memberName">getTime</span>()</div>
+<div class="block">Get the playback position of this music in seconds.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the playback position.</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="setTime(float)">setTime</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setTime</span>&#8203;(<span class="arguments">float&nbsp;time)</span></div>
+<div class="block">Start playing this music from the given time.
+ Required:  an integer of the time of the music track being modified by the service.</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="playMusic()">playMusic</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">playMusic</span>()</div>
+<div class="block">Play this music in the loop.</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="changeVolume(float)">changeVolume</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">changeVolume</span>&#8203;(<span class="arguments">float&nbsp;vol)</span></div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="setSpeed(float)">setSpeed</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setSpeed</span>&#8203;(<span class="arguments">float&nbsp;speed)</span></div>
+<div class="block">Play this music with the given volume.
+ Required: an integer between 0 and 1</div>
 </section>
 </li>
 </ul>
