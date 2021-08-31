@@ -66,7 +66,7 @@ public class LevelGameArea extends GameArea {
   private static final String[] gameMusic = {gameSong.click, gameSong.game_level_1,gameSong.end_credits,
     gameSong.enemy_collision,gameSong.enemy_death, gameSong.obstacle_boost, gameSong.obstacle_button,
     gameSong.player_collision, gameSong.player_power_up, gameSong.void_death, gameSong.void_noise};
-  private static final String[] gameSounds = {"sounds/Impact4.ogg"};
+
   /*private static final String backgroundMusic = "sounds/BackingMusicWithDrums.mp3";
   private static final String[] gameMusic = {"sounds/BackingMusicWithDrums.mp3",
           "sounds/CLICK_Click.mp3", "sounds/End credits.mp3", "sounds/ENEMY_Collision.mp3",
@@ -365,7 +365,6 @@ public class LevelGameArea extends GameArea {
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(gameTextures);
     resourceService.loadTextureAtlases(gameTextureAtlases);
-    resourceService.loadSounds(gameSounds);
     resourceService.loadMusic(gameMusic);
 
     while (!resourceService.loadForMillis(10)) {
@@ -379,7 +378,6 @@ public class LevelGameArea extends GameArea {
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.unloadAssets(gameTextures);
     resourceService.unloadAssets(gameTextureAtlases);
-    resourceService.unloadAssets(gameSounds);
     resourceService.unloadAssets(gameMusic);
   }
 
