@@ -3,8 +3,6 @@ package com.deco2800.game.ui.terminal;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.deco2800.game.input.InputComponent;
-import com.deco2800.game.rendering.DebugRenderer;
-import com.deco2800.game.services.ServiceLocator;
 
 /**
  * Input handler for the debug terminal for keyboard and touch (mouse) input.
@@ -15,7 +13,6 @@ import com.deco2800.game.services.ServiceLocator;
  */
 public class KeyboardTerminalInputComponent extends InputComponent {
   private static final int TOGGLE_OPEN_KEY = Input.Keys.F1;
-  private static final int TOGGLE_DEBUG_KEY = Input.Keys.F2;
   private Terminal terminal;
 
   public KeyboardTerminalInputComponent() {
@@ -49,10 +46,6 @@ public class KeyboardTerminalInputComponent extends InputComponent {
     // handle open and close terminal
     if (keycode == TOGGLE_OPEN_KEY) {
       terminal.toggleIsOpen();
-      return true;
-    } else if (keycode == TOGGLE_DEBUG_KEY) {
-      DebugRenderer debugRenderer = ServiceLocator.getRenderService().getDebug();
-      debugRenderer.setActive(!debugRenderer.getActive());
       return true;
     }
 

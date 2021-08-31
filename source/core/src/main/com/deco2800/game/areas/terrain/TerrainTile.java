@@ -1,11 +1,9 @@
 package com.deco2800.game.areas.terrain;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
 /**
  * Custom terrain tile implementation for tiled map terrain that stores additional properties we
@@ -14,46 +12,12 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 public class TerrainTile implements TiledMapTile {
   private int id;
   private BlendMode blendMode = BlendMode.ALPHA;
-  private TerrainTileDefinition definition;
-  private Sprite sprite;
+  private TextureRegion textureRegion;
   private float offsetX;
   private float offsetY;
 
-  private final boolean flipX;
-  private final boolean flipY;
-  private final int rotation;
-
-  public TerrainTile(TerrainTileDefinition definition) {
-    this(definition, 0, false, false);
-  }
-
-  public TerrainTile(TerrainTileDefinition definition, int rotation, boolean flipX, boolean flipY) {
-    this.definition = definition;
-    this.sprite = definition.getSprite();
-
-    this.rotation = rotation;
-    this.flipX = flipX;
-    this.flipY = flipY;
-  }
-
-  /**
-   * Generate a cell to this TerrainTile's cell definitions. Includes setting texture, rotation and flipX/Y
-   */
-  public Cell generateCell(){
-    Cell cell = new Cell();
-
-    cell.setTile(this);
-
-    if (definition.isRotateable()) {
-      cell.setRotation(this.rotation / 90);
-    }
-
-    if (definition.isFlipable()) {
-      cell.setFlipHorizontally(flipX);
-      cell.setFlipVertically(flipY);
-    }
-
-    return cell;
+  public TerrainTile(TextureRegion textureRegion) {
+    this.textureRegion = textureRegion;
   }
 
   @Override
@@ -78,20 +42,12 @@ public class TerrainTile implements TiledMapTile {
 
   @Override
   public TextureRegion getTextureRegion() {
-    return sprite;
+    return textureRegion;
   }
 
   @Override
   public void setTextureRegion(TextureRegion textureRegion) {
-    this.sprite = (Sprite)textureRegion;
-  }
-
-  public Sprite getSprite() {
-    return sprite;
-  }
-
-  public void setSprite(Sprite sprite) {
-    this.sprite = sprite;
+    this.textureRegion = textureRegion;
   }
 
   @Override

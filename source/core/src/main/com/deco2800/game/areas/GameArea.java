@@ -35,35 +35,6 @@ public abstract class GameArea implements Disposable {
   }
 
   /**
-   * Given a position, get a list of entities which overlap this position
-   * @param pos Position to check
-   * @return ArrayList of entities
-   */
-  public ArrayList<Entity> getEntities(Vector2 pos) {
-    ArrayList<Entity> entities = new ArrayList<>();
-
-    for (Entity areaEntity : areaEntities) {
-      Vector2 ePos = areaEntity.getPosition();
-      Vector2 eScale = areaEntity.getScale();
-
-      if((pos.x > ePos.x && pos.x < ePos.x + eScale.x) &&
-        (pos.y > ePos.y && pos.y < ePos.y + eScale.y)) {
-        entities.add(areaEntity);
-      }
-    }
-
-    return entities;
-  }
-
-  /**
-   * Remove an entity from the list of entities within the area
-   * @param entity Entity to remove
-   */
-  public void untrackEntity(Entity entity) {
-    areaEntities.remove(entity);
-  }
-
-  /**
    * Spawn entity at its current position
    *
    * @param entity Entity (not yet registered)

@@ -1,141 +1,140 @@
 package com.deco2800.game.areas.terrain;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.renderers.HexagonalTiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
 import com.deco2800.game.areas.terrain.TerrainComponent.TerrainOrientation;
 import com.deco2800.game.components.CameraComponent;
-import com.deco2800.game.physics.PhysicsLayer;
+import com.deco2800.game.utils.math.RandomUtils;
+import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
-
-import java.util.ArrayList;
 
 /** Factory for creating game terrains. */
 public class TerrainFactory {
-  private static final TerrainOrientation ORIENTATION = TerrainOrientation.ORTHOGONAL;
-  private static final float TILE_SIZE = 0.5f;
+  private static final GridPoint2 MAP_SIZE = new GridPoint2(30, 30);
+  private static final int TUFT_TILE_COUNT = 30;
+  private static final int ROCK_TILE_COUNT = 30;
 
   private final OrthographicCamera camera;
+  private final TerrainOrientation orientation;
 
   /**
-   * Create a terrain factory.
+   * Create a terrain factory with Orthogonal orientation
    *
-   * @param cameraComponent Camera to render terrains to. Must be orthographic.
+   * @param cameraComponent Camera to render terrains to. Must be ortographic.
    */
   public TerrainFactory(CameraComponent cameraComponent) {
+    this(cameraComponent, TerrainOrientation.ORTHOGONAL);
+  }
+
+  /**
+   * Create a terrain factory
+   *
+   * @param cameraComponent Camera to render terrains to. Must be orthographic.
+   * @param orientation orientation to render terrain at
+   */
+  public TerrainFactory(CameraComponent cameraComponent, TerrainOrientation orientation) {
     this.camera = (OrthographicCamera) cameraComponent.getCamera();
+    this.orientation = orientation;
   }
 
   /**
-   * Generates the terraincomponent which will contain the terrain data
-   * @return
-   */
-  public TerrainComponent createTerrain() {
-    GridPoint2 tilePixelSize = new GridPoint2(TerrainTileDefinition.TILE_X, TerrainTileDefinition.TILE_Y);
-    TiledMap tiledMap = loadTiles(tilePixelSize);
-    OrthoCachedTiledMapRenderer renderer = new OrthoCachedTiledMapRenderer(tiledMap, TILE_SIZE/tilePixelSize.x);
-    generateBodies(tiledMap);
-    return new TerrainComponent(camera, tiledMap, renderer, ORIENTATION, TILE_SIZE);
-  }
-
-  /**
-   * Since a tiled map is one single entity, we can't simply apply the collidable component to it to allow collisions
-   * with the tiles.
+   * Create a terrain of the given type, using the orientation of the factory. This can be extended
+   * to add additional game terrains.
    *
-   * To handle collisions, this function generates Box2D Bodies for each solid tile within the map, then it generates
-   * and creates appropriate fixtures for each of the bodies.
-   *
-   * Notes: Currently there is no good way to delete/change these bodies in the event of a map tile change. Additionally
-   * this function would need to be further changed to consider the tile definition if, ie a corner tile was to have
-   * the correct hitbox.
-   * @param tiledMap The map which the boxes should be generated from.
+   * @param terrainType Terrain to create
+   * @return Terrain component which renders the terrain
    */
-  private void generateBodies(TiledMap tiledMap) {
-    TiledMapTileLayer mapTileLayer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
-
-    for (int x = 0; x < mapTileLayer.getWidth(); x++) {
-      for (int y = 0; y < mapTileLayer.getHeight(); y++) {
-        Cell cell = mapTileLayer.getCell(x, y);
-
-        if (cell != null) {
-          // Create a rectangle at the location of the tile
-          int twidth = mapTileLayer.getTileWidth(), theight =  mapTileLayer.getTileHeight();
-          Rectangle rectangle = new Rectangle(x * TILE_SIZE, y * TILE_SIZE,  TILE_SIZE,  TILE_SIZE);
-
-          // Create a body for this map object
-          BodyDef bodyDef = new BodyDef();
-          bodyDef.type = BodyDef.BodyType.StaticBody; // haha dynamic body makes it have gravity hahahahahahahaha
-          bodyDef.fixedRotation = true;
-          bodyDef.linearDamping = 5f;
-          bodyDef.angle = 0f;
-          bodyDef.active = true;
-          Body body = ServiceLocator.getPhysicsService().getPhysics().createBody(bodyDef);
-
-          // Create a shape for the fixture
-          PolygonShape bbox = new PolygonShape();
-          bbox.setAsBox(rectangle.width/2, rectangle.height/2);
-
-          // Create a fixture for the body
-          FixtureDef fixtureDef = new FixtureDef();
-          fixtureDef.shape = bbox;
-          fixtureDef.filter.categoryBits = PhysicsLayer.TILE;
-          fixtureDef.filter.groupIndex = 0;
-          body.createFixture(fixtureDef);
-
-          // Set body position
-          Vector2 center = new Vector2();
-          rectangle.getCenter(center);
-          body.setTransform(center,0);
-
-          // Dispose of unneeded shape
-          bbox.dispose();
-        }
-      }
+  public TerrainComponent createTerrain(TerrainType terrainType) {
+    ResourceService resourceService = ServiceLocator.getResourceService();
+    switch (terrainType) {
+      case FOREST_DEMO:
+        TextureRegion orthoGrass =
+            new TextureRegion(resourceService.getAsset("images/grass_1.png", Texture.class));
+        TextureRegion orthoTuft =
+            new TextureRegion(resourceService.getAsset("images/grass_2.png", Texture.class));
+        TextureRegion orthoRocks =
+            new TextureRegion(resourceService.getAsset("images/grass_3.png", Texture.class));
+        return createForestDemoTerrain(0.5f, orthoGrass, orthoTuft, orthoRocks);
+      case FOREST_DEMO_ISO:
+        TextureRegion isoGrass =
+            new TextureRegion(resourceService.getAsset("images/iso_grass_1.png", Texture.class));
+        TextureRegion isoTuft =
+            new TextureRegion(resourceService.getAsset("images/iso_grass_2.png", Texture.class));
+        TextureRegion isoRocks =
+            new TextureRegion(resourceService.getAsset("images/iso_grass_3.png", Texture.class));
+        return createForestDemoTerrain(1f, isoGrass, isoTuft, isoRocks);
+      case FOREST_DEMO_HEX:
+        TextureRegion hexGrass =
+            new TextureRegion(resourceService.getAsset("images/hex_grass_1.png", Texture.class));
+        TextureRegion hexTuft =
+            new TextureRegion(resourceService.getAsset("images/hex_grass_2.png", Texture.class));
+        TextureRegion hexRocks =
+            new TextureRegion(resourceService.getAsset("images/hex_grass_3.png", Texture.class));
+        return createForestDemoTerrain(1f, hexGrass, hexTuft, hexRocks);
+      default:
+        return null;
     }
   }
 
-  /**
-   * Loads in the tiles, places them on the tile layer and returnes a tiledmap
-   * @param tileSize
-   * @return
-   */
-  private TiledMap loadTiles(GridPoint2 tileSize) {
-    // These values determine the size of the base layer, these could be calculated by taking the largest coordinates
-    // from the map save, or could be saved with the map
-    int map_size_x = 100;
-    int map_size_y = 40;
+  private TerrainComponent createForestDemoTerrain(
+      float tileWorldSize, TextureRegion grass, TextureRegion grassTuft, TextureRegion rocks) {
+    GridPoint2 tilePixelSize = new GridPoint2(grass.getRegionWidth(), grass.getRegionHeight());
+    TiledMap tiledMap = createForestDemoTiles(tilePixelSize, grass, grassTuft, rocks);
+    TiledMapRenderer renderer = createRenderer(tiledMap, tileWorldSize / tilePixelSize.x);
+    return new TerrainComponent(camera, tiledMap, renderer, orientation, tileWorldSize);
+  }
 
+  private TiledMapRenderer createRenderer(TiledMap tiledMap, float tileScale) {
+    switch (orientation) {
+      case ORTHOGONAL:
+        return new OrthogonalTiledMapRenderer(tiledMap, tileScale);
+      case ISOMETRIC:
+        return new IsometricTiledMapRenderer(tiledMap, tileScale);
+      case HEXAGONAL:
+        return new HexagonalTiledMapRenderer(tiledMap, tileScale);
+      default:
+        return null;
+    }
+  }
+
+  private TiledMap createForestDemoTiles(
+      GridPoint2 tileSize, TextureRegion grass, TextureRegion grassTuft, TextureRegion rocks) {
     TiledMap tiledMap = new TiledMap();
-    TiledMapTileLayer layer = new TiledMapTileLayer(map_size_x, map_size_y, tileSize.x, tileSize.y);
+    TerrainTile grassTile = new TerrainTile(grass);
+    TerrainTile grassTuftTile = new TerrainTile(grassTuft);
+    TerrainTile rockTile = new TerrainTile(rocks);
+    TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
 
-    // NOTE: THIS IS A PLACEHOLDER
-    // This should be dynamically loaded from the save file.
-    // note to self - could use this to load definitions: https://stackoverflow.com/questions/604424/how-to-get-an-enum-value-from-a-string-value-in-java
-    ArrayList<TerrainTile> tiles = new ArrayList<>();
+    // Create base grass
+    fillTiles(layer, MAP_SIZE, grassTile);
 
-    tiles.add(new TerrainTile(TerrainTileDefinition.TILE_FULL_MIDDLE));
-    tiles.add(new TerrainTile(TerrainTileDefinition.TILE_FULL_TOP));
-    tiles.add(new TerrainTile(TerrainTileDefinition.TILE_FULL_TOP, 90, false, false));
-    tiles.add(new TerrainTile(TerrainTileDefinition.TILE_HALF_BOTTOM));
-    tiles.add(new TerrainTile(TerrainTileDefinition.TILE_HALF_BOTTOM, 90, false, false));
-    tiles.add(new TerrainTile(TerrainTileDefinition.TILE_HALF_TOP));
-
-    int x = 0;
-    for (TerrainTile tile : tiles) {
-      Cell cell = tile.generateCell();
-      layer.setCell(x, 20, cell);
-
-      x++;
-    }
+    // Add some grass and rocks
+    fillTilesAtRandom(layer, MAP_SIZE, grassTuftTile, TUFT_TILE_COUNT);
+    fillTilesAtRandom(layer, MAP_SIZE, rockTile, ROCK_TILE_COUNT);
 
     tiledMap.getLayers().add(layer);
     return tiledMap;
+  }
+
+  private static void fillTilesAtRandom(
+      TiledMapTileLayer layer, GridPoint2 mapSize, TerrainTile tile, int amount) {
+    GridPoint2 min = new GridPoint2(0, 0);
+    GridPoint2 max = new GridPoint2(mapSize.x - 1, mapSize.y - 1);
+
+    for (int i = 0; i < amount; i++) {
+      GridPoint2 tilePos = RandomUtils.random(min, max);
+      Cell cell = layer.getCell(tilePos.x, tilePos.y);
+      cell.setTile(tile);
+    }
   }
 
   private static void fillTiles(TiledMapTileLayer layer, GridPoint2 mapSize, TerrainTile tile) {

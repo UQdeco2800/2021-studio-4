@@ -3,6 +3,7 @@ settings.json
 
 ### Gradle ###
 .gradle/
-.DS_Store
-desktop/src/build.gradle
 
+.DS_Store
+
+desktop/src/build.gradle

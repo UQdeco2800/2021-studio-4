@@ -1,7 +1,5 @@
 package com.deco2800.game.services;
 
-import com.badlogic.gdx.graphics.Camera;
-import com.deco2800.game.components.CameraComponent;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.physics.PhysicsService;
@@ -24,7 +22,6 @@ public class ServiceLocator {
   private static GameTime timeSource;
   private static InputService inputService;
   private static ResourceService resourceService;
-  private static CameraComponent camera;
 
 
   public static EntityService getEntityService() {
@@ -49,10 +46,6 @@ public class ServiceLocator {
 
   public static ResourceService getResourceService() {
     return resourceService;
-  }
-
-  public static CameraComponent getCamera() {
-    return camera;
   }
 
   public static void registerEntityService(EntityService service) {
@@ -85,11 +78,6 @@ public class ServiceLocator {
     resourceService = source;
   }
 
-  public static void registerCamera(CameraComponent cameraComponent) {
-    logger.debug("Registering camera {}", cameraComponent);
-    camera = cameraComponent;
-  }
-
   public static void clear() {
     entityService = null;
     renderService = null;
@@ -97,7 +85,6 @@ public class ServiceLocator {
     timeSource = null;
     inputService = null;
     resourceService = null;
-    camera = null;
   }
 
   private ServiceLocator() {

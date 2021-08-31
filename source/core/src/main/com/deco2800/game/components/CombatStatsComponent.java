@@ -1,20 +1,7 @@
 package com.deco2800.game.components;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.deco2800.game.GdxGame;
-import com.deco2800.game.components.endgame.DeathScreenActions;
-import com.deco2800.game.components.maingame.MainGameActions;
-import com.deco2800.game.components.maingame.MainGameExitDisplay;
-import com.deco2800.game.entities.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.awt.event.ActionEvent;
-import java.nio.file.AccessMode;
 
 /**
  * Component used to store information related to combat such as health, attack, etc. Any entities
@@ -56,7 +43,11 @@ public class CombatStatsComponent extends Component {
    * @param health health
    */
   public void setHealth(int health) {
-    this.health = Math.max(health, 0);
+    if (health >= 0) {
+      this.health = health;
+    } else {
+      this.health = 0;
+    }
     if (entity != null) {
       entity.getEvents().trigger("updateHealth", this.health);
     }
@@ -94,49 +85,18 @@ public class CombatStatsComponent extends Component {
   }
 
   public void hit(CombatStatsComponent attacker) {
-
+     /*
     int newHealth = getHealth() - attacker.getBaseAttack();
     setHealth(newHealth);
-
+     */
     if (isDead()) {
-      //entity.scaleHeight(12);
-      entity.getEvents().trigger("playerDeath");
-//      MainGameExitDisplay main = new MainGameExitDisplay();
-//      main.deathInitialiser();
-
-//      this.getEntity().getEvents().trigger("playerDeath");
-//      Actor actor = new Actor();
-//      ActionEvent action = new ActionEvent(true, entity.getId(), "playerDeath");
-//      EventListener eventListener = new ChangeListener() {
-//        @Override
-//        public void changed(ChangeEvent event, Actor actor) {
-//
-//        }
-//      };
-//      ChangeListener.ChangeEvent event1 = new ChangeListener.ChangeEvent();
-//      eventListener;
-//      actor.addCaptureListener();
-//      event.setListenerActor(actor);
-      //main.getEntity().getEvents().trigger("playerDeath");
-//      logger.info("Show Death Screen");
-//      this.entity.getEvents().trigger("playerDeath");
+      int newHealth = 78;
+      setHealth(newHealth);
+      //setScreen(GdxGame.ScreenType.MAIN_MENU);
+      //entity.getEvents().trigger("playerDeath");
+    } else {
+      int newHealth = getHealth() - attacker.getBaseAttack();
+      setHealth(newHealth);
     }
-
-//    int newHealth = getHealth() - attacker.getBaseAttack();
-//    setHealth(newHealth);
-//    if (isDead()) {
-//      MainGameExitDisplay main = new MainGameExitDisplay();
-//      main.goToDeath();
-//    }
-    //setHealth(newHealth);
-    //setScreen(GdxGame.ScreenType.MAIN_MENU);
-//    do {
-//      int newHealth = getHealth() - attacker.getBaseAttack();
-//      setHealth(newHealth);
-//    } while (!(isDead()));
-    // Add death component to the player.
-
-    //entity.getEvents().trigger("playerDeath");
-
   }
 }

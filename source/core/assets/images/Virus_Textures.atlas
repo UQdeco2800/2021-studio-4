@@ -1,0 +1,365 @@
+
+Virus_Textures.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Idle 1
+  rotate: false
+  xy: 2, 4
+  size: 350, 563
+  orig: 350, 563
+  offset: 0, 0
+  index: -1
+Idle 10
+  rotate: false
+  xy: 551, 4
+  size: 350, 572
+  orig: 350, 572
+  offset: 0, 0
+  index: -1
+Idle 11
+  rotate: false
+  xy: 1100, 4
+  size: 350, 572
+  orig: 350, 572
+  offset: 0, 0
+  index: -1
+Idle 12
+  rotate: false
+  xy: 2, 578
+  size: 350, 572
+  orig: 350, 572
+  offset: 0, 0
+  index: -1
+Idle 13
+  rotate: false
+  xy: 551, 578
+  size: 350, 572
+  orig: 350, 572
+  offset: 0, 0
+  index: -1
+Idle 14
+  rotate: false
+  xy: 1100, 578
+  size: 350, 572
+  orig: 350, 572
+  offset: 0, 0
+  index: -1
+Idle 15
+  rotate: false
+  xy: 2, 1152
+  size: 350, 572
+  orig: 350, 572
+  offset: 0, 0
+  index: -1
+Idle 16
+  rotate: false
+  xy: 551, 1152
+  size: 350, 563
+  orig: 350, 563
+  offset: 0, 0
+  index: -1
+Idle 17
+  rotate: false
+  xy: 1100, 1152
+  size: 350, 563
+  orig: 350, 563
+  offset: 0, 0
+  index: -1
+
+Virus_Textures2.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Idle 18
+  rotate: false
+  xy: 2, 4
+  size: 341, 563
+  orig: 341, 563
+  offset: 0, 0
+  index: -1
+Idle 19
+  rotate: false
+  xy: 551, 4
+  size: 350, 563
+  orig: 350, 563
+  offset: 0, 0
+  index: -1
+Idle 2
+  rotate: false
+  xy: 1100, 4
+  size: 350, 563
+  orig: 350, 563
+  offset: 0, 0
+  index: -1
+Idle 20
+  rotate: false
+  xy: 2, 578
+  size: 350, 563
+  orig: 350, 563
+  offset: 0, 0
+  index: -1
+Idle 21
+  rotate: false
+  xy: 551, 578
+  size: 350, 563
+  orig: 350, 563
+  offset: 0, 0
+  index: -1
+Idle 22
+  rotate: false
+  xy: 1100, 578
+  size: 350, 563
+  orig: 350, 563
+  offset: 0, 0
+  index: -1
+Idle 23
+  rotate: false
+  xy: 2, 1152
+  size: 350, 563
+  orig: 350, 563
+  offset: 0, 0
+  index: -1
+Idle 24
+  rotate: false
+  xy: 551, 1152
+  size: 350, 563
+  orig: 350, 563
+  offset: 0, 0
+  index: -1
+Idle 3
+  rotate: false
+  xy: 1100, 1152
+  size: 350, 563
+  orig: 350, 563
+  offset: 0, 0
+  index: -1
+
+Virus_Textures3.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Idle 4
+  rotate: false
+  xy: 2, 4
+  size: 350, 563
+  orig: 350, 563
+  offset: 0, 0
+  index: -1
+Idle 5
+  rotate: false
+  xy: 551, 4
+  size: 350, 563
+  orig: 350, 563
+  offset: 0, 0
+  index: -1
+Idle 6
+  rotate: false
+  xy: 1100, 4
+  size: 350, 563
+  orig: 350, 563
+  offset: 0, 0
+  index: -1
+Idle 7
+  rotate: false
+  xy: 2, 578
+  size: 341, 563
+  orig: 341, 563
+  offset: 0, 0
+  index: -1
+Idle 8
+  rotate: false
+  xy: 551, 578
+  size: 350, 563
+  orig: 350, 563
+  offset: 0, 0
+  index: -1
+Idle 9
+  rotate: false
+  xy: 1100, 578
+  size: 350, 563
+  orig: 350, 563
+  offset: 0, 0
+  index: -1
+Jump 10
+  rotate: false
+  xy: 2, 1152
+  size: 323, 556
+  orig: 323, 556
+  offset: 0, 0
+  index: -1
+Jump 11
+  rotate: false
+  xy: 551, 1152
+  size: 310, 556
+  orig: 310, 556
+  offset: 0, 0
+  index: -1
+Jump 12
+  rotate: false
+  xy: 1100, 1152
+  size: 290, 556
+  orig: 290, 556
+  offset: 0, 0
+  index: -1
+
+Virus_Textures4.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Jump 13
+  rotate: false
+  xy: 2, 4
+  size: 287, 556
+  orig: 287, 556
+  offset: 0, 0
+  index: -1
+Jump 14
+  rotate: false
+  xy: 551, 4
+  size: 297, 556
+  orig: 297, 556
+  offset: 0, 0
+  index: -1
+Jump 15
+  rotate: false
+  xy: 1100, 4
+  size: 242, 548
+  orig: 242, 548
+  offset: 0, 0
+  index: -1
+Jump 16
+  rotate: false
+  xy: 2, 578
+  size: 266, 547
+  orig: 266, 547
+  offset: 0, 0
+  index: -1
+Jump 17
+  rotate: false
+  xy: 551, 578
+  size: 287, 560
+  orig: 287, 560
+  offset: 0, 0
+  index: -1
+Jump 18
+  rotate: false
+  xy: 1100, 578
+  size: 350, 563
+  orig: 350, 563
+  offset: 0, 0
+  index: -1
+Jump 2
+  rotate: false
+  xy: 2, 1152
+  size: 350, 563
+  orig: 350, 563
+  offset: 0, 0
+  index: -1
+Jump 3
+  rotate: false
+  xy: 551, 1152
+  size: 350, 572
+  orig: 350, 572
+  offset: 0, 0
+  index: -1
+Jump 4
+  rotate: false
+  xy: 1100, 1152
+  size: 350, 572
+  orig: 350, 572
+  offset: 0, 0
+  index: -1
+
+Virus_Textures5.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Jump 5
+  rotate: false
+  xy: 2, 4
+  size: 242, 548
+  orig: 242, 548
+  offset: 0, 0
+  index: -1
+Jump 6
+  rotate: false
+  xy: 551, 4
+  size: 350, 556
+  orig: 350, 556
+  offset: 0, 0
+  index: -1
+Jump 7
+  rotate: false
+  xy: 1100, 4
+  size: 226, 556
+  orig: 226, 556
+  offset: 0, 0
+  index: -1
+Jump 8
+  rotate: false
+  xy: 2, 578
+  size: 347, 556
+  orig: 347, 556
+  offset: 0, 0
+  index: -1
+Jump 9
+  rotate: false
+  xy: 551, 578
+  size: 347, 556
+  orig: 347, 556
+  offset: 0, 0
+  index: -1
+Run 1
+  rotate: false
+  xy: 1100, 578
+  size: 266, 547
+  orig: 266, 547
+  offset: 0, 0
+  index: -1
+Run 2
+  rotate: false
+  xy: 2, 1152
+  size: 313, 554
+  orig: 313, 554
+  offset: 0, 0
+  index: -1
+Run 3
+  rotate: false
+  xy: 551, 1152
+  size: 242, 548
+  orig: 242, 548
+  offset: 0, 0
+  index: -1
+Run 4
+  rotate: false
+  xy: 1100, 1152
+  size: 313, 546
+  orig: 313, 546
+  offset: 0, 0
+  index: -1
+
+Virus_Textures6.png
+size: 2048, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Run 5
+  rotate: false
+  xy: 2, 4
+  size: 287, 560
+  orig: 287, 560
+  offset: 0, 0
+  index: -1
+Slide
+  rotate: false
+  xy: 551, 4
+  size: 547, 266
+  orig: 547, 266
+  offset: 0, 0
+  index: -1
