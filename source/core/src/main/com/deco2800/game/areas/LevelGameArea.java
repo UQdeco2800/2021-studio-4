@@ -192,6 +192,7 @@ public class LevelGameArea extends GameArea {
     ObstacleEntity platform = (ObstacleEntity) ObstacleFactory.createMiddlePlatform(width);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(platform, position, centerX, centerY);
+    obstacleEntities.add(platform);
   }
   public void spawnButton(int posX, int posY) {
     spawnButton(posX, posY, false, true);
@@ -201,6 +202,7 @@ public class LevelGameArea extends GameArea {
     ObstacleEntity button = (ObstacleEntity) ObstacleFactory.createButton();
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(button, position, centerX, centerY);
+    obstacleEntities.add(button);
   }
 
   public void spawnBridge(int posX, int posY, int width) {
@@ -211,6 +213,7 @@ public class LevelGameArea extends GameArea {
     ObstacleEntity bridge = (ObstacleEntity) ObstacleFactory.createBridge(width);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(bridge, position, centerX, centerY);
+    obstacleEntities.add(bridge);
   }
 
   public void spawnDoor(int posX, int posY, int height) {
@@ -221,6 +224,7 @@ public class LevelGameArea extends GameArea {
     ObstacleEntity door = (ObstacleEntity) ObstacleFactory.createDoor(height);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(door, position, centerX, centerY);
+    obstacleEntities.add(door);
   }
 
   public void saveAll(){
