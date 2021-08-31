@@ -1,0 +1,76 @@
+animated_void.png
+size: 11520, 16215
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+void
+  rotate: false
+  xy: 0, 0
+  size: 5760, 3243
+  orig: 5760, 3243
+  offset: 0, 0
+  index: 0
+void
+  rotate: false
+  xy: 5760, 0
+  size: 5760, 3243
+  orig: 5760, 3243
+  offset: 0, 0
+  index: 1
+void
+  rotate: false
+  xy: 0, 3243
+  size: 5760, 3243
+  orig: 5760, 3243
+  offset: 0, 0
+  index: 2
+void
+  rotate: false
+  xy: 5760, 3243
+  size: 5760, 3243
+  orig: 5760, 3243
+  offset: 0, 0
+  index: 3
+void
+  rotate: false
+  xy: 0, 6486
+  size: 5760, 3243
+  orig: 5760, 3243
+  offset: 0, 0
+  index: 4
+void
+  rotate: false
+  xy: 5760, 6486
+  size: 5760, 3243
+  orig: 5760, 3243
+  offset: 0, 0
+  index: 5
+void
+  rotate: false
+  xy: 0, 9729
+  size: 5760, 3243
+  orig: 5760, 3243
+  offset: 0, 0
+  index: 6
+void
+  rotate: false
+  xy: 5760, 9729
+  size: 5760, 3243
+  orig: 5760, 3243
+  offset: 0, 0
+  index: 7
+void
+  rotate: false
+  xy: 0, 12972
+  size: 5760, 3243
+  orig: 5760, 3243
+  offset: 0, 0
+  index: 8
+default
+  rotate: false
+  xy: 5760, 12972
+  size: 5760, 3243
+  orig: 5760, 3243
+  offset: 0, 0
+  index: 0
+

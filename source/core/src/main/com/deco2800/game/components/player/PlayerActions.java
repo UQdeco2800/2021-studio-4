@@ -3,7 +3,9 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
@@ -42,6 +44,7 @@ public class PlayerActions extends Component {
   public void update() {
     if (playerState != PlayerState.STOPPED) {
       updateSpeed();
+      ServiceLocator.getCamera().getEntity().setPosition(entity.getCenterPosition());
       applyFriction();
     }
   }

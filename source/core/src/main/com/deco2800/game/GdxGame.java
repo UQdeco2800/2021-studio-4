@@ -72,6 +72,10 @@ public class GdxGame extends Game {
         return new SettingsScreen(this);
       case LOAD_LEVELS:
         return new LevelSelectScreen(this);
+      case DEATH_SCREEN:
+        return new DeathScreen(this);
+      case LEVEL_EDITOR:
+        return new LevelEditorScreen(this);
       default:
         return null;
     }
@@ -79,7 +83,7 @@ public class GdxGame extends Game {
 
   public enum ScreenType {
     // PAUSE is an unused enum. Plans to implement this with the pause functionality.
-    MAIN_MENU, MAIN_GAME, SETTINGS, LOAD_LEVELS, PAUSE
+    MAIN_MENU, MAIN_GAME, SETTINGS, LOAD_LEVELS, PAUSE, DEATH_SCREEN, LEVEL_EDITOR
   }
 
   /**

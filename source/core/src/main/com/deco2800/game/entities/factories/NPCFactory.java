@@ -3,6 +3,7 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.npc.GhostAnimationController;
@@ -17,6 +18,7 @@ import com.deco2800.game.entities.configs.GhostKingConfig;
 import com.deco2800.game.entities.configs.NPCConfigs;
 import com.deco2800.game.entities.configs.TheVoidConfig;
 import com.deco2800.game.files.FileLoader;
+import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
@@ -44,7 +46,7 @@ public class NPCFactory {
    *
    * @return entity
    */
-  public static Entity createTheVoid() {
+  public static Entity createTheVoid(Entity target) {
     AITaskComponent aiComponent =
             new AITaskComponent()
                     .addTask(new TheVoidTasks());
@@ -52,7 +54,7 @@ public class NPCFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
-                            .getAsset("images/theVoid.atlas", TextureAtlas.class));
+                            .getAsset("images/void.atlas", TextureAtlas.class));
     animator.addAnimation("void", 0.1f, Animation.PlayMode.LOOP);
 
     Entity theVoid = new Entity();
@@ -63,16 +65,17 @@ public class NPCFactory {
     theVoid
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new PhysicsComponent())
-            .addComponent(new TheVoidController())
+            .addComponent(new TheVoidController(target))
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
             .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(aiComponent)
             .addComponent(animator);
 
-    theVoid.setScale(18,11f);
 
-    //theVoid.getComponent(AnimationRenderComponent.class).scaleEntity();
+
+    theVoid.getComponent(AnimationRenderComponent.class).scaleEntity();
+    theVoid.setScale(20f,12f);
     return theVoid;
 
   }
@@ -84,7 +87,7 @@ public class NPCFactory {
    * @return entity
    */
   public static Entity createGhost(Entity target) {
-    Entity ghost = createBaseNPC(target);
+    Entity ghost = createGroundNPC(target);
     BaseEntityConfig config = configs.ghost;
 
     AnimationRenderComponent animator =
@@ -127,6 +130,31 @@ public class NPCFactory {
 
     ghostKing.getComponent(AnimationRenderComponent.class).scaleEntity();
     return ghostKing;
+  }
+
+
+
+  /**
+   * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
+   *
+   * @return entity
+   */
+  private static Entity createGroundNPC(Entity target) {
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new WanderTask(new Vector2(2, 0), 2f))
+                    .addTask(new ChaseTask(target, 10, 3f, 4f));
+    Entity npc =
+            new Entity()
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new PhysicsMovementComponent())
+                    .addComponent(new ColliderComponent())
+                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+                    .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
+                    .addComponent(aiComponent);
+
+    PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
+    return npc;
   }
 
 
