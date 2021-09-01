@@ -335,7 +335,7 @@ public class LevelGameArea extends GameArea {
   private void spawnTheVoid() {
     int startPosY = terrain.getMapBounds(0).y;
     GridPoint2 startPos = new GridPoint2();
-    startPos.set(-20, startPosY/2 - 1);
+    startPos.set(-20, startPosY/2 - 3);
 
     Entity theVoid = NPCFactory.createTheVoid(player);
     spawnEntityAt(theVoid, startPos, true, true);

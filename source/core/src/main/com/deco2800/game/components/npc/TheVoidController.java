@@ -20,7 +20,7 @@ import com.deco2800.game.utils.math.Vector2Utils;
  * when an event is triggered
  */
 public class TheVoidController extends Component {
-    private static final Vector2 ACCELERATION = new Vector2(8f, 0f);
+    private static final Vector2 ACCELERATION = new Vector2(6f, 0f);
 
     private PhysicsComponent physicsComponent;
     private AnimationRenderComponent animator;
