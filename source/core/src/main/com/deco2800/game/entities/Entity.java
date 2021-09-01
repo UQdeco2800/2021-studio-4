@@ -1,5 +1,6 @@
 package com.deco2800.game.entities;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
@@ -37,6 +38,7 @@ public class Entity {
   private Vector2 position = Vector2.Zero.cpy();
   private Vector2 scale = new Vector2(1, 1);
   private Array<Component> createdComponents;
+  private GridPoint2 tilePosition;
 
   public Entity() {
     id = nextId;
@@ -99,6 +101,14 @@ public class Entity {
     if (notify) {
       getEvents().trigger(EVT_NAME_POS, position);
     }
+  }
+
+  public void setTilePosition(GridPoint2 position) {
+    this.tilePosition = position;
+  }
+
+  public GridPoint2 getTilePosition() {
+    return this.tilePosition;
   }
 
   /**

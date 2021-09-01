@@ -14,7 +14,7 @@ public class ObstacleEntity extends Entity {
   }
 
   public String serialise() {
-    GridPoint2 position = new GridPoint2((int)this.getPosition().x, (int)this.getPosition().y);
+    GridPoint2 position = this.getTilePosition();
     String serialised = String.format("%s:%s:%s:%s\n",this.definition,this.size, position.x,position.y);
     return serialised;
   }

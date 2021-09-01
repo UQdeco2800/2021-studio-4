@@ -7,15 +7,17 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.badlogic.gdx.math.Vector2;
-
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.utils.math.Vector2Utils;
-
 import static java.lang.Math.abs;
 
+/**
+ * This class listens to events relevant to the void entity and calls a method
+ * when an event is triggered
+ */
 public class TheVoidController extends Component {
-    private static final Vector2 ACCELERATION = new Vector2(8f, 0f);
+    private static final Vector2 ACCELERATION = new Vector2(14f, 0f);
 
     private PhysicsComponent physicsComponent;
     private AnimationRenderComponent animator;
@@ -29,6 +31,10 @@ public class TheVoidController extends Component {
         player = target;
     }
 
+    /**
+     * Creates a number of listeners for events to be triggered in the TheVoidTasks class
+     *
+     */
     @Override
     public void create() {
         physicsComponent = entity.getComponent(PhysicsComponent.class);
@@ -43,15 +49,26 @@ public class TheVoidController extends Component {
         this.body = physicsComponent.getBody();
     }
 
-
+    /**
+     * Starts the void's animation
+     *
+     */
      void theVoidAnimate(){
         animator.startAnimation("void");
     }
 
+    /**
+     * Makes the void move (if called repeatedly the void will move at a constant speed)
+     */
      void theVoidMove(){
         this.body.applyForceToCenter(Vector2Utils.RIGHT.cpy().scl(ACCELERATION), true);
     }
 
+    /**
+     * Returns the distance between the player and the void as a float
+     *
+     * @return the distance between the player and the void
+     */
      private float getPlayerDistance(){
         float distance_x;
         float void_length = this.entity.getScale().x;
@@ -59,6 +76,7 @@ public class TheVoidController extends Component {
         distance_x = player.getPosition().sub(void_pos).x - void_length;
         return distance_x;
     }
+
 
     /**
      * Update the void sound. It gradually increases the volume of the void sound based on the distance of the void from
