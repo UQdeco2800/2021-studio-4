@@ -12,6 +12,7 @@ import com.deco2800.game.input.InputService;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.services.GameTime;
+import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
@@ -20,15 +21,17 @@ import org.slf4j.LoggerFactory;
 /** The game screen containing the settings. */
 public class SettingsScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(SettingsScreen.class);
-  private static final String backgroundMusic = "sounds/MainMenuMusic.mp3";
-  private static final String[] MainMenuMusic = {backgroundMusic};
+
+  private static final MusicServiceDirectory mainMenuSong = new MusicServiceDirectory();
+  private static final String[] MainMenuMusic = {mainMenuSong.main_menu};
+
   private final GdxGame game;
   private final Renderer renderer;
 
   public SettingsScreen(GdxGame game) {
 
-    this.game = game;
 
+    this.game = game;
     logger.debug("Initialising settings screen services");
     ServiceLocator.registerInputService(new InputService());
     ServiceLocator.registerResourceService(new ResourceService());

@@ -13,6 +13,8 @@ import com.deco2800.game.rendering.SpriteRenderComponent;
 import com.deco2800.game.screens.LevelEditorScreen;
 import com.deco2800.game.services.ServiceLocator;
 
+import java.io.IOException;
+
 /**
  * Component for editing the terrain map
  */
@@ -112,7 +114,12 @@ public class TileToolComponent extends InputComponent {
 
   @Override
   public boolean scrolled(float amountX, float amountY) {
-    scrollTile((int)amountY);
+    if ((int)amountY > 0) {
+      scrollTile(1);
+    } else if ((int)amountY < 0) {
+      scrollTile(-1);
+    }
+
     return super.scrolled(amountX, amountY);
   }
 
@@ -160,11 +167,17 @@ public class TileToolComponent extends InputComponent {
       this.getEntity().getComponent(SpriteRenderComponent.class).flipY();
     } else if (tileDefinition.isFlipable() && keycode == Input.Keys.RIGHT) {
       this.getEntity().getComponent(SpriteRenderComponent.class).flipX();
+    } else if (keycode == Input.Keys.SHIFT_LEFT) {
+      scrollTile(-1);
     }
 
     if (keycode == Input.Keys.TAB) {
       this.screen.selectObstacleHand();
     }
+    if (keycode == Input.Keys.P) {
+      this.levelGameArea.saveAll();
+    }
+
     return super.keyUp(keycode);
   }
 }

@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.deco2800.game.components.levelselect.LevelDisplay;
 import com.deco2800.game.services.MusicService;
+import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,11 +27,12 @@ public class LevelDisplay extends UIComponent {
     public void create() {
         super.create();
         addActors();
-        loadTheMusic();
+        playTheMusic();
     }
 
-    private void loadTheMusic() {
-        MusicService musicScreen = new MusicService("sounds/MainMenuMusic.mp3");
+    private void playTheMusic() {
+        MusicServiceDirectory mainMenuSong = new MusicServiceDirectory();
+        MusicService musicScreen = new MusicService(mainMenuSong.main_menu);
         musicScreen.playMusic();
     }
 
