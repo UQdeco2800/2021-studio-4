@@ -17,7 +17,7 @@ import static java.lang.Math.abs;
  * when an event is triggered
  */
 public class TheVoidController extends Component {
-    private static final Vector2 ACCELERATION = new Vector2(6f, 0f);
+    private static final Vector2 ACCELERATION = new Vector2(14f, 0f);
 
     private PhysicsComponent physicsComponent;
     private AnimationRenderComponent animator;
