@@ -123,7 +123,7 @@ public class LevelGameArea extends GameArea {
     //spawnGhostKing();
 
     spawnLevelFromFile();
-    spawnGroundEnemy();
+    //spawnGroundEnemy();
 
     spawnTheVoid();
 
