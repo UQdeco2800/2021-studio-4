@@ -78,7 +78,8 @@ public class LevelGameArea extends GameArea {
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
   private static final String[] gameMusic = {gameSong.click, gameSong.game_level_1,gameSong.end_credits,
     gameSong.enemy_collision,gameSong.enemy_death, gameSong.obstacle_boost, gameSong.obstacle_button,
-    gameSong.player_collision, gameSong.player_power_up, gameSong.void_death, gameSong.void_noise};
+    gameSong.player_collision, gameSong.player_power_up, gameSong.void_death, gameSong.void_noise, gameSong.game_level_1_option2,
+  gameSong.ending_menu, gameSong.game_level_2, gameSong.main_menu, gameSong.death_noise_2};
 
   /*private static final String backgroundMusic = "sounds/BackingMusicWithDrums.mp3";
   private static final String[] gameMusic = {"sounds/BackingMusicWithDrums.mp3",
@@ -475,10 +476,6 @@ public class LevelGameArea extends GameArea {
    * @param musicPath - String (see Music Directory for more information)
    */
   private void playTheMusic(String musicPath) {
-    //Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
-    //music.setLooping(true);
-   // music.setVolume(0.3f);
-    //music.playMusic();
     MusicServiceDirectory dict = new  MusicServiceDirectory();
     MusicService gameMusic = null;
     switch (musicPath) {
@@ -511,6 +508,21 @@ public class LevelGameArea extends GameArea {
         break;
       case "void_noise":
         gameMusic = new MusicService(dict.void_noise);
+        break;
+      case "ending_menu":
+        gameMusic = new MusicService(dict.ending_menu);
+        break;
+      case "level_1_2":
+        gameMusic = new MusicService(dict.game_level_1_option2);
+        break;
+      case "level_2":
+        gameMusic = new MusicService(dict.game_level_2);
+        break;
+      case "main_menu_new":
+        gameMusic = new MusicService(dict.main_menu);
+        break;
+      case "death_noise_2":
+        gameMusic = new MusicService(dict.death_noise_2);
         break;
       default:
         gameMusic = new MusicService(dict.game_level_1);//To make sure gameMusic is never null
