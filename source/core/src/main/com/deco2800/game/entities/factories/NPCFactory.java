@@ -3,7 +3,6 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.npc.GhostAnimationController;
@@ -13,12 +12,8 @@ import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.components.tasks.TheVoidTasks;
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.configs.BaseEntityConfig;
-import com.deco2800.game.entities.configs.GhostKingConfig;
-import com.deco2800.game.entities.configs.NPCConfigs;
-import com.deco2800.game.entities.configs.TheVoidConfig;
+import com.deco2800.game.entities.configs.*;
 import com.deco2800.game.files.FileLoader;
-import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
@@ -41,9 +36,11 @@ import com.deco2800.game.services.ServiceLocator;
 public class NPCFactory {
   private static final NPCConfigs configs =
       FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
+
   /**
-   * Creates theVoid entity
+   * Creates the void entity
    *
+   * @param target entity whose distance from the void will be tracked (the player)
    * @return entity
    */
   public static Entity createTheVoid(Entity target) {
@@ -75,7 +72,7 @@ public class NPCFactory {
 
 
     theVoid.getComponent(AnimationRenderComponent.class).scaleEntity();
-    theVoid.setScale(20f,12f);
+    theVoid.setScale(20f,22);
     return theVoid;
 
   }
@@ -107,29 +104,29 @@ public class NPCFactory {
   }
 
   /**
-   * Creates a ghost king entity.
+   * Creates a gorgon gear entity.
    *
    * @param target entity to chase
    * @return entity
    */
-  public static Entity createGhostKing(Entity target) {
-    Entity ghostKing = createBaseNPC(target);
-    GhostKingConfig config = configs.ghostKing;
+  public static Entity createGorgonGear(Entity target) {
+    Entity gorgonGear = createBaseNPC(target);
+    GorgonGearConfig config = configs.gorgonGear;
 
     AnimationRenderComponent animator =
         new AnimationRenderComponent(
             ServiceLocator.getResourceService()
-                .getAsset("images/ghostKing.atlas", TextureAtlas.class));
+                .getAsset("images/gorgonGear.atlas", TextureAtlas.class));
     animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
 
-    ghostKing
+    gorgonGear
         .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
         .addComponent(animator)
         .addComponent(new GhostAnimationController());
 
-    ghostKing.getComponent(AnimationRenderComponent.class).scaleEntity();
-    return ghostKing;
+    gorgonGear.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return gorgonGear;
   }
 
 
@@ -142,8 +139,8 @@ public class NPCFactory {
   private static Entity createGroundNPC(Entity target) {
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    .addTask(new WanderTask(new Vector2(2, 0), 2f))
-                    .addTask(new ChaseTask(target, 10, 3f, 4f));
+                    .addTask(new WanderTask(new Vector2(5, 0), 0.5f));
+//                    .addTask(new ChaseTask(target, 10, 3f, 4f));
     Entity npc =
             new Entity()
                     .addComponent(new PhysicsComponent())
