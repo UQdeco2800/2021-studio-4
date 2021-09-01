@@ -13,6 +13,7 @@ import com.deco2800.game.areas.terrain.TerrainComponent.TerrainOrientation;
 import com.deco2800.game.components.CameraComponent;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.areas.LevelGameArea;
 
 import java.util.ArrayList;
 
@@ -126,16 +127,16 @@ public class TerrainFactory {
     tiles.add(new TerrainTile(TerrainTileDefinition.TILE_HALF_BOTTOM, 90, false, false));
     tiles.add(new TerrainTile(TerrainTileDefinition.TILE_HALF_TOP));
 
-    int x = 0;
-    for (TerrainTile tile : tiles) {
-      Cell cell = tile.generateCell();
-      layer.setCell(x, 20, cell);
 
-      x++;
-    }
 
     tiledMap.getLayers().add(layer);
     return tiledMap;
+  }
+
+  public static void loadTilesFromFile(TiledMapTileLayer layer, TerrainTileDefinition definition, int rotation, int x, int y) {
+    TerrainTile tile = new TerrainTile(definition,rotation,false,false);
+    Cell cell = tile.generateCell();
+    layer.setCell(x,y,cell);
   }
 
   private static void fillTiles(TiledMapTileLayer layer, GridPoint2 mapSize, TerrainTile tile) {

@@ -13,6 +13,7 @@ import com.deco2800.game.input.InputDecorator;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
+import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
@@ -27,8 +28,10 @@ public class LevelSelectScreen extends ScreenAdapter {
     private final GdxGame game;
     private final Renderer renderer;
     private static final String[] levelSelectMenuTextures = {"images/LevelSelectScreenPlaceholder.png"};
-    private static final String backgroundMusic = "sounds/MainMenuMusic.mp3";
-    private static final String[] MainMenuMusic = {backgroundMusic};
+    //private static final String backgroundMusic = "sounds/MainMenuMusic.mp3";
+    //private static final String[] MainMenuMusic = {backgroundMusic};
+    private static final MusicServiceDirectory mainMenuSong = new MusicServiceDirectory();
+    private static final String[] MainMenuMusic = {mainMenuSong.main_menu};
 
     public LevelSelectScreen(GdxGame game) {
         this.game = game;
