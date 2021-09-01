@@ -31,7 +31,7 @@ public class LevelGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(LevelGameArea.class);
   private static final int NUM_TREES = 7;
   private static final int NUM_GHOSTS = 2;
-  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
+  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(15, 15);
   private static final float WALL_WIDTH = 0.1f;
   public List<ObstacleEntity> obstacleEntities = new ArrayList<>();
   public static ArrayList<TerrainTile> terrainTiles = new ArrayList<>();
@@ -192,6 +192,7 @@ public class LevelGameArea extends GameArea {
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(platform, position, centerX, centerY);
     obstacleEntities.add(platform);
+    platform.setTilePosition(position);
   }
 
   public void spawnMiddlePlatform(int posX, int posY, int width) {
@@ -203,6 +204,7 @@ public class LevelGameArea extends GameArea {
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(platform, position, centerX, centerY);
     obstacleEntities.add(platform);
+    platform.setTilePosition(position);
   }
   public void spawnButton(int posX, int posY) {
     spawnButton(posX, posY, false, true);
@@ -213,6 +215,7 @@ public class LevelGameArea extends GameArea {
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(button, position, centerX, centerY);
     obstacleEntities.add(button);
+    button.setTilePosition(position);
   }
 
   public void spawnBridge(int posX, int posY, int width) {
@@ -224,6 +227,7 @@ public class LevelGameArea extends GameArea {
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(bridge, position, centerX, centerY);
     obstacleEntities.add(bridge);
+    bridge.setTilePosition(position);
   }
 
   public void spawnDoor(int posX, int posY, int height) {
@@ -235,6 +239,7 @@ public class LevelGameArea extends GameArea {
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(door, position, centerX, centerY);
     obstacleEntities.add(door);
+    door.setTilePosition(position);
   }
 
   public void saveAll(){
@@ -318,8 +323,8 @@ public class LevelGameArea extends GameArea {
   }
 
   private void spawnObstacle(ObstacleToolComponent.Obstacle selectedObstacle, int x, int y, int size) {
-    x = x*2;
-    y = y*2;
+//    x = x*2;
+//    y = y*2;
     switch (selectedObstacle){
       case PLATFORM:
         spawnPlatform(x, y, size, false, false);
