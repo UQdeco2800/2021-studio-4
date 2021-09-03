@@ -201,7 +201,6 @@ public class MainMenuDisplay extends UIComponent {
         muteBtn.setBounds(centreWidth+width35Percent,centreHeight-height83Percent,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
-
         /**
          * Creates the button texture for the Leaderboard Button.
          */

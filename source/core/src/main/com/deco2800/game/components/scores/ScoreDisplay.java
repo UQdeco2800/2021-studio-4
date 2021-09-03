@@ -173,12 +173,4 @@ public class ScoreDisplay extends UIComponent {
             System.err.println("High_Scores.txt is corrupted or missing.");
         }
     }
-
-    public int getHighScore() {
-        return highScore;
-    }
-
-    public void setNewScore(int input) {
-        newScore = input;
-    }
 }
