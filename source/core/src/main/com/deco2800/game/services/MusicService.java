@@ -56,17 +56,23 @@ public class MusicService {
      * Required:  an integer of the time of the music track being modified by the service.
      */
     public void setTime(float time) {
-        music.setPosition(time);
-        music.play();
+        MuteManager mute = MuteManager.getInstance();
+        if (mute.getMute() == false) {
+            music.setPosition(time);
+            music.play();
+        }
     }
 
     /**
      * Play this music in the loop.
      */
     public void playMusic() {
-        music.setLooping(true);
-        music.setVolume(0.3f);
-        music.play();
+        MuteManager mute = MuteManager.getInstance();
+        if (mute.getMute() == false) {
+            music.setLooping(true);
+            music.setVolume(0.3f);
+            music.play();
+        }
     }
 
     /**
@@ -74,8 +80,11 @@ public class MusicService {
      * Required: an integer between 0 and 1
      */
     public void changeVolume(float vol) {
-        music.setVolume(vol);
-        music.play();
+        MuteManager mute = MuteManager.getInstance();
+        if (mute.getMute() == false) {
+            music.setVolume(vol);
+            music.play();
+        }
     }
 
 }

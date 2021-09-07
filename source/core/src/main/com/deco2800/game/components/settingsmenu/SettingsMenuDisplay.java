@@ -14,9 +14,7 @@ import com.deco2800.game.GdxGame.ScreenType;
 import com.deco2800.game.components.mainmenu.MainMenuDisplay;
 import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.files.UserSettings.DisplaySettings;
-import com.deco2800.game.services.MusicService;
-import com.deco2800.game.services.MusicServiceDirectory;
-import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.services.*;
 import com.deco2800.game.ui.UIComponent;
 import com.deco2800.game.utils.StringDecorator;
 import org.slf4j.Logger;
@@ -42,16 +40,20 @@ public class SettingsMenuDisplay extends UIComponent {
     this.game = game;
   }
 
-  public void loadTheMusic() {
-    MusicService musicScreen = new MusicService("sounds/MainMenuMusic.mp3");
-    musicScreen.playMusic();
+  public void playTheMusic() {
+      MusicService musicScreen = new MusicService("sounds/MainMenuMusic.mp3");
+      musicScreen.playMusic();
+
+
+    /*MusicSingleton m = MusicSingleton.getInstance();
+    m.playSingleton("sounds/MainMenuMusic.mp3");*/
   }
 
   @Override
   public void create() {
     super.create();
     addActors();
-    loadTheMusic();
+    playTheMusic();
   }
 
   private void addActors() {

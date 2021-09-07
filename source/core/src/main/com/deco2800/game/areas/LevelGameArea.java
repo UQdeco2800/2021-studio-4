@@ -12,11 +12,8 @@ import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.rendering.BackgroundRenderComponent;
-import com.deco2800.game.services.MusicService;
-import com.deco2800.game.services.MusicServiceDirectory;
+import com.deco2800.game.services.*;
 import com.deco2800.game.utils.math.RandomUtils;
-import com.deco2800.game.services.ResourceService;
-import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -133,7 +130,7 @@ public class LevelGameArea extends GameArea {
 
     spawnPlatform(8, 21, 5);
     spawnDoor(9, 23, 5);
-   // playMusic();
+
   }
 
   private void displayUI() {
@@ -527,10 +524,17 @@ public class LevelGameArea extends GameArea {
       default:
         gameMusic = new MusicService(dict.game_level_1);//To make sure gameMusic is never null
     }
+      gameMusic.playMusic();
 
-
-    gameMusic.playMusic();
   }
+
+  /*private void playMusic() {
+    //MusicServiceDirectory mainMenuSong = new MusicServiceDirectory();
+    //MusicService musicScreen = new MusicService(mainMenuSong.main_menu);
+    //musicScreen.playMusic();
+    MusicSingleton s = MusicSingleton.getInstance();
+    s.playMusicSingleton("sounds/BackingMusicWithDrums.mp3");
+  }*/
 
   private void loadAssets() {
     logger.debug("Loading assets");
