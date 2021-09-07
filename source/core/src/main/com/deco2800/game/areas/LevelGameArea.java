@@ -3,6 +3,7 @@ package com.deco2800.game.areas;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.GridPoint3;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.areas.terrain.TerrainTileDefinition;
@@ -61,6 +62,7 @@ public class LevelGameArea extends GameArea {
           "map-textures/mapTextures_bridge.png",
           "map-textures/mapTextures_door.png",
           "images/animatedvoid.png",
+          "images/void_spritesheet2.png"
 
   };
 
@@ -125,6 +127,9 @@ public class LevelGameArea extends GameArea {
 
     spawnLevelFromFile();
     //spawnGroundEnemy();
+
+    //spawnGorgonGear(20,8);
+
 
     spawnTheVoid();
 
@@ -411,7 +416,7 @@ public class LevelGameArea extends GameArea {
         xCord = 20 + (int)(Math.random() * ((WALL_WIDTH - 5) + 1));
       }
       check.add(xCord);
-      GridPoint2 randomPos = new GridPoint2(xCord,6);
+      GridPoint2 randomPos = new GridPoint2(xCord,8);
       Entity ghost = NPCFactory.createGhost(player);
       spawnEntityAt(ghost, randomPos, true, true);
     }
