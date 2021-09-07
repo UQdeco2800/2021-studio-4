@@ -13,7 +13,6 @@ import com.deco2800.game.areas.terrain.TerrainComponent.TerrainOrientation;
 import com.deco2800.game.components.CameraComponent;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.services.ServiceLocator;
-import com.deco2800.game.areas.LevelGameArea;
 
 import java.util.ArrayList;
 

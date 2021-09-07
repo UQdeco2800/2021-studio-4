@@ -1,15 +1,6 @@
 package com.deco2800.game.services;
 
-
-
 import com.badlogic.gdx.audio.Music;
-
-
-
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 
 /**
  * Service for playing and controlling the play of game music, this is different
