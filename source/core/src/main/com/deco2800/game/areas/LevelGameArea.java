@@ -62,6 +62,7 @@ public class LevelGameArea extends GameArea {
           "map-textures/mapTextures_bridge.png",
           "map-textures/mapTextures_door.png",
           "images/animatedvoid.png",
+          "images/void_spritesheet2.png"
 
   };
 
