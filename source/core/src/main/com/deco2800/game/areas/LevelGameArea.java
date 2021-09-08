@@ -252,7 +252,7 @@ public class LevelGameArea extends GameArea {
       saveTerrain(writer);
       saveObstacles(writer);
       writer.flush();
-    } catch (IOException e) {
+    } catch (IOException | NullPointerException e) {
       e.printStackTrace();
     } finally {
       try {
@@ -314,7 +314,7 @@ public class LevelGameArea extends GameArea {
           TerrainFactory.loadTilesFromFile(mapTileLayer,definition,rotation,x,y);
         }
       }
-    } catch (IOException e) {
+    } catch (IOException | NullPointerException e) {
       e.printStackTrace();
     } finally {
       try {
