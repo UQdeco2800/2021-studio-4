@@ -1,12 +1,9 @@
 package com.deco2800.game.leveleditor;
 
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.deco2800.game.components.CameraComponent;
 import com.deco2800.game.input.InputComponent;
-import com.deco2800.game.rendering.SpriteRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
 /**
