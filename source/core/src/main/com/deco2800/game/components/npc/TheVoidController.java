@@ -6,7 +6,6 @@ import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
-import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.services.MuteManager;
@@ -18,7 +17,7 @@ import static java.lang.Math.abs;
  * when an event is triggered
  */
 public class TheVoidController extends Component {
-    private static final Vector2 ACCELERATION = new Vector2(14f, 0f);
+    private static final Vector2 SPEED = new Vector2(8f, 0f);
 
     private PhysicsComponent physicsComponent;
     private AnimationRenderComponent animator;
@@ -63,7 +62,7 @@ public class TheVoidController extends Component {
      * Makes the void move (if called repeatedly the void will move at a constant speed)
      */
      void theVoidMove(){
-        this.body.applyForceToCenter(Vector2Utils.RIGHT.cpy().scl(ACCELERATION), true);
+        this.body.applyForceToCenter(Vector2Utils.RIGHT.cpy().scl(SPEED), true);
     }
 
     /**

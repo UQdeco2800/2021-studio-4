@@ -2,7 +2,6 @@ package com.deco2800.game.components.mainmenu;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
-import com.deco2800.game.screens.MainMenuScreen;
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.MusicSingleton;
 import com.deco2800.game.services.MuteManager;
