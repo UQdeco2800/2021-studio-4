@@ -5,6 +5,7 @@ import com.deco2800.game.components.PlayerMovementComponent;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
+import com.deco2800.game.components.player.StatusEffectsComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.files.FileLoader;
@@ -44,6 +45,7 @@ public class PlayerFactory {
             .addComponent(new PlayerActions())
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
             .addComponent(new InventoryComponent(stats.gold))
+            .addComponent(new StatusEffectsComponent()) /** Added a new StatusEffects Component */
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new PlayerMovementComponent(PhysicsLayer.OBSTACLE)); // Added in to allow
