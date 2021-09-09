@@ -29,14 +29,12 @@ public class MainMenuDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(MainMenuDisplay.class);
     private static final float Z_INDEX = 2f;
     private Table table;
-    private int switcher;
     private ImageButton muteBtn;
 
     /**
      * used tp switch between button states
      */
     public MainMenuDisplay() {
-        switcher = 0;
     }
 
     @Override
@@ -188,8 +186,17 @@ public class MainMenuDisplay extends UIComponent {
         Drawable muteDrawing = new TextureRegionDrawable(new TextureRegion(muteTexture));
         muteBtn = new ImageButton(muteDrawing);
         // Initialise the image of the button to muteTexture.
-        muteBtn.getStyle().imageUp = new TextureRegionDrawable(muteTexture);
-        muteBtn.getStyle().imageOver = new TextureRegionDrawable(muteHoverTexture);
+        MuteManager mute = MuteManager.getInstance();
+
+        if (!mute.getMute()) {
+            mute.setMute(false);
+            muteBtn.getStyle().imageUp = new TextureRegionDrawable(muteTexture);
+            muteBtn.getStyle().imageOver = new TextureRegionDrawable(muteHoverTexture);
+        } else {
+            mute.setMute(true);
+            muteBtn.getStyle().imageUp = new TextureRegionDrawable(currentlyMutedTexture);
+            muteBtn.getStyle().imageOver = new TextureRegionDrawable(currentlyMutedHoverTexture);
+        }
 
         /**
          * Sets the size and position of the button after texture applied, for Mute and Currently Muted both.
@@ -268,8 +275,9 @@ public class MainMenuDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.debug("Mute button clicked");
+                        MuteManager mute = MuteManager.getInstance();
 
-                        if (switcher % 2 == 1) {
+                        if (mute.getMute()) {
                             // Rewrite the existing imageUp and imageOver enums to be muteTexture.
                             // When the if condition is passed, imageUp and imageOver will be currentlyMuteTexture.
                             muteBtn.getStyle().imageUp = new TextureRegionDrawable(muteTexture);
@@ -279,7 +287,7 @@ public class MainMenuDisplay extends UIComponent {
                             // When the else condition is passed, imageUp and imageOver will be muteTexutre.
                             muteBtn.getStyle().imageUp = new TextureRegionDrawable(currentlyMutedTexture);
                             muteBtn.getStyle().imageOver = new TextureRegionDrawable(currentlyMutedHoverTexture);
-                        } switcher++;
+                        }
 
                         entity.getEvents().trigger("mute");
                     }
@@ -319,13 +327,7 @@ public class MainMenuDisplay extends UIComponent {
         stage.addActor(levelEditorBtn);
     }
 
-    /**
-     * Return switcher value for testing mute button
-     * @return int switcher
-     */
-    public int getSwitcher() {
-        return switcher;
-    }
+
 
     /**
      * Return Mute Button for testing purposes
@@ -334,6 +336,7 @@ public class MainMenuDisplay extends UIComponent {
     public ImageButton getMuteBtn() {
         return muteBtn;
     }
+
 
     @Override
     public void draw(SpriteBatch batch) {
