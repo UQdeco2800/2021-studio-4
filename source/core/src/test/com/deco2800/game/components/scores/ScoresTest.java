@@ -35,7 +35,6 @@ public class ScoresTest {
     /*
     @Test
     void testNewHighScore() {
-    
         tester.create();
         spy(tester).highScore = 4;
         spy(tester).newScore = 4;
