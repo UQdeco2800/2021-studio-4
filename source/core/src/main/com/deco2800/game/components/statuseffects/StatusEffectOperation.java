@@ -9,10 +9,9 @@ public class StatusEffectOperation {
         this.boost = boost;
         this.statOriginal = statOriginal;
         this.statusEffectEnum = statusEffectEnum;
-
     }
 
-    public void changeSpeed() {
-        statusEffectEnum.boosts(type, boost, statOriginal);
+    public void statChange() {
+        statusEffectEnum.statChange(type, boost, statOriginal);
     }
 }

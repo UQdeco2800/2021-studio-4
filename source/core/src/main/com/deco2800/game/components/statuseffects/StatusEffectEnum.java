@@ -6,20 +6,19 @@ import com.deco2800.game.entities.Entity;
 public enum StatusEffectEnum implements StatusEffectInterface {
     SPEEDBUFF (2, 10, "SPEEDBUFF") {
         @Override
-        public void boosts(int type, int boost, int statOriginal) {
+        public void statChange(int type, int boost, int statOriginal) {
             int statChange = type * boost;
-
         }
     },
     JUMPBUFF (2, 10, "JUMPBUFF") {
         @Override
-        public void boosts(int type, int boost, int statOriginal) {
+        public void statChange(int type, int boost, int statOriginal) {
 
         }
     },
     TIMESTOP (0, 0, "TIMESTOP") {
         @Override
-        public void boosts(int type, int boost, int statOriginal) {
+        public void statChange(int type, int boost, int statOriginal) {
 
         }
     },
@@ -33,19 +32,19 @@ public enum StatusEffectEnum implements StatusEffectInterface {
      */
     INTERFERANCE (0, 0, "INTERFERANCE") {
         @Override
-        public void boosts(int type, int boost, int statOriginal) {
+        public void statChange(int type, int boost, int statOriginal) {
 
         }
     },
     FREEZE (0, 0, "FREEZE") {
         @Override
-        public void boosts(int type, int boost, int statOriginal) {
+        public void statChange(int type, int boost, int statOriginal) {
 
         }
     },
     RESET (0, 0, "RESET") {
         @Override
-        public void boosts(int type, int boost, int statOriginal) {
+        public void statChange(int type, int boost, int statOriginal) {
 
         }
     };
