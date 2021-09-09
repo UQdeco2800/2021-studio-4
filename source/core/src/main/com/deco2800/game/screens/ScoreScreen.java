@@ -3,8 +3,6 @@ package com.deco2800.game.screens;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.components.mainmenu.MainMenuActions;
-import com.deco2800.game.components.mainmenu.MainMenuDisplay;
 import com.deco2800.game.components.scores.ScoreActions;
 import com.deco2800.game.components.scores.ScoreDisplay;
 import com.deco2800.game.entities.Entity;
@@ -18,13 +16,6 @@ import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ScoreScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(ScoreScreen.class);

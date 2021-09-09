@@ -13,8 +13,6 @@ import com.deco2800.game.rendering.SpriteRenderComponent;
 import com.deco2800.game.screens.LevelEditorScreen;
 import com.deco2800.game.services.ServiceLocator;
 
-import java.io.IOException;
-
 /**
  * Component for editing the terrain map
  */
