@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleDefinition;
 import com.deco2800.game.entities.ObstacleEntity;
@@ -16,10 +15,8 @@ import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.JumpableComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
-import com.deco2800.game.rendering.SpriteRenderComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
-import org.w3c.dom.Text;
 
 /**
  * Factory to create obstacle entities.

@@ -2,7 +2,6 @@ package com.deco2800.game.components;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.components.player.PlayerActions;
-import com.deco2800.game.components.player.PlayerState;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.physics.PhysicsService;

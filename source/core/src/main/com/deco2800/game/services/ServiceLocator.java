@@ -1,6 +1,5 @@
 package com.deco2800.game.services;
 
-import com.badlogic.gdx.graphics.Camera;
 import com.deco2800.game.components.CameraComponent;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputService;

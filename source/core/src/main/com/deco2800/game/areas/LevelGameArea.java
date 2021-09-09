@@ -3,6 +3,7 @@ package com.deco2800.game.areas;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.GridPoint3;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.areas.terrain.TerrainTileDefinition;
@@ -12,11 +13,8 @@ import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.rendering.BackgroundRenderComponent;
-import com.deco2800.game.services.MusicService;
-import com.deco2800.game.services.MusicServiceDirectory;
+import com.deco2800.game.services.*;
 import com.deco2800.game.utils.math.RandomUtils;
-import com.deco2800.game.services.ResourceService;
-import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +59,7 @@ public class LevelGameArea extends GameArea {
           "map-textures/mapTextures_bridge.png",
           "map-textures/mapTextures_door.png",
           "images/animatedvoid.png",
+          "images/void_spritesheet2.png"
 
   };
 
@@ -126,6 +125,9 @@ public class LevelGameArea extends GameArea {
     spawnLevelFromFile();
     //spawnGroundEnemy();
 
+    //spawnGorgonGear(20,8);
+
+
     spawnTheVoid();
 
     playTheMusic("game_level_1");
@@ -133,7 +135,7 @@ public class LevelGameArea extends GameArea {
 
     spawnPlatform(8, 21, 5);
     spawnDoor(9, 23, 5);
-   // playMusic();
+
   }
 
   private void displayUI() {
@@ -250,7 +252,7 @@ public class LevelGameArea extends GameArea {
       saveTerrain(writer);
       saveObstacles(writer);
       writer.flush();
-    } catch (IOException e) {
+    } catch (IOException | NullPointerException e) {
       e.printStackTrace();
     } finally {
       try {
@@ -312,7 +314,7 @@ public class LevelGameArea extends GameArea {
           TerrainFactory.loadTilesFromFile(mapTileLayer,definition,rotation,x,y);
         }
       }
-    } catch (IOException e) {
+    } catch (IOException | NullPointerException e) {
       e.printStackTrace();
     } finally {
       try {
@@ -411,7 +413,7 @@ public class LevelGameArea extends GameArea {
         xCord = 20 + (int)(Math.random() * ((WALL_WIDTH - 5) + 1));
       }
       check.add(xCord);
-      GridPoint2 randomPos = new GridPoint2(xCord,6);
+      GridPoint2 randomPos = new GridPoint2(xCord,8);
       Entity ghost = NPCFactory.createGhost(player);
       spawnEntityAt(ghost, randomPos, true, true);
     }
@@ -527,10 +529,17 @@ public class LevelGameArea extends GameArea {
       default:
         gameMusic = new MusicService(dict.game_level_1);//To make sure gameMusic is never null
     }
+      gameMusic.playMusic();
 
-
-    gameMusic.playMusic();
   }
+
+  /*private void playMusic() {
+    //MusicServiceDirectory mainMenuSong = new MusicServiceDirectory();
+    //MusicService musicScreen = new MusicService(mainMenuSong.main_menu);
+    //musicScreen.playMusic();
+    MusicSingleton s = MusicSingleton.getInstance();
+    s.playMusicSingleton("sounds/BackingMusicWithDrums.mp3");
+  }*/
 
   private void loadAssets() {
     logger.debug("Loading assets");
