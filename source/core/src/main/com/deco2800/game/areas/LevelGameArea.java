@@ -75,6 +75,7 @@ public class LevelGameArea extends GameArea {
           "images/testingenemy.atlas",
           "map-spritesheets/mapTextures.atlas",
           "images/void.atlas",
+          "images/player.atlas"
 
   };
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();

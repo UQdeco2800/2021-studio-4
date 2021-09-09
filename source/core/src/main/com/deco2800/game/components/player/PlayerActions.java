@@ -7,14 +7,39 @@ import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
+import com.sun.security.jgss.GSSUtil;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
  * and when triggered should call methods within this class.
  */
+
+//enums in here, get and set for enum and call set in Keyboard
+  //conponent and in set trigger animation
+
+
 public class PlayerActions extends Component {
+
+
+  private enum Movement {
+    Running,
+    Idle,
+    Falling,
+    Sliding,
+    Jumping
+  }
+  private enum MovingDirection {
+    Left,
+    Right
+  }
+  private MovingDirection movingDirection = MovingDirection.Right;
+  private String currentPowerUp = "Default";
+  private Movement currentMovement = Movement.Idle;
+  private String previousAnimation;
+
   private static final Vector2 ACCELERATION = new Vector2(10f, 0f);  // Force of acceleration, in Newtons (kg.m.s^2)
   private static final float NORMAL_FRICTION = 0.1f;                 // Coefficient of friction for normal movement
 
@@ -22,12 +47,14 @@ public class PlayerActions extends Component {
   private PhysicsComponent physicsComponent;
   private Vector2 walkDirection = Vector2.Zero.cpy();           // The direction the player is walking in, set by keypress.
   private Vector2 previousWalkDirection = Vector2.Zero.cpy();   // The direction the player was moving in last.
-  private Body body;                                            // The player physics body.
-
-  private boolean canJump = false; // Whether the player can jump
+  private Body body;// The player physics body.
+  private static boolean canJump = false; // Whether the player can jump
+  private int keysPressed; //stores number of keys being pressed that affect the plaer
+  AnimationRenderComponent animator;
 
   @Override
   public void create() {
+    animator = this.entity.getComponent(AnimationRenderComponent.class);
     physicsComponent = entity.getComponent(PhysicsComponent.class);
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
@@ -36,8 +63,18 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("togglePlayerJumping", this::togglePlayerJumping);
     entity.getEvents().addListener("slide", this::slide);
     entity.getEvents().addListener("setPreviousWalkDirection", this::setPreviousWalkDirection);
+    entity.getEvents().addListener("isFalling", this::setIsFalling);
+    entity.getEvents().addListener("isJumping", this::setIsJumping);
+    entity.getEvents().addListener("isIdle", this::setIdleWhenNoKeysArePressed);
+    entity.getEvents().addListener("isFallingDone", this::checkIfFallingIsDone);
+    entity.getEvents().addListener("keyPressed", this::keyWasPressed);
+    entity.getEvents().addListener("keyReleased", this::keyWasReleased);
+
+
 
     this.body = physicsComponent.getBody();
+    previousAnimation = getAnimation();
+    animator.startAnimation(getAnimation());
   }
 
   @Override
@@ -58,6 +95,67 @@ public class PlayerActions extends Component {
     // Scale the walk direction by the acceleration, and apply that as a force
     this.body.applyForceToCenter(walkDirection.cpy().scl(ACCELERATION), true);
   }
+
+  private void setPowerUpAnimation(String value){
+    currentPowerUp = value;
+  }
+
+  private void setMovementAnimation(Movement value){
+
+    if(!(previousAnimation.equals(getAnimation())) || value != currentMovement){
+
+      System.out.println(value);
+      currentMovement = value;
+      previousAnimation = getAnimation();
+      animator.startAnimation(getAnimation());
+    }
+  }
+
+  private void setMovingDirection(MovingDirection value){
+    movingDirection = value;
+  }
+
+  private String getAnimation(){
+    return currentMovement.toString() + movingDirection.toString() + currentPowerUp;
+  }
+
+  private void setIsFalling(){
+    setMovementAnimation(Movement.Falling);
+  }
+
+  private void setIsJumping(){
+    setMovementAnimation(Movement.Jumping);
+  }
+  private void setIdleWhenNoKeysArePressed(){
+    if (keysPressed == 0 && canJump) {
+      setMovementAnimation(Movement.Idle);
+    }
+  }
+
+  private void checkIfFallingIsDone(){
+    if(currentMovement == Movement.Falling | currentMovement == Movement.Jumping){
+      if(canJump){
+        if(body.getLinearVelocity().x != 0) {
+          setMovementAnimation(Movement.Running);
+        } else {
+          setMovementAnimation(Movement.Idle);
+        }
+      }
+    }
+  }
+
+  private void keyWasPressed(){
+    keysPressed++;
+  }
+
+  private void keyWasReleased(){
+    keysPressed--;
+  }
+
+  //private boolean isFalling(){
+
+  //}
+
 
   /**
    * Applies friction to the player, as determined by the X_FRICTION constants and their
@@ -91,6 +189,16 @@ public class PlayerActions extends Component {
    * @param direction direction to move in
    */
   void walk(Vector2 direction) {
+    if(direction.x == 1.0){
+      setMovingDirection(MovingDirection.Right);
+    } else {
+      setMovingDirection(MovingDirection.Left);
+    }
+
+    if(canJump) {
+      setMovementAnimation(Movement.Running);
+    }
+
     this.walkDirection = direction;
     this.playerState = PlayerState.MOVING;
   }
@@ -100,6 +208,7 @@ public class PlayerActions extends Component {
    */
   void stopWalking() {
     this.walkDirection = Vector2.Zero.cpy();
+    setMovementAnimation(Movement.Idle);
     //currentVelocity = new Vector2(-0.2f, -0.2f);
     //updateSpeed();
   }
@@ -117,9 +226,9 @@ public class PlayerActions extends Component {
    */
   void jump() {
     //System.out.println("trying to jump and " + canJump + "state is " + playerState); // Testing print
-
     if (playerState != PlayerState.AIR && canJump) {
       //System.out.println("in air"); // More testing prints
+      setMovementAnimation(Movement.Jumping);
 
       this.playerState = PlayerState.AIR;
       body.applyForceToCenter(new Vector2(0f, 300f), true);

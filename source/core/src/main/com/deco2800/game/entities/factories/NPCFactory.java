@@ -57,8 +57,6 @@ public class NPCFactory {
     Entity theVoid = new Entity();
     TheVoidConfig config = configs.theVoid;
 
-
-
     theVoid
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new PhysicsComponent())
