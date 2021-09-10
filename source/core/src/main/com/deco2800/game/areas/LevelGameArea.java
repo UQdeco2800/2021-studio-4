@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.GridPoint3;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.areas.terrain.TerrainTileDefinition;
+import com.deco2800.game.components.statuseffects.StatusEffectEnum;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.entities.factories.NPCFactory;
@@ -471,6 +472,21 @@ public class LevelGameArea extends GameArea {
     Entity theVoid = NPCFactory.createTheVoid(player);
     spawnEntityAt(theVoid, startPos, true, true);
 
+  }
+
+  /**
+   * Spawns the StatusEffect on the map by calling the createTheVoid() method in NPCFactory  To Be CALLED>>>>>>>>>>>
+   * with player as its parameter.
+   * @return void
+   */
+  private void spawnStatusEffect(String statusEffectType) {
+    int startPosY = terrain.getMapBounds(0).y; // Random For Now. Needs to change, Don't know enough about it
+    int startPosX = terrain.getMapBounds(0).x;
+    GridPoint2 startPos = new GridPoint2();
+    startPos.set(startPosX, startPosY);
+
+    Entity theVoid = NPCFactory.createStatusEffect(player, statusEffectType);
+    spawnEntityAt(theVoid, startPos, false, true);
   }
 
   /**
