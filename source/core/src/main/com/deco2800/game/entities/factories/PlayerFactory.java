@@ -8,8 +8,7 @@ import com.deco2800.game.components.PlayerMovementComponent;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
-import com.deco2800.game.components.tasks.PlayerCheckVertical;
-import com.deco2800.game.components.tasks.TheVoidTasks;
+import com.deco2800.game.components.tasks.PlayerChangeAnimationHelper;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.files.FileLoader;
@@ -20,7 +19,6 @@ import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
-import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
 /**
@@ -40,9 +38,10 @@ public class PlayerFactory {
   public static Entity createPlayer() {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForPlayer();
+
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    .addTask(new PlayerCheckVertical());
+                    .addTask(new PlayerChangeAnimationHelper());
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -76,7 +75,7 @@ public class PlayerFactory {
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
-    //player.getComponent(AnimationRenderComponent.class).scaleEntity();
+    player.getComponent(AnimationRenderComponent.class).scaleEntity();
     return player;
   }
 

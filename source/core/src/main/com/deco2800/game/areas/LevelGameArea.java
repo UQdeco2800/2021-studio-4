@@ -61,7 +61,6 @@ public class LevelGameArea extends GameArea {
           "map-textures/mapTextures_Button-On.png",
           "map-textures/mapTextures_bridge.png",
           "map-textures/mapTextures_door.png",
-          "images/animatedvoid.png",
           "images/void_spritesheet2.png"
 
   };
@@ -71,7 +70,6 @@ public class LevelGameArea extends GameArea {
           "images/terrain_iso_grass.atlas",
           "images/ghost.atlas",
           "images/ghostKing.atlas",
-          "images/the_void.atlas",
           "images/testingenemy.atlas",
           "map-spritesheets/mapTextures.atlas",
           "images/void.atlas",

@@ -65,7 +65,6 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("setPreviousWalkDirection", this::setPreviousWalkDirection);
     entity.getEvents().addListener("isFalling", this::setIsFalling);
     entity.getEvents().addListener("isJumping", this::setIsJumping);
-    entity.getEvents().addListener("isIdle", this::setIdleWhenNoKeysArePressed);
     entity.getEvents().addListener("isFallingDone", this::checkIfFallingIsDone);
     entity.getEvents().addListener("keyPressed", this::keyWasPressed);
     entity.getEvents().addListener("keyReleased", this::keyWasReleased);
@@ -96,15 +95,18 @@ public class PlayerActions extends Component {
     this.body.applyForceToCenter(walkDirection.cpy().scl(ACCELERATION), true);
   }
 
+  /**
+   *
+   * @param value the string name of the power up animation, these are the options:
+   *              Default, SpeedUp, SpeedDown, JumpBoost
+   */
   private void setPowerUpAnimation(String value){
     currentPowerUp = value;
+    animator.startAnimation(getAnimation());
   }
 
   private void setMovementAnimation(Movement value){
-
     if(!(previousAnimation.equals(getAnimation())) || value != currentMovement){
-
-      System.out.println(value);
       currentMovement = value;
       previousAnimation = getAnimation();
       animator.startAnimation(getAnimation());
@@ -120,25 +122,21 @@ public class PlayerActions extends Component {
   }
 
   private void setIsFalling(){
+    canJump = false;
     setMovementAnimation(Movement.Falling);
   }
 
   private void setIsJumping(){
     setMovementAnimation(Movement.Jumping);
   }
-  private void setIdleWhenNoKeysArePressed(){
-    if (keysPressed == 0 && canJump) {
-      setMovementAnimation(Movement.Idle);
-    }
-  }
 
   private void checkIfFallingIsDone(){
     if(currentMovement == Movement.Falling | currentMovement == Movement.Jumping){
       if(canJump){
-        if(body.getLinearVelocity().x != 0) {
-          setMovementAnimation(Movement.Running);
-        } else {
+        if(body.getLinearVelocity().x == 0 | keysPressed == 0){
           setMovementAnimation(Movement.Idle);
+        } else {
+          setMovementAnimation(Movement.Running);
         }
       }
     }
@@ -152,9 +150,7 @@ public class PlayerActions extends Component {
     keysPressed--;
   }
 
-  //private boolean isFalling(){
 
-  //}
 
 
   /**
@@ -266,6 +262,8 @@ public class PlayerActions extends Component {
       this.canJump = true;
       this.playerState = PlayerState.MOVING;
   }
+
+
 
   /**
    * Get the player's state.

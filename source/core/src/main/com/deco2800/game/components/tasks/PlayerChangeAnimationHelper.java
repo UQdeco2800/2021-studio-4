@@ -6,14 +6,14 @@ import com.deco2800.game.ai.tasks.PriorityTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.PhysicsComponent;
 
-public class PlayerCheckVertical extends DefaultTask implements PriorityTask {
+public class PlayerChangeAnimationHelper extends DefaultTask implements PriorityTask {
 
     private PhysicsComponent physicsComponent;
    // private Entity player;
     private Body body;
 
 
-    public PlayerCheckVertical(){
+    public PlayerChangeAnimationHelper(){
     }
 
     @Override
@@ -26,13 +26,9 @@ public class PlayerCheckVertical extends DefaultTask implements PriorityTask {
     }
 
     public void update() {
+        System.out.println(body.getLinearVelocity().y);
         if(body.getLinearVelocity().y < 0) {
             this.owner.getEntity().getEvents().trigger("isFalling");
-        } //else if (body.getLinearVelocity().y > 0) {
-         //   this.owner.getEntity().getEvents().trigger("isJumping");
-       // }
-        if((body.getLinearVelocity().x < 4 && body.getLinearVelocity().x > -4)) {
-            this.owner.getEntity().getEvents().trigger("isIdle");
         }
         this.owner.getEntity().getEvents().trigger("isFallingDone");
     }
