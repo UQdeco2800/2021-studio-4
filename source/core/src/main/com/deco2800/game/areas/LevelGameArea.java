@@ -11,6 +11,8 @@ import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.physics.components.InteractableComponent;
+import com.deco2800.game.physics.components.SubInteractableComponent;
 import com.deco2800.game.rendering.BackgroundRenderComponent;
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.MusicServiceDirectory;
@@ -23,8 +25,8 @@ import org.slf4j.LoggerFactory;
 import com.deco2800.game.leveleditor.ObstacleToolComponent;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class LevelGameArea extends GameArea {
@@ -35,6 +37,9 @@ public class LevelGameArea extends GameArea {
   private static final float WALL_WIDTH = 0.1f;
   public List<ObstacleEntity> obstacleEntities = new ArrayList<>();
   public static ArrayList<TerrainTile> terrainTiles = new ArrayList<>();
+
+  public Map<Integer, Integer> mapInteractables = new HashMap<Integer, Integer>();
+
   private static final String[] gameTextures = {
 
           "images/virus_man.png",
@@ -119,6 +124,7 @@ public class LevelGameArea extends GameArea {
 
     //spawnTrees();
     //spawnLevel();
+    //mapInteractables();         // may need here
     player = spawnPlayer();
     //spawnGhosts();
     //spawnGhostKing();
@@ -241,6 +247,31 @@ public class LevelGameArea extends GameArea {
     spawnEntityAt(door, position, centerX, centerY);
     obstacleEntities.add(door);
     door.setTilePosition(position);
+  }
+
+  public void mapInteractables() {
+      // list of all buttons in order of creation
+      ArrayList<ObstacleEntity> buttons = new ArrayList<>();
+
+      //list of all doors and bridges in order of creation
+      ArrayList<ObstacleEntity> subInteractables = new ArrayList<>();
+
+      for (int i = 0; i < obstacleEntities.size(); i++) {
+        ObstacleEntity obstacle = obstacleEntities.get(i);
+        InteractableComponent interactable = obstacle.getComponent(InteractableComponent.class); // button
+        SubInteractableComponent subInteractable = obstacle.getComponent(SubInteractableComponent.class); //door or bridge
+
+        if (interactable != null && subInteractable != null) { // if bridge or door
+          subInteractables.add(obstacle);
+        } else if (interactable != null) { //if button
+          buttons.add(obstacle);
+        }
+      }
+
+      // map earliest button with earliest door/bridge, continue for all buttons
+      for (int j = 0; j < buttons.size(); j++) {
+        mapInteractables.put(buttons.get(j).getId(), subInteractables.get(j).getId());
+      }
   }
 
   public void saveAll(){
@@ -371,6 +402,7 @@ public class LevelGameArea extends GameArea {
       spawnPlatform(54+i,14, 1);
     }
     spawnDoor(56,15, 4);
+    //mapInteractables();     // to be added
   }
 
   private void spawnLadderPlatforms(int x, int y) {
@@ -391,7 +423,7 @@ public class LevelGameArea extends GameArea {
   }
 
   private Entity spawnPlayer() {
-    Entity newPlayer = PlayerFactory.createPlayer();
+    Entity newPlayer = PlayerFactory.createPlayer(mapInteractables);
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     return newPlayer;
   }
