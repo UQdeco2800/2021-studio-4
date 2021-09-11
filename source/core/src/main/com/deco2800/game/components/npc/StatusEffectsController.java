@@ -29,7 +29,6 @@ public class StatusEffectsController extends Component {
 
     /**
      * Creates a number of listeners for events to be triggered in the TheVoidTasks class
-     *
      */
     @Override
     public void create() {
@@ -39,7 +38,7 @@ public class StatusEffectsController extends Component {
         //physicsComponent.getBody().setGravityScale(0); This removes gravity
 
         entity.getEvents().addListener("StatusEffectAnimate", this::animate);
-        entity.getEvents().addListener("StatusEffectAnimate", this::remove);
+        entity.getEvents().addListener("StatusEffectRemove", this::remove);
         //entity.getEvents().addListener("TheVoidMove", this::move);  COULD IMPLEMENT LATER
 
         this.body = physicsComponent.getBody();
@@ -47,10 +46,9 @@ public class StatusEffectsController extends Component {
 
     /**
      * Starts the void's animation
-     *
      */
     void animate(){
-        animator.startAnimation("statusEffect");
+        animator.startAnimation("Jump_Boost");
     }
 
 //    /**
@@ -65,11 +63,11 @@ public class StatusEffectsController extends Component {
      *
      * @return the distance between the player and the void
      */
-    private float getPlayerDistance(){
+    public float getPlayerDistance(){
         float distance_x;
-        float void_length = this.entity.getScale().x;
-        Vector2 void_pos = this.entity.getPosition();
-        distance_x = player.getPosition().sub(void_pos).x - void_length;
+        float statusEffect_length = this.entity.getScale().x;
+        Vector2 statusEffect_pos = this.entity.getPosition();
+        distance_x = player.getPosition().sub(statusEffect_pos).x - statusEffect_length;
         return distance_x;
     }
 
