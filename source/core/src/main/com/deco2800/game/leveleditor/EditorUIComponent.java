@@ -9,19 +9,29 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.services.ServiceLocator;
 
+/**
+ * Represents the level editor UI
+ */
 public class EditorUIComponent extends UIComponent {
     private Table rootTable;
     private Stage stage;
     private LevelGameArea levelGameArea;
     private TextField levelName;
     
+    /**
+     * The constructor for the UI component
+     * @param levelGameArea The area to save
+     */
     public EditorUIComponent(LevelGameArea levelGameArea) {
         super();
         this.stage = ServiceLocator.getRenderService().getStage();
         this.levelGameArea = levelGameArea;
     }
 
-    public void generatePopup() {
+    /**
+     * Generates a "saving level" popup which asks for a level name
+     */
+    public void generateSavePopup() {
         Label titleLabel = new Label("Enter a new level name", skin, "title");
         Label extensionLabel = new Label(".txt", skin, "title");
         Table menuBtns = makeBtns();
@@ -48,6 +58,10 @@ public class EditorUIComponent extends UIComponent {
         stage.addActor(rootTable);
     }
 
+    /**
+     * Creates buttons to interact with the level save popup
+     * @return A Table containing the buttons
+     */
     private Table makeBtns() {
         TextButton saveBtn = new TextButton("Save", skin);
         TextButton cancelBtn = new TextButton("Cancel", skin);
@@ -72,8 +86,8 @@ public class EditorUIComponent extends UIComponent {
         );
 
         Table table = new Table();
-        table.add(saveBtn)/*.expandX().left().pad(0f, 20f, 0f, 0f)*/;
-        table.add(cancelBtn)/*.expandX().right().pad(0f, 0f, 20f, 0f)*/;
+        table.add(saveBtn);
+        table.add(cancelBtn);
         return table;
     } 
 

@@ -174,7 +174,7 @@ public class TileToolComponent extends InputComponent {
       this.screen.selectObstacleHand();
     }
     if (keycode == Input.Keys.P) {
-      ui.generatePopup();
+      ui.generateSavePopup();
     }
 
     return super.keyUp(keycode);

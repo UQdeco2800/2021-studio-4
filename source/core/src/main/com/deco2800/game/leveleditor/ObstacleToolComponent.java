@@ -234,7 +234,7 @@ public class ObstacleToolComponent extends InputComponent {
     }
 
     if (keycode == Input.Keys.P) {
-      ui.generatePopup();
+      ui.generateSavePopup();
     }
 
     return super.keyUp(keycode);
