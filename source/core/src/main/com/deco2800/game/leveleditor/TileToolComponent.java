@@ -12,12 +12,12 @@ import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.rendering.SpriteRenderComponent;
 import com.deco2800.game.screens.LevelEditorScreen;
 import com.deco2800.game.services.ServiceLocator;
-
 /**
  * Component for editing the terrain map
  */
 public class TileToolComponent extends InputComponent {
   private final LevelEditorScreen screen;
+  private EditorUIComponent ui;
 
   private TerrainTileDefinition tileDefinition = TerrainTileDefinition.TILE_FULL_MIDDLE;
   private Sprite currentSprite;
@@ -29,6 +29,7 @@ public class TileToolComponent extends InputComponent {
   public TileToolComponent(LevelGameArea levelGameArea, LevelEditorScreen screen) {
     this.levelGameArea = levelGameArea;
     this.screen = screen;
+    this.ui = new EditorUIComponent(levelGameArea);
   }
 
   /**
@@ -173,7 +174,7 @@ public class TileToolComponent extends InputComponent {
       this.screen.selectObstacleHand();
     }
     if (keycode == Input.Keys.P) {
-      this.levelGameArea.saveAll();
+      ui.generatePopup();
     }
 
     return super.keyUp(keycode);

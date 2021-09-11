@@ -25,7 +25,6 @@ import org.slf4j.LoggerFactory;
 import com.deco2800.game.leveleditor.ObstacleToolComponent;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
@@ -274,10 +273,10 @@ public class LevelGameArea extends GameArea {
       }
   }
 
-  public void saveAll(){
+  public void saveAll(String name){
     FileWriter writer = null;
     try {
-      writer = new FileWriter("level.txt");
+      writer = new FileWriter(name + ".txt");
       saveTerrain(writer);
       saveObstacles(writer);
       writer.flush();

@@ -25,10 +25,12 @@ public class ObstacleToolComponent extends InputComponent {
   private boolean removeLock = false;
   private boolean removing = false;
   private final LevelEditorScreen screen;
+  private EditorUIComponent ui;
 
   public ObstacleToolComponent(LevelGameArea levelGameArea, LevelEditorScreen screen) {
     this.levelGameArea = levelGameArea;
     this.screen = screen;
+    this.ui = new EditorUIComponent(levelGameArea);
   }
 
   /**
@@ -50,11 +52,6 @@ public class ObstacleToolComponent extends InputComponent {
         return ObstacleFactory.createButton();
     }
     return null;
-  }
-
-  private void getLevelName() {
-    LevelNameInput listener = new LevelNameInput();
-    Gdx.input.getTextInput(listener, "Level Name", "level", "What would you like to name your level?");
   }
   
   /**
@@ -237,8 +234,7 @@ public class ObstacleToolComponent extends InputComponent {
     }
 
     if (keycode == Input.Keys.P) {
-      getLevelName();
-      this.levelGameArea.saveAll();
+      ui.generatePopup();
     }
 
     return super.keyUp(keycode);
