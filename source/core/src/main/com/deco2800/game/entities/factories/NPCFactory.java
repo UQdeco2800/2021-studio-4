@@ -96,7 +96,7 @@ public class NPCFactory {
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
                             .getAsset("images/Buff_Jump_Boost.atlas", TextureAtlas.class));
-    animator.addAnimation("Jump_Boost", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(effect, 0.1f, Animation.PlayMode.LOOP);
 
 //    AnimationRenderComponent animator =
 //            new AnimationRenderComponent(
@@ -118,7 +118,7 @@ public class NPCFactory {
             .addComponent(animator);
 
     statusEffect.getComponent(AnimationRenderComponent.class).scaleEntity();
-    statusEffect.setScale(1f,0.5f);
+    statusEffect.setScale(0.5f,0.5f);
     return statusEffect;
   }
 

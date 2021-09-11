@@ -134,7 +134,7 @@ public class LevelGameArea extends GameArea {
 
     spawnTheVoid();
 
-    spawnStatusEffect("Random Effect"); // To be selected randomly from a list of the effects
+    spawnStatusEffect("Jump_Boost"); // To be selected randomly from a list of the effects
 
     playTheMusic("game_level_1");
     //playMusic();
