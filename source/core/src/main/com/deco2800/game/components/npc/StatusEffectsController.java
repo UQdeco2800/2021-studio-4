@@ -29,7 +29,6 @@ public class StatusEffectsController extends Component {
 
     /**
      * Creates a number of listeners for events to be triggered in the TheVoidTasks class
-     *
      */
     @Override
     public void create() {
@@ -39,7 +38,7 @@ public class StatusEffectsController extends Component {
         //physicsComponent.getBody().setGravityScale(0); This removes gravity
 
         entity.getEvents().addListener("StatusEffectAnimate", this::animate);
-        entity.getEvents().addListener("StatusEffectAnimate", this::remove);
+        entity.getEvents().addListener("StatusEffectRemove", this::remove);
         //entity.getEvents().addListener("TheVoidMove", this::move);  COULD IMPLEMENT LATER
 
         this.body = physicsComponent.getBody();
@@ -47,10 +46,9 @@ public class StatusEffectsController extends Component {
 
     /**
      * Starts the void's animation
-     *
      */
     void animate(){
-        animator.startAnimation("statusEffect");
+        animator.startAnimation("Jump_Boost");
     }
 
 //    /**

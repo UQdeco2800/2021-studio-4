@@ -88,36 +88,36 @@ public class NPCFactory {
   public static Entity createStatusEffect(Entity target, String effect) {
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    .addTask(new StatusEffectTasks(target));
+                    .addTask(new StatusEffectTasks());
 
-    // Will create switch statement on effect to determine which image to use.
+    // Will create switch statement on effect to determine which image to use based on effect variable/string.
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/Buff_Jump_Boost.atlas", TextureAtlas.class));
+    animator.addAnimation("Jump_Boost", 0.1f, Animation.PlayMode.LOOP);
 
 //    AnimationRenderComponent animator =
 //            new AnimationRenderComponent(
-//                    ServiceLocator.getResourceService()
-//                            .getAsset("images/void.atlas", TextureAtlas.class));
-//    animator.addAnimation("void", 0.1f, Animation.PlayMode.LOOP);
-//
+//                    ServiceLocator.getResourceService().getAsset("images/testingenemy.atlas", TextureAtlas.class));
+//    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
 
     Entity statusEffect = new Entity();
     StatusEffectConfig config = configs.statusEffect;
 
-    AssetManager assetManager = new AssetManager();
-    assetManager.load("images/box_boy.png", Texture.class);
-
     statusEffect
             //.addComponent(new PhysicsMovementComponent())
             .addComponent(new PhysicsComponent())
-            .addComponent(new TextureRenderComponent("images/heart.png")) // Delete once animation is there
             .addComponent(new StatusEffectsController(target))
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC)) // DO we need all of these???????
             .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(new ColliderComponent())
-            .addComponent(aiComponent);
-            //.addComponent(animator);
+            .addComponent(aiComponent)
+            .addComponent(animator);
 
-    //statusEffect.getComponent(AnimationRenderComponent.class).scaleEntity();   FOR ANIMATION?????????
+    statusEffect.getComponent(AnimationRenderComponent.class).scaleEntity();
     statusEffect.setScale(1f,0.5f);
     return statusEffect;
   }

@@ -1,49 +1,173 @@
 Buff_Jump_Boost.png
-size:8192,4096
+size: 8192, 4096
+format: RGBA8888
+filter: Nearest,Nearest
 repeat:none
-ms1
-bounds:0,2436,910,1218
-ms10
-bounds:910,1218,910,1218
-ms11
-bounds:4550,0,910,1218
-ms12
-bounds:2730,1218,910,1218
-ms13
-bounds:0,1218,910,1218
-ms14
-bounds:3640,0,910,1218
-ms15
-bounds:1820,1218,910,1218
-ms16
-bounds:6370,2436,910,1218
-ms17
-bounds:2730,0,910,1218
-ms18
-bounds:0,0,910,1218
-ms19
-bounds:5460,2436,910,1218
-ms2
-bounds:4550,2436,910,1218
-ms20
-bounds:1820,0,910,1218
-ms21
-bounds:6370,1218,910,1218
-ms22
-bounds:3640,1218,910,1218
-ms23
-bounds:1820,2436,910,1218
-ms3
-bounds:910,0,910,1218
-ms4
-bounds:5460,1218,910,1218
-ms5
-bounds:3640,2436,910,1218
-ms6
-bounds:910,2436,910,1218
-ms7
-bounds:4550,1218,910,1218
-ms8
-bounds:2730,2436,910,1218
-ms9
-bounds:5460,0,910,1218
+Jump_Boost
+  rotate: false
+  xy: 0, 2436
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 0
+Jump_Boost
+  rotate: false
+  xy: 4550, 2436
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 1
+Jump_Boost
+  rotate: false
+  xy: 910, 0
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 2
+Jump_Boost
+  rotate: false
+  xy: 5460, 1218
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 3
+Jump_Boost
+  rotate: false
+  xy: 3640, 2436
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 4
+Jump_Boost
+  rotate: false
+  xy: 910, 2436
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 5
+Jump_Boost
+  rotate: false
+  xy: 4550, 1218
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 6
+Jump_Boost
+  rotate: false
+  xy: 2730, 2436
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 7
+Jump_Boost
+  rotate: false
+  xy: 5460, 0
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 8
+Jump_Boost
+  rotate: false
+  xy: 910, 1218
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 9
+Jump_Boost
+  rotate: false
+  xy: 4550, 0
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 10
+Jump_Boost
+  rotate: false
+  xy: 2730, 1218
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 11
+Jump_Boost
+  rotate: false
+  xy: 0, 1218
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 12
+Jump_Boost
+  rotate: false
+  xy: 3640, 0
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 13
+Jump_Boost
+  rotate: false
+  xy: 1820, 1218
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 14
+Jump_Boost
+  rotate: false
+  xy: 6370, 2436
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 15
+Jump_Boost
+  rotate: false
+  xy: 2730, 0
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 16
+Jump_Boost
+  rotate: false
+  xy: 0, 0
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 17
+Jump_Boost
+  rotate: false
+  xy: 5460, 2436
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 18
+Jump_Boost
+  rotate: false
+  xy: 1820, 0
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 19
+Jump_Boost
+  rotate: false
+  xy: 6370, 1218
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 20
+Jump_Boost
+  rotate: false
+  xy: 3640, 1218
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 21
+Jump_Boost
+  rotate: false
+  xy: 1820, 2436
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 22
+default
+  rotate: false
+  xy: 0, 2436
+  size: 910, 1218
+  orig: 910, 1218
+  offset: 0, 0
+  index: 0
