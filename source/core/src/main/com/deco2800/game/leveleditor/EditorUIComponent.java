@@ -86,8 +86,8 @@ public class EditorUIComponent extends UIComponent {
         );
 
         Table table = new Table();
-        table.add(saveBtn);
-        table.add(cancelBtn);
+        table.add(saveBtn).pad(10f);
+        table.add(cancelBtn).pad(10f);
         return table;
     } 
 
