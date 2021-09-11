@@ -36,7 +36,7 @@ public class StatusEffectsController extends Component {
         physicsComponent = entity.getComponent(PhysicsComponent.class);
         animator = this.entity.getComponent(AnimationRenderComponent.class);
         physicsComponent = entity.getComponent(PhysicsComponent.class);
-        physicsComponent.getBody().setGravityScale(0);
+        //physicsComponent.getBody().setGravityScale(0); This removes gravity
 
         entity.getEvents().addListener("TheVoidAnimate", this::animate);
         entity.getEvents().addListener("TheVoidAnimate", this::remove);

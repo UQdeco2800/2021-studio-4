@@ -1,5 +1,7 @@
 package com.deco2800.game.entities.factories;
 
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -16,6 +18,7 @@ import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
 import com.deco2800.game.files.FileLoader;
+import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
@@ -23,6 +26,7 @@ import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
+import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
 /**
@@ -100,9 +104,13 @@ public class NPCFactory {
     Entity statusEffect = new Entity();
     StatusEffectConfig config = configs.statusEffect;
 
+    AssetManager assetManager = new AssetManager();
+    assetManager.load("images/box_boy.png", Texture.class);
+
     statusEffect
             //.addComponent(new PhysicsMovementComponent())
             .addComponent(new PhysicsComponent())
+            .addComponent(new TextureRenderComponent("images/heart.png")) // Delete once animation is there
             .addComponent(new StatusEffectsController(target))
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC)) // DO we need all of these???????
             .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
@@ -110,8 +118,8 @@ public class NPCFactory {
             .addComponent(aiComponent);
             //.addComponent(animator);
 
-    statusEffect.getComponent(AnimationRenderComponent.class).scaleEntity();
-    statusEffect.setScale(2f,2);
+    //statusEffect.getComponent(AnimationRenderComponent.class).scaleEntity();   FOR ANIMATION?????????
+    statusEffect.setScale(1f,1f);
     return statusEffect;
   }
 

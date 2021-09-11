@@ -31,6 +31,7 @@ public class LevelGameArea extends GameArea {
   private static final int NUM_TREES = 7;
   private static final int NUM_GHOSTS = 2;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(15, 15);
+  private static final GridPoint2 STATUSEFFECT_SPAWN = new GridPoint2(40, 25);
   private static final float WALL_WIDTH = 0.1f;
   public List<ObstacleEntity> obstacleEntities = new ArrayList<>();
   public static ArrayList<TerrainTile> terrainTiles = new ArrayList<>();
@@ -130,6 +131,8 @@ public class LevelGameArea extends GameArea {
 
 
     spawnTheVoid();
+
+    spawnStatusEffect("Random Effect"); // To be selected randomly from a list of the effects
 
     playTheMusic("game_level_1");
     //playMusic();
@@ -480,13 +483,8 @@ public class LevelGameArea extends GameArea {
    * @return void
    */
   private void spawnStatusEffect(String statusEffectType) {
-    int startPosY = terrain.getMapBounds(0).y; // Random For Now. Needs to change, Don't know enough about it
-    int startPosX = terrain.getMapBounds(0).x;
-    GridPoint2 startPos = new GridPoint2();
-    startPos.set(startPosX, startPosY);
-
-    Entity theVoid = NPCFactory.createStatusEffect(player, statusEffectType);
-    spawnEntityAt(theVoid, startPos, false, true);
+    Entity statusEffect = NPCFactory.createStatusEffect(player, statusEffectType);
+    spawnEntityAt(statusEffect, STATUSEFFECT_SPAWN, true, true);
   }
 
   /**
