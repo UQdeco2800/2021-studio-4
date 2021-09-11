@@ -115,6 +115,7 @@ public class NPCFactory {
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC)) // DO we need all of these???????
             .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(new ColliderComponent())
             .addComponent(aiComponent);
             //.addComponent(animator);
 
