@@ -63,8 +63,6 @@ public class NPCFactory {
     Entity theVoid = new Entity();
     TheVoidConfig config = configs.theVoid;
 
-
-
     theVoid
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new PhysicsComponent())
@@ -120,7 +118,7 @@ public class NPCFactory {
             //.addComponent(animator);
 
     //statusEffect.getComponent(AnimationRenderComponent.class).scaleEntity();   FOR ANIMATION?????????
-    statusEffect.setScale(1f,1f);
+    statusEffect.setScale(1f,0.5f);
     return statusEffect;
   }
 

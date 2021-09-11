@@ -65,11 +65,11 @@ public class StatusEffectsController extends Component {
      *
      * @return the distance between the player and the void
      */
-    private float getPlayerDistance(){
+    public float getPlayerDistance(){
         float distance_x;
-        float void_length = this.entity.getScale().x;
-        Vector2 void_pos = this.entity.getPosition();
-        distance_x = player.getPosition().sub(void_pos).x - void_length;
+        float statusEffect_length = this.entity.getScale().x;
+        Vector2 statusEffect_pos = this.entity.getPosition();
+        distance_x = player.getPosition().sub(statusEffect_pos).x - statusEffect_length;
         return distance_x;
     }
 

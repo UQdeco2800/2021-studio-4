@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.GridPoint3;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.areas.terrain.TerrainTileDefinition;
+import com.deco2800.game.components.npc.StatusEffectsController;
 import com.deco2800.game.components.statuseffects.StatusEffectEnum;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleEntity;
@@ -485,6 +486,11 @@ public class LevelGameArea extends GameArea {
   private void spawnStatusEffect(String statusEffectType) {
     Entity statusEffect = NPCFactory.createStatusEffect(player, statusEffectType);
     spawnEntityAt(statusEffect, STATUSEFFECT_SPAWN, true, true);
+    StatusEffectsController statusEffectController = new StatusEffectsController(player);
+//    float playerDistance = statusEffectController.getPlayerDistance();
+//    if (playerDistance < 0.2) {
+//
+//    }
   }
 
   /**
