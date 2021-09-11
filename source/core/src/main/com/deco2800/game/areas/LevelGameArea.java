@@ -1,6 +1,5 @@
 package com.deco2800.game.areas;
 
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.GridPoint3;
@@ -13,6 +12,8 @@ import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.physics.components.InteractableComponent;
+import com.deco2800.game.physics.components.SubInteractableComponent;
 import com.deco2800.game.rendering.BackgroundRenderComponent;
 import com.deco2800.game.services.*;
 import com.deco2800.game.utils.math.RandomUtils;
@@ -22,8 +23,7 @@ import org.slf4j.LoggerFactory;
 import com.deco2800.game.leveleditor.ObstacleToolComponent;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class LevelGameArea extends GameArea {
@@ -35,6 +35,9 @@ public class LevelGameArea extends GameArea {
   private static final float WALL_WIDTH = 0.1f;
   public List<ObstacleEntity> obstacleEntities = new ArrayList<>();
   public static ArrayList<TerrainTile> terrainTiles = new ArrayList<>();
+
+  public Map<Integer, Integer> mapInteractables = new HashMap<Integer, Integer>();
+
   private static final String[] gameTextures = {
 
           "images/virus_man.png",
@@ -120,6 +123,7 @@ public class LevelGameArea extends GameArea {
 
     //spawnTrees();
     //spawnLevel();
+    //mapInteractables();         // may need here
     player = spawnPlayer();
     //spawnGhosts();
     //spawnGhostKing();
@@ -249,10 +253,35 @@ public class LevelGameArea extends GameArea {
     door.setTilePosition(position);
   }
 
-  public void saveAll(){
+  public void mapInteractables() {
+      // list of all buttons in order of creation
+      ArrayList<ObstacleEntity> buttons = new ArrayList<>();
+
+      //list of all doors and bridges in order of creation
+      ArrayList<ObstacleEntity> subInteractables = new ArrayList<>();
+
+      for (int i = 0; i < obstacleEntities.size(); i++) {
+        ObstacleEntity obstacle = obstacleEntities.get(i);
+        InteractableComponent interactable = obstacle.getComponent(InteractableComponent.class); // button
+        SubInteractableComponent subInteractable = obstacle.getComponent(SubInteractableComponent.class); //door or bridge
+
+        if (interactable != null && subInteractable != null) { // if bridge or door
+          subInteractables.add(obstacle);
+        } else if (interactable != null) { //if button
+          buttons.add(obstacle);
+        }
+      }
+
+      // map earliest button with earliest door/bridge, continue for all buttons
+      for (int j = 0; j < buttons.size(); j++) {
+        mapInteractables.put(buttons.get(j).getId(), subInteractables.get(j).getId());
+      }
+  }
+
+  public void saveAll(String name){
     FileWriter writer = null;
     try {
-      writer = new FileWriter("level.txt");
+      writer = new FileWriter("levels/" + name + ".txt");
       saveTerrain(writer);
       saveObstacles(writer);
       writer.flush();
@@ -298,7 +327,7 @@ public class LevelGameArea extends GameArea {
   private void spawnLevelFromFile() {
     BufferedReader reader = null;
     try {
-      reader = new BufferedReader(new FileReader("level.txt"));
+      reader = new BufferedReader(new FileReader("levels/level.txt"));
 
       String line;
       while ((line = reader.readLine()) != null) {
@@ -377,6 +406,7 @@ public class LevelGameArea extends GameArea {
       spawnPlatform(54+i,14, 1);
     }
     spawnDoor(56,15, 4);
+    //mapInteractables();     // to be added
   }
 
   private void spawnLadderPlatforms(int x, int y) {
@@ -397,7 +427,7 @@ public class LevelGameArea extends GameArea {
   }
 
   private Entity spawnPlayer() {
-    Entity newPlayer = PlayerFactory.createPlayer();
+    Entity newPlayer = PlayerFactory.createPlayer(mapInteractables);
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     return newPlayer;
   }
