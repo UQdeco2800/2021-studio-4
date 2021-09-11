@@ -26,7 +26,6 @@ public class PlayerChangeAnimationHelper extends DefaultTask implements Priority
     }
 
     public void update() {
-        System.out.println(body.getLinearVelocity().y);
         if(body.getLinearVelocity().y < 0) {
             this.owner.getEntity().getEvents().trigger("isFalling");
         }

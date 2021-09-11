@@ -12,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.deco2800.game.components.levelselect.LevelDisplay;
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.MusicServiceDirectory;
+import com.deco2800.game.services.MusicSingleton;
+import com.deco2800.game.services.MuteManager;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,9 +33,14 @@ public class LevelDisplay extends UIComponent {
     }
 
     private void playTheMusic() {
-        MusicServiceDirectory mainMenuSong = new MusicServiceDirectory();
-        MusicService musicScreen = new MusicService(mainMenuSong.main_menu);
-        musicScreen.playMusic();
+        MuteManager mute = MuteManager.getInstance();
+        if (mute.getMute() == false) {
+            MusicServiceDirectory mainMenuSong = new MusicServiceDirectory();
+            MusicService musicScreen = new MusicService(mainMenuSong.main_menu);
+            musicScreen.playMusic();
+        }
+        //MusicSingleton s = MusicSingleton.getInstance();
+        //s.playSingleton("sounds/MainMenuMusic.mp3");
     }
 
     /**
