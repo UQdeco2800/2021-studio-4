@@ -275,7 +275,7 @@ public class LevelGameArea extends GameArea {
   public void saveAll(String name){
     FileWriter writer = null;
     try {
-      writer = new FileWriter(name + ".txt");
+      writer = new FileWriter("levels/" + name + ".txt");
       saveTerrain(writer);
       saveObstacles(writer);
       writer.flush();
@@ -321,7 +321,7 @@ public class LevelGameArea extends GameArea {
   private void spawnLevelFromFile() {
     BufferedReader reader = null;
     try {
-      reader = new BufferedReader(new FileReader("level.txt"));
+      reader = new BufferedReader(new FileReader("levels/level.txt"));
 
       String line;
       while ((line = reader.readLine()) != null) {
