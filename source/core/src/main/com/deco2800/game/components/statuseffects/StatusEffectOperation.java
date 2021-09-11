@@ -11,7 +11,7 @@ public class StatusEffectOperation {
         this.statusEffectEnum = statusEffectEnum;
     }
 
-    public void statChange() {
-        statusEffectEnum.statChange(type, boost, statOriginal);
+    public int statChange() {
+        return statusEffectEnum.statChange(type, boost, statOriginal);
     }
 }

@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.GridPoint3;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.areas.terrain.TerrainTileDefinition;
+import com.deco2800.game.components.statuseffects.StatusEffectEnum;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.entities.factories.NPCFactory;
@@ -30,6 +31,7 @@ public class LevelGameArea extends GameArea {
   private static final int NUM_TREES = 7;
   private static final int NUM_GHOSTS = 2;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(15, 15);
+  private static final GridPoint2 STATUSEFFECT_SPAWN = new GridPoint2(40, 25);
   private static final float WALL_WIDTH = 0.1f;
   public List<ObstacleEntity> obstacleEntities = new ArrayList<>();
   public static ArrayList<TerrainTile> terrainTiles = new ArrayList<>();
@@ -129,6 +131,8 @@ public class LevelGameArea extends GameArea {
 
 
     spawnTheVoid();
+
+    spawnStatusEffect("Random Effect"); // To be selected randomly from a list of the effects
 
     playTheMusic("game_level_1");
     //playMusic();
@@ -471,6 +475,16 @@ public class LevelGameArea extends GameArea {
     Entity theVoid = NPCFactory.createTheVoid(player);
     spawnEntityAt(theVoid, startPos, true, true);
 
+  }
+
+  /**
+   * Spawns the StatusEffect on the map by calling the createTheVoid() method in NPCFactory  To Be CALLED>>>>>>>>>>>
+   * with player as its parameter.
+   * @return void
+   */
+  private void spawnStatusEffect(String statusEffectType) {
+    Entity statusEffect = NPCFactory.createStatusEffect(player, statusEffectType);
+    spawnEntityAt(statusEffect, STATUSEFFECT_SPAWN, true, true);
   }
 
   /**
