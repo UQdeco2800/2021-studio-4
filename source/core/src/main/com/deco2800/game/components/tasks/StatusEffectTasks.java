@@ -10,11 +10,19 @@ import com.deco2800.game.services.GameTime;
  * TheVoidController class.
  */
 public class StatusEffectTasks extends DefaultTask implements PriorityTask {
+    Entity entity;
 
     /**
      * Initiliser
      */
     public StatusEffectTasks() {}
+
+    /**
+     * Initiliser
+     */
+    public StatusEffectTasks(Entity entity) {
+        this.entity = entity;
+    }
 
     /**
      * Returns a Priority that is always true
@@ -25,7 +33,6 @@ public class StatusEffectTasks extends DefaultTask implements PriorityTask {
         return 10;
     }
 
-
     @Override
     public void start() {
         super.start();
@@ -35,7 +42,7 @@ public class StatusEffectTasks extends DefaultTask implements PriorityTask {
     /**
      * Called to remove the StatusEffect
      */
-    public void update() {
-        this.owner.getEntity().getEvents().trigger("StatusEffectRemove");
+    public void remove() {
+        entity.getEvents().trigger("StatusEffectRemove");
     }
 }
