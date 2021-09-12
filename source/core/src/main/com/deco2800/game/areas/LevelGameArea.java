@@ -40,7 +40,7 @@ public class LevelGameArea extends GameArea {
   public static ArrayList<String> buffers = new ArrayList<>();
   public static ArrayList<String> deBuffers = new ArrayList<>();
 
-  public Map<Integer, Integer> mapInteractables = new HashMap<Integer, Integer>();
+  public Map<ObstacleEntity, ObstacleEntity> mapInteractables = new HashMap<>();
 
   private static final String[] gameTextures = {
 
@@ -136,7 +136,6 @@ public class LevelGameArea extends GameArea {
 
     //spawnTrees();
     //spawnLevel();
-    //mapInteractables();         // may need here
     player = spawnPlayer();
     //spawnGhosts();
     //spawnGhostKing();
@@ -164,11 +163,12 @@ public class LevelGameArea extends GameArea {
     int indexNum = random.nextInt(3);
     return buffers.get(indexNum);
   }
-
+  
   private String getDeBuff() {
     Random random = new Random();
     int indexNum = random.nextInt(3);
     return deBuffers.get(indexNum);
+    //mapInteractables();         // may need here
   }
 
   private void displayUI() {
@@ -290,7 +290,7 @@ public class LevelGameArea extends GameArea {
         InteractableComponent interactable = obstacle.getComponent(InteractableComponent.class); // button
         SubInteractableComponent subInteractable = obstacle.getComponent(SubInteractableComponent.class); //door or bridge
 
-        if (interactable != null && subInteractable != null) { // if bridge or door
+        if (subInteractable != null) { // if bridge or door
           subInteractables.add(obstacle);
         } else if (interactable != null) { //if button
           buttons.add(obstacle);
@@ -298,8 +298,10 @@ public class LevelGameArea extends GameArea {
       }
 
       // map earliest button with earliest door/bridge, continue for all buttons
-      for (int j = 0; j < buttons.size(); j++) {
-        mapInteractables.put(buttons.get(j).getId(), subInteractables.get(j).getId());
+      if (buttons.size() > 0 && subInteractables.size() > 0) {
+        for (int j = 0; j < buttons.size(); j++) {
+          mapInteractables.put(buttons.get(j), subInteractables.get(j));
+        }
       }
   }
 
