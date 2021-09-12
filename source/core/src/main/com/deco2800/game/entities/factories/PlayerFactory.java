@@ -18,6 +18,8 @@ import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
+import java.util.Map;
+
 /**
  * Factory to create a player entity.
  *
@@ -32,7 +34,7 @@ public class PlayerFactory {
    * Create a player entity.
    * @return entity
    */
-  public static Entity createPlayer() {
+  public static Entity createPlayer(Map<Integer, Integer> mapInteractables) {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForPlayer();
 
@@ -48,8 +50,9 @@ public class PlayerFactory {
             //.addComponent(new StatusEffectsController()) /** Added a new StatusEffects Component */
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
-            .addComponent(new PlayerMovementComponent(PhysicsLayer.OBSTACLE)); // Added in to allow
-                                                                              // for collision controlled jumping
+            .addComponent(new PlayerMovementComponent(PhysicsLayer.OBSTACLE, mapInteractables)); // Added in to allow
+                                                                                  // for collision controlled jumping
+                                                    // Recently added mapInteractables for interactable functionality
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);

@@ -22,6 +22,8 @@ public class PlayerActions extends Component {
   private Vector2 previousWalkDirection = Vector2.Zero.cpy();   // The direction the player was moving in last.
   private Body body;                                            // The player physics body.
 
+  private Vector2 jumpSpeed = new Vector2(0f, 300f);
+  private Vector2 jumpPadSpeed = new Vector2(0f, 600f);
   private boolean canJump = false; // Whether the player can jump
 
   @Override
@@ -120,7 +122,7 @@ public class PlayerActions extends Component {
       //System.out.println("in air"); // More testing prints
 
       this.playerState = PlayerState.AIR;
-      body.applyForceToCenter(new Vector2(0f, 300f), true);
+      body.applyForceToCenter(jumpSpeed, true);
       canJump = false;
     }
   }
@@ -154,6 +156,10 @@ public class PlayerActions extends Component {
       // Can't make this private, not sure if that is bad or not
       this.canJump = true;
       this.playerState = PlayerState.MOVING;
+  }
+
+  public void jumpPad() {
+    body.applyForceToCenter(jumpPadSpeed, true);
   }
 
   /**

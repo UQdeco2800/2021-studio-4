@@ -11,10 +11,7 @@ import com.deco2800.game.entities.ObstacleDefinition;
 import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
-import com.deco2800.game.physics.components.ColliderComponent;
-import com.deco2800.game.physics.components.HitboxComponent;
-import com.deco2800.game.physics.components.JumpableComponent;
-import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.physics.components.*;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
@@ -136,13 +133,32 @@ public class ObstacleFactory {
         .addComponent(new TextureRenderComponent("map-textures/mapTextures_Button-On.png"))
         .addComponent(new PhysicsComponent())
         .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
-        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE));
+        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
+        .addComponent(new InteractableComponent());
+
 
     button.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     button.getComponent(TextureRenderComponent.class).scaleEntity();
     button.scaleHeight(0.5f);
     PhysicsUtils.setScaledCollider(button, 0.1f, 1f);
     return button;
+  }
+
+  public static Entity createJumpPad() {
+    ObstacleEntity jumpPad =
+            new ObstacleEntity(ObstacleDefinition.JUMPPAD,1)
+                    .addComponent(new TextureRenderComponent("map-textures/mapTextures_Jumppad-idle.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
+                    .addComponent(new InteractableComponent())
+                    .addComponent(new JumpPadComponent());
+
+    jumpPad.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    jumpPad.getComponent(TextureRenderComponent.class).scaleEntity();
+    jumpPad.scaleHeight(0.5f);
+    PhysicsUtils.setScaledCollider(jumpPad, 0.1f, 1f);
+    return jumpPad;
   }
 
   public static Entity createBridge(int width) {
@@ -157,7 +173,8 @@ public class ObstacleFactory {
         .addComponent(new PhysicsComponent())
         .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
         .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
-        .addComponent(new JumpableComponent()); //Added for jump functionality
+        .addComponent(new JumpableComponent()) //Added for jump functionality
+        .addComponent(new SubInteractableComponent());
 
     bridge.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     bridge.getComponent(TextureRenderComponent.class).scaleEntity();
@@ -176,7 +193,8 @@ public class ObstacleFactory {
       new ObstacleEntity(ObstacleDefinition.DOOR,height)
         .addComponent(new TextureRenderComponent(platformTexture))
         .addComponent(new PhysicsComponent())
-        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+        .addComponent(new SubInteractableComponent());
 
     door.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     door.getComponent(TextureRenderComponent.class).scaleEntity();
