@@ -23,5 +23,9 @@ public class ObstacleEntity extends Entity {
   public ObstacleEntity addComponent(Component component) {
     return (ObstacleEntity)super.addComponent(component);
   }
+
+  public ObstacleDefinition getDefinition() {
+    return this.getDefinition();
+  }
 }
 

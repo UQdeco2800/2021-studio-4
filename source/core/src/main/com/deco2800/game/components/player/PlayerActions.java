@@ -43,10 +43,15 @@ public class PlayerActions extends Component {
   private PhysicsComponent physicsComponent;
   private Vector2 walkDirection = Vector2.Zero.cpy();           // The direction the player is walking in, set by keypress.
   private Vector2 previousWalkDirection = Vector2.Zero.cpy();   // The direction the player was moving in last.
+
   private Body body;// The player physics body.
-  private static boolean canJump = false; // Whether the player can jump
   private int keysPressed; //stores number of keys being pressed that affect the plaer
   AnimationRenderComponent animator;
+
+  private Vector2 jumpSpeed = new Vector2(0f, 300f);
+  private Vector2 jumpPadSpeed = new Vector2(0f, 600f);
+  private boolean canJump = false; // Whether the player can jump
+
 
   @Override
   public void create() {
@@ -260,7 +265,7 @@ public class PlayerActions extends Component {
       setMovementAnimation(Movement.Jumping);
 
       this.playerState = PlayerState.AIR;
-      body.applyForceToCenter(new Vector2(0f, 300f), true);
+      body.applyForceToCenter(jumpSpeed, true);
       canJump = false;
     }
   }
@@ -296,6 +301,10 @@ public class PlayerActions extends Component {
       this.playerState = PlayerState.MOVING;
   }
 
+
+  public void jumpPad() {
+    body.applyForceToCenter(jumpPadSpeed, true);
+  }
 
 
   /**

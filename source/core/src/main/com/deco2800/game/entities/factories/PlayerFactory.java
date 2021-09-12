@@ -11,6 +11,7 @@ import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.components.tasks.PlayerChangeAnimationHelper;
 import com.deco2800.game.components.npc.StatusEffectsController;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.input.InputComponent;
@@ -21,6 +22,9 @@ import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Factory to create a player entity.
@@ -36,7 +40,7 @@ public class PlayerFactory {
    * Create a player entity.
    * @return entity
    */
-  public static Entity createPlayer() {
+  public static Entity createPlayer(Map<ObstacleEntity, ObstacleEntity> mapInteractables) {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForPlayer();
 
@@ -73,7 +77,11 @@ public class PlayerFactory {
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(aiComponent)
-            .addComponent(new PlayerMovementComponent(PhysicsLayer.OBSTACLE)); // Added in to allow                                          // for collision controlled jumping
+                                                                                                  // Added in to allow                                          // for collision controlled jumping
+            .addComponent(new PlayerMovementComponent(PhysicsLayer.OBSTACLE, mapInteractables)); // Added in to allow
+                                                                                  // for collision controlled jumping
+                                                    // Recently added mapInteractables for interactable functionality
+
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);

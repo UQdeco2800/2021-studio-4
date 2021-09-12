@@ -3,14 +3,19 @@ package com.deco2800.game.components;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.ObstacleDefinition;
+import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
-import com.deco2800.game.physics.components.HitboxComponent;
-import com.deco2800.game.physics.components.JumpableComponent;
-import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.physics.components.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class PlayerMovementComponent extends Component {
     private short targetLayer;
+    private Map<ObstacleEntity, ObstacleEntity> mapInteractables;
     private HitboxComponent hitboxComponent;
 
     /**
@@ -19,6 +24,11 @@ public class PlayerMovementComponent extends Component {
      */
     public PlayerMovementComponent(short targetLayer) {
         this.targetLayer = targetLayer;
+    }
+
+    public PlayerMovementComponent(short targetLayer, Map<ObstacleEntity, ObstacleEntity> mapInteractables) {
+        this.targetLayer = targetLayer;
+        this.mapInteractables = mapInteractables;
     }
 
     @Override
@@ -48,18 +58,42 @@ public class PlayerMovementComponent extends Component {
         Entity player = ((BodyUserData) me.getBody().getUserData()).entity;
         Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
 
-        //Get the relevant components from the target entity
+        // Get the relevant components from the target entity
         PhysicsComponent physicsComponent = target.getComponent(PhysicsComponent.class); // probably don't need this
         JumpableComponent jumpableComponent = target.getComponent(JumpableComponent.class);
+        JumpPadComponent jumpPadComponent = target.getComponent(JumpPadComponent.class);
+        InteractableComponent interactableComponent = target.getComponent(InteractableComponent.class);
+        SubInteractableComponent subComponent = target.getComponent(SubInteractableComponent.class);
 
+        // Can control user behaviour with component
         PlayerActions playerActions = player.getComponent(PlayerActions.class);
 
-        if (physicsComponent != null && jumpableComponent != null) {
-            //System.out.println("on ground"); // Test print
-            playerActions.togglePlayerJumping();
+        if (physicsComponent != null) {
+            if (jumpableComponent != null) {
+                // Jumping off the ground
+                playerActions.togglePlayerJumping();
+            }
+
+            if (jumpPadComponent != null) {
+                // Colliding with jumppad
+                playerActions.jumpPad();
+            }
+
+            if (interactableComponent != null && !mapInteractables.isEmpty()) {
+                ObstacleEntity mapped = mapInteractables.get(target);
+                ColliderComponent colliderComponent = mapped.getComponent(ColliderComponent.class);
+
+                if (mapped != null && mapped.getDefinition() == ObstacleDefinition.DOOR) {
+                    // Desired affect on mapped door - disappears
+                    colliderComponent.dispose();
+                } else if (mapped != null && mapped.getDefinition() == ObstacleDefinition.BRIDGE) {
+                    // Desired affect on mapped bridge - appears
+                    // may need to create bridges without a collider component at the beginning
+                    colliderComponent.create();
+                }
+            }
         }
 
-        // && jumpableComponent != null ---> allows for easier implementation with other map elements
         // && physicsComponent.toString()
         //             .equals("Entity{id=9}.PhysicsComponent") ---> uglier but only allows jumping from floor
     }

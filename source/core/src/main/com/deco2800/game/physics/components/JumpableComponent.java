@@ -10,3 +10,4 @@ public class JumpableComponent extends Component {
         super.create();
     }
 }
+

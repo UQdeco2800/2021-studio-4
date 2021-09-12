@@ -1,5 +1,6 @@
 package com.deco2800.game.components;
 
+import com.deco2800.game.components.tasks.StatusEffectTasks;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -84,5 +85,7 @@ public class CombatStatsComponent extends Component {
 
     int newHealth = getHealth() - attacker.getBaseAttack();
     setHealth(newHealth);
+    StatusEffectTasks statusEffectTasks = new StatusEffectTasks(attacker.entity);
+    statusEffectTasks.remove();
   }
 }
