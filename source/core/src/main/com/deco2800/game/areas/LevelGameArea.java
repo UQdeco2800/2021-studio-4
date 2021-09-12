@@ -36,7 +36,7 @@ public class LevelGameArea extends GameArea {
   public List<ObstacleEntity> obstacleEntities = new ArrayList<>();
   public static ArrayList<TerrainTile> terrainTiles = new ArrayList<>();
 
-  public Map<Integer, Integer> mapInteractables = new HashMap<Integer, Integer>();
+  public Map<ObstacleEntity, ObstacleEntity> mapInteractables = new HashMap<>();
 
   private static final String[] gameTextures = {
 
@@ -123,7 +123,6 @@ public class LevelGameArea extends GameArea {
 
     //spawnTrees();
     //spawnLevel();
-    //mapInteractables();         // may need here
     player = spawnPlayer();
     //spawnGhosts();
     //spawnGhostKing();
@@ -143,6 +142,8 @@ public class LevelGameArea extends GameArea {
 
     spawnPlatform(8, 21, 5);
     spawnDoor(9, 23, 5);
+
+    //mapInteractables();         // may need here
 
   }
 
@@ -265,7 +266,7 @@ public class LevelGameArea extends GameArea {
         InteractableComponent interactable = obstacle.getComponent(InteractableComponent.class); // button
         SubInteractableComponent subInteractable = obstacle.getComponent(SubInteractableComponent.class); //door or bridge
 
-        if (interactable != null && subInteractable != null) { // if bridge or door
+        if (subInteractable != null) { // if bridge or door
           subInteractables.add(obstacle);
         } else if (interactable != null) { //if button
           buttons.add(obstacle);
@@ -273,8 +274,10 @@ public class LevelGameArea extends GameArea {
       }
 
       // map earliest button with earliest door/bridge, continue for all buttons
-      for (int j = 0; j < buttons.size(); j++) {
-        mapInteractables.put(buttons.get(j).getId(), subInteractables.get(j).getId());
+      if (buttons.size() > 0 && subInteractables.size() > 0) {
+        for (int j = 0; j < buttons.size(); j++) {
+          mapInteractables.put(buttons.get(j), subInteractables.get(j));
+        }
       }
   }
 
@@ -327,7 +330,7 @@ public class LevelGameArea extends GameArea {
   private void spawnLevelFromFile() {
     BufferedReader reader = null;
     try {
-      reader = new BufferedReader(new FileReader("levels/level.txt"));
+      reader = new BufferedReader(new FileReader("C:\\Users\\brianna\\Documents\\Repositories\\2021-studio-4\\source\\core\\assets\\levels\\level.txt"));
 
       String line;
       while ((line = reader.readLine()) != null) {
