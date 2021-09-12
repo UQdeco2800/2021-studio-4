@@ -1,13 +1,10 @@
 package com.deco2800.game.components;
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
-import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.JumpableComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;

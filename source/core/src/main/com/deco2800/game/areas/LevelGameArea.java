@@ -3,20 +3,19 @@ package com.deco2800.game.areas;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.GridPoint3;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.areas.terrain.TerrainTileDefinition;
+import com.deco2800.game.components.statuseffects.StatusEffectEnum;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.rendering.BackgroundRenderComponent;
-import com.deco2800.game.services.MusicService;
-import com.deco2800.game.services.MusicServiceDirectory;
+import com.deco2800.game.services.*;
 import com.deco2800.game.utils.math.RandomUtils;
-import com.deco2800.game.services.ResourceService;
-import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,10 +31,12 @@ public class LevelGameArea extends GameArea {
   private static final int NUM_TREES = 7;
   private static final int NUM_GHOSTS = 2;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(15, 15);
+  private static final GridPoint2 STATUSEFFECT_SPAWN = new GridPoint2(40, 25);
   private static final float WALL_WIDTH = 0.1f;
   public List<ObstacleEntity> obstacleEntities = new ArrayList<>();
   public static ArrayList<TerrainTile> terrainTiles = new ArrayList<>();
   private static final String[] gameTextures = {
+
           "images/virus_man.png",
           "images/box_boy_leaf.png",
           "images/tree.png",
@@ -60,8 +61,12 @@ public class LevelGameArea extends GameArea {
           "map-textures/mapTextures_bridge.png",
           "map-textures/mapTextures_door.png",
           "images/animatedvoid.png",
+          "images/void_spritesheet2.png"
+
   };
+
   private static final String[] gameTextureAtlases = {
+
           "images/terrain_iso_grass.atlas",
           "images/ghost.atlas",
           "images/ghostKing.atlas",
@@ -69,11 +74,13 @@ public class LevelGameArea extends GameArea {
           "images/testingenemy.atlas",
           "map-spritesheets/mapTextures.atlas",
           "images/void.atlas",
+
   };
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
   private static final String[] gameMusic = {gameSong.click, gameSong.game_level_1,gameSong.end_credits,
     gameSong.enemy_collision,gameSong.enemy_death, gameSong.obstacle_boost, gameSong.obstacle_button,
-    gameSong.player_collision, gameSong.player_power_up, gameSong.void_death, gameSong.void_noise};
+    gameSong.player_collision, gameSong.player_power_up, gameSong.void_death, gameSong.void_noise, gameSong.game_level_1_option2,
+  gameSong.ending_menu, gameSong.game_level_2, gameSong.main_menu, gameSong.death_noise_2};
 
   /*private static final String backgroundMusic = "sounds/BackingMusicWithDrums.mp3";
   private static final String[] gameMusic = {"sounds/BackingMusicWithDrums.mp3",
@@ -116,16 +123,23 @@ public class LevelGameArea extends GameArea {
     player = spawnPlayer();
     //spawnGhosts();
     //spawnGhostKing();
+
     spawnLevelFromFile();
-    spawnGroundEnemy();
+    //spawnGroundEnemy();
+
+    //spawnGorgonGear(20,8);
+
+
     spawnTheVoid();
+
+    spawnStatusEffect("Random Effect"); // To be selected randomly from a list of the effects
 
     playTheMusic("game_level_1");
     //playMusic();
 
     spawnPlatform(8, 21, 5);
     spawnDoor(9, 23, 5);
-   // playMusic();
+
   }
 
   private void displayUI() {
@@ -242,7 +256,7 @@ public class LevelGameArea extends GameArea {
       saveTerrain(writer);
       saveObstacles(writer);
       writer.flush();
-    } catch (IOException e) {
+    } catch (IOException | NullPointerException e) {
       e.printStackTrace();
     } finally {
       try {
@@ -304,7 +318,7 @@ public class LevelGameArea extends GameArea {
           TerrainFactory.loadTilesFromFile(mapTileLayer,definition,rotation,x,y);
         }
       }
-    } catch (IOException e) {
+    } catch (IOException | NullPointerException e) {
       e.printStackTrace();
     } finally {
       try {
@@ -403,10 +417,26 @@ public class LevelGameArea extends GameArea {
         xCord = 20 + (int)(Math.random() * ((WALL_WIDTH - 5) + 1));
       }
       check.add(xCord);
-      GridPoint2 randomPos = new GridPoint2(xCord,6);
+      GridPoint2 randomPos = new GridPoint2(xCord,8);
       Entity ghost = NPCFactory.createGhost(player);
       spawnEntityAt(ghost, randomPos, true, true);
     }
+  }
+
+  /**
+   * Spawns the flying enemy (the GorgonGear)
+   *
+   * the spawn point of the enemy will be dependent on the map of each level and will be implemented further
+   * in the second sprint. The range that the enemy can attack will be fixed to a certain point for chasing the
+   * character when the player is in range of the enemy.
+   *
+   * @param xCoord This is the X-coordinate of where the enemy will spawn.
+   * @param yCoord This is the Y-coordinate of where the enemy will spawn.
+   */
+  private void spawnGorgonGear(int xCoord, int yCoord) {
+    GridPoint2 distinctPos = new GridPoint2(xCoord, yCoord);
+    Entity gorgonGear = NPCFactory.createGorgonGear(player);
+    spawnEntityAt(gorgonGear, distinctPos, true, true);
   }
 
   private void spawnGhosts() {
@@ -419,7 +449,7 @@ public class LevelGameArea extends GameArea {
       spawnEntityAt(ghost, randomPos, true, true);
     }
   }
-
+/*
   private void spawnGhostKing() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
@@ -428,11 +458,19 @@ public class LevelGameArea extends GameArea {
     Entity ghostKing = NPCFactory.createGhostKing(player);
     spawnEntityAt(ghostKing, randomPos, true, true);
   }
-
+*/
+  /**
+   * Spawns the void on the map by calling the createTheVoid() method in NPCFactory
+   * with player as its parameter. The void's vertical placement is determined by 1/2 of
+   * the maps height and the horizontal placement is chosen to spawn the void to the far
+   * left of the screen.
+   *
+   * @return void
+   */
   private void spawnTheVoid() {
     int startPosY = terrain.getMapBounds(0).y;
     GridPoint2 startPos = new GridPoint2();
-    startPos.set(-20, startPosY/2 - 1);
+    startPos.set(-20, startPosY/2 - 3);
 
     Entity theVoid = NPCFactory.createTheVoid(player);
     spawnEntityAt(theVoid, startPos, true, true);
@@ -440,14 +478,20 @@ public class LevelGameArea extends GameArea {
   }
 
   /**
+   * Spawns the StatusEffect on the map by calling the createTheVoid() method in NPCFactory  To Be CALLED>>>>>>>>>>>
+   * with player as its parameter.
+   * @return void
+   */
+  private void spawnStatusEffect(String statusEffectType) {
+    Entity statusEffect = NPCFactory.createStatusEffect(player, statusEffectType);
+    spawnEntityAt(statusEffect, STATUSEFFECT_SPAWN, true, true);
+  }
+
+  /**
    * Music Dictionary for intialisation of various sound effects
    * @param musicPath - String (see Music Directory for more information)
    */
   private void playTheMusic(String musicPath) {
-    //Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
-    //music.setLooping(true);
-   // music.setVolume(0.3f);
-    //music.playMusic();
     MusicServiceDirectory dict = new  MusicServiceDirectory();
     MusicService gameMusic = null;
     switch (musicPath) {
@@ -481,13 +525,35 @@ public class LevelGameArea extends GameArea {
       case "void_noise":
         gameMusic = new MusicService(dict.void_noise);
         break;
+      case "ending_menu":
+        gameMusic = new MusicService(dict.ending_menu);
+        break;
+      case "level_1_2":
+        gameMusic = new MusicService(dict.game_level_1_option2);
+        break;
+      case "level_2":
+        gameMusic = new MusicService(dict.game_level_2);
+        break;
+      case "main_menu_new":
+        gameMusic = new MusicService(dict.main_menu);
+        break;
+      case "death_noise_2":
+        gameMusic = new MusicService(dict.death_noise_2);
+        break;
       default:
         gameMusic = new MusicService(dict.game_level_1);//To make sure gameMusic is never null
     }
+      gameMusic.playMusic();
 
-
-    gameMusic.playMusic();
   }
+
+  /*private void playMusic() {
+    //MusicServiceDirectory mainMenuSong = new MusicServiceDirectory();
+    //MusicService musicScreen = new MusicService(mainMenuSong.main_menu);
+    //musicScreen.playMusic();
+    MusicSingleton s = MusicSingleton.getInstance();
+    s.playMusicSingleton("sounds/BackingMusicWithDrums.mp3");
+  }*/
 
   private void loadAssets() {
     logger.debug("Loading assets");

@@ -30,6 +30,7 @@ public class ScoreDisplay extends UIComponent {
     private Label scoreLabel; // Shows the score.
     private Label levelLabel; // Shows the current level.
     int newScore = timeScore;
+    //int newScore = 1;
     int highScore;
     private int level = 0; // The current Level. Levels need to be implemented later in development
                            // when multiple levels are available. For now, it will be 0.
@@ -68,8 +69,6 @@ public class ScoreDisplay extends UIComponent {
         int centreHeight = centreWidth1 - buttonDimensionsHeight/2;
         int height105Percent = (int) Math.round(centreHeight*0.98);
 
-
-        // This button takes us back to the main menu.
         /**
          * Creates the button texture for the Exit Button.
          */
@@ -140,24 +139,29 @@ public class ScoreDisplay extends UIComponent {
         super.dispose();
     }
 
-
-
     /**
      * Reads the high scores recorded in a file
      */
     private void readHighScores() {
+        BufferedReader myScoresReader = null;
         try {
             File scoresReader = new File("High_Scores.txt");
-            BufferedReader myScoresReader = new BufferedReader(new FileReader(scoresReader));
+            myScoresReader = new BufferedReader(new FileReader(scoresReader));
             String str;
             while ((str = myScoresReader.readLine()) != null) {
                 int score = Integer.parseInt(str);
                 highScores.add(score);
             }
             myScoresReader.close();
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             System.err.println("High_Scores.txt is corrupted or missing.");
-
+        }
+        finally {
+            try {
+                myScoresReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -165,20 +169,20 @@ public class ScoreDisplay extends UIComponent {
      * Writes the high score to the text file. Only works for level 0
      */
     private void writeHighScores() {
+        FileWriter scoresWriter = null;
         try {
-            FileWriter scoresWriter = new FileWriter("High_Scores.txt");
+            scoresWriter = new FileWriter("High_Scores.txt");
             scoresWriter.write(String.valueOf(highScore));
-            scoresWriter.close();
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             System.err.println("High_Scores.txt is corrupted or missing.");
         }
-    }
+        finally {
+            try {
+                scoresWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
-    public int getHighScore() {
-        return highScore;
-    }
-
-    public void setNewScore(int input) {
-        newScore = input;
     }
 }
