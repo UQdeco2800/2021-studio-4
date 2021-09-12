@@ -330,7 +330,7 @@ public class LevelGameArea extends GameArea {
   private void spawnLevelFromFile() {
     BufferedReader reader = null;
     try {
-      reader = new BufferedReader(new FileReader("C:\\Users\\brianna\\Documents\\Repositories\\2021-studio-4\\source\\core\\assets\\levels\\level.txt"));
+      reader = new BufferedReader(new FileReader("levels/level.txt"));
 
       String line;
       while ((line = reader.readLine()) != null) {
