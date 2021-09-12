@@ -1,5 +1,6 @@
 package com.deco2800.game.components.npc;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
@@ -74,10 +75,8 @@ public class StatusEffectsController extends Component {
     }
 
     public void remove() {
-        float distance_from_player = getPlayerDistance();
-
-        if (distance_from_player == 0) {
-            entity.dispose();
+        if (getPlayerDistance() < 0.05) {
+            entity.setScale(-0.01f, -0.01f); // Makes it invisible. However still has origin sized collision box
         }
     }
 

@@ -124,7 +124,6 @@ public class NPCFactory {
     return statusEffect;
   }
 
-
   /**
    * Creates a ghost entity.
    *
