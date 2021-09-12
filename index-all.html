@@ -215,6 +215,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/leveleditor/ObstacleToolComponent.Obstacle.html#BRIDGE">BRIDGE</a></span> - com.deco2800.game.leveleditor.<a href="com/deco2800/game/leveleditor/ObstacleToolComponent.Obstacle.html" title="enum in com.deco2800.game.leveleditor">ObstacleToolComponent.Obstacle</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/LevelGameArea.html#buffers">buffers</a></span> - Static variable in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/LevelGameArea.html" title="class in com.deco2800.game.areas">LevelGameArea</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/ObstacleDefinition.html#BUTTON">BUTTON</a></span> - com.deco2800.game.entities.<a href="com/deco2800/game/entities/ObstacleDefinition.html" title="enum in com.deco2800.game.entities">ObstacleDefinition</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/leveleditor/ObstacleToolComponent.Obstacle.html#BUTTON">BUTTON</a></span> - com.deco2800.game.leveleditor.<a href="com/deco2800/game/leveleditor/ObstacleToolComponent.Obstacle.html" title="enum in com.deco2800.game.leveleditor">ObstacleToolComponent.Obstacle</a></dt>
@@ -589,6 +591,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><a href="com/deco2800/game/components/endgame/DeathScreenDisplay.html" title="class in com.deco2800.game.components.endgame"><span class="typeNameLink">DeathScreenDisplay</span></a> - Class in <a href="com/deco2800/game/components/endgame/package-summary.html">com.deco2800.game.components.endgame</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/endgame/DeathScreenDisplay.html#%3Cinit%3E()">DeathScreenDisplay()</a></span> - Constructor for class com.deco2800.game.components.endgame.<a href="com/deco2800/game/components/endgame/DeathScreenDisplay.html" title="class in com.deco2800.game.components.endgame">DeathScreenDisplay</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/LevelGameArea.html#deBuffers">deBuffers</a></span> - Static variable in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/LevelGameArea.html" title="class in com.deco2800.game.areas">LevelGameArea</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/ui/terminal/commands/DebugCommand.html" title="class in com.deco2800.game.ui.terminal.commands"><span class="typeNameLink">DebugCommand</span></a> - Class in <a href="com/deco2800/game/ui/terminal/commands/package-summary.html">com.deco2800.game.ui.terminal.commands</a></dt>
 <dd>
@@ -2057,6 +2061,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/npc/StatusEffectsController.html#remove()">remove()</a></span> - Method in class com.deco2800.game.components.npc.<a href="com/deco2800/game/components/npc/StatusEffectsController.html" title="class in com.deco2800.game.components.npc">StatusEffectsController</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/StatusEffectTasks.html#remove()">remove()</a></span> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/StatusEffectTasks.html" title="class in com.deco2800.game.components.tasks">StatusEffectTasks</a></dt>
+<dd>
+<div class="block">Called to remove the StatusEffect</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/rendering/AnimationRenderComponent.html#removeAnimation(java.lang.String)">removeAnimation(String)</a></span> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/AnimationRenderComponent.html" title="class in com.deco2800.game.rendering">AnimationRenderComponent</a></dt>
 <dd>
 <div class="block">Remove an animation from this animator.</div>
@@ -2563,7 +2571,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">This component is intended to track the status effects that the player has picked up during their run.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/components/npc/StatusEffectsController.html#%3Cinit%3E(com.deco2800.game.entities.Entity)">StatusEffectsController(Entity)</a></span> - Constructor for class com.deco2800.game.components.npc.<a href="com/deco2800/game/components/npc/StatusEffectsController.html" title="class in com.deco2800.game.components.npc">StatusEffectsController</a></dt>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/npc/StatusEffectsController.html#%3Cinit%3E(com.deco2800.game.entities.Entity,java.lang.String)">StatusEffectsController(Entity, String)</a></span> - Constructor for class com.deco2800.game.components.npc.<a href="com/deco2800/game/components/npc/StatusEffectsController.html" title="class in com.deco2800.game.components.npc">StatusEffectsController</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/tasks/StatusEffectTasks.html" title="class in com.deco2800.game.components.tasks"><span class="typeNameLink">StatusEffectTasks</span></a> - Class in <a href="com/deco2800/game/components/tasks/package-summary.html">com.deco2800.game.components.tasks</a></dt>
 <dd>
@@ -2571,6 +2579,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  well as updating the void's sound volume.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/StatusEffectTasks.html#%3Cinit%3E()">StatusEffectTasks()</a></span> - Constructor for class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/StatusEffectTasks.html" title="class in com.deco2800.game.components.tasks">StatusEffectTasks</a></dt>
+<dd>
+<div class="block">Initiliser</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/StatusEffectTasks.html#%3Cinit%3E(com.deco2800.game.entities.Entity)">StatusEffectTasks(Entity)</a></span> - Constructor for class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/StatusEffectTasks.html" title="class in com.deco2800.game.components.tasks">StatusEffectTasks</a></dt>
 <dd>
 <div class="block">Initiliser</div>
 </dd>
@@ -2921,10 +2933,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/MovementTask.html#update()">update()</a></span> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/MovementTask.html" title="class in com.deco2800.game.components.tasks">MovementTask</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/StatusEffectTasks.html#update()">update()</a></span> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/StatusEffectTasks.html" title="class in com.deco2800.game.components.tasks">StatusEffectTasks</a></dt>
-<dd>
-<div class="block">Called to remove the StatusEffect</div>
-</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/TheVoidTasks.html#update()">update()</a></span> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/TheVoidTasks.html" title="class in com.deco2800.game.components.tasks">TheVoidTasks</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/tasks/WaitTask.html#update()">update()</a></span> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/WaitTask.html" title="class in com.deco2800.game.components.tasks">WaitTask</a></dt>
