@@ -8,4 +8,5 @@ public class NPCConfigs {
   public GhostKingConfig ghostKing = new GhostKingConfig();
   public TheVoidConfig theVoid = new TheVoidConfig();
   public GorgonGearConfig gorgonGear = new GorgonGearConfig();
+  public  StatusEffectConfig statusEffect= new StatusEffectConfig();
 }

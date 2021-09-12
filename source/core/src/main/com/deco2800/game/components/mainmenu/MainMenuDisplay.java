@@ -1,14 +1,12 @@
 package com.deco2800.game.components.mainmenu;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -17,19 +15,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.services.*;
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.MusicServiceDirectory;
-import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Text;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
 /**
  * A ui component for displaying the Main menu.
@@ -55,9 +46,14 @@ public class MainMenuDisplay extends UIComponent {
         playTheMusic();
     }
     public void playTheMusic() {
-        MusicServiceDirectory dict = new  MusicServiceDirectory();
-        MusicService musicScreen = new MusicService(dict.main_menu);
-        musicScreen.playMusic();
+            MusicSingleton music = MusicSingleton.getInstance();
+            music.playMusicSingleton("sounds/MainMenuMusic.mp3");
+            /*MusicServiceDirectory dict = new  MusicServiceDirectory();
+            MusicService musicScreen = new MusicService(dict.main_menu);
+            musicScreen.playMusic();*/
+
+
+
     }
 
     /**
@@ -200,7 +196,6 @@ public class MainMenuDisplay extends UIComponent {
          */
         muteBtn.setBounds(centreWidth+width35Percent,centreHeight-height83Percent,
                 buttonDimensionsWidth, buttonDimensionsHeight);
-
 
         /**
          * Creates the button texture for the Leaderboard Button.
