@@ -95,8 +95,8 @@ public class NPCFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
-                            .getAsset("images/Buff_Jump_Boost.atlas", TextureAtlas.class));
-    animator.addAnimation("Jump_Boost", 0.1f, Animation.PlayMode.LOOP);
+                            .getAsset("images/Pick_Ups.atlas", TextureAtlas.class));
+    animator.addAnimation("Debuff_Bomb", 0.1f, Animation.PlayMode.LOOP);
 
 //    AnimationRenderComponent animator =
 //            new AnimationRenderComponent(

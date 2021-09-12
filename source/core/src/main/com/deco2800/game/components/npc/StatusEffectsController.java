@@ -48,7 +48,7 @@ public class StatusEffectsController extends Component {
      * Starts the void's animation
      */
     void animate(){
-        animator.startAnimation("Jump_Boost");
+        animator.startAnimation("Debuff_Bomb");
     }
 
 //    /**
