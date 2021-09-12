@@ -63,7 +63,8 @@ public class LevelGameArea extends GameArea {
           "map-textures/mapTextures_door.png",
           "images/animatedvoid.png",
           "images/void_spritesheet2.png",
-          "images/Pick_Ups.png"
+          "images/Pick_Ups.png",
+          "images/Buff_Jump_Boost.png" // Delete later
 
   };
 
@@ -76,7 +77,8 @@ public class LevelGameArea extends GameArea {
           "images/testingenemy.atlas",
           "map-spritesheets/mapTextures.atlas",
           "images/void.atlas",
-          "images/Pick_Ups.atlas"
+          "images/Pick_Ups.atlas",
+          "images/Buff_Jump_Boost.atlas" // delete later
   };
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
   private static final String[] gameMusic = {gameSong.click, gameSong.game_level_1,gameSong.end_credits,
@@ -134,7 +136,7 @@ public class LevelGameArea extends GameArea {
 
     spawnTheVoid();
 
-    spawnStatusEffect("Jump_Boost"); // To be selected randomly from a list of the effects
+    spawnStatusEffect("Debuff_Speed"); // To be selected randomly from a list of the effects
 
     playTheMusic("game_level_1");
     //playMusic();
@@ -487,7 +489,7 @@ public class LevelGameArea extends GameArea {
   private void spawnStatusEffect(String statusEffectType) {
     Entity statusEffect = NPCFactory.createStatusEffect(player, statusEffectType);
     spawnEntityAt(statusEffect, STATUSEFFECT_SPAWN, true, true);
-    StatusEffectsController statusEffectController = new StatusEffectsController(player);
+//    StatusEffectsController statusEffectController = new StatusEffectsController(player);
 //    float playerDistance = statusEffectController.getPlayerDistance();
 //    if (playerDistance < 0.2) {
 //

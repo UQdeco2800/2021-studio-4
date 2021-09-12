@@ -95,8 +95,8 @@ public class NPCFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
-                            
-                            .getAsset("images/Buff_Jump_Boost.atlas", TextureAtlas.class));
+
+                            .getAsset("images/Pick_Ups.atlas", TextureAtlas.class));
     animator.addAnimation(effect, 0.1f, Animation.PlayMode.LOOP);
 
 //    AnimationRenderComponent animator =
@@ -110,7 +110,7 @@ public class NPCFactory {
     statusEffect
             //.addComponent(new PhysicsMovementComponent())
             .addComponent(new PhysicsComponent())
-            .addComponent(new StatusEffectsController(target))
+            .addComponent(new StatusEffectsController(target, effect))
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC)) // DO we need all of these???????
             .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
@@ -118,7 +118,8 @@ public class NPCFactory {
             .addComponent(aiComponent)
             .addComponent(animator);
 
-    statusEffect.getComponent(AnimationRenderComponent.class).scaleEntity();
+    //statusEffect.getComponent(AnimationRenderComponent.class).scaleEntity(); // Don't understand but throws
+                                                                               // NullPointerException
     statusEffect.setScale(0.5f,0.5f);
     return statusEffect;
   }

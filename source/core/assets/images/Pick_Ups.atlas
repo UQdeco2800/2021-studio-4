@@ -1,9 +1,8 @@
 Pick_Ups.png
 size: 8192, 4096
 format: RGBA8888
-filter: Nearest,Nearest
-repeat:none
-
+filter: Nearest, Nearest
+repeat: none
 Debuff_Bomb
   rotate: false
   xy: 6558, 1702
@@ -935,4 +934,3 @@ Debuff_Stuck
   orig: 313, 313
   offset: 0, 0
   index: 21
-

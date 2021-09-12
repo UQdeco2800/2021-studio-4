@@ -20,11 +20,13 @@ public class StatusEffectsController extends Component {
     private AnimationRenderComponent animator;
     private Body body;
     private Entity player;
+    private String effect;
 
-    public StatusEffectsController(Entity target) {
+    public StatusEffectsController(Entity target, String effect) {
         /** Create a new array list for the status effects. */
         statusEffects = new ArrayList<String>();
         this.player = target;
+        this.effect = effect;
     }
 
     /**
@@ -48,7 +50,7 @@ public class StatusEffectsController extends Component {
      * Starts the void's animation
      */
     void animate(){
-        animator.startAnimation("Debuff_Bomb");
+        animator.startAnimation(effect);
     }
 
 //    /**
