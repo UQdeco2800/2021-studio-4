@@ -1,0 +1,936 @@
+Pick_Ups.png
+size: 8192, 4096
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Debuff_Bomb
+  rotate: false
+  xy: 6558, 1702
+  size: 296, 336
+  orig: 296, 336
+  offset: 0, 0
+  index: 0
+Debuff_Bomb
+  rotate: false
+  xy: 4190, 1702
+  size: 296, 336
+  orig: 296, 336
+  offset: 0, 0
+  index: 1
+Debuff_Bomb
+  rotate: false
+  xy: 1412, 656
+  size: 296, 336
+  orig: 296, 336
+  offset: 0, 0
+  index: 2
+Debuff_Bomb
+  rotate: false
+  xy: 5670, 1702
+  size: 296, 336
+  orig: 296, 336
+  offset: 0, 0
+  index: 3
+Debuff_Bomb
+  rotate: false
+  xy: 3302,1702
+  size: 296, 336
+  orig: 296, 336
+  offset: 0, 0
+  index: 4
+Debuff_Bomb
+  rotate: false
+  xy: 1765, 1349
+  size: 296, 336
+  orig: 296, 336
+  offset: 0, 0
+  index: 5
+Debuff_Bomb
+  rotate: false
+  xy: 5078, 1702
+  size: 296, 336
+  orig: 296, 336
+  offset: 0, 0
+  index: 6
+Debuff_Bomb
+  rotate: false
+  xy: 2710, 1702
+  size: 296, 336
+  orig: 296, 336
+  offset: 0, 0
+  index: 7
+Debuff_Bomb
+  rotate: false
+  xy: 6262, 1702
+  size: 296, 336
+  orig: 296, 336
+  offset: 0, 0
+  index: 8
+Debuff_Bomb
+  rotate: false
+  xy: 3894, 1702
+  size: 296, 336
+  orig: 296, 336
+  offset: 0, 0
+  index: 9
+Debuff_Bomb
+  rotate: false
+  xy: 1059, 290
+  size: 296, 336
+  orig: 296, 336
+  offset: 0, 0
+  index: 10
+Debuff_Bomb
+  rotate: false
+  xy: 5374, 1702
+  size: 296, 336
+  orig: 296, 336
+  offset: 0, 0
+  index: 11
+Debuff_Bomb
+  rotate: false
+  xy: 3006, 1702
+  size: 296, 336
+  orig: 296, 336
+  offset: 0, 0
+  index: 12
+Debuff_Bomb
+  rotate: false
+  xy: 6854, 1702
+  size: 296, 336
+  orig: 296, 336
+  offset: 0, 0
+  index: 13
+Debuff_Bomb
+  rotate: false
+  xy: 4486, 1702
+  size: 296, 336
+  orig: 296, 336
+  offset: 0, 0
+  index: 14
+Debuff_Bomb
+  rotate: false
+  xy: 2414, 1702
+  size: 296, 336
+  orig: 296, 336
+  offset: 0, 0
+  index: 15
+Debuff_Bomb
+  rotate: false
+  xy: 5966, 1702
+  size: 296, 336
+  orig: 296, 336
+  offset: 0, 0
+  index: 16
+Debuff_Bomb
+  rotate: false
+  xy: 3598, 1702
+  size: 296, 336
+  orig: 296, 336
+  offset: 0, 0
+  index: 17
+Debuff_Bomb
+  rotate: false
+  xy: 2118, 1702
+  size: 296, 336
+  orig: 296, 336
+  offset: 0, 0
+  index: 18
+Debuff_Bomb
+  rotate: false
+  xy: 4782, 1702
+  size: 296, 336
+  orig: 296, 336
+  offset: 0, 0
+  index: 19
+Debuff_Bomb
+  rotate: false
+  xy: 1412, 992
+  size: 300, 340
+  orig: 300, 340
+  offset: 0, 0
+  index: 20
+Default
+  rotate: false
+  xy: 1059, 1332
+  size: 353, 353
+  orig: 353, 353
+  offset: 0, 0
+  index: 0
+Buff_Jump
+  rotate: false
+  xy: 6666, 458
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 0
+Buff_Jump
+  rotate: false
+  xy: 4614, 458
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 1
+Buff_Jump
+  rotate: false
+  xy: 2562, 441
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 2
+Buff_Jump
+  rotate: false
+  xy: 5754, 458
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 3
+Buff_Jump
+  rotate: false
+  xy: 3702, 458
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 4
+Buff_Jump
+  rotate: false
+  xy: 7122, 458
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 5
+Buff_Jump
+  rotate: false
+  xy: 5298, 458
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 6
+Buff_Jump
+  rotate: false
+  xy: 3246, 458
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 7
+Buff_Jump
+  rotate: false
+  xy: 6438, 458
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 8
+Buff_Jump
+  rotate: false
+  xy: 4158, 458
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 9
+Buff_Jump
+  rotate: false
+  xy: 2334, 441
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 10
+Buff_Jump
+  rotate: false
+  xy: 5526, 458
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 11
+Buff_Jump
+  rotate: false
+  xy: 3474, 458
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 12
+Buff_Jump
+  rotate: false
+  xy: 6894, 458
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 13
+Buff_Jump
+  rotate: false
+  xy: 4842, 458
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 14
+Buff_Jump
+  rotate: false
+  xy: 2790, 458
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 15
+Buff_Jump
+  rotate: false
+  xy: 5982, 458
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 16
+Buff_Jump
+  rotate: false
+  xy: 3930, 458
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 17
+Buff_Jump
+  rotate: false
+  xy: 2607, 136
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 18
+Buff_Jump
+  rotate: false
+  xy: 5070, 458
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 19
+Buff_Jump
+  rotate: false
+  xy: 3018, 458
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 20
+Buff_Jump
+  rotate: false
+  xy: 6210, 458
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 21
+Buff_Jump
+  rotate: false
+  xy: 4386, 458
+  size: 228, 305
+  orig: 228, 305
+  offset: 0, 0
+  index: 22
+Buff_Time_Stop
+  rotate: false
+  xy: 706, 273
+  size: 353, 353
+  orig: 353, 353
+  offset: 0, 0
+  index: 0
+Buff_Time_Stop
+  rotate: false
+  xy: 353, 626
+  size: 353, 353
+  orig: 353, 353
+  offset: 0, 0
+  index: 1
+Buff_Time_Stop
+  rotate: false
+  xy: 0, 979
+  size: 353, 353
+  orig: 353, 353
+  offset: 0, 0
+  index: 2
+Buff_Time_Stop
+  rotate: false
+  xy: 1059,979
+  size: 353, 353
+  orig: 353, 353
+  offset: 0, 0
+  index: 3
+Buff_Time_Stop
+  rotate: false
+  xy: 706, 1332
+  size: 353, 353
+  orig: 353, 353
+  offset: 0, 0
+  index: 4
+Buff_Time_Stop
+  rotate: false
+  xy: 0, 1685
+  size: 353, 353
+  orig: 353, 353
+  offset: 0, 0
+  index: 5
+Buff_Time_Stop
+  rotate: false
+  xy: 353, 273
+  size: 353, 353
+  orig: 353, 353
+  offset: 0, 0
+  index: 6
+Buff_Time_Stop
+  rotate: false
+  xy: 0, 626
+  size: 353, 353
+  orig: 353, 353
+  offset: 0, 0
+  index: 7
+Buff_Time_Stop
+  rotate: false
+  xy: 1765, 1685
+  size: 353, 353
+  orig: 353, 353
+  offset: 0, 0
+  index: 8
+Buff_Time_Stop
+  rotate: false
+  xy: 0, 273
+  size: 353, 353
+  orig: 353, 353
+  offset: 0, 0
+  index: 9
+Buff_Time_Stop
+  rotate: false
+  xy: 353, 1685
+  size: 353, 353
+  orig: 353, 353
+  offset: 0, 0
+  index: 10
+Buff_Time_Stop
+  rotate: false
+  xy: 706, 626
+  size: 353, 353
+  orig: 353, 353
+  offset: 0, 0
+  index: 11
+Buff_Time_Stop
+  rotate: false
+  xy: 353, 979
+  size: 353, 353
+  orig: 353, 353
+  offset: 0, 0
+  index: 12
+Buff_Time_Stop
+  rotate: false
+  xy: 1059, 626
+  size: 353, 353
+  orig: 353, 353
+  offset: 0, 0
+  index: 13
+Buff_Time_Stop
+  rotate: false
+  xy: 706, 979
+  size: 353, 353
+  orig: 353, 353
+  offset: 0, 0
+  index: 14
+Buff_Time_Stop
+  rotate: false
+  xy: 353, 1332
+  size: 353, 353
+  orig: 353, 353
+  offset: 0, 0
+  index: 15
+Buff_Time_Stop
+  rotate: false
+  xy: 1412, 1332
+  size: 353, 353
+  orig: 353, 353
+  offset: 0, 0
+  index: 16
+Buff_Time_Stop
+  rotate: false
+  xy: 1059, 1685
+  size: 353, 353
+  orig: 353, 353
+  offset: 0, 0
+  index: 17
+Buff_Time_Stop
+  rotate: false
+  xy: 0, 1332
+  size: 353, 353
+  orig: 353, 353
+  offset: 0, 0
+  index: 18
+Buff_Time_Stop
+  rotate: false
+  xy: 1412, 1685
+  size: 353, 353
+  orig: 353, 353
+  offset: 0, 0
+  index: 19
+Buff_Time_Stop
+  rotate: false
+  xy: 706, 1685
+  size: 353, 353
+  orig: 353, 353
+  offset: 0, 0
+  index: 20
+Buff_Speed
+  rotate: false
+  xy: 5504, 1389
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 0
+Buff_Speed
+  rotate: false
+  xy: 3590, 763
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 1
+Buff_Speed
+  rotate: false
+  xy: 2021, 393
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 2
+Buff_Speed
+  rotate: false
+  xy: 2374, 1389
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 3
+Buff_Speed
+  rotate: false
+  xy: 5504, 1076
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 4
+Buff_Speed
+  rotate: false
+  xy: 7069, 1389
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 5
+Buff_Speed
+  rotate: false
+  xy: 5781, 763
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 6
+Buff_Speed
+  rotate: false
+  xy: 3000, 1076
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 7
+Buff_Speed
+  rotate: false
+  xy: 4565, 1389
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 8
+Buff_Speed
+  rotate: false
+  xy: 2025, 746
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 9
+Buff_Speed
+  rotate: false
+  xy: 1708, 393
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 10
+Buff_Speed
+  rotate: false
+  xy: 7033, 763
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 11
+Buff_Speed
+  rotate: false
+  xy: 3939, 1076
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 12
+Buff_Speed
+  rotate: false
+  xy: 6130, 1389
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 13
+Buff_Speed
+  rotate: false
+  xy: 4216, 763
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 14
+Buff_Speed
+  rotate: false
+  xy: 7382, 1099
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 15
+Buff_Speed
+  rotate: false
+  xy: 3000, 1389
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 16
+Buff_Speed
+  rotate: false
+  xy: 6130, 1076
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 17
+Buff_Speed
+  rotate: false
+  xy: 7695, 1412
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 18
+Buff_Speed
+  rotate: false
+  xy: 5155, 763
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 19
+Buff_Speed
+  rotate: false
+  xy: 2374, 1076
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 20
+Buff_Speed
+  rotate: false
+  xy: 3939, 1389
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 21
+Buff_Speed
+  rotate: false
+  xy: 2338, 746
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 22
+Debuff_Speed
+  rotate: false
+  xy: 6443, 1076
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 0
+Debuff_Speed
+  rotate: false
+  xy: 1355, 313
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 1
+Debuff_Speed
+  rotate: false
+  xy: 5468, 763
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 2
+Debuff_Speed
+  rotate: false
+  xy: 2687, 1076
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 3
+Debuff_Speed
+  rotate: false
+  xy: 4252, 1389
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 4
+Debuff_Speed
+  rotate: false
+  xy: 2651, 763
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 5
+Debuff_Speed
+  rotate: false
+  xy: 1355, 0
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 6
+Debuff_Speed
+  rotate: false
+  xy: 7463, 1725
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 7
+Debuff_Speed
+  rotate: false
+  xy: 4565, 1076
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 8
+Debuff_Speed
+  rotate: false
+  xy: 5817, 1389
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 9
+Debuff_Speed
+  rotate: false
+  xy: 3903, 763
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 10
+Debuff_Speed
+  rotate: false
+  xy: 2294, 80
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 11
+Debuff_Speed
+  rotate: false
+  xy: 2687, 1389
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 12
+Debuff_Speed
+  rotate: false
+  xy: 5817, 1076
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 13
+Debuff_Speed
+  rotate: false
+  xy: 7382, 1412
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 14
+Debuff_Speed
+  rotate: false
+  xy: 6094, 763
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 15
+Debuff_Speed
+  rotate: false
+  xy: 3313, 1076
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 16
+Debuff_Speed
+  rotate: false
+  xy: 4878, 1389
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 17
+Debuff_Speed
+  rotate: false
+  xy: 2964, 763
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 18
+Debuff_Speed
+  rotate: false
+  xy: 1668, 80
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 19
+Debuff_Speed
+  rotate: false
+  xy: 7150, 1725
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 20
+Debuff_Speed
+  rotate: false
+  xy: 4252, 1076
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 21
+Debuff_Stuck
+  rotate: false
+  xy: 7778, 1725
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 0
+Debuff_Stuck
+  rotate: false
+  xy: 4878, 1076
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 1
+Debuff_Stuck
+  rotate: false
+  xy: 6443, 1389
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 2
+Debuff_Stuck
+  rotate: false
+  xy: 4529, 763
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 3
+Debuff_Stuck
+  rotate: false
+  xy: 7695, 1099
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 4
+Debuff_Stuck
+  rotate: false
+  xy: 3313, 1389
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 5
+Debuff_Stuck
+  rotate: false
+  xy: 7069, 1076
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 6
+Debuff_Stuck
+  rotate: false
+  xy: 1712, 706
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 7
+Debuff_Stuck
+  rotate: false
+  xy: 6720, 763
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 8
+Debuff_Stuck
+  rotate: false
+  xy: 3626, 1076
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 9
+Debuff_Stuck
+  rotate: false
+  xy: 5191, 1389
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 10
+Debuff_Stuck
+  rotate: false
+  xy: 3277, 763
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 11
+Debuff_Stuck
+  rotate: false
+  xy: 1981, 80
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 12
+Debuff_Stuck
+  rotate: false
+  xy: 2061, 1372
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 13
+Debuff_Stuck
+  rotate: false
+  xy: 5191, 1076
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 14
+Debuff_Stuck
+  rotate: false
+  xy: 6756, 1389
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 15
+Debuff_Stuck
+  rotate: false
+  xy: 4842, 763
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 16
+Debuff_Stuck
+  rotate: false
+  xy: 2061, 1059
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 17
+Debuff_Stuck
+  rotate: false
+  xy: 3626, 1389
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 18
+Debuff_Stuck
+  rotate: false
+  xy: 6756, 1076
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 19
+Debuff_Stuck
+  rotate: false
+  xy: 1712, 1019
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 20
+Debuff_Stuck
+  rotate: false
+  xy: 6407, 763
+  size: 313, 313
+  orig: 313, 313
+  offset: 0, 0
+  index: 21

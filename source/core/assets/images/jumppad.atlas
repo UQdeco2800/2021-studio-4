@@ -1,53 +1,180 @@
 jumppad.png
-size:4096,512
+size: 4096,512
+format: RGBA8888
+filter: Nearest,Nearest
 repeat:none
-boing0001
-bounds:419,0,419,135
-boing0002
-bounds:2514,0,419,135
-boing0003
-bounds:1257,0,419,135
-boing0004
-bounds:419,270,419,135
-boing0005
-bounds:2514,270,419,135
-boing0006
-bounds:1257,270,419,135
-boing0007
-bounds:3352,270,419,135
-boing0008
-bounds:1676,0,419,135
-boing0009
-bounds:419,135,419,135
-boing0010
-bounds:2514,135,419,135
-boing0011
-bounds:1257,135,419,135
-boing0012
-bounds:0,270,419,135
-boing0013
-bounds:2095,135,419,135
-boing0014
-bounds:838,135,419,135
-boing0015
-bounds:2933,135,419,135
-boing0016
-bounds:1676,135,419,135
-boing0017
-bounds:0,0,419,135
-boing0018
-bounds:2095,0,419,135
-boing0019
-bounds:838,0,419,135
-boing0020
-bounds:2933,0,419,135
-boing0021
-bounds:2095,270,419,135
-boing0022
-bounds:838,270,419,135
-boing0023
-bounds:2933,270,419,135
-boing0024
-bounds:1676,270,419,135
-boing0025
-bounds:0,135,419,135
+Jump_Pad
+  rotate: false
+  xy: 419, 0
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 1
+Jump_Pad
+  rotate: false
+  xy: 2514, 0
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 2
+Jump_Pad
+  rotate: false
+  xy: 1257, 0
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 3
+Jump_Pad
+  rotate: false
+  xy: 419, 270
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 4
+Jump_Pad
+  rotate: false
+  xy: 2514, 270
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 5
+Jump_Pad
+  rotate: false
+  xy: 1257, 270
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 6
+Jump_Pad
+  rotate: false
+  xy: 3352, 270
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 7
+Jump_Pad
+  rotate: false
+  xy: 1676, 0
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 8
+Jump_Pad
+  rotate: false
+  xy: 419, 135
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 9
+Jump_Pad
+  rotate: false
+  xy: 2514, 135
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 10
+Jump_Pad
+  rotate: false
+  xy: 1257, 135
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 11
+Jump_Pad
+  rotate: false
+  xy: 0, 270
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 12
+Jump_Pad
+  rotate: false
+  xy: 2095, 135
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 13
+Jump_Pad
+  rotate: false
+  xy: 838, 135
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 14
+Jump_Pad
+  rotate: false
+  xy: 2933, 135
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 15
+Jump_Pad
+  rotate: false
+  xy: 1676, 135
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 16
+Jump_Pad
+  rotate: false
+  xy: 0, 0
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 17
+Jump_Pad
+  rotate: false
+  xy: 2095, 0
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 18
+Jump_Pad
+  rotate: false
+  xy: 838, 0
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 19
+Jump_Pad
+  rotate: false
+  xy: 2933, 0
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 20
+Jump_Pad
+  rotate: false
+  xy: 2095, 270
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 21
+Jump_Pad
+  rotate: false
+  xy: 838, 270
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 22
+Jump_Pad
+  rotate: false
+  xy: 2933, 270
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 23
+Jump_Pad
+  rotate: false
+  xy: 1676, 270
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 24
+Jump_Pad
+  rotate: false
+  xy: 0, 135
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 25

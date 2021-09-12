@@ -3,15 +3,19 @@ package com.deco2800.game.components;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.ObstacleDefinition;
+import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class PlayerMovementComponent extends Component {
     private short targetLayer;
-    private Map<Integer, Integer> mapInteractables;
+    private Map<ObstacleEntity, ObstacleEntity> mapInteractables;
     private HitboxComponent hitboxComponent;
 
     /**
@@ -22,7 +26,7 @@ public class PlayerMovementComponent extends Component {
         this.targetLayer = targetLayer;
     }
 
-    public PlayerMovementComponent(short targetLayer, Map<Integer, Integer> mapInteractables) {
+    public PlayerMovementComponent(short targetLayer, Map<ObstacleEntity, ObstacleEntity> mapInteractables) {
         this.targetLayer = targetLayer;
         this.mapInteractables = mapInteractables;
     }
@@ -75,13 +79,17 @@ public class PlayerMovementComponent extends Component {
                 playerActions.jumpPad();
             }
 
-            if (interactableComponent != null && subComponent == null && !mapInteractables.isEmpty()) {
-                Integer id = target.getId();
-                Integer mappedID = mapInteractables.get(id);
+            if (interactableComponent != null && !mapInteractables.isEmpty()) {
+                ObstacleEntity mapped = mapInteractables.get(target);
+                ColliderComponent colliderComponent = mapped.getComponent(ColliderComponent.class);
 
-                if (mappedID != null) {
-                    // Desired affect on mapped bridge/door
-                    // Going to need access to list of map entities somehow
+                if (mapped != null && mapped.getDefinition() == ObstacleDefinition.DOOR) {
+                    // Desired affect on mapped door - disappears
+                    colliderComponent.dispose();
+                } else if (mapped != null && mapped.getDefinition() == ObstacleDefinition.BRIDGE) {
+                    // Desired affect on mapped bridge - appears
+                    // may need to create bridges without a collider component at the beginning
+                    colliderComponent.create();
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.deco2800.game.components.npc;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
@@ -20,11 +21,13 @@ public class StatusEffectsController extends Component {
     private AnimationRenderComponent animator;
     private Body body;
     private Entity player;
+    private String effect;
 
-    public StatusEffectsController(Entity target) {
+    public StatusEffectsController(Entity target, String effect) {
         /** Create a new array list for the status effects. */
         statusEffects = new ArrayList<String>();
         this.player = target;
+        this.effect = effect;
     }
 
     /**
@@ -48,7 +51,7 @@ public class StatusEffectsController extends Component {
      * Starts the void's animation
      */
     void animate(){
-        animator.startAnimation("Jump_Boost");
+        animator.startAnimation(effect);
     }
 
 //    /**
@@ -72,10 +75,8 @@ public class StatusEffectsController extends Component {
     }
 
     public void remove() {
-        float distance_from_player = getPlayerDistance();
-
-        if (distance_from_player == 0) {
-            entity.dispose();
+        if (getPlayerDistance() < 0.05) {
+            entity.setScale(-0.01f, -0.01f); // Makes it invisible. However still has origin sized collision box
         }
     }
 

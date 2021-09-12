@@ -7,6 +7,7 @@ import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.components.npc.StatusEffectsController;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.input.InputComponent;
@@ -18,6 +19,7 @@ import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,7 +36,7 @@ public class PlayerFactory {
    * Create a player entity.
    * @return entity
    */
-  public static Entity createPlayer(Map<Integer, Integer> mapInteractables) {
+  public static Entity createPlayer(Map<ObstacleEntity, ObstacleEntity> mapInteractables) {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForPlayer();
 
