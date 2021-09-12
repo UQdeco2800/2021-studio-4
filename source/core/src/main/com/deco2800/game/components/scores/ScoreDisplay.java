@@ -30,6 +30,7 @@ public class ScoreDisplay extends UIComponent {
     private Label scoreLabel; // Shows the score.
     private Label levelLabel; // Shows the current level.
     int newScore = timeScore;
+    //int newScore = 1;
     int highScore;
     private int level = 0; // The current Level. Levels need to be implemented later in development
                            // when multiple levels are available. For now, it will be 0.
@@ -68,8 +69,6 @@ public class ScoreDisplay extends UIComponent {
         int centreHeight = centreWidth1 - buttonDimensionsHeight/2;
         int height105Percent = (int) Math.round(centreHeight*0.98);
 
-
-        // This button takes us back to the main menu.
         /**
          * Creates the button texture for the Exit Button.
          */
@@ -140,8 +139,6 @@ public class ScoreDisplay extends UIComponent {
         super.dispose();
     }
 
-
-
     /**
      * Reads the high scores recorded in a file
      */
@@ -187,13 +184,5 @@ public class ScoreDisplay extends UIComponent {
             }
         }
 
-    }
-
-    public int getHighScore() {
-        return highScore;
-    }
-
-    public void setNewScore(int input) {
-        newScore = input;
     }
 }

@@ -1,5 +1,7 @@
 package com.deco2800.game.entities.factories;
 
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -7,13 +9,16 @@ import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.npc.GhostAnimationController;
 import com.deco2800.game.components.TouchAttackComponent;
+import com.deco2800.game.components.npc.StatusEffectsController;
 import com.deco2800.game.components.npc.TheVoidController;
 import com.deco2800.game.components.tasks.ChaseTask;
+import com.deco2800.game.components.tasks.StatusEffectTasks;
 import com.deco2800.game.components.tasks.TheVoidTasks;
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
 import com.deco2800.game.files.FileLoader;
+import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
@@ -21,6 +26,7 @@ import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
+import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
 /**
@@ -57,8 +63,6 @@ public class NPCFactory {
     Entity theVoid = new Entity();
     TheVoidConfig config = configs.theVoid;
 
-
-
     theVoid
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new PhysicsComponent())
@@ -69,13 +73,55 @@ public class NPCFactory {
             .addComponent(aiComponent)
             .addComponent(animator);
 
-
-
     theVoid.getComponent(AnimationRenderComponent.class).scaleEntity();
     theVoid.setScale(20f,22);
     return theVoid;
 
   }
+
+  /**
+   * Creates a statusEffect (PowerUp) entity.
+   *
+   * @param target entity to calculate distance from
+   * @return entity
+   */
+  public static Entity createStatusEffect(Entity target, String effect) {
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new StatusEffectTasks());
+
+    // Will create switch statement on effect to determine which image to use based on effect variable/string.
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/Buff_Jump_Boost.atlas", TextureAtlas.class));
+    animator.addAnimation("Jump_Boost", 0.1f, Animation.PlayMode.LOOP);
+
+//    AnimationRenderComponent animator =
+//            new AnimationRenderComponent(
+//                    ServiceLocator.getResourceService().getAsset("images/testingenemy.atlas", TextureAtlas.class));
+//    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
+
+    Entity statusEffect = new Entity();
+    StatusEffectConfig config = configs.statusEffect;
+
+    statusEffect
+            //.addComponent(new PhysicsMovementComponent())
+            .addComponent(new PhysicsComponent())
+            .addComponent(new StatusEffectsController(target))
+            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC)) // DO we need all of these???????
+            .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(new ColliderComponent())
+            .addComponent(aiComponent)
+            .addComponent(animator);
+
+    statusEffect.getComponent(AnimationRenderComponent.class).scaleEntity();
+    statusEffect.setScale(1f,0.5f);
+    return statusEffect;
+  }
+
 
   /**
    * Creates a ghost entity.
