@@ -15,13 +15,10 @@ import com.sun.security.jgss.GSSUtil;
  * and when triggered should call methods within this class.
  */
 
-//enums in here, get and set for enum and call set in Keyboard
-  //conponent and in set trigger animation
-
 
 public class PlayerActions extends Component {
 
-
+//enum consisting of the possible movement of the player
   private enum Movement {
     Running,
     Idle,
@@ -29,6 +26,7 @@ public class PlayerActions extends Component {
     Sliding,
     Jumping
   }
+  //direction the player is moving
   private enum MovingDirection {
     Left,
     Right
@@ -94,15 +92,27 @@ public class PlayerActions extends Component {
   }
 
   /**
+   * Sets the animation of the player to the powerUp entered as the parameter value.
+   * Default will set the player back to its original animation. The String value is
+   * case sensitive and should begin with a capital letter. This should be called when
+   * a player hits a powerUp and when their powerUp runs out.
    *
    * @param value the string name of the power up animation, these are the options:
-   *              Default, SpeedUp, SpeedDown, JumpBoost
+   *              Default, SpeedUp, SpeedDown, JumpBoost, Stuck, TimeStop, VisionImpaired
    */
   private void setPowerUpAnimation(String value){
     currentPowerUp = value;
-    animator.startAnimation(getAnimation());
+    //animator.startAnimation(getAnimation());
   }
 
+  /**
+   * Sets the movementAnimation of the player to the animation corresponding
+   * to the parameter value. The String value is case sensitive and should begin
+   * with a capital letter.
+   *
+   * @param value the movement the player is doing one of the following:
+   *              Running, Idle, Falling, Jumping, Sliding
+   */
   private void setMovementAnimation(Movement value){
     if(!(previousAnimation.equals(getAnimation())) || value != currentMovement){
       currentMovement = value;
@@ -111,14 +121,29 @@ public class PlayerActions extends Component {
     }
   }
 
+  /**
+   * Sets the movingDirection of the player to either Left or Right
+   *
+   * @param value enum value Left or Right
+   */
   private void setMovingDirection(MovingDirection value){
     movingDirection = value;
   }
 
+  /**
+   * Returns a string that represents the current state of the player, this
+   * includes the movement they are doing, the direction they are moving/looking
+   * and the current power up they have
+   *
+   * @returns String containing currentMovement + movingDirection + powerUp
+   */
   private String getAnimation(){
     return currentMovement.toString() + movingDirection.toString() + currentPowerUp;
   }
 
+  /**
+   * sets the players animation to falling
+   */
   private void setIsFalling(){
     canJump = false;
     setMovementAnimation(Movement.Falling);
@@ -128,6 +153,10 @@ public class PlayerActions extends Component {
     setMovementAnimation(Movement.Jumping);
   }
 
+  /**
+   * This checks if the animation of the player is set to falling when it should not
+   * be and sets the player to the correct animation
+   */
   private void checkIfFallingIsDone(){
     if(currentMovement == Movement.Falling | currentMovement == Movement.Jumping){
       if(canJump){
@@ -140,10 +169,16 @@ public class PlayerActions extends Component {
     }
   }
 
+  /**
+   * Increments the variable storing number of keys being pressed
+   */
   private void keyWasPressed(){
     keysPressed++;
   }
 
+  /**
+   * Decrements the variable storing number of keys being pressed
+   */
   private void keyWasReleased(){
     keysPressed--;
   }
