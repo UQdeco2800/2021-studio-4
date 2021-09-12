@@ -95,6 +95,7 @@ public class NPCFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
+                            
                             .getAsset("images/Buff_Jump_Boost.atlas", TextureAtlas.class));
     animator.addAnimation(effect, 0.1f, Animation.PlayMode.LOOP);
 
