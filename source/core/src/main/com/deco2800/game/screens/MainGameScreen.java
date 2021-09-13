@@ -46,6 +46,7 @@ public class MainGameScreen extends ScreenAdapter {
 
   private final long timeStarted = System.currentTimeMillis();
   public static int timeScore = 0;
+  private static boolean levelComplete = false;
 
   public MainGameScreen(GdxGame game) {
     this.game = game;
@@ -80,6 +81,10 @@ public class MainGameScreen extends ScreenAdapter {
 
   }
 
+  public static void setLevelComplete() {
+    levelComplete = true;
+  }
+
   @Override
   public void render(float delta) {
     physicsEngine.update();
@@ -89,6 +94,11 @@ public class MainGameScreen extends ScreenAdapter {
       gameOver = false;
       logger.info("Show Death Screen");
       game.setScreen(GdxGame.ScreenType.DEATH_SCREEN);
+    }
+    if (levelComplete)   {
+      levelComplete = false;
+      logger.info("Level completed");
+      game.setScreen(GdxGame.ScreenType.MAIN_MENU);
     }
     timeScore = (int) ((System.currentTimeMillis() - timeStarted) / 1000);
   }

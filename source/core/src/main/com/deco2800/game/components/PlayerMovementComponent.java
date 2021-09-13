@@ -1,6 +1,7 @@
 package com.deco2800.game.components;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.deco2800.game.components.endgame.LevelEndComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.BodyUserData;
@@ -8,6 +9,7 @@ import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.JumpableComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.screens.MainGameScreen;
 
 public class PlayerMovementComponent extends Component {
     private short targetLayer;
@@ -51,12 +53,16 @@ public class PlayerMovementComponent extends Component {
         //Get the relevant components from the target entity
         PhysicsComponent physicsComponent = target.getComponent(PhysicsComponent.class); // probably don't need this
         JumpableComponent jumpableComponent = target.getComponent(JumpableComponent.class);
+        LevelEndComponent levelEndComponent = target.getComponent(LevelEndComponent.class);
 
         PlayerActions playerActions = player.getComponent(PlayerActions.class);
 
         if (physicsComponent != null && jumpableComponent != null) {
             //System.out.println("on ground"); // Test print
             playerActions.togglePlayerJumping();
+        }
+        if (levelEndComponent != null) {
+            MainGameScreen.setLevelComplete();
         }
 
         // && jumpableComponent != null ---> allows for easier implementation with other map elements

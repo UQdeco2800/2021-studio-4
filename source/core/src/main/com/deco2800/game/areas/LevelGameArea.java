@@ -249,6 +249,18 @@ public class LevelGameArea extends GameArea {
     door.setTilePosition(position);
   }
 
+  public void spawnLevelEndPortal(int posX, int posY, int width) {
+    spawnLevelEndPortal(posX, posY, width, false, true);
+  }
+
+  public void spawnLevelEndPortal(int posX, int posY, int width, boolean centerX, boolean centerY) {
+    ObstacleEntity levelEndPortal = (ObstacleEntity) ObstacleFactory.createLevelEndPortal(width);
+    GridPoint2 position = new GridPoint2(posX,posY);
+    spawnEntityAt(levelEndPortal, position, centerX, centerY);
+    obstacleEntities.add(levelEndPortal);
+    levelEndPortal.setTilePosition(position);
+  }
+
   public void saveAll(){
     FileWriter writer = null;
     try {
@@ -348,6 +360,8 @@ public class LevelGameArea extends GameArea {
       case BUTTON:
         spawnButton(x, y, false, false);
         break;
+      case LEVEL_END_PORTAL:
+        spawnLevelEndPortal(x,y,size,false,false);
     }
   }
 

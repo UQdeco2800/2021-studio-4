@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.deco2800.game.components.endgame.LevelEndComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleDefinition;
 import com.deco2800.game.entities.ObstacleEntity;
@@ -183,6 +184,28 @@ public class ObstacleFactory {
     door.scaleHeight(0.5f);
     PhysicsUtils.setScaledCollider(door, 1f, 1f);
     return door;
+  }
+
+  public static Entity createLevelEndPortal(int width) {
+    TextureAtlas atlas = ServiceLocator.getResourceService()
+      .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
+
+    Texture levelEndPortalTexture = expandTexture(atlas.findRegion("mapTextures_Platforms"), width, 1);
+
+    ObstacleEntity levelEndPortal =
+      new ObstacleEntity(ObstacleDefinition.LEVEL_END_PORTAL,width)
+        .addComponent(new TextureRenderComponent(levelEndPortalTexture))
+        .addComponent(new PhysicsComponent())
+        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
+        .addComponent(new JumpableComponent())
+        .addComponent(new LevelEndComponent()); // indicates end of level reached
+
+    levelEndPortal.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    levelEndPortal.getComponent(TextureRenderComponent.class).scaleEntity();
+    levelEndPortal.scaleHeight(0.5f);
+    PhysicsUtils.setScaledCollider(levelEndPortal, 1f, 1f);
+    return levelEndPortal;
   }
 
   private ObstacleFactory() {
