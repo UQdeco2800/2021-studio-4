@@ -40,7 +40,7 @@ public class LevelGameArea extends GameArea {
   public static ArrayList<String> buffers = new ArrayList<>();
   public static ArrayList<String> deBuffers = new ArrayList<>();
 
-  public Map<Integer, Integer> mapInteractables = new HashMap<Integer, Integer>();
+  public Map<ObstacleEntity, ObstacleEntity> mapInteractables = new HashMap<>();
 
   private static final String[] gameTextures = {
 
@@ -70,7 +70,10 @@ public class LevelGameArea extends GameArea {
           "images/animatedvoid.png",
           "images/void_spritesheet2.png",
           "images/Pick_Ups.png",
-          "images/Buff_Jump_Boost.png" // Delete later
+          "images/portal-door.png",
+          "images/jumppad.png",
+          "images/button.png"
+
 
   };
 
@@ -79,12 +82,14 @@ public class LevelGameArea extends GameArea {
           "images/terrain_iso_grass.atlas",
           "images/ghost.atlas",
           "images/ghostKing.atlas",
-          "images/the_void.atlas",
           "images/testingenemy.atlas",
           "map-spritesheets/mapTextures.atlas",
           "images/void.atlas",
+          "images/player.atlas",
           "images/Pick_Ups.atlas",
-          "images/Buff_Jump_Boost.atlas" // delete later
+          "images/portal-door.atlas",
+          "images/jumppad.atlas",
+          "images/button.atlas"
   };
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
   private static final String[] gameMusic = {gameSong.click, gameSong.game_level_1,gameSong.end_credits,
@@ -136,7 +141,6 @@ public class LevelGameArea extends GameArea {
 
     //spawnTrees();
     //spawnLevel();
-    //mapInteractables();         // may need here
     player = spawnPlayer();
     //spawnGhosts();
     //spawnGhostKing();
@@ -166,11 +170,12 @@ public class LevelGameArea extends GameArea {
     int indexNum = random.nextInt(3);
     return buffers.get(indexNum);
   }
-
+  
   private String getDeBuff() {
     Random random = new Random();
     int indexNum = random.nextInt(3);
     return deBuffers.get(indexNum);
+    //mapInteractables();         // may need here
   }
 
   private void displayUI() {
@@ -292,7 +297,7 @@ public class LevelGameArea extends GameArea {
         InteractableComponent interactable = obstacle.getComponent(InteractableComponent.class); // button
         SubInteractableComponent subInteractable = obstacle.getComponent(SubInteractableComponent.class); //door or bridge
 
-        if (interactable != null && subInteractable != null) { // if bridge or door
+        if (subInteractable != null) { // if bridge or door
           subInteractables.add(obstacle);
         } else if (interactable != null) { //if button
           buttons.add(obstacle);
@@ -300,8 +305,10 @@ public class LevelGameArea extends GameArea {
       }
 
       // map earliest button with earliest door/bridge, continue for all buttons
-      for (int j = 0; j < buttons.size(); j++) {
-        mapInteractables.put(buttons.get(j).getId(), subInteractables.get(j).getId());
+      if (buttons.size() > 0 && subInteractables.size() > 0) {
+        for (int j = 0; j < buttons.size(); j++) {
+          mapInteractables.put(buttons.get(j), subInteractables.get(j));
+        }
       }
   }
 

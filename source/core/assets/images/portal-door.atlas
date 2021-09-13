@@ -1,203 +1,712 @@
 portal-door.png
-size:8192,8192
+size: 8192,8192
+format: RGBA8888
+filter: Nearest,Nearest
 repeat:none
-Symbol 30001
-bounds:3105,4960,345,992
-Symbol 30002
-bounds:2070,6944,345,992
-Symbol 30003
-bounds:3795,3968,345,992
-Symbol 30004
-bounds:2760,5952,345,992
-Symbol 30005
-bounds:690,4960,345,992
-Symbol 30006
-bounds:3450,4960,345,992
-Symbol 30007
-bounds:345,0,345,992
-Symbol 30008
-bounds:4830,5952,345,992
-Symbol 30009
-bounds:3450,6944,345,992
-Symbol 30010
-bounds:1725,6944,345,992
-Symbol 30011
-bounds:3795,4960,345,992
-Symbol 30012
-bounds:2760,6944,345,992
-Symbol 30013
-bounds:690,6944,345,992
-Symbol 30014
-bounds:3450,5952,345,992
-Symbol 30015
-bounds:0,0,345,992
-Symbol 30016
-bounds:4140,4960,345,992
-Symbol 30017
-bounds:3105,6944,345,992
-Symbol 30018
-bounds:1380,6944,345,992
-Symbol 30019
-bounds:4140,6944,345,992
-Symbol 30020
-bounds:2415,6944,345,992
-Symbol 30021
-bounds:4485,4960,345,992
-Symbol 30022
-bounds:3105,5952,345,992
-Symbol 30023
-bounds:0,992,345,992
-Symbol 30024
-bounds:4140,5952,345,992
-Symbol 30025
-bounds:690,0,345,992
-Symbol 30026
-bounds:0,3968,345,992
-Symbol 30027
-bounds:1725,0,345,992
-Symbol 30028
-bounds:690,1984,345,992
-Symbol 30029
-bounds:4830,6944,345,992
-Symbol 30030
-bounds:1035,0,345,992
-Symbol 30031
-bounds:1035,5952,345,992
-Symbol 30032
-bounds:3795,5952,345,992
-Symbol 30033
-bounds:690,992,345,992
-Symbol 30034
-bounds:5175,6944,345,992
-Symbol 30035
-bounds:1380,0,345,992
-Symbol 30036
-bounds:345,1984,345,992
-Symbol 30037
-bounds:2415,0,345,992
-Symbol 30038
-bounds:1035,992,345,992
-Symbol 30039
-bounds:345,4960,345,992
-Symbol 30040
-bounds:3795,6944,345,992
-Symbol 30041
-bounds:345,992,345,992
-Symbol 30042
-bounds:4485,5952,345,992
-Symbol 30043
-bounds:1380,992,345,992
-Symbol 30044
-bounds:0,1984,345,992
-Symbol 30045
-bounds:2070,0,345,992
-Symbol 30046
-bounds:1035,1984,345,992
-Symbol 30047
-bounds:0,6944,345,992
-Symbol 30048
-bounds:2070,1984,345,992
-Symbol 30049
-bounds:1035,3968,345,992
-Symbol 30050
-bounds:4485,6944,345,992
-Symbol 30051
-bounds:1380,1984,345,992
-Symbol 30052
-bounds:690,5952,345,992
-Symbol 30053
-bounds:2070,992,345,992
-Symbol 30054
-bounds:1035,2976,345,992
-Symbol 30055
-bounds:2760,0,345,992
-Symbol 30056
-bounds:1725,1984,345,992
-Symbol 30057
-bounds:345,2976,345,992
-Symbol 30058
-bounds:2415,992,345,992
-Symbol 30059
-bounds:1725,3968,345,992
-Symbol 30060
-bounds:0,5952,345,992
-Symbol 30061
-bounds:1725,992,345,992
-Symbol 30062
-bounds:690,2976,345,992
-Symbol 30063
-bounds:2760,992,345,992
-Symbol 30064
-bounds:1725,2976,345,992
-Symbol 30065
-bounds:1035,6944,345,992
-Symbol 30066
-bounds:2415,1984,345,992
-Symbol 30067
-bounds:1380,3968,345,992
-Symbol 30068
-bounds:3105,992,345,992
-Symbol 30069
-bounds:2070,2976,345,992
-Symbol 30070
-bounds:690,3968,345,992
-Symbol 30071
-bounds:2760,1984,345,992
-Symbol 30072
-bounds:1380,2976,345,992
-Symbol 30073
-bounds:345,6944,345,992
-Symbol 30074
-bounds:2415,2976,345,992
-Symbol 30075
-bounds:1380,4960,345,992
-Symbol 30076
-bounds:3105,1984,345,992
-Symbol 30077
-bounds:2070,3968,345,992
-Symbol 30078
-bounds:0,2976,345,992
-Symbol 30079
-bounds:3105,3968,345,992
-Symbol 30080
-bounds:1725,4960,345,992
-Symbol 30081
-bounds:3450,1984,345,992
-Symbol 30082
-bounds:2415,3968,345,992
-Symbol 30083
-bounds:1035,4960,345,992
-Symbol 30084
-bounds:3105,2976,345,992
-Symbol 30085
-bounds:2070,4960,345,992
-Symbol 30086
-bounds:0,4960,345,992
-Symbol 30087
-bounds:2760,3968,345,992
-Symbol 30088
-bounds:1725,5952,345,992
-Symbol 30089
-bounds:3450,2976,345,992
-Symbol 30090
-bounds:2415,4960,345,992
-Symbol 30091
-bounds:345,3968,345,992
-Symbol 30092
-bounds:2760,2976,345,992
-Symbol 30093
-bounds:2070,5952,345,992
-Symbol 30094
-bounds:3795,2976,345,992
-Symbol 30095
-bounds:2760,4960,345,992
-Symbol 30096
-bounds:1380,5952,345,992
-Symbol 30097
-bounds:3450,3968,345,992
-Symbol 30098
-bounds:2415,5952,345,992
-Symbol 30099
-bounds:345,5952,345,992
-Symbol 30100
-bounds:4140,3968,345,992
+Portal_Door_Default
+  rotate: false
+  xy: 3105, 4960
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 1
+Portal_Door
+  rotate: false
+  xy: 3105, 4960
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 1
+Portal_Door
+  rotate: false
+  xy: 2070, 6944
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 2
+Portal_Door
+  rotate: false
+  xy: 3795, 3968
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 3
+Portal_Door
+  rotate: false
+  xy: 2760, 5952
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 4
+Portal_Door
+  rotate: false
+  xy: 690, 4960
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 5
+Portal_Door
+  rotate: false
+  xy: 3450, 4960
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 6
+Portal_Door
+  rotate: false
+  xy: 345, 0
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 7
+Portal_Door
+  rotate: false
+  xy: 4830, 5952
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 8
+Portal_Door
+  rotate: false
+  xy: 3450, 6944
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 9
+Portal_Door
+  rotate: false
+  xy: 1725, 6944
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 10
+Portal_Door
+  rotate: false
+  xy: 3795, 4960
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 11
+Portal_Door
+  rotate: false
+  xy: 2760, 6944
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 12
+Portal_Door
+  rotate: false
+  xy: 690, 6944
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 13
+Portal_Door
+  rotate: false
+  xy: 3450, 5952
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 14
+Portal_Door
+  rotate: false
+  xy: 0, 0
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 15
+Portal_Door
+  rotate: false
+  xy: 4140, 4960
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 16
+Portal_Door
+  rotate: false
+  xy: 3105, 6944
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 17
+Portal_Door
+  rotate: false
+  xy: 1380, 6944
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 18
+Portal_Door
+  rotate: false
+  xy: 4140, 6944
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 19
+Portal_Door
+  rotate: false
+  xy: 2415, 6944
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 20
+Portal_Door
+  rotate: false
+  xy: 4485, 4960
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 21
+Portal_Door
+  rotate: false
+  xy: 3105, 5952
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 22
+Portal_Door
+  rotate: false
+  xy: 0, 992
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 23
+Portal_Door
+  rotate: false
+  xy: 4140, 5952
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 24
+Portal_Door
+  rotate: false
+  xy: 690, 0
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 25
+Portal_Door
+  rotate: false
+  xy: 0, 3968
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 26
+Portal_Door
+  rotate: false
+  xy: 1725, 0
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 27
+Portal_Door
+  rotate: false
+  xy: 690, 1984
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 28
+Portal_Door
+  rotate: false
+  xy: 4830, 6944
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 29
+Portal_Door
+  rotate: false
+  xy: 1035, 0
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 30
+Portal_Door
+  rotate: false
+  xy: 1035, 5952
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 31
+Portal_Door
+  rotate: false
+  xy: 3795, 5952
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 32
+Portal_Door
+  rotate: false
+  xy: 690, 992
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 33
+Portal_Door
+  rotate: false
+  xy: 5175, 6944
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 34
+Portal_Door
+  rotate: false
+  xy: 1380, 0
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 35
+Portal_Door
+  rotate: false
+  xy: 345, 1984
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 36
+Portal_Door
+  rotate: false
+  xy: 2415, 0
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 37
+Portal_Door
+  rotate: false
+  xy: 1035, 992
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 38
+Portal_Door
+  rotate: false
+  xy: 345, 4960
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 39
+Portal_Door
+  rotate: false
+  xy: 3795, 6944
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 40
+Portal_Door
+  rotate: false
+  xy: 345, 992
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 41
+Portal_Door
+  rotate: false
+  xy: 4485, 5952
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 42
+Portal_Door
+  rotate: false
+  xy: 1380, 992
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 43
+Portal_Door
+  rotate: false
+  xy: 0, 1984
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 44
+Portal_Door
+  rotate: false
+  xy: 2070, 0
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 45
+Portal_Door
+  rotate: false
+  xy: 1035, 1984
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 46
+Portal_Door
+  rotate: false
+  xy: 0, 6944
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 47
+Portal_Door
+  rotate: false
+  xy: 2070, 1984
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 48
+Portal_Door
+  rotate: false
+  xy: 1035, 3968
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 49
+Portal_Door
+  rotate: false
+  xy: 4485, 6944
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 50
+Portal_Door
+  rotate: false
+  xy: 1380, 1984
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 51
+Portal_Door
+  rotate: false
+  xy: 690, 5952
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 52
+Portal_Door
+  rotate: false
+  xy: 2070, 992
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 53
+Portal_Door
+  rotate: false
+  xy: 1035, 2976
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 54
+Portal_Door
+  rotate: false
+  xy: 2760, 0
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 55
+Portal_Door
+  rotate: false
+  xy: 1725, 1984
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 56
+Portal_Door
+  rotate: false
+  xy: 345, 2976
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 57
+Portal_Door
+  rotate: false
+  xy: 2415, 992
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 58
+Portal_Door
+  rotate: false
+  xy: 1725, 3968
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 59
+Portal_Door
+  rotate: false
+  xy: 0, 5952
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 60
+Portal_Door
+  rotate: false
+  xy: 1725, 992
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 61
+Portal_Door
+  rotate: false
+  xy: 690, 2976
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 62
+Portal_Door
+  rotate: false
+  xy: 2760, 992
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 63
+Portal_Door
+  rotate: false
+  xy: 1725, 2976
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 64
+Portal_Door
+  rotate: false
+  xy: 1035, 6944
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 65
+Portal_Door
+  rotate: false
+  xy: 2415, 1984
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 66
+Portal_Door
+  rotate: false
+  xy: 1380, 3968
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 67
+Portal_Door
+  rotate: false
+  xy: 3105, 992
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 68
+Portal_Door
+  rotate: false
+  xy: 2070, 2976
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 69
+Portal_Door
+  rotate: false
+  xy: 690, 3968
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 70
+Portal_Door
+  rotate: false
+  xy: 2760, 1984
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 71
+Portal_Door
+  rotate: false
+  xy: 1380, 2976
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 72
+Portal_Door
+  rotate: false
+  xy: 345, 6944
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 73
+Portal_Door
+  rotate: false
+  xy: 2415, 2976
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 74
+Portal_Door
+  rotate: false
+  xy: 1380, 4960
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 75
+Portal_Door
+  rotate: false
+  xy: 3105, 1984
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 76
+Portal_Door
+  rotate: false
+  xy: 2070, 3968
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 77
+Portal_Door
+  rotate: false
+  xy: 0, 2976
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 78
+Portal_Door
+  rotate: false
+  xy: 3105, 3968
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 79
+Portal_Door
+  rotate: false
+  xy: 1725, 4960
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 80
+Portal_Door
+  rotate: false
+  xy: 3450, 1984
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 81
+Portal_Door
+  rotate: false
+  xy: 2415, 3968
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 82
+Portal_Door
+  rotate: false
+  xy: 1035, 4960
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 83
+Portal_Door
+  rotate: false
+  xy: 3105, 2976
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 84
+Portal_Door
+  rotate: false
+  xy: 2070, 4960
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 85
+Portal_Door
+  rotate: false
+  xy: 0, 4960
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 86
+Portal_Door
+  rotate: false
+  xy: 2760, 3968
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 87
+Portal_Door
+  rotate: false
+  xy: 1725, 5952
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 88
+Portal_Door
+  rotate: false
+  xy: 3450, 2976
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 89
+Portal_Door
+  rotate: false
+  xy: 2415, 4960
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 90
+Portal_Door
+  rotate: false
+  xy: 345, 3968
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 91
+Portal_Door
+  rotate: false
+  xy: 2760, 2976
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 92
+Portal_Door
+  rotate: false
+  xy: 2070, 5952
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 93
+Portal_Door
+  rotate: false
+  xy: 3795, 2976
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 94
+Portal_Door
+  rotate: false
+  xy: 2760, 4960
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 95
+Portal_Door
+  rotate: false
+  xy: 1380, 5952
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 96
+Portal_Door
+  rotate: false
+  xy: 3450, 3968
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 97
+Portal_Door
+  rotate: false
+  xy: 2415, 5952
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 98
+Portal_Door
+  rotate: false
+  xy: 345, 5952
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 99
+Portal_Door
+  rotate: false
+  xy: 4140, 3968
+  size: 345, 992
+  orig: 345, 992
+  offset: 0, 0
+  index: 100
