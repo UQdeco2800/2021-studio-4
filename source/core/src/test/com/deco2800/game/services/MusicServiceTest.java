@@ -33,7 +33,7 @@ public class MusicServiceTest {
 
     }
     @Test
-    void loadMusic() {
+    void loadMusic() throws NullPointerException {
         String music1 = "testsounds/Level_1.mp3";
         String[] textures = {music1};
         AssetManager assetManager = spy(AssetManager.class);
@@ -50,9 +50,15 @@ public class MusicServiceTest {
         assertFalse(assetManager.contains(music1, Music.class));
        // assertFalse(assetManager.contains(texture2, Texture.class));
         //assertFalse(assetManager.contains(texture3, Texture.class));
-        //MusicService musicService = new MusicService(music1);
-        //verify(musicService).playMusic();
-       // assertTrue(musicService.isMusicPlaying());
+       // try {
+       //     MusicService musicService = new MusicService(music1);
+       //     verify(musicService).playMusic();
+       //     assertTrue(musicService.isMusicPlaying());
+      //  }
+       // catch (NullPointerException e) {
+       //
+      //  }
+
 
     }
     @Test
