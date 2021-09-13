@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.statuseffects.StatusEffectEnum;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.utils.math.Vector2Utils;
@@ -77,6 +78,9 @@ public class StatusEffectsController extends Component {
     public void remove() {
         if (getPlayerDistance() < 0.05) {
             entity.setScale(-0.01f, -0.01f); // Makes it invisible. However still has origin sized collision box
+            //entity.getComponent(ColliderComponent.class).setSensor(true);
+
+
         }
     }
 

@@ -8,7 +8,6 @@ import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
-import com.sun.security.jgss.GSSUtil;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
@@ -105,6 +104,8 @@ public class PlayerActions extends Component {
    * @param value the string name of the power up animation, these are the options:
    *              Default, SpeedUp, SpeedDown, JumpBoost, Stuck, TimeStop, VisionImpaired
    */
+  //This is currently commented out since i have not made any placeholder sprites for powerUps
+  // so I can't try and load in an animation i havent defined
   private void setPowerUpAnimation(String value){
     //currentPowerUp = value;
     //animator.startAnimation(getAnimation());
