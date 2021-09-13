@@ -76,8 +76,6 @@ public class MainGameScreen extends ScreenAdapter {
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     LevelGameArea levelGameArea = new LevelGameArea(terrainFactory);
     levelGameArea.create();
-
-
   }
 
   @Override
@@ -91,6 +89,7 @@ public class MainGameScreen extends ScreenAdapter {
       game.setScreen(GdxGame.ScreenType.DEATH_SCREEN);
     }
     timeScore = (int) ((System.currentTimeMillis() - timeStarted) / 1000);
+
   }
 
   @Override

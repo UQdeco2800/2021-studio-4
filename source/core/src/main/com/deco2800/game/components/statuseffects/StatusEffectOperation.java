@@ -3,8 +3,12 @@ package com.deco2800.game.components.statuseffects;
 import com.deco2800.game.components.npc.StatusEffectsController;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.screens.MainGameScreen;
+import com.deco2800.game.services.GameTime;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 
 public class StatusEffectOperation {
     private int type, boost, statOriginal;
@@ -12,10 +16,31 @@ public class StatusEffectOperation {
     private Entity player;
     private ArrayList<String> statusEffects;
 
+    /**
+     * To save the original values to be saves.
+     * Format:
+     * Index:
+     * 0: Speed
+     * 1: Jump
+     * 2: timeStop and interference time
+     */
+    private static ArrayList<Integer> originalValues = new ArrayList<>(3);
+
     public StatusEffectOperation(Entity player, String statusEffect, ArrayList<String> statusEffects) {
         this.player = player;
         this.statusEffect = statusEffect;
         this.statusEffects = statusEffects;
+
+        /**
+         * Initialises all values to 0 only the first time
+         */
+        for (int i = 0; i < 10; i++) {
+            try {
+                originalValues.get(i);
+            } catch (IndexOutOfBoundsException e) {
+                originalValues.add(i, 0);
+            }
+        }
     }
 
     public void inspect() {
@@ -33,6 +58,7 @@ public class StatusEffectOperation {
                 speedChange(-1);
                 break;
             case "Debuff_Stuck":
+                stuckInMud();
                 break;
             default:
                 break;
@@ -40,28 +66,69 @@ public class StatusEffectOperation {
     }
 
     /**
+     * Maintains only one statusEffect in the array list at a time
+     */
+    private void singleStatusEffectCheck() { // NEEDS CORRECTING
+        StatusEffectsController controller = new StatusEffectsController(player, statusEffect);
+        int itr = 0;
+         for (String status : statusEffects) {
+             itr++;
+             if (status.equals("") || status.equals(statusEffect)) {
+                 if (status.equals(statusEffect)) {
+                     controller.addStatusEffect(itr, statusEffect);
+                 }
+             } else {
+                 controller.addStatusEffect(itr, "");
+             }
+         }
+    }
+
+    /**
      * changes the speed of the player
      * @param type Whether it is a Buff or DeBuff
      * @return the new speed of the player
      */
-    private int speedChange(int type) { // Returns int for testing possible in future
-        int speedBoost = 5; // Must be smaller than 10
-        int statOriginal = (int) player.getComponent(PlayerActions.class).getSpeed();
+    private int speedChange(int type) { // Returns int for testing in possible future
+        int speedBoost = StatusEffectEnum.SPEED.getStatChange(); // Must be smaller than 10
 
-        // Makes sure the statOriginal is always the same value
-//        if (statusEffects.contains("Debuff_Speed") && statusEffects.contains("Buff_Speed")) {
-//
-//            if (statusEffects.contains("Debuff_Speed")) {
-//                statOriginal = statOriginal + speedBoost;
-//            } else {
-//                statOriginal = statOriginal - speedBoost;
-//            }
-//        }
+        int statOriginal;
+        // Makes sure statOriginal is always the same value
+        if (originalValues.get(0) == 0) {
+            statOriginal = (int) player.getComponent(PlayerActions.class).getSpeed();
+        } else {
+            statOriginal = originalValues.get(0);
+        }
 
         int newSpeed = StatusEffectEnum.SPEED.statChange(type, speedBoost, statOriginal);
 
-        StatusEffectsController controller= new StatusEffectsController(player, statusEffect);
+        originalValues.add(0, statOriginal);
 
+        singleStatusEffectCheck();
         return player.getComponent(PlayerActions.class).alterSpeed(newSpeed);
+    }
+
+    private void stuckInMud() {
+        GameTime gameTime = new GameTime();
+        int currentSpeed = (int) player.getComponent(PlayerActions.class).getSpeed();
+        int newSpeed = currentSpeed * -1;
+        System.out.println(gameTime.getTime());
+        player.getComponent(PlayerActions.class).alterSpeed(newSpeed);
+
+        // Sets delay of 3 seconds before restoring the previous player speed.
+        Timer t = new java.util.Timer();
+        t.schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        // your code here
+                        player.getComponent(PlayerActions.class).alterSpeed(currentSpeed);
+                        // close the thread
+                        t.cancel();
+                    }
+                },
+                3000
+        );
+
+//        player.getComponent(PlayerActions.class).alterSpeed(currentSpeed);
     }
 }

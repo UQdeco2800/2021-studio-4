@@ -14,6 +14,7 @@ import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.utils.math.Vector2Utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /** This component is intended to track the status effects that the player has picked up during their run. */
 public class StatusEffectsController extends Component {
@@ -28,7 +29,11 @@ public class StatusEffectsController extends Component {
 
     public StatusEffectsController(Entity target, String effect) {
         /** Create a new array list for the status effects. */
-        statusEffects = new ArrayList<String>();
+        statusEffects = new ArrayList<String>(5);
+        for (int i = 0; i < 5; i++) {
+            //Initialises each index in the array
+            statusEffects.add("");
+        }
         this.player = target;
         this.effect = effect;
     }
@@ -88,29 +93,28 @@ public class StatusEffectsController extends Component {
             entity.setScale(-0.01f, -0.01f); // Makes it invisible. However still has origin sized collision box
 
             //adds the effect to the Array
-//            switch (effect) {
-//                case "Buff_Jump":
-//                    statusEffects.add(0, effect);
-//                    break;
-//                case "Buff_Time_Stop":
-//                    statusEffects.add(1, effect);
-//                    break;
-//                case "Buff_Speed":
-//                    statusEffects.add(2, effect);
-//                    break;
-//                case "Debuff_Bomb":
-//                    statusEffects.add(3, effect);
-//                    break;
-//                case "Debuff_Speed":
-//                    statusEffects.add(4, effect);
-//                    break;
-//                case "Debuff_Stuck":
-//                    statusEffects.add(5, effect);
-//                    break;
-//                default:
-//                    break;
-//            }
-            statusEffects.add(0, effect);
+            switch (effect) {
+                case "Buff_Jump":
+                    statusEffects.add(0, effect);
+                    break;
+                case "Buff_Time_Stop":
+                    statusEffects.add(1, effect);
+                    break;
+                case "Buff_Speed":
+                    statusEffects.add(2, effect);
+                    break;
+                case "Debuff_Bomb":
+                    statusEffects.add(3, effect);
+                    break;
+                case "Debuff_Speed":
+                    statusEffects.add(4, effect);
+                    break;
+                case "Debuff_Stuck":
+                    statusEffects.add(5, effect);
+                    break;
+                default:
+                    break;
+            }
 
             // Changes the players ability based off of the effect given
             StatusEffectOperation statusEffectOperation = new StatusEffectOperation(player, effect, statusEffects);
@@ -126,10 +130,5 @@ public class StatusEffectsController extends Component {
     /** Add status effect to the list of current status effects */
     public void addStatusEffect(int index, String statusEffect) {
         statusEffects.add(index, statusEffect);
-    }
-
-    /** Removes the status effect from the list of current status effects */
-    public void removeStatusEffect(int index) {
-        statusEffects.remove(index);
     }
 }

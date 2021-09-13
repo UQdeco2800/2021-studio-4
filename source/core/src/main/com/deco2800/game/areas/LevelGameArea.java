@@ -149,7 +149,7 @@ public class LevelGameArea extends GameArea {
 
     spawnTheVoid();
 
-    spawnStatusEffectDeBuff("Debuff_Speed");
+    spawnStatusEffectDeBuff("Debuff_Stuck");
     spawnStatusEffectBuff("Buff_Speed");
     //spawnStatusEffectBuff(getBuff()); // To be selected randomly from a list of the effects
     //spawnStatusEffectDeBuff(getDeBuff()); // To be selected randomly from a list of the effects
