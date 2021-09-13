@@ -4,8 +4,11 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.statuseffects.StatusEffectEnum;
+import com.deco2800.game.components.statuseffects.StatusEffectOperation;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.utils.math.Vector2Utils;
@@ -74,9 +77,44 @@ public class StatusEffectsController extends Component {
         return distance_x;
     }
 
+    /**
+     * Checks if the statusEffect is near the player. If so, it removes the statusEffect from the game
+     * and adds that effect to the statusEffects array.
+     * (At the moment the statusEffect is turning invisible and dropping off of the map)
+     */
     public void remove() {
         if (getPlayerDistance() < 0.05) {
+            entity.getComponent(ColliderComponent.class).setSensor(true);
             entity.setScale(-0.01f, -0.01f); // Makes it invisible. However still has origin sized collision box
+
+            //adds the effect to the Array
+//            switch (effect) {
+//                case "Buff_Jump":
+//                    statusEffects.add(0, effect);
+//                    break;
+//                case "Buff_Time_Stop":
+//                    statusEffects.add(1, effect);
+//                    break;
+//                case "Buff_Speed":
+//                    statusEffects.add(2, effect);
+//                    break;
+//                case "Debuff_Bomb":
+//                    statusEffects.add(3, effect);
+//                    break;
+//                case "Debuff_Speed":
+//                    statusEffects.add(4, effect);
+//                    break;
+//                case "Debuff_Stuck":
+//                    statusEffects.add(5, effect);
+//                    break;
+//                default:
+//                    break;
+//            }
+            statusEffects.add(0, effect);
+
+            // Changes the players ability based off of the effect given
+            StatusEffectOperation statusEffectOperation = new StatusEffectOperation(player, effect, statusEffects);
+            statusEffectOperation.inspect();
         }
     }
 
@@ -86,12 +124,12 @@ public class StatusEffectsController extends Component {
     }
 
     /** Add status effect to the list of current status effects */
-    public void addStatusEffect(StatusEffectEnum statusEffect) {
-        statusEffects.add(statusEffect.getType());
+    public void addStatusEffect(int index, String statusEffect) {
+        statusEffects.add(index, statusEffect);
     }
 
     /** Removes the status effect from the list of current status effects */
-    public void removeStatusEffect(StatusEffectEnum statusEffect) {
-        statusEffects.remove(statusEffect.getType());
+    public void removeStatusEffect(int index) {
+        statusEffects.remove(index);
     }
 }

@@ -59,6 +59,21 @@ public class PlayerActions extends Component {
     this.body.applyForceToCenter(walkDirection.cpy().scl(ACCELERATION), true);
   }
 
+  public float getSpeed() {
+    return ACCELERATION.x;
+  }
+
+  /**
+   * Updates the player's movement speed by adding their desired direction to their vector.
+   * This function antagonistcally competetes with updateSpeed() in order to determine a
+   * speed limit.
+   */
+  public int alterSpeed(int newSpeed) {
+    // increase or decrease the players movement
+    ACCELERATION.add(newSpeed, 0);
+    return newSpeed;
+  }
+
   /**
    * Applies friction to the player, as determined by the X_FRICTION constants and their
    * current movement speed. This function antagonistcally competetes with updateSpeed()

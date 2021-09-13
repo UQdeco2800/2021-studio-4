@@ -149,8 +149,10 @@ public class LevelGameArea extends GameArea {
 
     spawnTheVoid();
 
-    spawnStatusEffectBuff(getBuff()); // To be selected randomly from a list of the effects
-    spawnStatusEffectDeBuff(getDeBuff()); // To be selected randomly from a list of the effects
+    spawnStatusEffectDeBuff("Debuff_Speed");
+    spawnStatusEffectBuff("Buff_Speed");
+    //spawnStatusEffectBuff(getBuff()); // To be selected randomly from a list of the effects
+    //spawnStatusEffectDeBuff(getDeBuff()); // To be selected randomly from a list of the effects
 
     playTheMusic("game_level_1");
     //playMusic();
