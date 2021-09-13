@@ -64,9 +64,9 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("togglePlayerJumping", this::togglePlayerJumping);
     entity.getEvents().addListener("slide", this::slide);
     entity.getEvents().addListener("setPreviousWalkDirection", this::setPreviousWalkDirection);
-    entity.getEvents().addListener("isFalling", this::setIsFalling);
+    entity.getEvents().addListener("playerIsFalling", this::setIsFalling);
     entity.getEvents().addListener("isJumping", this::setIsJumping);
-    entity.getEvents().addListener("isFallingDone", this::checkIfFallingIsDone);
+    entity.getEvents().addListener("isFallingOrSlidingDone", this::checkIfFallingOrSlidingIsDone);
     entity.getEvents().addListener("keyPressed", this::keyWasPressed);
     entity.getEvents().addListener("keyReleased", this::keyWasReleased);
 
@@ -120,6 +120,7 @@ public class PlayerActions extends Component {
    */
   private void setMovementAnimation(Movement value){
     if(!(previousAnimation.equals(getAnimation())) || value != currentMovement){
+      System.out.println(value);
       currentMovement = value;
       previousAnimation = getAnimation();
       animator.startAnimation(getAnimation());
@@ -162,13 +163,22 @@ public class PlayerActions extends Component {
    * This checks if the animation of the player is set to falling when it should not
    * be and sets the player to the correct animation
    */
-  private void checkIfFallingIsDone(){
+  private void checkIfFallingOrSlidingIsDone(){
     if(currentMovement == Movement.Falling | currentMovement == Movement.Jumping){
       if(canJump){
         if(body.getLinearVelocity().x == 0 | keysPressed == 0){
           setMovementAnimation(Movement.Idle);
         } else {
           setMovementAnimation(Movement.Running);
+        }
+      }
+    } else if (currentMovement == Movement.Sliding) {
+      if(canJump){
+        if(body.getLinearVelocity().x == 0){
+          setMovementAnimation(Movement.Idle);
+        } else if (keysPressed > 0 && (body.getLinearVelocity().x < 7 && body.getLinearVelocity().x > 0 ||
+                     body.getLinearVelocity().x > -8 && body.getLinearVelocity().x < 8)) {
+            setMovementAnimation(Movement.Running);
         }
       }
     }
@@ -271,14 +281,17 @@ public class PlayerActions extends Component {
   }
 
   /**
-   * Makes the player slide.
+   * Makes the player slide if they are touching the ground
    */
   void slide() {
     this.playerState = PlayerState.SLIDING;
-    if (previousWalkDirection.epsilonEquals(Vector2Utils.LEFT)) {
-      body.applyForceToCenter(new Vector2(-300f, 0f), true);
-    } else {
-      body.applyForceToCenter(new Vector2(300f, 0f), true);
+    setMovementAnimation(Movement.Sliding);
+    if(getCanJump()) {
+      if (previousWalkDirection.epsilonEquals(Vector2Utils.LEFT)) {
+        body.applyForceToCenter(new Vector2(-300f, 0f), true);
+      } else {
+        body.applyForceToCenter(new Vector2(300f, 0f), true);
+      }
     }
   }
 
