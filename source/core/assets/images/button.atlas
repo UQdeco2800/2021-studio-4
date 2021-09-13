@@ -3,13 +3,6 @@ size: 8192,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat:none
-Button_Default
-  rotate: false
-  xy: 461, 124
-  size: 461, 124
-  orig: 461, 124
-  offset: 0, 0
-  index: 1
 Button
   rotate: false
   xy: 461, 124
