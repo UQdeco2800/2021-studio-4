@@ -161,7 +161,7 @@ public class StatusEffectOperation {
         GameTime gameTime = new GameTime();
         int currentSpeed = (int) player.getComponent(PlayerActions.class).getSpeed();
         int newSpeed = currentSpeed * -1;
-        System.out.println(gameTime.getTime());
+       // System.out.println(gameTime.getTime());
         player.getComponent(PlayerActions.class).alterSpeed(newSpeed);
 
         // Sets delay of 3 seconds before restoring the previous player speed.

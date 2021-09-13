@@ -109,12 +109,43 @@ public class PlayerActions extends Component {
    * speed limit.
    */
   public int alterSpeed(int newSpeed) {
+    //check if the speed is being set to its default value or if its increasing or decreasing and set
+    //the animation
+
+    //adding speed
+    if(newSpeed > 0) {
+      //increasing from deafult
+      if (getSpeed() == 10) {
+        setPowerUpAnimation("SpeedUp");
+        //setting back to default from either Stuck or speedDown
+      } else {
+        setPowerUpAnimation("Default");
+      }
+      //setting to Stuck
+    } else if (newSpeed == getSpeed()*-1){
+      setPowerUpAnimation("Stuck");
+      //decreasing speed
+    } else {
+      //if decreasing from 10 its SpeedDown
+      if(getSpeed() == 10) {
+        setPowerUpAnimation("SpeedDown");
+        //if decreasing from a higher speed then it is setting to Default
+      } else {
+        setPowerUpAnimation("Default");
+      }
+    }
+
     // increase or decrease the players movement
     ACCELERATION.add(newSpeed, 0);
     return newSpeed;
   }
 
   public int alterJumpHeight(int newJump) {
+    if(newJump > 0) {
+      setPowerUpAnimation("JumpUp");
+    } else {
+      setPowerUpAnimation("Default");
+    }
     // increase or decrease the players movement
     jumpSpeed.add(0, newJump);
     return newJump;
@@ -132,6 +163,7 @@ public class PlayerActions extends Component {
   //This is currently commented out since i have not made any placeholder sprites for powerUps
   // so I can't try and load in an animation i havent defined
   private void setPowerUpAnimation(String value){
+    //System.out.println(value);
     //currentPowerUp = value;
     //animator.startAnimation(getAnimation());
   }
@@ -146,7 +178,7 @@ public class PlayerActions extends Component {
    */
   private void setMovementAnimation(Movement value){
     if(!(previousAnimation.equals(getAnimation())) || value != currentMovement){
-      System.out.println(value);
+      //System.out.println(value);
       currentMovement = value;
       previousAnimation = getAnimation();
       animator.startAnimation(getAnimation());
