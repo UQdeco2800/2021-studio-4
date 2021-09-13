@@ -212,7 +212,7 @@ public class ObstacleFactory {
 
     ObstacleEntity levelEndPortal =
       new ObstacleEntity(ObstacleDefinition.LEVEL_END_PORTAL,width)
-        .addComponent(new TextureRenderComponent(levelEndPortalTexture))
+        .addComponent(new TextureRenderComponent("map-textures/end_portal.png"))
         .addComponent(new PhysicsComponent())
         .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
         .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
@@ -221,7 +221,7 @@ public class ObstacleFactory {
 
     levelEndPortal.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     levelEndPortal.getComponent(TextureRenderComponent.class).scaleEntity();
-    levelEndPortal.scaleHeight(0.5f);
+    levelEndPortal.scaleHeight(2f);
     PhysicsUtils.setScaledCollider(levelEndPortal, 1f, 1f);
     return levelEndPortal;
   }
