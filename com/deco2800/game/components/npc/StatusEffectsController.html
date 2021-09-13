@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -163,7 +163,8 @@ java.lang.String&nbsp;effect)</code></th>
 <tbody>
 <tr class="altColor" id="i0">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addStatusEffect(com.deco2800.game.components.statuseffects.StatusEffectEnum)">addStatusEffect</a></span>&#8203;(<a href="../statuseffects/StatusEffectEnum.html" title="enum in com.deco2800.game.components.statuseffects">StatusEffectEnum</a>&nbsp;statusEffect)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addStatusEffect(int,java.lang.String)">addStatusEffect</a></span>&#8203;(int&nbsp;index,
+java.lang.String&nbsp;statusEffect)</code></th>
 <td class="colLast">
 <div class="block">Add status effect to the list of current status effects</div>
 </td>
@@ -192,13 +193,8 @@ java.lang.String&nbsp;effect)</code></th>
 <tr class="altColor" id="i4">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#remove()">remove</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor" id="i5">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeStatusEffect(com.deco2800.game.components.statuseffects.StatusEffectEnum)">removeStatusEffect</a></span>&#8203;(<a href="../statuseffects/StatusEffectEnum.html" title="enum in com.deco2800.game.components.statuseffects">StatusEffectEnum</a>&nbsp;statusEffect)</code></th>
 <td class="colLast">
-<div class="block">Removes the status effect from the list of current status effects</div>
+<div class="block">Checks if the statusEffect is near the player.</div>
 </td>
 </tr>
 </tbody>
@@ -271,6 +267,9 @@ java.lang.String&nbsp;effect)</span></div>
 <section class="detail">
 <h3><a id="remove()">remove</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">remove</span>()</div>
+<div class="block">Checks if the statusEffect is near the player. If so, it removes the statusEffect from the game
+ and adds that effect to the statusEffects array.
+ (At the moment the statusEffect is turning invisible and dropping off of the map)</div>
 </section>
 </li>
 <li class="blockList">
@@ -282,16 +281,10 @@ java.lang.String&nbsp;effect)</span></div>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="addStatusEffect(com.deco2800.game.components.statuseffects.StatusEffectEnum)">addStatusEffect</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">addStatusEffect</span>&#8203;(<span class="arguments"><a href="../statuseffects/StatusEffectEnum.html" title="enum in com.deco2800.game.components.statuseffects">StatusEffectEnum</a>&nbsp;statusEffect)</span></div>
+<h3><a id="addStatusEffect(int,java.lang.String)">addStatusEffect</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">addStatusEffect</span>&#8203;(<span class="arguments">int&nbsp;index,
+java.lang.String&nbsp;statusEffect)</span></div>
 <div class="block">Add status effect to the list of current status effects</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="removeStatusEffect(com.deco2800.game.components.statuseffects.StatusEffectEnum)">removeStatusEffect</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">removeStatusEffect</span>&#8203;(<span class="arguments"><a href="../statuseffects/StatusEffectEnum.html" title="enum in com.deco2800.game.components.statuseffects">StatusEffectEnum</a>&nbsp;statusEffect)</span></div>
-<div class="block">Removes the status effect from the list of current status effects</div>
 </section>
 </li>
 </ul>
