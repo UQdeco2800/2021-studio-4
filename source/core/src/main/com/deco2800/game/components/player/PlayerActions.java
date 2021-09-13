@@ -106,7 +106,7 @@ public class PlayerActions extends Component {
    *              Default, SpeedUp, SpeedDown, JumpBoost, Stuck, TimeStop, VisionImpaired
    */
   private void setPowerUpAnimation(String value){
-    currentPowerUp = value;
+    //currentPowerUp = value;
     //animator.startAnimation(getAnimation());
   }
 
