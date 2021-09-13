@@ -85,16 +85,13 @@ public class TheVoidController extends Component {
      */
      void updateSound(){
          float distance_from_player = getPlayerDistance();
-         /*if (distance_from_player < (float)(-8)){
-             musicService.stopMusic(); //It should be fine for now. Later when the void team could detect void-player
-             // collision, we stop the music at that point.
-         } else */
              if (distance_from_player > (float)0.01) {
                  float change1 = abs(1 - distance_from_player);
                  if (change1 > (float)1) {
                      musicService.changeVolume((float)0.2);
                  } else {
                      musicService.changeVolume((float)0.4);
+
                  }
              }
              else if (distance_from_player < (float)0.99) {
@@ -106,21 +103,10 @@ public class TheVoidController extends Component {
                  }
              }
 
-
-        /*
-         float min = 0;
-         float max = 1;
-         if (distance_from_player > (float)0.01) {
-             float change1 = 1 - distance_from_player;
-             musicService.changeVolume(change1);
-         }
-         else if (distance_from_player < (float)0.99) {
-             float change2 = 1 - distance_from_player;
-             musicService.changeVolume(change2);
-         }
-         else {
-             //musicService.changeVolume((float)0.5);
-         }*/
+     /*if (distance_from_player < (float)(-8)){
+             musicService.stopMusic(); //It should be fine for now. Later when the void team could detect void-player
+             // collision, we stop the music at that point.
+         } */
 
     }
 }
