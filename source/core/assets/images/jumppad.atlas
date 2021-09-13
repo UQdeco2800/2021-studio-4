@@ -3,6 +3,13 @@ size: 4096,512
 format: RGBA8888
 filter: Nearest,Nearest
 repeat:none
+Jump_Pad_Default
+  rotate: false
+  xy: 419, 0
+  size: 419, 135
+  orig: 419, 135
+  offset: 0, 0
+  index: 1
 Jump_Pad
   rotate: false
   xy: 419, 0
