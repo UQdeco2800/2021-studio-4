@@ -1,5 +1,8 @@
 package com.deco2800.game.components.levelselect;
 
+import java.io.File;
+import java.util.HashMap;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -52,22 +55,27 @@ public class LevelDisplay extends UIComponent {
         sprite = new Sprite(new Texture("images/title_screen_clean.png"));
         table.setBackground(new SpriteDrawable(sprite)); // Set background.
 
+        File levelDirectory = new File("levels");
+        HashMap<String, TextButton> levelBtns = new HashMap<String, TextButton>();
+
         // Add exit button to go back to main menu.
         TextButton exitBtn = new TextButton("Exit", skin);
-        // Add exit button to go back to main menu.
-        TextButton level1Btn = new TextButton("Level1", skin);
 
-        // Level1 button event.
-        level1Btn.addListener(
+        // List all the files in the levels folder and create a button for each
+        for (String level : levelDirectory.list()) {
+            levelBtns.put(level, new TextButton(level, skin));
+            levelBtns.get(level).addListener(
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
-
-                        logger.debug("Level1 button clicked");
+                        logger.debug(level + " button clicked");
                         entity.getEvents().trigger("start");
                     }
-                });
-        level1Btn.setColor(Color.ROYAL);
+                }
+            );
+            levelBtns.get(level).setColor(Color.ROYAL);
+
+        }
 
         // Exit button event.
         exitBtn.addListener(
@@ -82,8 +90,13 @@ public class LevelDisplay extends UIComponent {
         exitBtn.setColor(Color.ROYAL);
 
         table.row();
-        table.add(exitBtn).center(); // Places the button in the centre.
-        table.add(level1Btn).center();
+        table.add(exitBtn).center().padBottom(50f); // Places the button in the centre.
+        table.row();
+
+        for (TextButton btn : levelBtns.values()) {
+            table.add(btn).pad(10f);
+            table.row();
+        }
         stage.addActor(table);
     }
 

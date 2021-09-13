@@ -2,6 +2,7 @@ package com.deco2800.game.components.tasks;
 import com.deco2800.game.ai.tasks.DefaultTask;
 import com.deco2800.game.ai.tasks.PriorityTask;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.services.GameTime;
 
 /**
  * Starts the void's animation when the game starts and makes the void constantly move as
@@ -9,14 +10,18 @@ import com.deco2800.game.entities.Entity;
  * TheVoidController class.
  */
 public class StatusEffectTasks extends DefaultTask implements PriorityTask {
-
-    Entity target;
+    Entity entity;
 
     /**
      * Initiliser
      */
-    public StatusEffectTasks(Entity target) {
-        this.target = target;
+    public StatusEffectTasks() {}
+
+    /**
+     * Initiliser
+     */
+    public StatusEffectTasks(Entity entity) {
+        this.entity = entity;
     }
 
     /**
@@ -25,27 +30,19 @@ public class StatusEffectTasks extends DefaultTask implements PriorityTask {
      */
     @Override
     public int getPriority() {
-        if (getDistanceToTarget() == 0) {
-            return 10;
-        }
-        else return -1;
+        return 10;
     }
-
-    private float getDistanceToTarget() {
-        return owner.getEntity().getPosition().dst(target.getPosition());
-    }
-
 
     @Override
     public void start() {
         super.start();
-        this.owner.getEntity().getEvents().trigger("StatusEffectAnimation");
+        this.owner.getEntity().getEvents().trigger("StatusEffectAnimate");
     }
 
     /**
-     * Called to remove the StatusBar apon
+     * Called to remove the StatusEffect
      */
-    public void update() {
-        this.owner.getEntity().getEvents().trigger("StatusEffectRemoval");
+    public void remove() {
+        entity.getEvents().trigger("StatusEffectRemove");
     }
 }

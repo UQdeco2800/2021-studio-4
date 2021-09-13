@@ -20,6 +20,7 @@ public class MainGameActions extends Component {
   @Override
   public void create() {
     entity.getEvents().addListener("exit", this::onExit);
+//    entity.getEvents().addListener("death", this::death);
   }
 
   /**
@@ -29,4 +30,9 @@ public class MainGameActions extends Component {
     logger.info("Exiting main game screen");
     game.setScreen(GdxGame.ScreenType.MAIN_MENU);
   }
+//
+//  private void death() {
+//    logger.info("Exiting main game screen");
+//    game.setScreen(GdxGame.ScreenType.DEATH_SCREEN);
+//  }
 }

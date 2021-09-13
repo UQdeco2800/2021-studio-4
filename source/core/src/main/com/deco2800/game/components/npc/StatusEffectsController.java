@@ -1,5 +1,6 @@
 package com.deco2800.game.components.npc;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
@@ -20,16 +21,17 @@ public class StatusEffectsController extends Component {
     private AnimationRenderComponent animator;
     private Body body;
     private Entity player;
+    private String effect;
 
-    public StatusEffectsController(Entity target) {
+    public StatusEffectsController(Entity target, String effect) {
         /** Create a new array list for the status effects. */
         statusEffects = new ArrayList<String>();
         this.player = target;
+        this.effect = effect;
     }
 
     /**
      * Creates a number of listeners for events to be triggered in the TheVoidTasks class
-     *
      */
     @Override
     public void create() {
@@ -39,7 +41,7 @@ public class StatusEffectsController extends Component {
         //physicsComponent.getBody().setGravityScale(0); This removes gravity
 
         entity.getEvents().addListener("StatusEffectAnimate", this::animate);
-        entity.getEvents().addListener("StatusEffectAnimate", this::remove);
+        entity.getEvents().addListener("StatusEffectRemove", this::remove);
         //entity.getEvents().addListener("TheVoidMove", this::move);  COULD IMPLEMENT LATER
 
         this.body = physicsComponent.getBody();
@@ -47,10 +49,9 @@ public class StatusEffectsController extends Component {
 
     /**
      * Starts the void's animation
-     *
      */
     void animate(){
-        animator.startAnimation("statusEffect");
+        animator.startAnimation(effect);
     }
 
 //    /**
@@ -65,19 +66,17 @@ public class StatusEffectsController extends Component {
      *
      * @return the distance between the player and the void
      */
-    private float getPlayerDistance(){
+    public float getPlayerDistance(){
         float distance_x;
-        float void_length = this.entity.getScale().x;
-        Vector2 void_pos = this.entity.getPosition();
-        distance_x = player.getPosition().sub(void_pos).x - void_length;
+        float statusEffect_length = this.entity.getScale().x;
+        Vector2 statusEffect_pos = this.entity.getPosition();
+        distance_x = player.getPosition().sub(statusEffect_pos).x - statusEffect_length;
         return distance_x;
     }
 
     public void remove() {
-        float distance_from_player = getPlayerDistance();
-
-        if (distance_from_player == 0) {
-            entity.dispose();
+        if (getPlayerDistance() < 0.05) {
+            entity.setScale(-0.01f, -0.01f); // Makes it invisible. However still has origin sized collision box
         }
     }
 

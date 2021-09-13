@@ -1,0 +1,82 @@
+TemporaryPlayerAnimations.png
+size: 128, 96
+filter: Nearest, Nearest
+repeat: none
+RunningLeftDefault
+    rotate: false
+    xy: 0,0
+    size: 32, 32
+    orig: 32, 32
+    offset: 0, 0
+    index: 0
+RunningRightDefault
+    rotate: false
+    xy: 32,0
+    size: 32, 32
+    orig: 32, 32
+    offset: 0, 0
+    index: 0
+FallingLeftDefault
+    rotate: false
+    xy: 0,32
+    size: 32, 32
+    orig: 32, 32
+    offset: 0, 0
+    index: 0
+FallingRightDefault
+    rotate: false
+    xy: 32,32
+    size: 32, 32
+    orig: 32, 32
+    offset: 0, 0
+    index: 0
+IdleLeftDefault
+    rotate: false
+    xy: 0,64
+    size: 32, 32
+    orig: 32, 32
+    offset: 0, 0
+    index: 0
+IdleRightDefault
+    rotate: false
+    xy: 32,64
+    size: 32, 32
+    orig: 32, 32
+    offset: 0, 0
+    index: 0
+SlidingLeftDefault
+    rotate: false
+    xy: 0,96
+    size: 32, 32
+    orig: 32, 32
+    offset: 0, 0
+    index: 0
+SlidingRightDefault
+    rotate: false
+    xy: 32,96
+    size: 32, 32
+    orig: 32, 32
+    offset: 0, 0
+    index: 0
+JumpingLeftDefault
+    rotate: false
+    xy: 0,128
+    size: 32, 32
+    orig: 32, 32
+    offset: 0, 0
+    index: 0
+JumpingRightDefault
+    rotate: false
+    xy: 32,128
+    size: 32, 32
+    orig: 32, 32
+    offset: 0, 0
+    index: 0
+default
+    rotate: false
+    xy: 0, 0
+    size: 32, 32
+    orig: 32, 32
+    offset: 0, 0
+    index: 0
+
