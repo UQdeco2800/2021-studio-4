@@ -4,7 +4,7 @@ import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.entities.Entity;
 
 public enum StatusEffectEnum implements StatusEffectInterface {
-    SPEED (5, 10, "SPEEDBUFF") {
+    SPEED (5, 4000, "SPEEDBUFF") {
         @Override
         public int statChange(int type, int boost, int statOriginal) {
             int statChange;
@@ -16,11 +16,10 @@ public enum StatusEffectEnum implements StatusEffectInterface {
             return statChange;
         }
     },
-    JUMPBUFF (2, 10, "JUMPBUFF") {
+    JUMPBUFF (200, 4000, "JUMPBUFF") {
         @Override
         public int statChange(int type, int boost, int statOriginal) {
-            int statChange = type * boost + statOriginal;
-            return statChange;
+            return statOriginal;
         }
     },
     VOIDFREEZE (0, 0, "VOIDFREEZE") {
@@ -37,7 +36,7 @@ public enum StatusEffectEnum implements StatusEffectInterface {
             return statChange;
         }
     },
-    STUCKINMUD (0, 0, "STUCKINMUD") {
+    STUCKINMUD (0, 3000, "INTERFERANCE") {
         @Override
         public int statChange(int type, int boost, int statOriginal) {
             int statChange = type * boost + statOriginal;

@@ -52,7 +52,6 @@ public class TheVoidController extends Component {
 
     /**
      * Starts the void's animation
-     *
      */
      void theVoidAnimate(){
         animator.startAnimation("void");

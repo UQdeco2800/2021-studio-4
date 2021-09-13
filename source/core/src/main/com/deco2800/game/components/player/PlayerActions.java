@@ -100,15 +100,25 @@ public class PlayerActions extends Component {
     return ACCELERATION.x;
   }
 
+  public float getJumpBoost() {
+    return jumpSpeed.y;
+  }
+
   /**
    * Updates the player's movement speed by adding their desired direction to their vector.
-   * This function antagonistcally competetes with updateSpeed() in order to determine a
+   * This function increases the altered speed
    * speed limit.
    */
   public int alterSpeed(int newSpeed) {
     // increase or decrease the players movement
     ACCELERATION.add(newSpeed, 0);
     return newSpeed;
+  }
+
+  public int alterJumpHeight(int newJump) {
+    // increase or decrease the players movement
+    jumpSpeed.add(0, newJump);
+    return newJump;
   }
 
   /**

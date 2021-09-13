@@ -73,8 +73,6 @@ public class LevelGameArea extends GameArea {
           "images/portal-door.png",
           "images/jumppad.png",
           "images/button.png"
-
-
   };
 
   private static final String[] gameTextureAtlases = {
@@ -153,10 +151,10 @@ public class LevelGameArea extends GameArea {
 
     spawnTheVoid();
 
-    spawnStatusEffectDeBuff("Debuff_Stuck");
-    spawnStatusEffectBuff("Buff_Speed");
-    //spawnStatusEffectBuff(getBuff()); // To be selected randomly from a list of the effects
-    //spawnStatusEffectDeBuff(getDeBuff()); // To be selected randomly from a list of the effects
+//    spawnStatusEffectDeBuff("Debuff_Speed");
+//    spawnStatusEffectBuff("Buff_Jump");
+    spawnStatusEffectBuff(getBuff()); // To be selected randomly from a list of the effects
+    spawnStatusEffectDeBuff(getDeBuff()); // To be selected randomly from a list of the effects
 
     playTheMusic("game_level_1");
     //playMusic();
@@ -538,7 +536,6 @@ public class LevelGameArea extends GameArea {
 
     Entity theVoid = NPCFactory.createTheVoid(player);
     spawnEntityAt(theVoid, startPos, true, true);
-
   }
 
   /**
