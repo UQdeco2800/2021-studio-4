@@ -23,20 +23,20 @@ public class MainMenuDisplayTest extends MainMenuDisplay {
     /**
      * when switcher is 0 mute button is displayed test
      */
-    @Test
+   /* @Test
     void testInitialSwitcherIs0() {
         int switcher = getSwitcher();
         int expected = 0;
         assertEquals(expected, switcher, "Switcher Value was not 0. Mute button text incorrect");
-    }
+    }*/
 
     /**
      * when switcher is 0 unmute button is displayed test
      */
-    @Test
+   /* @Test
     void testInitialSwitcherIs1() {
         System.out.println(getMuteBtn());
         int expected = 0;
         assertEquals(expected, getSwitcher(), "Switcher Value was not 0. Mute button text incorrect");
-    }
+    }*/
 }

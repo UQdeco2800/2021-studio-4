@@ -70,7 +70,10 @@ public class LevelGameArea extends GameArea {
           "images/animatedvoid.png",
           "images/void_spritesheet2.png",
           "images/Pick_Ups.png",
-          "images/Buff_Jump_Boost.png" // Delete later
+          "images/portal-door.png",
+          "images/jumppad.png",
+          "images/button.png",
+          "images/level1_background.jpg",
 
 
   };
@@ -85,7 +88,9 @@ public class LevelGameArea extends GameArea {
           "images/void.atlas",
           "images/player.atlas",
           "images/Pick_Ups.atlas",
-          "images/Buff_Jump_Boost.atlas" // delete later
+          "images/portal-door.atlas",
+          "images/jumppad.atlas",
+          "images/button.atlas"
   };
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
   private static final String[] gameMusic = {gameSong.click, gameSong.game_level_1,gameSong.end_credits,
@@ -149,6 +154,8 @@ public class LevelGameArea extends GameArea {
 
     spawnTheVoid();
 
+//    spawnStatusEffectDeBuff("Debuff_Speed");
+//    spawnStatusEffectBuff("Buff_Jump");
     spawnStatusEffectBuff(getBuff()); // To be selected randomly from a list of the effects
     spawnStatusEffectDeBuff(getDeBuff()); // To be selected randomly from a list of the effects
 
@@ -180,7 +187,7 @@ public class LevelGameArea extends GameArea {
 
   private void displayBackground() {
     Entity background = new Entity();
-    background.addComponent(new BackgroundRenderComponent("images/game_background.png"));
+    background.addComponent(new BackgroundRenderComponent("images/level1_background.jpg"));
     spawnEntity(background);
   }
 
@@ -532,7 +539,6 @@ public class LevelGameArea extends GameArea {
 
     Entity theVoid = NPCFactory.createTheVoid(player);
     spawnEntityAt(theVoid, startPos, true, true);
-
   }
 
   /**
@@ -629,6 +635,7 @@ public class LevelGameArea extends GameArea {
     resourceService.loadTextures(gameTextures);
     resourceService.loadTextureAtlases(gameTextureAtlases);
     resourceService.loadMusic(gameMusic);
+
 
     while (!resourceService.loadForMillis(10)) {
       // This could be upgraded to a loading screen
