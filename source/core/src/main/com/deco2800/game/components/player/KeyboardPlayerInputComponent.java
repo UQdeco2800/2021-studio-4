@@ -31,6 +31,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("jump");
         return true;
       case Keys.A:
+        entity.getEvents().trigger("keyPressed");
         walkDirection.add(Vector2Utils.LEFT);
         triggerWalkEvent();
         entity.getEvents().trigger("setPreviousWalkDirection", Vector2Utils.LEFT);
@@ -40,6 +41,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         triggerWalkEvent();
         return true;
       case Keys.D:
+        entity.getEvents().trigger("keyPressed");
         walkDirection.add(Vector2Utils.RIGHT);
         triggerWalkEvent();
         entity.getEvents().trigger("setPreviousWalkDirection", Vector2Utils.RIGHT);
@@ -66,6 +68,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         triggerWalkEvent();
         return true;
       case Keys.A:
+        entity.getEvents().trigger("keyReleased");
         walkDirection.sub(Vector2Utils.LEFT);
         triggerWalkEvent();
         return true;
@@ -74,6 +77,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         triggerWalkEvent();
         return true;
       case Keys.D:
+        entity.getEvents().trigger("keyReleased");
         walkDirection.sub(Vector2Utils.RIGHT);
         triggerWalkEvent();
         return true;

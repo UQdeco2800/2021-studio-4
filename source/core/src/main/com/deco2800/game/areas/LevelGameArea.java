@@ -72,6 +72,7 @@ public class LevelGameArea extends GameArea {
           "images/Pick_Ups.png",
           "images/Buff_Jump_Boost.png" // Delete later
 
+
   };
 
   private static final String[] gameTextureAtlases = {
@@ -79,10 +80,10 @@ public class LevelGameArea extends GameArea {
           "images/terrain_iso_grass.atlas",
           "images/ghost.atlas",
           "images/ghostKing.atlas",
-          "images/the_void.atlas",
           "images/testingenemy.atlas",
           "map-spritesheets/mapTextures.atlas",
           "images/void.atlas",
+          "images/player.atlas",
           "images/Pick_Ups.atlas",
           "images/Buff_Jump_Boost.atlas" // delete later
   };
