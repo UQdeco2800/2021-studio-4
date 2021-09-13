@@ -108,6 +108,7 @@ public class LevelGameArea extends GameArea {
    */
   public void init() {
     loadAssets();
+    //mapInteractables();
 
     displayBackground();
     spawnTerrain();
@@ -142,9 +143,6 @@ public class LevelGameArea extends GameArea {
 
     spawnPlatform(8, 21, 5);
     spawnDoor(9, 23, 5);
-
-    //mapInteractables();         // may need here
-
   }
 
   private void displayUI() {
