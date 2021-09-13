@@ -72,7 +72,8 @@ public class LevelGameArea extends GameArea {
           "images/Pick_Ups.png",
           "images/portal-door.png",
           "images/jumppad.png",
-          "images/button.png"
+          "images/button.png",
+          "images/level1_background.jpg",
 
 
   };
@@ -184,7 +185,7 @@ public class LevelGameArea extends GameArea {
 
   private void displayBackground() {
     Entity background = new Entity();
-    background.addComponent(new BackgroundRenderComponent("images/game_background.png"));
+    background.addComponent(new BackgroundRenderComponent("images/level1_background.jpg"));
     spawnEntity(background);
   }
 
