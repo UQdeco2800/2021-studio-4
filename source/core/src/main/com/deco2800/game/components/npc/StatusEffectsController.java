@@ -120,6 +120,7 @@ public class StatusEffectsController extends Component {
             // Changes the players ability based off of the effect given
             StatusEffectOperation statusEffectOperation = new StatusEffectOperation(player, effect, statusEffects);
             statusEffectOperation.inspect();
+
         }
     }
 
