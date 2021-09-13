@@ -4,36 +4,31 @@ import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.entities.Entity;
 
 public enum StatusEffectEnum implements StatusEffectInterface {
-    SPEEDBUFF (2, 10, "SPEEDBUFF") {
+    SPEED (5, 4000, "SPEEDBUFF") {
+        @Override
+        public int statChange(int type, int boost, int statOriginal) {
+            int statChange;
+            if (type == 1) { // For Buff
+                statChange = statOriginal - boost;
+            } else { // For DeBuff
+                statChange = type * (statOriginal - boost);
+            }
+            return statChange;
+        }
+    },
+    JUMPBUFF (200, 4000, "JUMPBUFF") {
+        @Override
+        public int statChange(int type, int boost, int statOriginal) {
+            return statOriginal;
+        }
+    },
+    VOIDFREEZE (0, 0, "VOIDFREEZE") {
         @Override
         public int statChange(int type, int boost, int statOriginal) {
             int statChange = type * boost + statOriginal;
             return statChange;
         }
     },
-    JUMPBUFF (2, 10, "JUMPBUFF") {
-        @Override
-        public int statChange(int type, int boost, int statOriginal) {
-            int statChange = type * boost + statOriginal;
-            return statChange;
-        }
-    },
-    TIMESTOP (0, 0, "TIMESTOP") {
-        @Override
-        public int statChange(int type, int boost, int statOriginal) {
-            int statChange = type * boost + statOriginal;
-            return statChange;
-        }
-    },
-    /*
-    SPEEDDEBUFF (-2, 10, "SPEEDDEBUFF") {
-        @Override
-        public int boosts(int type, int boost, int statOriginal) {
-            int statChange = type * boost + statOriginal;
-            return statChange;
-        }
-    },
-     */
     INTERFERANCE (0, 0, "INTERFERANCE") {
         @Override
         public int statChange(int type, int boost, int statOriginal) {
@@ -41,14 +36,7 @@ public enum StatusEffectEnum implements StatusEffectInterface {
             return statChange;
         }
     },
-    FREEZE (0, 0, "FREEZE") {
-        @Override
-        public int statChange(int type, int boost, int statOriginal) {
-            int statChange = type * boost + statOriginal;
-            return statChange;
-        }
-    },
-    RESET (0, 0, "RESET") {
+    STUCKINMUD (0, 3000, "INTERFERANCE") {
         @Override
         public int statChange(int type, int boost, int statOriginal) {
             int statChange = type * boost + statOriginal;
