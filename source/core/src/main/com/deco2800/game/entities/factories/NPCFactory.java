@@ -63,8 +63,6 @@ public class NPCFactory {
     Entity theVoid = new Entity();
     TheVoidConfig config = configs.theVoid;
 
-
-
     theVoid
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new PhysicsComponent())
@@ -90,39 +88,41 @@ public class NPCFactory {
   public static Entity createStatusEffect(Entity target, String effect) {
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    .addTask(new StatusEffectTasks(target));
+                    .addTask(new StatusEffectTasks());
 
-    // Will create switch statement on effect to determine which image to use.
+    // Will create switch statement on effect to determine which image to use based on effect variable/string.
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+
+                            .getAsset("images/Pick_Ups.atlas", TextureAtlas.class));
+    animator.addAnimation(effect, 0.1f, Animation.PlayMode.LOOP);
 
 //    AnimationRenderComponent animator =
 //            new AnimationRenderComponent(
-//                    ServiceLocator.getResourceService()
-//                            .getAsset("images/void.atlas", TextureAtlas.class));
-//    animator.addAnimation("void", 0.1f, Animation.PlayMode.LOOP);
-//
+//                    ServiceLocator.getResourceService().getAsset("images/testingenemy.atlas", TextureAtlas.class));
+//    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
 
     Entity statusEffect = new Entity();
     StatusEffectConfig config = configs.statusEffect;
 
-    AssetManager assetManager = new AssetManager();
-    assetManager.load("images/box_boy.png", Texture.class);
-
     statusEffect
             //.addComponent(new PhysicsMovementComponent())
             .addComponent(new PhysicsComponent())
-            .addComponent(new TextureRenderComponent("images/heart.png")) // Delete once animation is there
-            .addComponent(new StatusEffectsController(target))
+            .addComponent(new StatusEffectsController(target, effect))
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC)) // DO we need all of these???????
             .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
-            .addComponent(aiComponent);
-            //.addComponent(animator);
+            .addComponent(new ColliderComponent())
+            .addComponent(aiComponent)
+            .addComponent(animator);
 
-    //statusEffect.getComponent(AnimationRenderComponent.class).scaleEntity();   FOR ANIMATION?????????
-    statusEffect.setScale(1f,1f);
+    //statusEffect.getComponent(AnimationRenderComponent.class).scaleEntity(); // Don't understand but throws
+                                                                               // NullPointerException
+    statusEffect.setScale(0.5f,0.5f);
     return statusEffect;
   }
-
 
   /**
    * Creates a ghost entity.
