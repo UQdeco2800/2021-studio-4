@@ -10,16 +10,11 @@ import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.ServiceLocator;
-import org.awaitility.Awaitility;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
-import org.awaitility.Awaitility.*;
-
-import java.time.Duration;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
