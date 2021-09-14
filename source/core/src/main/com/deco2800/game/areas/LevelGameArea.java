@@ -67,8 +67,6 @@ public class LevelGameArea extends GameArea {
           "images/jumppad.png",
           "images/button.png",
           "images/level1_background.jpg",
-
-
   };
 
   private static final String[] gameTextureAtlases = {
