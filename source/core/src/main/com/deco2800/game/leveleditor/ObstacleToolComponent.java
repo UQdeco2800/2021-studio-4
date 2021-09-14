@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /**
  * Component for editing the obstacles within the map, such as platforms etc
  */
-public class ObstacleToolComponent extends InputComponent {
+public class ObstacleToolComponent extends BaseToolComponent {
   private Obstacle selectedObstacle = Obstacle.PLATFORM;
   private Entity heldEntity;
   private LevelGameArea levelGameArea;
@@ -111,20 +111,6 @@ public class ObstacleToolComponent extends InputComponent {
     size += step;
 
     if (size < 1) size = 1;
-  }
-
-  private Vector2 getMousePos() {
-    // Convert the current mouse position to the correct units
-    Vector3 pos = ServiceLocator.getCamera().getCamera().unproject(
-      new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
-
-    return new Vector2(pos.x, pos.y);
-  }
-
-  private Vector2 getCellPos() {
-    // Convert units to the cell the mouse is in
-    Vector2 mousePos = getMousePos();
-    return new Vector2((int)Math.floor(mousePos.x * 2) * 0.5f, (int)Math.floor(mousePos.y * 2) * 0.5f);
   }
 
   /**
