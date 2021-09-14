@@ -25,7 +25,7 @@ public class ObstacleEntity extends Entity {
   }
 
   public ObstacleDefinition getDefinition() {
-    return this.getDefinition();
+    return this.definition;
   }
 }
 

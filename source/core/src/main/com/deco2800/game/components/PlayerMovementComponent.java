@@ -63,10 +63,10 @@ public class PlayerMovementComponent extends Component {
         JumpableComponent jumpableComponent = target.getComponent(JumpableComponent.class);
         JumpPadComponent jumpPadComponent = target.getComponent(JumpPadComponent.class);
         InteractableComponent interactableComponent = target.getComponent(InteractableComponent.class);
-        SubInteractableComponent subComponent = target.getComponent(SubInteractableComponent.class);
 
         // Can control user behaviour with component
         PlayerActions playerActions = player.getComponent(PlayerActions.class);
+        // System.out.println("player actions");
 
         if (physicsComponent != null) {
             if (jumpableComponent != null) {
@@ -80,21 +80,25 @@ public class PlayerMovementComponent extends Component {
             }
 
             if (interactableComponent != null && !mapInteractables.isEmpty()) {
+                // Colliding with button
                 ObstacleEntity mapped = mapInteractables.get(target);
                 ColliderComponent colliderComponent = mapped.getComponent(ColliderComponent.class);
+                HitboxComponent mappedHitboxComponent = mapped.getComponent(HitboxComponent.class);
+                ObstacleDefinition mappedType = mapped.getDefinition();
+                // System.out.println("definition");
 
-                if (mapped != null && mapped.getDefinition() == ObstacleDefinition.DOOR) {
+                if (mappedType == ObstacleDefinition.DOOR) {
                     // Desired affect on mapped door - disappears
+                    // System.out.println("dispose");
+                    mappedHitboxComponent.dispose();
                     colliderComponent.dispose();
-                } else if (mapped != null && mapped.getDefinition() == ObstacleDefinition.BRIDGE) {
+                } else if (mappedType == ObstacleDefinition.BRIDGE) {
                     // Desired affect on mapped bridge - appears
-                    // may need to create bridges without a collider component at the beginning
+                    // System.out.println("created");
+                    mappedHitboxComponent.create();
                     colliderComponent.create();
                 }
             }
         }
-
-        // && physicsComponent.toString()
-        //             .equals("Entity{id=9}.PhysicsComponent") ---> uglier but only allows jumping from floor
     }
 }

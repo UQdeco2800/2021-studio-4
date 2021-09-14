@@ -74,7 +74,10 @@ public class PlayerActions extends Component {
 
     this.body = physicsComponent.getBody();
     previousAnimation = getAnimation();
-    animator.startAnimation(getAnimation());
+
+    if (animator != null) {
+      animator.startAnimation(getAnimation());
+    }
   }
 
   @Override
