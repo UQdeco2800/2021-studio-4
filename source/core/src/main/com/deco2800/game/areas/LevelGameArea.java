@@ -150,10 +150,10 @@ public class LevelGameArea extends GameArea {
 
     spawnTheVoid();
 
-//    spawnStatusEffectDeBuff("Debuff_Speed");
-//    spawnStatusEffectBuff("Buff_Jump");
-    spawnStatusEffectBuff(getBuff()); // To be selected randomly from a list of the effects
-    spawnStatusEffectDeBuff(getDeBuff()); // To be selected randomly from a list of the effects
+    spawnStatusEffectDeBuff("Buff_Time_Stop");
+    spawnStatusEffectBuff("Buff_Jump");
+//    spawnStatusEffectBuff(getBuff()); // To be selected randomly from a list of the effects
+//    spawnStatusEffectDeBuff(getDeBuff()); // To be selected randomly from a list of the effects
 
     playTheMusic("game_level_1");
     //playMusic();
@@ -445,6 +445,10 @@ public class LevelGameArea extends GameArea {
     Entity statusEffect = NPCFactory.createStatusEffect(player, statusEffectType);
     spawnEntityAt(statusEffect, STATUSEFFECT_SPAWN2, true, true);
   }
+
+
+
+
 
   /**
    * Music Dictionary for intialisation of various sound effects

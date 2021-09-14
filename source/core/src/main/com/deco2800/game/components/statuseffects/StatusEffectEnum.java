@@ -29,6 +29,8 @@ public enum StatusEffectEnum implements StatusEffectInterface {
     INTERFERANCE (0, 0, "INTERFERANCE") {
         @Override
         public int statChange(int type, int boost, int statOriginal) {
+
+
             int statChange = type * boost + statOriginal;
             return statChange;
         }

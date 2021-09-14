@@ -4,14 +4,19 @@ import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.npc.StatusEffectsController;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.services.GameTime;
 
 import java.util.ArrayList;
 import java.util.Timer;
 
+import static com.deco2800.game.components.npc.TheVoidController.pauseVoid;
+
 public class StatusEffectOperation {
     private int type, boost, statOriginal;
     private String statusEffect;
+
+    // Could also be Entity void
     private Entity player;
     private ArrayList<String> statusEffects;
 
@@ -47,7 +52,8 @@ public class StatusEffectOperation {
             case "Buff_Jump":
                 jumpBoost();
                 break;
-            case "Buff_Time_Stop": // Will not implement yet. Need to get Voids Entity
+            case "Buff_Time_Stop":
+                FreezeVoid();
                 break;
             case "Buff_Speed":
                 speedChange(1);
@@ -60,6 +66,7 @@ public class StatusEffectOperation {
             case "Debuff_Stuck":
                 stuckInMud();
                 break;
+
             default:
                 break;
         }
@@ -180,7 +187,11 @@ public class StatusEffectOperation {
         );
     }
 
-    private void FreezeVoid() { // Could do later
-    // Hard to initialise the void's entity
+    private void FreezeVoid() {
+        pauseVoid();
     }
+
+
+
+
 }

@@ -17,7 +17,10 @@ import static java.lang.Math.abs;
  * when an event is triggered
  */
 public class TheVoidController extends Component {
-    private static final Vector2 SPEED = new Vector2(8f, 0f);
+    // private static final Vector2 SPEED = new Vector2(8f, 0f);
+    private static Vector2 normalSpeed = new Vector2(8f, 0f);
+    private static Vector2 pausedSpeed = new Vector2(0f, 0f);
+    static Vector2 SPEED = normalSpeed;
 
     private PhysicsComponent physicsComponent;
     private AnimationRenderComponent animator;
@@ -108,4 +111,11 @@ public class TheVoidController extends Component {
          } */
 
     }
+
+    public static void pauseVoid() {
+         SPEED = pausedSpeed;
+    }
+
+
+
 }
