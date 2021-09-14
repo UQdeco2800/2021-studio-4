@@ -25,7 +25,7 @@ public class MainMenuScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuScreen.class);
   private final GdxGame game;
   private final Renderer renderer;
-  private static final String[] mainMenuTextures = {"images/MainMenuImageExample.png"};
+  //private static final String[] mainMenuTextures = {"images/MainMenuImageExample.png"};
   //private static final String backgroundMusic = "sounds/MainMenuMusic.mp3";
   //private static final String[] MainMenuMusic = {backgroundMusic};
   private static final MusicServiceDirectory mainMenuSong = new MusicServiceDirectory();
@@ -84,7 +84,7 @@ public class MainMenuScreen extends ScreenAdapter {
 
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
-    resourceService.loadTextures(mainMenuTextures);
+    //resourceService.loadTextures(mainMenuTextures);
     ServiceLocator.getResourceService().loadAll();
     resourceService.loadMusic(MainMenuMusic);
 
@@ -98,7 +98,7 @@ public class MainMenuScreen extends ScreenAdapter {
   private void unloadAssets() {
     logger.debug("Unloading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
-    resourceService.unloadAssets(mainMenuTextures);
+    //resourceService.unloadAssets(mainMenuTextures);
     resourceService.unloadAssets(MainMenuMusic);
   }
 

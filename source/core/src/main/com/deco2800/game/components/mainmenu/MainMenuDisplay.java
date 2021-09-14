@@ -99,6 +99,7 @@ public class MainMenuDisplay extends UIComponent {
          */
         runtimeTitle.setBounds(centreTitleWidth, centreTitleHeight+titleHeight,
                 titleWidthDimension, titleHeightDimension);
+        runtimeTitle.setDisabled(true);
 
 
         /**
@@ -112,6 +113,7 @@ public class MainMenuDisplay extends UIComponent {
          */
         virusHead.setBounds(centreWidth,centreHeight-height79Percent,
                 buttonDimensionsWidth, buttonDimensionsHeight*2);
+        virusHead.setDisabled(true);
 
 
         /**

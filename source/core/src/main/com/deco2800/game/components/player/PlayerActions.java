@@ -102,7 +102,7 @@ public class PlayerActions extends Component {
     return ACCELERATION.x;
   }
 
-  public float getJumpBoost() {
+  public float getJumpHeight() {
     return jumpSpeed.y;
   }
 
