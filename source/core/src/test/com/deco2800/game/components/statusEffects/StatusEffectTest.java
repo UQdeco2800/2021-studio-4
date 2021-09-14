@@ -284,20 +284,20 @@ public class StatusEffectTest {
 ////            System.err.println(e);
 ////        }
     }
-//
-//    @Test
-//    public void testJumpBoostIsDead() {
-//        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentIsDead);
-//        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
-//        jumpBoost.jumpBoost();
-//
-//        /* Check that the jump height does not change because the player is dead */
-//        expected = 300f;
-//        result = player.getComponent(PlayerActions.class).getJumpHeight();
-//
-//        assertEquals(expected, result);
-//        assertNotEquals(500f, result);
-//    }
+
+    @Test
+    public void testJumpBoostIsDead() {
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentIsDead);
+        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
+        jumpBoost.jumpBoost();
+
+        /* Check that the jump height does not change because the player is dead */
+        expected = 300f;
+        result = player.getComponent(PlayerActions.class).getJumpHeight();
+
+        assertEquals(expected, result);
+        assertNotEquals(500f, result);
+    }
 //
 //    @Test
 //    public void testSpeedDebuffNotDead() {
