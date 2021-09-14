@@ -1,5 +1,6 @@
 package com.deco2800.game.components.statusEffects;
 
+import com.deco2800.game.ai.tasks.Task;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.statuseffects.StatusEffectEnum;
@@ -13,6 +14,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
+
+import java.time.Duration;
+import java.time.Instant;
 import java.util.*;
 
 import static org.mockito.Mockito.*;
@@ -27,6 +31,7 @@ public class StatusEffectTest {
     private CombatStatsComponent combatStatsComponentNotDead;
     private CombatStatsComponent combatStatsComponentIsDead;
     GameTime time;
+    Duration duration;
     float expected;
     float result;
     int type;
@@ -65,7 +70,7 @@ public class StatusEffectTest {
     }
 
     @BeforeEach
-    public void initialiseStatusEffectOperation() {
+    public void initialiseStatusEffectOperationClasses() {
         /* Initialise the buff and de-buff classes. Also redefining some methods for mocking purposes */
         speedBoost = new StatusEffectOperation(player, "Buff_Speed",  statusEffectList) {
             /* The speedChange() has been rewritten to change the stats in the playerActions class.
@@ -80,9 +85,9 @@ public class StatusEffectTest {
                  */
             @Override
             public int speedChange(int type) {
-                playerActions.alterSpeed(type * StatusEffectEnum.SPEED.getStatChange());
-                //System.err.println("In the redefine");
-                //System.err.println(player.getComponent(CombatStatsComponent.class).isDead());
+                int statOriginal = (int) player.getComponent(PlayerActions.class).getSpeed();
+                int newSpeed = StatusEffectEnum.SPEED.statChange(type, StatusEffectEnum.SPEED.getStatChange(), statOriginal);
+                playerActions.alterSpeed(newSpeed);
 
                 if (player.getComponent(CombatStatsComponent.class).isDead()) {
                     //System.err.println("Player is dead");
@@ -94,11 +99,11 @@ public class StatusEffectTest {
                             new TimerTask() {
                                 @Override
                                 public void run() {
-                                    player.getComponent(PlayerActions.class).alterSpeed(-StatusEffectEnum.SPEED.getStatChange());
+                                    player.getComponent(PlayerActions.class).alterSpeed(-newSpeed);
                                     speedBoostDuration.cancel();
                                 }
                             },
-                            StatusEffectEnum.SPEED.getStatDuration()
+                            StatusEffectEnum.SPEED.getStatDuration()/25
                     );
                 }
                 return StatusEffectEnum.SPEED.getStatChange();
@@ -106,6 +111,7 @@ public class StatusEffectTest {
         };
 
         jumpBoost = new StatusEffectOperation(player, "Buff_Jump",  statusEffectList) {
+            @Override
             public int jumpBoost() {
                 playerActions.alterJumpHeight(StatusEffectEnum.JUMPBUFF.getStatChange());
                 if (player.getComponent(CombatStatsComponent.class).isDead()) {
@@ -120,7 +126,7 @@ public class StatusEffectTest {
                                     jumpBuffDuration.cancel();
                                 }
                             },
-                            StatusEffectEnum.JUMPBUFF.getStatDuration()
+                            StatusEffectEnum.JUMPBUFF.getStatDuration()/25 /* For testing purposes, the time we wait is significantly lessened */
                     );
                 }
                 return StatusEffectEnum.JUMPBUFF.getStatChange();
@@ -128,43 +134,68 @@ public class StatusEffectTest {
         };
 
         stuckInTheMud = new StatusEffectOperation(player, "Debuff_Stuck",  statusEffectList) {
+            @Override
+            public void stuckInMud() {
+                int newSpeed = -1 * (int) player.getComponent(PlayerActions.class).getSpeed();
+                player.getComponent(PlayerActions.class).alterSpeed(newSpeed);
 
+                Timer debuffDuration = new java.util.Timer();
+                debuffDuration.schedule(
+                        new java.util.TimerTask() {
+                            @Override
+                            public void run() {
+                                player.getComponent(PlayerActions.class).alterSpeed(-newSpeed);
+                                debuffDuration.cancel();
+                            }
+                        },
+                        StatusEffectEnum.STUCKINMUD.getStatDuration()/25 /* 3 seconds */
+                );
+            }
         };
     }
 
     @Test
-    public void testSpeedChangeNotDead() {
+    public void testSpeedBuffNotDead() {
         type = 1;
 
-        /** Tests stat change from enum (this is how the game will actually determine the stat changes) */
-        /** Tests is not dead first */
+        /* Initialise method functionality */
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentNotDead);
 
-        //System.err.println(combatStatsComponentNotDead.isDead());
+        /* Test that the current speed remains true to the original */
+        expected = 10;
+        result =  player.getComponent(PlayerActions.class).getSpeed();
+        //verify(player).getComponent(PlayerActions.class);
+        assertEquals(expected, result);
+        assertTrue(result == expected);
+        assertFalse(result != expected);
+        assertNotEquals(expected + 1, result);
 
-
+        /* Check that the change in stat is correct */
         expected = StatusEffectEnum.SPEED.getStatChange();
         result = speedBoost.speedChange(type);
         assertEquals(expected, result); /* Check the enum for SPEED */
+        assertTrue(result == expected);
+        assertFalse(result != expected);
+        assertNotEquals(expected + 1, result);
 
-        /** Check the change in stat */
+        /* Check the change in stat */
         expected = 15f;
         result = player.getComponent(PlayerActions.class).getSpeed();
-        verify(player).getComponent(PlayerActions.class); /* verify that this method is being called */
+        //verify(player).getComponent(PlayerActions.class); /* verify that this method is being called */
                                                           /* can't verify getSpeed() because playerActions is not a mock */
         assertEquals(expected, result); /* Assert the results */
 
-        /** Checks if the player's stats returns back to normal */
+        /* Checks if the player's stats returns back to normal */
         //System.err.println("Before timer");
-        expected = 10;
+        expected = 10f;
         try {
             //System.out.println("Inside try catch block");
-            Thread.sleep(2000);
+            Thread.sleep(100);
             result = player.getComponent(PlayerActions.class).getSpeed();
             assertNotEquals(expected, result); /* Tests if the statusEffect is still active. */
 
-            Thread.sleep(StatusEffectEnum.SPEED.getStatDuration() - 2000);
+            Thread.sleep(StatusEffectEnum.SPEED.getStatDuration()/25 - 100);
             result = player.getComponent(PlayerActions.class).getSpeed();
             assertEquals(expected, result); /* Tests that the statusEffect is not active. */
         } catch (InterruptedException e) {
@@ -174,10 +205,10 @@ public class StatusEffectTest {
     }
 
     @Test
-    public void testSpeedChangeIsDead() {
+    public void testSpeedBuffIsDead() {
         type = 1;
 
-        /** Tests the condition that the player is dead and got the power up */
+        /* Tests the condition that the player is dead and got the power up */
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentIsDead);
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
         speedBoost.speedChange(type); /* Call the speed change */
@@ -191,13 +222,11 @@ public class StatusEffectTest {
 
     @Test
     public void testJumpBoostNotDead() {
-        type = 1;
         /* Define the function actions */
-        when(time.getTime()).thenReturn(0L);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentNotDead);
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
 
-        /* Check that the current jumpHeight remains unchanged. */
+        /* Check that the current jumpHeight remains true to the original */
         expected = 300f;
         result = player.getComponent(PlayerActions.class).getJumpHeight();
         assertEquals(expected, result);
@@ -219,11 +248,85 @@ public class StatusEffectTest {
         assertTrue(expected == result);
         assertFalse(expected != result);
 
-        /* Check that the statusEffect does not end prematurely */
-        when(time.getTime()).thenReturn(2000L);
+        /* Check that the statusEffect ends */
+        try {
+            /* Check that the statusEffect does not end prematurely */
+            Thread.sleep(100);
+            assertEquals(expected, result);
+            assertTrue(expected == result);
+            assertFalse(expected != result);
+
+            Thread.sleep(StatusEffectEnum.JUMPBUFF.getStatDuration()/25 - 100);
+            expected = 300f;
+            result = player.getComponent(PlayerActions.class).getJumpHeight();
+            assertEquals(expected, result);
+            assertTrue(expected == result);
+            assertFalse(expected != result);
+
+        } catch (InterruptedException e) {
+            System.err.println(e);
+        }
+    }
+
+    @Test
+    public void testJumpBoostIsDead() {
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentIsDead);
+        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
+        jumpBoost.jumpBoost();
+
+        /* Check that the jump height does not change because the player is dead */
+        expected = 300f;
+        result = player.getComponent(PlayerActions.class).getJumpHeight();
+
+        assertEquals(expected, result);
+        assertNotEquals(500f, result);
+    }
+
+    @Test
+    public void testSpeedDebuffNotDead() {
+        type = -1;
+        /* Initialise method functionality */
+        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentNotDead);
+
+        /* Test that the stat change is as expected */
+        expected = 5;
+        result = speedBoost.speedChange(type);
+        assertEquals(expected, result);
+        assertNotEquals(expected + 1, result);
+
+        /* Test that the player stat decreased */
+        expected = 5;
+        result = player.getComponent(PlayerActions.class).getSpeed();
+        assertEquals(expected, result);
+        assertTrue(expected == result);
+        assertNotEquals(expected + 1, result);
+
+        try {
+            /* Test that the de-buff does not prematurely end */
+            Thread.sleep(100);
+            assertEquals(expected, result);
+            assertTrue(expected == result);
+            assertNotEquals(expected + 1, result);
 
 
-        System.err.println(jumpBoost.jumpBoost());
+            /* Test that the de-buff has ended */
+            Thread.sleep(StatusEffectEnum.SPEED.getStatDuration()/25 - 100);
+            expected = 10;
+            result = player.getComponent(PlayerActions.class).getSpeed();
+            assertEquals(expected, result);
+            assertTrue(expected == result);
+            assertNotEquals(expected + 1, result);
+        } catch (InterruptedException e) {
+            System.err.println(e);
+        }
+    }
+
+    @Test
+    public void testStuckInTheMudDebuffNotDead() {
+        
+
+
     }
 
     /* Test Enum getter methods */

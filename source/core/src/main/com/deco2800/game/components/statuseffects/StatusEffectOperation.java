@@ -117,7 +117,7 @@ public class StatusEffectOperation {
                     @Override
                     public void run() {
                         // your code here
-                        player.getComponent(PlayerActions.class).alterSpeed(changedSpeed);
+                        player.getComponent(PlayerActions.class).alterSpeed(-changedSpeed);
                         // close the thread
                         t.cancel();
                     }
