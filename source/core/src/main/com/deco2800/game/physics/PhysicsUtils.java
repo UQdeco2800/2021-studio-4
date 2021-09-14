@@ -16,6 +16,14 @@ public class PhysicsUtils {
             boundingBox, PhysicsComponent.AlignX.CENTER, PhysicsComponent.AlignY.BOTTOM);
   }
 
+  public static void setScaledColliderForEndPortal(Entity entity, float scaleX, float scaleY) {
+    Vector2 boundingBox = entity.getScale().cpy().scl(scaleX, scaleY);
+    entity
+      .getComponent(ColliderComponent.class)
+      .setAsBoxAligned(
+        boundingBox, PhysicsComponent.AlignX.RIGHT, PhysicsComponent.AlignY.BOTTOM);
+  }
+
   private PhysicsUtils() {
     throw new IllegalStateException("Instantiating static util class");
   }

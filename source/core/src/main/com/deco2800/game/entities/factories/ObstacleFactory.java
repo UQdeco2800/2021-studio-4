@@ -205,24 +205,21 @@ public class ObstacleFactory {
   }
 
   public static Entity createLevelEndPortal(int width) {
-    TextureAtlas atlas = ServiceLocator.getResourceService()
-      .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
-
-    Texture levelEndPortalTexture = expandTexture(atlas.findRegion("mapTextures_Platforms"), width, 1);
-
     ObstacleEntity levelEndPortal =
       new ObstacleEntity(ObstacleDefinition.LEVEL_END_PORTAL,width)
         .addComponent(new TextureRenderComponent("map-textures/end_portal.png"))
         .addComponent(new PhysicsComponent())
         .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
-        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
         .addComponent(new JumpableComponent())
         .addComponent(new LevelEndComponent()); // indicates end of level reached
 
+
+    //.addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
     levelEndPortal.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     levelEndPortal.getComponent(TextureRenderComponent.class).scaleEntity();
-    levelEndPortal.scaleHeight(2f);
-    PhysicsUtils.setScaledCollider(levelEndPortal, 1f, 1f);
+    levelEndPortal.scaleHeight(4f);
+    PhysicsUtils.setScaledColliderForEndPortal(levelEndPortal, 1f, 0.25f);
+    PhysicsUtils.setScaledColliderForEndPortal(levelEndPortal,0.25f,1f);
     return levelEndPortal;
   }
 
