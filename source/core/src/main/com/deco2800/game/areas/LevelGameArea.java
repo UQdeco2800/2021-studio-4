@@ -1,15 +1,24 @@
 package com.deco2800.game.areas;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.GridPoint3;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.JsonWriter;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.areas.terrain.TerrainTileDefinition;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.ObstacleDefinition;
 import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.files.LevelFile;
+import com.deco2800.game.levels.LevelDefinition;
 import com.deco2800.game.physics.components.InteractableComponent;
 import com.deco2800.game.physics.components.SubInteractableComponent;
 import com.deco2800.game.rendering.BackgroundRenderComponent;
@@ -21,6 +30,7 @@ import com.deco2800.game.leveleditor.ObstacleToolComponent;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class LevelGameArea extends GameArea {
@@ -33,57 +43,51 @@ public class LevelGameArea extends GameArea {
   public static ArrayList<String> buffers = new ArrayList<>();
   public static ArrayList<String> deBuffers = new ArrayList<>();
 
-  public Map<ObstacleEntity, ObstacleEntity> mapInteractables = new HashMap<>();
+  public Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables = new ConcurrentHashMap<>();
 
   private static final String[] gameTextures = {
-
-          "images/virus_man.png",
-          "images/box_boy_leaf.png",
-          "images/tree.png",
-          "images/ghost_king.png",
-          "images/ghost_1.png",
-          "images/grass_1.png",
-          "images/grass_2.png",
-          "images/grass_3.png",
-          "images/hex_grass_1.png",
-          "images/hex_grass_2.png",
-          "images/hex_grass_3.png",
-          "images/iso_grass_1.png",
-          "images/iso_grass_2.png",
-          "images/iso_grass_3.png",
-          "images/basicenemysprite.png",
-          "images/chasingenemy.png",
-          "images/enemyspritehsee.png",
-          "images/game_background.png",
-          "map-textures/mapTextures_Platforms.png",
-          "map-textures/mapTextures_Middle-Platform.png",
-          "map-textures/mapTextures_Button-On.png",
-          "map-textures/mapTextures_bridge.png",
-          "map-textures/mapTextures_door.png",
-          "images/animatedvoid.png",
-          "images/void_spritesheet2.png",
-          "images/Pick_Ups.png",
-          "images/portal-door.png",
-          "images/jumppad.png",
-          "images/button.png",
-          "images/level1_background.jpg",
-
-
+    "images/virus_man.png",
+    "images/box_boy_leaf.png",
+    "images/tree.png",
+    "images/ghost_king.png",
+    "images/ghost_1.png",
+    "images/grass_1.png",
+    "images/grass_2.png",
+    "images/grass_3.png",
+    "images/hex_grass_1.png",
+    "images/hex_grass_2.png",
+    "images/hex_grass_3.png",
+    "images/iso_grass_1.png",
+    "images/iso_grass_2.png",
+    "images/iso_grass_3.png",
+    "images/basicenemysprite.png",
+    "images/chasingenemy.png",
+    "images/enemyspritehsee.png",
+    "images/game_background.png",
+    "map-textures/marker_cross.png",
+    "map-textures/marker_o.png",
+    "map-textures/end_portal.png",
+    "images/animatedvoid.png",
+    "images/void_spritesheet2.png",
+    "images/Pick_Ups.png",
+    "images/portal-door.png",
+    "images/jumppad.png",
+    "images/button.png",
+    "images/level1_background.jpg",
   };
 
   private static final String[] gameTextureAtlases = {
-
-          "images/terrain_iso_grass.atlas",
-          "images/ghost.atlas",
-          "images/ghostKing.atlas",
-          "images/testingenemy.atlas",
-          "map-spritesheets/mapTextures.atlas",
-          "images/void.atlas",
-          "images/player.atlas",
-          "images/Pick_Ups.atlas",
-          "images/portal-door.atlas",
-          "images/jumppad.atlas",
-          "images/button.atlas"
+    "images/terrain_iso_grass.atlas",
+    "images/ghost.atlas",
+    "images/ghostKing.atlas",
+    "images/testingenemy.atlas",
+    "map-spritesheets/mapTextures.atlas",
+    "images/void.atlas",
+    "images/player.atlas",
+    "images/Pick_Ups.atlas",
+    "images/portal-door.atlas",
+    "images/jumppad.atlas",
+    "images/button.atlas"
   };
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
   private static final String[] gameMusic = {gameSong.click, gameSong.game_level_1,gameSong.end_credits,
@@ -101,11 +105,14 @@ public class LevelGameArea extends GameArea {
 
 
   private final TerrainFactory terrainFactory;
+  private final LevelDefinition levelDefinition;
 
   private Entity player;
 
-  public LevelGameArea(TerrainFactory terrainFactory) {
+  public LevelGameArea(TerrainFactory terrainFactory, LevelDefinition levelDefinition) {
     super();
+    this.levelDefinition = levelDefinition;
+
     this.terrainFactory = terrainFactory;
     buffers.add(0, "Buff_Jump");
     buffers.add(1, "Buff_Time_Stop");
@@ -215,59 +222,64 @@ public class LevelGameArea extends GameArea {
     this.spawnPlatform(posX, posY, width, true, true);
   }
 
-  public void spawnPlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
+  public ObstacleEntity spawnPlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
     ObstacleEntity platform = (ObstacleEntity) ObstacleFactory.createPlatform(width);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(platform, position, centerX, centerY);
     obstacleEntities.add(platform);
     platform.setTilePosition(position);
+    return platform;
   }
 
   public void spawnMiddlePlatform(int posX, int posY, int width) {
     this.spawnMiddlePlatform(posX, posY, width, true, true);
   }
 
-  public void spawnMiddlePlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
+  public ObstacleEntity spawnMiddlePlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
     ObstacleEntity platform = (ObstacleEntity) ObstacleFactory.createMiddlePlatform(width);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(platform, position, centerX, centerY);
     obstacleEntities.add(platform);
     platform.setTilePosition(position);
+    return platform;
   }
   public void spawnButton(int posX, int posY) {
     spawnButton(posX, posY, false, true);
   }
 
-  public void spawnButton(int posX, int posY, boolean centerX, boolean centerY) {
+  public ObstacleEntity spawnButton(int posX, int posY, boolean centerX, boolean centerY) {
     ObstacleEntity button = (ObstacleEntity) ObstacleFactory.createButton();
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(button, position, centerX, centerY);
     obstacleEntities.add(button);
     button.setTilePosition(position);
+    return button;
   }
 
   public void spawnBridge(int posX, int posY, int width) {
     spawnBridge(posX, posY, width, false, true);
   }
 
-  public void spawnBridge(int posX, int posY, int width, boolean centerX, boolean centerY) {
+  public ObstacleEntity spawnBridge(int posX, int posY, int width, boolean centerX, boolean centerY) {
     ObstacleEntity bridge = (ObstacleEntity) ObstacleFactory.createBridge(width);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(bridge, position, centerX, centerY);
     obstacleEntities.add(bridge);
     bridge.setTilePosition(position);
+    return bridge;
   }
 
   public void spawnDoor(int posX, int posY, int height) {
     spawnDoor(posX, posY, height, false, true);
   }
 
-  public void spawnDoor(int posX, int posY, int height, boolean centerX, boolean centerY) {
+  public ObstacleEntity spawnDoor(int posX, int posY, int height, boolean centerX, boolean centerY) {
     ObstacleEntity door = (ObstacleEntity) ObstacleFactory.createDoor(height);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(door, position, centerX, centerY);
     obstacleEntities.add(door);
     door.setTilePosition(position);
+    return door;
   }
 
   /**
@@ -296,50 +308,202 @@ public class LevelGameArea extends GameArea {
       // map earliest button with earliest door/bridge, continue for all buttons
       if (buttons.size() > 0 && subInteractables.size() > 0) {
         for (int j = 0; j < buttons.size(); j++) {
-          mapInteractables.put(buttons.get(j), subInteractables.get(j));
+          //mapInteractables.put(buttons.get(j), subInteractables.get(j));
         }
       }
   }
 
-  public void saveAll(String name){
-    FileWriter writer = null;
-    try {
-      writer = new FileWriter("levels/" + name + ".txt");
-      saveTerrain(writer);
-      saveObstacles(writer);
-      writer.flush();
-    } catch (IOException | NullPointerException e) {
-      e.printStackTrace();
-    } finally {
-      try {
-        writer.close();
-      } catch (IOException e) {
-        e.printStackTrace();
+  public ObstacleEntity getObstacle(Entity entity) {
+    for (ObstacleEntity obstacleEntity : obstacleEntities) {
+      if (obstacleEntity.equals(entity)) return obstacleEntity;
+    }
+    return null;
+  }
+
+  /**
+   * Method assigning the interactableID property to all interactable ObstacleEntities.
+   * This is not a very clean solution (this data needs to be moved to be stored on the actual InteractableComponent)
+   * but it's the simplest way to do it with the existing implementation.
+   */
+  private void generateInteractableIDs() {
+    int id = 0;
+    for (ObstacleEntity obstacleEntity : obstacleEntities) {
+      if (obstacleEntity.getComponent(SubInteractableComponent.class) != null
+        || obstacleEntity.getComponent(InteractableComponent.class) != null) {
+        obstacleEntity.interactableID = id++;
       }
     }
   }
 
-  private void saveTerrain(FileWriter writer) throws IOException {
-    TiledMapTileLayer mapTileLayer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
-    for (int x = 0; x < mapTileLayer.getWidth(); x++) {
-      for (int y = 0; y < mapTileLayer.getHeight(); y++) {
-        TiledMapTileLayer.Cell cell = mapTileLayer.getCell(x, y);
+  /**
+   * Generates a map of interactableIDs to be saved/loaded from file
+   */
+  private Map<Integer, List<Integer>> generateInteractablesMap() {
+    Map<Integer, List<Integer>> interactableIds = new HashMap<>();
+    for (Map.Entry<ObstacleEntity, List<ObstacleEntity>> obstacleEntityListEntry : mapInteractables.entrySet()) {
+      List<Integer> subInteractableIds = new ArrayList<>();
+      for (ObstacleEntity obstacleEntity : obstacleEntityListEntry.getValue()) {
+        subInteractableIds.add(obstacleEntity.interactableID);
+      }
 
-        if (cell != null) {
-          TerrainTile terrainTile = (TerrainTile)cell.getTile();
-          String tileInfo = terrainTile.serialize(x, y);
-          writer.write("T:"+tileInfo);
+      interactableIds.put(obstacleEntityListEntry.getKey().interactableID, subInteractableIds);
+    }
+
+    return interactableIds;
+  }
+
+  public void spawnLevelEndPortal(int posX, int posY, int width) {
+    spawnLevelEndPortal(posX, posY, width, false, true);
+  }
+
+  public ObstacleEntity spawnLevelEndPortal(int posX, int posY, int width, boolean centerX, boolean centerY) {
+    ObstacleEntity levelEndPortal = (ObstacleEntity) ObstacleFactory.createLevelEndPortal(width);
+    GridPoint2 position = new GridPoint2(posX,posY);
+    spawnEntityAt(levelEndPortal, position, centerX, centerY);
+    obstacleEntities.add(levelEndPortal);
+    levelEndPortal.setTilePosition(position);
+    return levelEndPortal;
+  }
+
+  public void writeAll() {
+    Json json = new Json();
+    json.setOutputType(JsonWriter.OutputType.json);
+
+    FileHandle file = Gdx.files.local(levelDefinition.getLevelFileName());
+    assert file != null;
+
+    // Create a new LevelFile object
+    LevelFile levelFile = new LevelFile();
+
+    // save the TiledMapTileLayer
+    applyTerrainSerializers(json);
+    levelFile.terrain = new LevelFile.Terrain();
+    levelFile.terrain.mapLayer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
+
+    // Save the obstacles
+    generateInteractableIDs(); // Assign interactable IDs to obstacles here
+    levelFile.obstacles = new LevelFile.Obstacles();
+    levelFile.obstacles.obstacleEntities = this.obstacleEntities;
+    levelFile.obstacles.interactablesMap = generateInteractablesMap();
+
+    // save the file
+    file.writeString(json.prettyPrint(levelFile), false);
+  }
+
+  private void readAll() {
+    Json json = new Json();
+    applyTerrainSerializers(json);
+
+    FileHandle file = Gdx.files.local(levelDefinition.getLevelFileName());
+    assert file != null;
+
+    LevelFile levelFile = json.fromJson(LevelFile.class, file);
+
+    for (ObstacleEntity obstacleEntity : levelFile.obstacles.obstacleEntities) {
+      ObstacleEntity newObstacle = spawnObstacle(obstacleEntity.getDefinition(), (int)obstacleEntity.getPosition().x,
+        (int)obstacleEntity.getPosition().y, obstacleEntity.size);
+
+      newObstacle.interactableID = obstacleEntity.interactableID;
+    }
+
+    // Add entities to subInteractables list
+    for (ObstacleEntity obstacleEntity : obstacleEntities) {
+      if (obstacleEntity.interactableID != null) {
+//        System.out.println(obstacleEntity.interactableID);
+//        System.out.println(levelFile.obstacles.interactablesMap);
+//        System.out.println(levelFile.obstacles.interactablesMap.keySet());
+//        System.out.println(levelFile.obstacles.interactablesMap.get(obstacleEntity.interactableID);
+//        System.out.println(levelFile.obstacles.interactablesMap.containsKey(obstacleEntity.interactableID));
+        if (levelFile.obstacles.interactablesMap.containsKey(obstacleEntity.interactableID)) {
+          List<Integer> subInteractableIds = levelFile.obstacles.interactablesMap.get(obstacleEntity.interactableID);
+          List<ObstacleEntity> subInteractables = new ArrayList<>();
+          for (ObstacleEntity entity : obstacleEntities) {
+            if (subInteractableIds.contains(entity.interactableID)) {
+              subInteractables.add(entity);
+              break;
+            }
+          }
+
+          mapInteractables.put(obstacleEntity, subInteractables);
         }
       }
     }
+    System.out.println(levelFile.obstacles.interactablesMap);
   }
 
-  private void saveObstacles(FileWriter writer) throws IOException {
-    for (ObstacleEntity obstacle: obstacleEntities) {
-      String obstacleInfo = obstacle.serialise();
-      writer.write("O:"+obstacleInfo);
-    }
+  private void applyTerrainSerializers(Json json) {
+    // Serializer for loading/saving cells to json using PositionedTerrainTile
+    json.setSerializer(TiledMapTileLayer.class, new Json.Serializer<>() {
+      @Override
+      public void write(Json json, TiledMapTileLayer layer, Class knownType) {
+        List<LevelFile.PositionedTerrainTile> tiles = new ArrayList<>();
+        // Create a list of PositionedTerrainTile to save
+        for (int x = 0; x < layer.getWidth(); x++) {
+          for (int y = 0; y < layer.getHeight(); y++) {
+            TiledMapTileLayer.Cell cell = layer.getCell(x, y);
+
+            if (cell != null) {
+              LevelFile.PositionedTerrainTile positionedTile =
+                new LevelFile.PositionedTerrainTile((TerrainTile) cell.getTile(), x, y);
+
+              tiles.add(positionedTile);
+            }
+          }
+        }
+
+        json.writeValue(tiles);
+      }
+
+      @Override
+      public TiledMapTileLayer read(Json json, JsonValue jsonData, Class type) {
+        TiledMapTileLayer mapTileLayer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
+
+        for (JsonValue tileData : jsonData) {
+          LevelFile.PositionedTerrainTile posTile = json.readValue(LevelFile.PositionedTerrainTile.class, tileData);
+
+          TiledMapTileLayer.Cell cell = posTile.tile.generateCell();
+          mapTileLayer.setCell(posTile.x, posTile.y, cell);
+        }
+
+        return mapTileLayer;
+      }
+    });
   }
+
+//  @Deprecated
+//  private void _spawnLevelFromFile() {
+//    BufferedReader reader = null;
+//    try {
+//      reader = new BufferedReader(new FileReader("levels/level.txt"));
+//
+//      String line;
+//      while ((line = reader.readLine()) != null) {
+//        String[] lineInfo = line.split(":");
+//        if (lineInfo[0].equals("O")) {
+//          ObstacleDefinition obstacle = ObstacleDefinition.valueOf(lineInfo[1]);
+//          int size = Integer.parseInt(lineInfo[2]);
+//          int x = Integer.parseInt(lineInfo[3]);
+//          int y = Integer.parseInt(lineInfo[4]);
+//          spawnObstacle(obstacle, x, y, size);
+//        } else {
+//          TerrainTileDefinition definition = TerrainTileDefinition.valueOf(lineInfo[1]);
+//          int rotation = Integer.parseInt(lineInfo[2]);
+//          int x = Integer.parseInt(lineInfo[3]);
+//          int y = Integer.parseInt(lineInfo[4]);
+//          TiledMapTileLayer mapTileLayer = (TiledMapTileLayer) terrain.getMap().getLayers().get(0);
+//          TerrainFactory.loadTilesFromFile(mapTileLayer, definition, rotation, x, y);
+//        }
+//      }
+//    } catch (IOException | NullPointerException e) {
+//      e.printStackTrace();
+//    } finally {
+//      try {
+//        reader.close();
+//      } catch (IOException e) {
+//        e.printStackTrace();
+//      }
+//    }
+//  }
 
   @Override
   public void untrackEntity(Entity entity) {
@@ -348,63 +512,39 @@ public class LevelGameArea extends GameArea {
   }
 
   private void spawnLevelFromFile() {
-    BufferedReader reader = null;
-    try {
-      reader = new BufferedReader(new FileReader("levels/level.txt"));
+  //  _spawnLevelFromFile(); // Used to load an old level.txt file to the new json format.
+    // Load actual elements
+    readAll();
 
-      String line;
-      while ((line = reader.readLine()) != null) {
-        String[] lineInfo = line.split(":");
-        if (lineInfo[0].equals("O")){
-          ObstacleToolComponent.Obstacle obstacle = ObstacleToolComponent.Obstacle.valueOf(lineInfo[1]);
-          int size = Integer.parseInt(lineInfo[2]);
-          int x = Integer.parseInt(lineInfo[3]);
-          int y = Integer.parseInt(lineInfo[4]);
-          spawnObstacle(obstacle,x,y,size);
-        } else {
-          TerrainTileDefinition definition = TerrainTileDefinition.valueOf(lineInfo[1]);
-          int rotation = Integer.parseInt(lineInfo[2]);
-          int x = Integer.parseInt(lineInfo[3]);
-          int y = Integer.parseInt(lineInfo[4]);
-          TiledMapTileLayer mapTileLayer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
-          TerrainFactory.loadTilesFromFile(mapTileLayer,definition,rotation,x,y);
-        }
-      }
-    } catch (IOException | NullPointerException e) {
-      e.printStackTrace();
-    } finally {
-      try {
-        reader.close();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
+    // Generate tile bodies
+    TerrainFactory.generateBodies(terrain.getMap());
   }
 
-  private void spawnObstacle(ObstacleToolComponent.Obstacle selectedObstacle, int x, int y, int size) {
+  private ObstacleEntity spawnObstacle(ObstacleDefinition selectedObstacle, int x, int y, int size) {
 //    x = x*2;
 //    y = y*2;
     switch (selectedObstacle){
       case PLATFORM:
-        spawnPlatform(x, y, size, false, false);
-        break;
+        return spawnPlatform(x, y, size, false, false);
       case MIDDLE_PLATFORM:
-        spawnMiddlePlatform(x, y, size, false, false);
-        break;
+        return spawnMiddlePlatform(x, y, size, false, false);
       case DOOR:
-        spawnDoor(x, y, size, false, false);
-        break;
+        return spawnDoor(x, y, size, false, false);
       case BRIDGE:
-        spawnBridge(x, y, size, false, false);
-        break;
+        return spawnBridge(x, y, size, false, false);
       case BUTTON:
-        spawnButton(x, y, false, false);
-        break;
+        return spawnButton(x, y, false, false);
+      case LEVEL_END_PORTAL:
+        return spawnLevelEndPortal(x,y,size,false,false);
+      case JUMPPAD:
+//        return spawnJumpPad ??? why this missing
     }
+
+    return null;
   }
 
   private Entity spawnPlayer() {
-    Entity newPlayer = PlayerFactory.createPlayer(mapInteractables);
+    Entity newPlayer = PlayerFactory.createPlayer(mapInteractables, this);
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     return newPlayer;
   }
