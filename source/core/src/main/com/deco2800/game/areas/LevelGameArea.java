@@ -46,6 +46,44 @@ public class LevelGameArea extends GameArea {
   public Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables = new ConcurrentHashMap<>();
 
   private static final String[] gameTextures = {
+
+
+          "images/virus_man.png",
+          "images/box_boy_leaf.png",
+          "images/tree.png",
+          "images/ghost_king.png",
+          "images/ghost_1.png",
+          "images/grass_1.png",
+          "images/grass_2.png",
+          "images/grass_3.png",
+          "images/hex_grass_1.png",
+          "images/hex_grass_2.png",
+          "images/hex_grass_3.png",
+          "images/iso_grass_1.png",
+          "images/iso_grass_2.png",
+          "images/iso_grass_3.png",
+          "images/basicenemysprite.png",
+          "images/chasingenemy.png",
+          "images/enemyspritehsee.png",
+          "images/game_background.png",
+          "map-textures/mapTextures_Platforms.png",
+          "map-textures/mapTextures_Middle-Platform.png",
+          "map-textures/mapTextures_Button-On.png",
+          "map-textures/mapTextures_bridge.png",
+          "map-textures/mapTextures_door.png",
+          "images/animatedvoid.png",
+          "images/void_spritesheet2.png",
+          "images/Pick_Ups.png",
+          "images/portal-door.png",
+          "images/jumppad.png",
+          "images/button.png",
+          "images/level1_background.jpg",
+          "images/player_sprite_sheet.png",
+          "images/player_sprite_sheet2.png",
+          "images/player_sprite_sheet3.png",
+
+
+
     "images/virus_man.png",
     "images/box_boy_leaf.png",
     "images/tree.png",
@@ -79,6 +117,18 @@ public class LevelGameArea extends GameArea {
 
   private static final String[] gameTextureAtlases = {
 
+          "images/terrain_iso_grass.atlas",
+          "images/ghost.atlas",
+          "images/ghostKing.atlas",
+          "images/testingenemy.atlas",
+          "map-spritesheets/mapTextures.atlas",
+          "images/void.atlas",
+          "images/player.atlas",
+          "images/Pick_Ups.atlas",
+          "images/portal-door.atlas",
+          "images/jumppad.atlas",
+          "images/button.atlas",
+          "images/player_sprite_sheet.atlas",
     "images/terrain_iso_grass.atlas",
     "images/ghost.atlas",
     "images/ghostKing.atlas",
