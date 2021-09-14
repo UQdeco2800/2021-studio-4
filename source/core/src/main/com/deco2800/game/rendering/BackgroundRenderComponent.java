@@ -28,13 +28,24 @@ public class BackgroundRenderComponent extends RenderComponent {
     // The background must follow the camera
     Camera cam = ServiceLocator.getCamera().getCamera();
     Vector3 position = cam.position;
+    // Camera lock is removed
+    // Get actual viewport width and height, not screen width and height (not always fullscreen)
+    float screenWidth = cam.viewportWidth*3.5f;
+    float screenHeight = cam.viewportHeight;
+
+    // Draw texture
+    batch.draw(texture, screenWidth/6, screenHeight/6, screenWidth, screenHeight);
+  /*
+  // The background must follow the camera
+    Camera cam = ServiceLocator.getCamera().getCamera();
+    Vector3 position = cam.position;
 
     // Get actual viewport width and height, not screen width and height (not always fullscreen)
     float screenWidth = cam.viewportWidth;
     float screenHeight = cam.viewportHeight;
 
     // Draw texture
-    batch.draw(texture, position.x-(screenWidth/2), position.y-(screenHeight/2), screenWidth, screenHeight);
+    batch.draw(texture, position.x-(screenWidth/2), position.y-(screenHeight/2), screenWidth, screenHeight);*/
   }
 
   @Override

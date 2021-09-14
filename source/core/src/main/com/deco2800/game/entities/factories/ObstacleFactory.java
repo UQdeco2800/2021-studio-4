@@ -150,6 +150,10 @@ public class ObstacleFactory {
     return button;
   }
 
+  /**
+   * Creates a jump pad entity.
+   * @return jump pad
+   */
   public static Entity createJumpPad() {
     ObstacleEntity jumpPad =
             new ObstacleEntity(ObstacleDefinition.JUMPPAD,1)

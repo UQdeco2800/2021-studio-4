@@ -13,7 +13,6 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.GdxGame.ScreenType;
 import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.files.UserSettings.DisplaySettings;
-import com.deco2800.game.services.*;
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;

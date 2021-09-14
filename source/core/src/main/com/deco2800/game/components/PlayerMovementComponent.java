@@ -11,8 +11,6 @@ import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.*;
 import com.deco2800.game.screens.MainGameScreen;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class PlayerMovementComponent extends Component {
@@ -41,7 +39,7 @@ public class PlayerMovementComponent extends Component {
 
     /**
      * Communicate with the player's action ability through monitoring
-     * collision with the ground.
+     * collision with the obstacle entities.
      * @param me The first fixture (player).
      * @param other The second fixture.
      */
@@ -66,10 +64,10 @@ public class PlayerMovementComponent extends Component {
         LevelEndComponent levelEndComponent = target.getComponent(LevelEndComponent.class);
         JumpPadComponent jumpPadComponent = target.getComponent(JumpPadComponent.class);
         InteractableComponent interactableComponent = target.getComponent(InteractableComponent.class);
-        SubInteractableComponent subComponent = target.getComponent(SubInteractableComponent.class);
 
         // Can control user behaviour with component
         PlayerActions playerActions = player.getComponent(PlayerActions.class);
+        // System.out.println("player actions");
 
         if (physicsComponent != null) {
             if (jumpableComponent != null) {
@@ -86,13 +84,18 @@ public class PlayerMovementComponent extends Component {
                 List<ObstacleEntity> subInteractables = mapInteractables.get(target);
                 for (ObstacleEntity subInteractable : subInteractables) {
                     ColliderComponent colliderComponent = subInteractable.getComponent(ColliderComponent.class);
+                    HitboxComponent mappedHitboxComponent = subInteractable.getComponent(HitboxComponent.class);
+                    ObstacleDefinition mappedType = subInteractable.getDefinition();
 
-                    if (subInteractable.getDefinition() == ObstacleDefinition.DOOR) {
+                    if (mappedType == ObstacleDefinition.DOOR) {
                         // Desired affect on mapped door - disappears
+                        // System.out.println("dispose");
+                        mappedHitboxComponent.dispose();
                         colliderComponent.dispose();
-                    } else if (subInteractable.getDefinition() == ObstacleDefinition.BRIDGE) {
+                    } else if (mappedType == ObstacleDefinition.BRIDGE) {
                         // Desired affect on mapped bridge - appears
-                        // may need to create bridges without a collider component at the beginning
+                        // System.out.println("created");
+                        mappedHitboxComponent.create();
                         colliderComponent.create();
                     }
                 }

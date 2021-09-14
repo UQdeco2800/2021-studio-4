@@ -10,7 +10,7 @@ import com.deco2800.game.services.ServiceLocator;
 /**
  * A generic component for rendering onto the ui.
  */
-public abstract class UIComponent extends RenderComponent implements Renderable {
+public abstract class UIComponent extends RenderComponent {
   private static final int UI_LAYER = 2;
   protected static final Skin skin =
       new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));

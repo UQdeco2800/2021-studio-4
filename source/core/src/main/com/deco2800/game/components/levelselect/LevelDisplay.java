@@ -16,7 +16,6 @@ import com.deco2800.game.components.levelselect.LevelDisplay;
 import com.deco2800.game.levels.LevelDefinition;
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.MusicServiceDirectory;
-import com.deco2800.game.services.MusicSingleton;
 import com.deco2800.game.services.MuteManager;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;

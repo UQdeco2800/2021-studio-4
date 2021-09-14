@@ -9,7 +9,6 @@ import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.components.tasks.PlayerChangeAnimationHelper;
-import com.deco2800.game.components.npc.StatusEffectsController;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.entities.configs.PlayerConfig;
@@ -23,7 +22,6 @@ import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
-import java.util.List;
 import java.util.Map;
 
 /**

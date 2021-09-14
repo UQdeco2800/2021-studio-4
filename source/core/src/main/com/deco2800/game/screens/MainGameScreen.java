@@ -104,6 +104,7 @@ public class MainGameScreen extends ScreenAdapter {
       game.setScreen(GdxGame.ScreenType.MAIN_MENU);
     }
     timeScore = (int) ((System.currentTimeMillis() - timeStarted) / 1000);
+
   }
 
   @Override

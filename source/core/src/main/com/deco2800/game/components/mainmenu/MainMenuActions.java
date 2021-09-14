@@ -69,7 +69,7 @@ public class MainMenuActions extends Component {
    * Mutes the MainMenuMusic
    */
   private void onMute() {
-    logger.info("Muting MainMenuMusic");
+    logger.info("Muting Music");
 
     MuteManager mute = MuteManager.getInstance();
     MusicSingleton music = MusicSingleton.getInstance();
@@ -79,7 +79,6 @@ public class MainMenuActions extends Component {
     } else {
       mute.setMute(true);
       music.pauseMusicSingleton("sounds/MainMenuMusic.mp3");
-
     }
 
   }

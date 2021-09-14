@@ -32,10 +32,14 @@ public class ObstacleEntity extends Entity implements Json.Serializable {
     return (ObstacleEntity)super.addComponent(component);
   }
 
+  /**
+   * Returns the definition of the obstacle.
+   * @return Obstacle definition
+   */
   public ObstacleDefinition getDefinition() {
     return this.definition;
   }
-
+  
   @Override
   public void write(Json json) {
     GridPoint2 position = this.getTilePosition();
