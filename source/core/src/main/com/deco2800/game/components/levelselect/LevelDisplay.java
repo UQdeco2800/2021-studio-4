@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.deco2800.game.components.levelselect.LevelDisplay;
+import com.deco2800.game.levels.LevelDefinition;
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.services.MuteManager;
@@ -54,48 +55,55 @@ public class LevelDisplay extends UIComponent {
         sprite = new Sprite(new Texture("images/title_screen_clean.png"));
         table.setBackground(new SpriteDrawable(sprite)); // Set background.
 
-        File levelDirectory = new File("levels");
-        HashMap<String, TextButton> levelBtns = new HashMap<String, TextButton>();
-
         // Add exit button to go back to main menu.
         TextButton exitBtn = new TextButton("Exit", skin);
 
-        // List all the files in the levels folder and create a button for each
-        for (String level : levelDirectory.list()) {
-            levelBtns.put(level, new TextButton(level, skin));
-            levelBtns.get(level).addListener(
-                new ChangeListener() {
-                    @Override
-                    public void changed(ChangeEvent changeEvent, Actor actor) {
-                        logger.debug(level + " button clicked");
-                        entity.getEvents().trigger("start");
-                    }
-                }
-            );
-            levelBtns.get(level).setColor(Color.ROYAL);
-
-        }
-
-        // Exit button event.
         exitBtn.addListener(
-                new ChangeListener() {
-                    @Override
-                    public void changed(ChangeEvent changeEvent, Actor actor) {
+          new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent changeEvent, Actor actor) {
 
-                        logger.debug("Exit button clicked");
-                        entity.getEvents().trigger("exit");
-                    }
-                });
+                  logger.debug("Exit button clicked");
+                  entity.getEvents().trigger("exit");
+              }
+          });
         exitBtn.setColor(Color.ROYAL);
 
         table.row();
         table.add(exitBtn).center().padBottom(50f); // Places the button in the centre.
         table.row();
 
-        for (TextButton btn : levelBtns.values()) {
-            table.add(btn).pad(10f);
+        // List all the files in the levels folder and create a button for each
+        for (LevelDefinition level : LevelDefinition.values()) {
+            TextButton startBtn = new TextButton(level.getName(), skin);
+            startBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.debug(level + " button clicked");
+                        entity.getEvents().trigger("start", level);
+                    }
+                }
+            );
+            startBtn.setColor(Color.ROYAL);
+
+            TextButton editorBtn = new TextButton("Edit", skin);
+            editorBtn.addListener(
+              new ChangeListener() {
+                  @Override
+                  public void changed(ChangeEvent changeEvent, Actor actor) {
+                      logger.debug(level + " button clicked");
+                      entity.getEvents().trigger("levelEditor", level);
+                  }
+              }
+            );
+            editorBtn.setColor(Color.ROYAL);
+
+            table.add(startBtn).pad(10f);
+            table.add(editorBtn).pad(1f);
             table.row();
         }
+
         stage.addActor(table);
     }
 

@@ -30,12 +30,12 @@ public class PlayerActions extends Component {
     Left,
     Right
   }
-  private MovingDirection movingDirection = MovingDirection.Right;
-  private String currentPowerUp = "Default";
-  private Movement currentMovement = Movement.Idle;
+  private MovingDirection movingDirection;
+  private String currentPowerUp;
+  private Movement currentMovement;
   private String previousAnimation;
 
-  private static final Vector2 ACCELERATION = new Vector2(10f, 0f);  // Force of acceleration, in Newtons (kg.m.s^2)
+  private static Vector2 ACCELERATION = new Vector2(10f, 0f);;  // Force of acceleration, in Newtons (kg.m.s^2)
   private static final float NORMAL_FRICTION = 0.1f;                 // Coefficient of friction for normal movement
 
   private PlayerState playerState = PlayerState.STOPPED;        // Movement state of the player, see PlayerState
@@ -65,11 +65,17 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("setPreviousWalkDirection", this::setPreviousWalkDirection);
     entity.getEvents().addListener("playerIsFalling", this::setIsFalling);
     entity.getEvents().addListener("isJumping", this::setIsJumping);
-    entity.getEvents().addListener("isFallingOrSlidingDone", this::checkIfFallingOrSlidingIsDone);
+    entity.getEvents().addListener("isFallingDone", this::checkIfFallingIsDone);
+    entity.getEvents().addListener("isSlidingDone", this::checkIfSlidingIsDone);
     entity.getEvents().addListener("keyPressed", this::keyWasPressed);
     entity.getEvents().addListener("keyReleased", this::keyWasReleased);
+    entity.getEvents().addListener("setPowerUpAnimation", this::setPowerUpAnimation);
 
 
+    currentPowerUp = "Default";
+    movingDirection = MovingDirection.Right;
+    currentMovement = Movement.Idle;
+    keysPressed = 0;
 
     this.body = physicsComponent.getBody();
     previousAnimation = getAnimation();
@@ -112,31 +118,6 @@ public class PlayerActions extends Component {
    * speed limit.
    */
   public int alterSpeed(int newSpeed) {
-    //check if the speed is being set to its default value or if its increasing or decreasing and set
-    //the animation
-
-    //adding speed
-    if(newSpeed > 0) {
-      //increasing from deafult
-      if (getSpeed() == 10) {
-        setPowerUpAnimation("SpeedUp");
-        //setting back to default from either Stuck or speedDown
-      } else {
-        setPowerUpAnimation("Default");
-      }
-      //setting to Stuck
-    } else if (newSpeed == getSpeed()*-1){
-      setPowerUpAnimation("Stuck");
-      //decreasing speed
-    } else {
-      //if decreasing from 10 its SpeedDown
-      if(getSpeed() == 10) {
-        setPowerUpAnimation("SpeedDown");
-        //if decreasing from a higher speed then it is setting to Default
-      } else {
-        setPowerUpAnimation("Default");
-      }
-    }
 
     // increase or decrease the players movement
     ACCELERATION.add(newSpeed, 0);
@@ -145,11 +126,7 @@ public class PlayerActions extends Component {
   }
 
   public int alterJumpHeight(int newJump) {
-    if(newJump > 0) {
-      setPowerUpAnimation("JumpUp");
-    } else {
-      setPowerUpAnimation("Default");
-    }
+
     // increase or decrease the players movement
     jumpSpeed.add(0, newJump);
     return newJump;
@@ -206,50 +183,67 @@ public class PlayerActions extends Component {
    * @returns String containing currentMovement + movingDirection + powerUp
    */
   private String getAnimation(){
-    return currentMovement.toString() + movingDirection.toString() + currentPowerUp;
+    return  getCurrentMovement() + getCurrentDirection() + getCurrentPowerUp();
   }
+
+  String getCurrentMovement() {
+    return currentMovement.toString();
+  }
+
+  String getCurrentDirection() {
+    return movingDirection.toString();
+  }
+
+  String getCurrentPowerUp() {
+    return currentPowerUp;
+  }
+
 
   /**
    * sets the players animation to falling
    */
-  private void setIsFalling(){
-    canJump = false;
+  void setIsFalling(){
+    setCanJump(false);
     setMovementAnimation(Movement.Falling);
   }
 
-  private void setIsJumping(){
+  void setIsJumping(){
     setMovementAnimation(Movement.Jumping);
+  }
+
+  void setIsSliding() {
+    setMovementAnimation(Movement.Sliding);
   }
 
   /**
    * This checks if the animation of the player is set to falling when it should not
    * be and sets the player to the correct animation
    */
-  private void checkIfFallingOrSlidingIsDone(){
-    if(currentMovement == Movement.Falling | currentMovement == Movement.Jumping){
-      if(canJump){
+  void checkIfFallingIsDone(){
+    if((currentMovement == Movement.Falling | currentMovement == Movement.Jumping) & canJump){
         if(body.getLinearVelocity().x == 0 | keysPressed == 0){
           setMovementAnimation(Movement.Idle);
         } else {
           setMovementAnimation(Movement.Running);
         }
-      }
-    } else if (currentMovement == Movement.Sliding) {
-      if(canJump){
-        if(body.getLinearVelocity().x == 0){
+    }
+  }
+
+  void checkIfSlidingIsDone() {
+    if (currentMovement == Movement.Sliding && canJump) {
+        if (body.getLinearVelocity().x == 0) {
           setMovementAnimation(Movement.Idle);
         } else if (keysPressed > 0 && (body.getLinearVelocity().x < 7 && body.getLinearVelocity().x > 0 ||
-                     body.getLinearVelocity().x > -8 && body.getLinearVelocity().x < 8)) {
-            setMovementAnimation(Movement.Running);
+                body.getLinearVelocity().x > -7 && body.getLinearVelocity().x < 7)) {
+          setMovementAnimation(Movement.Running);
         }
       }
-    }
   }
 
   /**
    * Increments the variable storing number of keys being pressed
    */
-  private void keyWasPressed(){
+  void keyWasPressed(){
     keysPressed++;
   }
 
@@ -314,7 +308,9 @@ public class PlayerActions extends Component {
    */
   void stopWalking() {
     this.walkDirection = Vector2.Zero.cpy();
-    setMovementAnimation(Movement.Idle);
+    if(currentMovement != Movement.Falling) {
+      setMovementAnimation(Movement.Idle);
+    }
     //currentVelocity = new Vector2(-0.2f, -0.2f);
     //updateSpeed();
   }
@@ -334,7 +330,7 @@ public class PlayerActions extends Component {
     //System.out.println("trying to jump and " + canJump + "state is " + playerState); // Testing print
     if (playerState != PlayerState.AIR && canJump) {
       //System.out.println("in air"); // More testing prints
-      setMovementAnimation(Movement.Jumping);
+      setIsJumping();
 
       this.playerState = PlayerState.AIR;
       body.applyForceToCenter(jumpSpeed, true);
@@ -347,8 +343,8 @@ public class PlayerActions extends Component {
    */
   void slide() {
     this.playerState = PlayerState.SLIDING;
-    setMovementAnimation(Movement.Sliding);
     if(getCanJump()) {
+      setIsSliding();
       if (previousWalkDirection.epsilonEquals(Vector2Utils.LEFT)) {
         body.applyForceToCenter(new Vector2(-300f, 0f), true);
       } else {
@@ -376,6 +372,10 @@ public class PlayerActions extends Component {
       this.playerState = PlayerState.MOVING;
   }
 
+  public void setCanJump(Boolean value) {
+    canJump = value;
+  }
+
 
   /**
    * Thrusts the player up at the defined jump pad speed.
@@ -392,6 +392,7 @@ public class PlayerActions extends Component {
   public PlayerState getPlayerState() {
     return this.playerState;
   }
+
 
   /**
    * Get the player's walking direction.
