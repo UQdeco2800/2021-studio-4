@@ -144,7 +144,7 @@ public class PlayerActions extends Component {
   //This is currently commented out since i have not made any placeholder sprites for powerUps
   // so I can't try and load in an animation i havent defined
   private void setPowerUpAnimation(String value){
-    System.out.println(value);
+    //System.out.println(value);
     //currentPowerUp = value;
     //animator.startAnimation(getAnimation());
   }
