@@ -2,6 +2,7 @@ package com.deco2800.game.services;
 import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.CameraComponent;
+import com.deco2800.game.levels.LevelDefinition;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 /**
@@ -13,10 +14,11 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class MusicDirectoryTests {
     MusicServiceDirectory musicServiceDirectory = new MusicServiceDirectory();
+    //LevelDefinition levelDefinition = new LevelDefinition();
     String player_collision = musicServiceDirectory.player_collision;
-    CameraComponent cameraComponent = new CameraComponent();
-    TerrainFactory terrainFactory = new TerrainFactory(cameraComponent);
-    LevelGameArea levelGameArea = new LevelGameArea(terrainFactory);
+    //CameraComponent cameraComponent = new CameraComponent();
+    //TerrainFactory terrainFactory = new TerrainFactory(cameraComponent);
+    //LevelGameArea levelGameArea = new LevelGameArea(terrainFactory);
     @Test
     void MusicServiceDirectory() {
         assertEquals(musicServiceDirectory.player_collision.hashCode(), player_collision.hashCode());
