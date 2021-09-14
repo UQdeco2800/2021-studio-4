@@ -8,7 +8,6 @@ import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
-import com.sun.security.jgss.GSSUtil;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
@@ -99,6 +98,62 @@ public class PlayerActions extends Component {
     this.body.applyForceToCenter(walkDirection.cpy().scl(ACCELERATION), true);
   }
 
+  public float getSpeed() {
+    return ACCELERATION.x;
+  }
+
+  public float getJumpBoost() {
+    return jumpSpeed.y;
+  }
+
+  /**
+   * Updates the player's movement speed by adding their desired direction to their vector.
+   * This function increases the altered speed
+   * speed limit.
+   */
+  public int alterSpeed(int newSpeed) {
+    //check if the speed is being set to its default value or if its increasing or decreasing and set
+    //the animation
+
+    //adding speed
+    if(newSpeed > 0) {
+      //increasing from deafult
+      if (getSpeed() == 10) {
+        setPowerUpAnimation("SpeedUp");
+        //setting back to default from either Stuck or speedDown
+      } else {
+        setPowerUpAnimation("Default");
+      }
+      //setting to Stuck
+    } else if (newSpeed == getSpeed()*-1){
+      setPowerUpAnimation("Stuck");
+      //decreasing speed
+    } else {
+      //if decreasing from 10 its SpeedDown
+      if(getSpeed() == 10) {
+        setPowerUpAnimation("SpeedDown");
+        //if decreasing from a higher speed then it is setting to Default
+      } else {
+        setPowerUpAnimation("Default");
+      }
+    }
+
+    // increase or decrease the players movement
+    ACCELERATION.add(newSpeed, 0);
+    return newSpeed;
+  }
+
+  public int alterJumpHeight(int newJump) {
+    if(newJump > 0) {
+      setPowerUpAnimation("JumpUp");
+    } else {
+      setPowerUpAnimation("Default");
+    }
+    // increase or decrease the players movement
+    jumpSpeed.add(0, newJump);
+    return newJump;
+  }
+
   /**
    * Sets the animation of the player to the powerUp entered as the parameter value.
    * Default will set the player back to its original animation. The String value is
@@ -108,7 +163,10 @@ public class PlayerActions extends Component {
    * @param value the string name of the power up animation, these are the options:
    *              Default, SpeedUp, SpeedDown, JumpBoost, Stuck, TimeStop, VisionImpaired
    */
+  //This is currently commented out since i have not made any placeholder sprites for powerUps
+  // so I can't try and load in an animation i havent defined
   private void setPowerUpAnimation(String value){
+    //System.out.println(value);
     //currentPowerUp = value;
     //animator.startAnimation(getAnimation());
   }
@@ -123,7 +181,7 @@ public class PlayerActions extends Component {
    */
   private void setMovementAnimation(Movement value){
     if(!(previousAnimation.equals(getAnimation())) || value != currentMovement){
-      System.out.println(value);
+      //System.out.println(value);
       currentMovement = value;
       previousAnimation = getAnimation();
       animator.startAnimation(getAnimation());

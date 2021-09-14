@@ -5,6 +5,6 @@ public class MusicDirectoryTests {
     @Test
     void MusicServiceDirectory() {
         MusicServiceDirectory t = new MusicServiceDirectory();
-        String void_noise = t.void_noise;
+
     }
 }
