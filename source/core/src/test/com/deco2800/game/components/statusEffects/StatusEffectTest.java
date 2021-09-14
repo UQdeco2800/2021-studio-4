@@ -155,7 +155,7 @@ public class StatusEffectTest {
                         new java.util.TimerTask() {
                             @Override
                             public void run() {
-                                player.getComponent(PlayerActions.class).alterSpeed(-newSpeed);
+                                player.getComponent(PlayerActions.class).alterSpeed(newSpeed);
                                 debuffDuration.cancel();
                             }
                         },
@@ -292,7 +292,17 @@ public class StatusEffectTest {
     }
 
     @Test
-    public void testStuckInTheMudDebuffNotDead() {
+    public void testStuckInTheMudDebuff() {
+        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentNotDead);
+        stuckInTheMud.stuckInMud();
+
+        expected = 0;
+        result = playerActions.getSpeed();
+        assertEquals(expected, result);
+        assertNotEquals(expected + 1, result);
+        assertTrue(expected == result);
+        assertFalse(expected != result);
 
     }
 
