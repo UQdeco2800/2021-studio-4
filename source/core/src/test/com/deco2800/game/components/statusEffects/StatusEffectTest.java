@@ -298,27 +298,27 @@ public class StatusEffectTest {
         assertEquals(expected, result);
         assertNotEquals(500f, result);
     }
-//
-//    @Test
-//    public void testSpeedDebuffNotDead() {
-//        type = -1;
-//        /* Initialise method functionality */
-//        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
-//        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentNotDead);
-//
-//        /* Test that the stat change is as expected */
-//        expected = 5;
-//        result = speedBoost.speedChange(type);
-//        assertEquals(expected, result);
-//        assertNotEquals(expected + 1, result);
-//
-//        /* Test that the player stat decreased */
-//        expected = 5;
-//        result = player.getComponent(PlayerActions.class).getSpeed();
-//        assertEquals(expected, result);
-//        assertTrue(expected == result);
-//        assertNotEquals(expected + 1, result);
-//
+
+    @Test
+    public void testSpeedDebuffNotDead() {
+        type = -1;
+        /* Initialise method functionality */
+        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentNotDead);
+
+        /* Test that the stat change is as expected */
+        expected = 5;
+        result = speedBoost.speedChange(type);
+        assertEquals(expected, result);
+        assertNotEquals(expected + 1, result);
+
+        /* Test that the player stat decreased */
+        expected = 5;
+        result = player.getComponent(PlayerActions.class).getSpeed();
+        assertEquals(expected, result);
+        assertTrue(expected == result);
+        assertNotEquals(expected + 1, result);
+
 ////        try {
 ////            /* Test that the de-buff does not prematurely end */
 ////            Thread.sleep(100);
@@ -337,7 +337,7 @@ public class StatusEffectTest {
 ////        } catch (InterruptedException e) {
 ////            System.err.println(e);
 ////        }
-//    }
+    }
 //
 //    @Test
 //    public void testStuckInTheMudDebuffNotDead() {
