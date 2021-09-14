@@ -46,6 +46,8 @@ public class LevelGameArea extends GameArea {
   public Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables = new ConcurrentHashMap<>();
 
   private static final String[] gameTextures = {
+
+
     "images/virus_man.png",
     "images/box_boy_leaf.png",
     "images/tree.png",
@@ -74,9 +76,11 @@ public class LevelGameArea extends GameArea {
     "images/jumppad.png",
     "images/button.png",
     "images/level1_background.jpg",
+    "images/playerStill.png"
   };
 
   private static final String[] gameTextureAtlases = {
+
 
     "images/terrain_iso_grass.atlas",
     "images/ghost.atlas",
@@ -88,7 +92,8 @@ public class LevelGameArea extends GameArea {
     "images/Pick_Ups.atlas",
     "images/portal-door.atlas",
     "images/jumppad.atlas",
-    "images/button.atlas"
+    "images/button.atlas",
+    "images/playerStill.atlas"
 
   };
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();

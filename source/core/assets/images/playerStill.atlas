@@ -1,0 +1,18 @@
+playerStill.png
+size: 396, 543
+filter: Nearest, Nearest
+repeat: none
+still
+    rotate: false
+    xy: 0,0
+    size: 396, 543
+    orig: 396, 543
+    offset: 0, 0
+    index: 0
+default
+    rotate: false
+    xy: 0,0
+    size: 396, 543
+    orig: 396, 543
+    offset: 0, 0
+    index: 0
