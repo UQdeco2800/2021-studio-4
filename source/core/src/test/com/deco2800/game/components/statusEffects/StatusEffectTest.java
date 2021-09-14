@@ -104,7 +104,7 @@ public class StatusEffectTest {
                                     speedBoostDuration.cancel();
                                 }
                             },
-                            StatusEffectEnum.SPEED.getStatDuration()/25
+                            StatusEffectEnum.SPEED.getStatDuration()/20
                     );
                 }
                 return StatusEffectEnum.SPEED.getStatChange();
@@ -127,7 +127,7 @@ public class StatusEffectTest {
                                     jumpBuffDuration.cancel();
                                 }
                             },
-                            StatusEffectEnum.JUMPBUFF.getStatDuration()/25 /* For testing purposes, the time we wait is significantly lessened */
+                            StatusEffectEnum.JUMPBUFF.getStatDuration()/20 /* For testing purposes, the time we wait is significantly lessened */
                     );
                 }
                 return StatusEffectEnum.JUMPBUFF.getStatChange();
@@ -190,7 +190,7 @@ public class StatusEffectTest {
             assertEquals(expected, result); /* Tests if the statusEffect is still active. */
 
             /* Check if the buff has ended */
-            Thread.sleep(StatusEffectEnum.SPEED.getStatDuration()/25 - 100);
+            Thread.sleep(StatusEffectEnum.SPEED.getStatDuration()/20 - 100);
             expected = 10;
             result = player.getComponent(PlayerActions.class).getSpeed();
             assertEquals(expected, result); /* Tests that the statusEffect is not active. */
@@ -251,7 +251,7 @@ public class StatusEffectTest {
             assertTrue(expected == result);
             assertFalse(expected != result);
 
-            Thread.sleep(StatusEffectEnum.JUMPBUFF.getStatDuration()/25 - 100);
+            Thread.sleep(StatusEffectEnum.JUMPBUFF.getStatDuration()/20 - 100);
             expected = 300f;
             result = player.getComponent(PlayerActions.class).getJumpHeight();
             assertEquals(expected, result);
@@ -306,7 +306,7 @@ public class StatusEffectTest {
 
 
             /* Test that the de-buff has ended */
-            Thread.sleep(StatusEffectEnum.SPEED.getStatDuration()/25 - 100);
+            Thread.sleep(StatusEffectEnum.SPEED.getStatDuration()/20 - 100);
             expected = 10;
             result = player.getComponent(PlayerActions.class).getSpeed();
             assertEquals(expected, result);
