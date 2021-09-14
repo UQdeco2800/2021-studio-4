@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(GameExtension.class)
 public class StatusEffectTest {
+
     private StatusEffectOperation jumpBoost;
     private StatusEffectOperation speedBoost;
     private StatusEffectOperation stuckInTheMud;
@@ -33,7 +34,7 @@ public class StatusEffectTest {
     //private PlayerActions playerActions;
     private PlayerActions playerActions;
     /* There are no intractable elements in this HashMap. */
-    private Map<ObstacleEntity, ObstacleEntity> mapInteractables = new HashMap<>();
+    private final Map<ObstacleEntity, ObstacleEntity> mapInteractables = new HashMap<>();
     private ArrayList<String> statusEffectList = new ArrayList<>();
 
 
@@ -128,7 +129,6 @@ public class StatusEffectTest {
         };
 
         stuckInTheMud = new StatusEffectOperation(player, "Debuff_Stuck",  statusEffectList) {
-
         };
     }
 
@@ -136,31 +136,26 @@ public class StatusEffectTest {
     public void testSpeedChangeNotDead() {
         type = 1;
 
-        /** Tests stat change from enum (this is how the game will actually determine the stat changes) */
-        /** Tests is not dead first */
+        // Tests stat change from enum (this is how the game will actually determine the stat changes)
+        // Tests is not dead first
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentNotDead);
-
-        //System.err.println(combatStatsComponentNotDead.isDead());
-
 
         expected = StatusEffectEnum.SPEED.getStatChange();
         result = speedBoost.speedChange(type);
         assertEquals(expected, result); /* Check the enum for SPEED */
 
-        /** Check the change in stat */
+        // Check the change in stat
         expected = 15f;
         result = player.getComponent(PlayerActions.class).getSpeed();
         verify(player).getComponent(PlayerActions.class); /* verify that this method is being called */
                                                           /* can't verify getSpeed() because playerActions is not a mock */
         assertEquals(expected, result); /* Assert the results */
 
-        /** Checks if the player's stats returns back to normal */
-        //System.err.println("Before timer");
+        // Checks if the player's stats returns back to normal
         expected = 10;
         try {
-            //System.out.println("Inside try catch block");
-            Thread.sleep(2000);
+            Thread.sleep(2000); // Increases the time the test takes to run
             result = player.getComponent(PlayerActions.class).getSpeed();
             assertNotEquals(expected, result); /* Tests if the statusEffect is still active. */
 
