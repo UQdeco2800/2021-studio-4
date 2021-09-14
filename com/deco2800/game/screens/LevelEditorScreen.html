@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -128,7 +128,8 @@ extends <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badl
 </thead>
 <tbody>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.GdxGame)">LevelEditorScreen</a></span>&#8203;(<a href="../GdxGame.html" title="class in com.deco2800.game">GdxGame</a>&nbsp;game)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.GdxGame,com.deco2800.game.levels.LevelDefinition)">LevelEditorScreen</a></span>&#8203;(<a href="../GdxGame.html" title="class in com.deco2800.game">GdxGame</a>&nbsp;game,
+<a href="../levels/LevelDefinition.html" title="enum in com.deco2800.game.levels">LevelDefinition</a>&nbsp;levelDefinition)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
@@ -190,12 +191,17 @@ int&nbsp;height)</code></th>
 </tr>
 <tr class="altColor" id="i6">
 <td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#selectLinkingHand()">selectLinkingHand</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i7">
+<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#selectObstacleHand()">selectObstacleHand</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates an entity which will follow the cursor and allow the user to place obstacles</div>
 </td>
 </tr>
-<tr class="rowColor" id="i7">
+<tr class="altColor" id="i8">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#selectTileHand()">selectTileHand</a></span>()</code></th>
 <td class="colLast">
@@ -231,8 +237,9 @@ int&nbsp;height)</code></th>
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
-<h3><a id="&lt;init&gt;(com.deco2800.game.GdxGame)">LevelEditorScreen</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">LevelEditorScreen</span>&#8203;(<span class="arguments"><a href="../GdxGame.html" title="class in com.deco2800.game">GdxGame</a>&nbsp;game)</span></div>
+<h3><a id="&lt;init&gt;(com.deco2800.game.GdxGame,com.deco2800.game.levels.LevelDefinition)">LevelEditorScreen</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">LevelEditorScreen</span>&#8203;(<span class="arguments"><a href="../GdxGame.html" title="class in com.deco2800.game">GdxGame</a>&nbsp;game,
+<a href="../levels/LevelDefinition.html" title="enum in com.deco2800.game.levels">LevelDefinition</a>&nbsp;levelDefinition)</span></div>
 </section>
 </li>
 </ul>
@@ -318,6 +325,12 @@ int&nbsp;height)</span></div>
 <h3><a id="selectObstacleHand()">selectObstacleHand</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">selectObstacleHand</span>()</div>
 <div class="block">Creates an entity which will follow the cursor and allow the user to place obstacles</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="selectLinkingHand()">selectLinkingHand</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">selectLinkingHand</span>()</div>
 </section>
 </li>
 <li class="blockList">
