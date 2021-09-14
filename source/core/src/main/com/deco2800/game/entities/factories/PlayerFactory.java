@@ -3,6 +3,7 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deco2800.game.ai.tasks.AITaskComponent;
+import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.PlayerMovementComponent;
 import com.deco2800.game.components.player.InventoryComponent;
@@ -22,6 +23,7 @@ import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,7 +40,7 @@ public class PlayerFactory {
    * Create a player entity.
    * @return entity
    */
-  public static Entity createPlayer(Map<ObstacleEntity, ObstacleEntity> mapInteractables) {
+  public static Entity createPlayer(Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables, LevelGameArea levelGameArea) {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForPlayer();
 
@@ -79,7 +81,7 @@ public class PlayerFactory {
             .addComponent(aiComponent)
 
                                                                                                   // Added in to allow                                          // for collision controlled jumping
-            .addComponent(new PlayerMovementComponent(PhysicsLayer.OBSTACLE, mapInteractables)); // Added in to allow
+            .addComponent(new PlayerMovementComponent(PhysicsLayer.OBSTACLE, mapInteractables, levelGameArea)); // Added in to allow
                                                                                   // for collision controlled jumping
                                                     // Recently added mapInteractables for interactable functionality
 

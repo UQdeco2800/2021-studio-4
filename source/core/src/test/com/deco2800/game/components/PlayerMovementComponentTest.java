@@ -117,7 +117,7 @@ public class PlayerMovementComponentTest {
 
         Entity entity =
                 new Entity()
-                        .addComponent(new PlayerMovementComponent(layer, mapInteractables))
+                        .addComponent(new PlayerMovementComponent(layer))
                         .addComponent(new ColliderComponent())
                         .addComponent(new PhysicsComponent())
                         .addComponent(new HitboxComponent().setLayer(playerLayer))

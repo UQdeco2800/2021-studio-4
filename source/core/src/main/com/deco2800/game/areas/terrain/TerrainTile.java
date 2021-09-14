@@ -6,22 +6,24 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 
 /**
  * Custom terrain tile implementation for tiled map terrain that stores additional properties we
  * may want to have in the game, such as audio, walking speed, traversability by AI, etc.
  */
-public class TerrainTile implements TiledMapTile {
+public class TerrainTile implements TiledMapTile{
   private int id;
   private BlendMode blendMode = BlendMode.ALPHA;
-  private TerrainTileDefinition definition;
   private Sprite sprite;
   private float offsetX;
   private float offsetY;
 
-  private final boolean flipX;
-  private final boolean flipY;
-  private final int rotation;
+  public TerrainTileDefinition definition;
+  public boolean flipX;
+  public boolean flipY;
+  public int rotation;
 
   public TerrainTile(TerrainTileDefinition definition) {
     this(definition, 0, false, false);

@@ -12,7 +12,6 @@ task run(dependsOn: classes, type: JavaExec) {
     ignoreExitValue = true
 
 
-
     /** If you use windows, please comment out the MAC one instead of deleting it. */
     // Windows jvmArgs.
     jvmArgs = ["-Djava.util.logging.config.file=../../logging.properties"]
