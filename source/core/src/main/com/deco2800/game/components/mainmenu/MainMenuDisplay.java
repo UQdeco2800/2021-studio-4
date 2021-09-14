@@ -14,10 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.deco2800.game.GdxGame;
 import com.deco2800.game.services.*;
-import com.deco2800.game.services.MusicService;
-import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,6 +99,7 @@ public class MainMenuDisplay extends UIComponent {
          */
         runtimeTitle.setBounds(centreTitleWidth, centreTitleHeight+titleHeight,
                 titleWidthDimension, titleHeightDimension);
+        runtimeTitle.setDisabled(true);
 
 
         /**
@@ -115,6 +113,7 @@ public class MainMenuDisplay extends UIComponent {
          */
         virusHead.setBounds(centreWidth,centreHeight-height79Percent,
                 buttonDimensionsWidth, buttonDimensionsHeight*2);
+        virusHead.setDisabled(true);
 
 
         /**

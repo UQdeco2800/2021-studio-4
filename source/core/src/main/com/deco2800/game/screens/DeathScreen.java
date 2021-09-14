@@ -102,8 +102,4 @@ public class DeathScreen extends ScreenAdapter {
                 .addComponent(new DeathScreenActions(game));
         ServiceLocator.getEntityService().register(ui);
     }
-
-
-
-
 }

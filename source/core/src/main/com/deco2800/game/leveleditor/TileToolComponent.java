@@ -15,7 +15,7 @@ import com.deco2800.game.services.ServiceLocator;
 /**
  * Component for editing the terrain map
  */
-public class TileToolComponent extends InputComponent {
+public class TileToolComponent extends BaseToolComponent {
   private final LevelEditorScreen screen;
   private EditorUIComponent ui;
 
@@ -63,20 +63,6 @@ public class TileToolComponent extends InputComponent {
 
     currentSprite = tileDefinition.getSprite();
     this.getEntity().getComponent(SpriteRenderComponent.class).setSprite(currentSprite);
-  }
-
-  private Vector2 getMousePos() {
-    // Convert the current mouse position to the correct units
-    Vector3 pos = ServiceLocator.getCamera().getCamera().unproject(
-      new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
-
-    return new Vector2(pos.x, pos.y);
-  }
-
-  private Vector2 getCellPos() {
-    // Convert units to the cell the mouse is in
-    Vector2 mousePos = getMousePos();
-    return new Vector2((int)Math.floor(mousePos.x * 2) * 0.5f, (int)Math.floor(mousePos.y * 2) * 0.5f);
   }
 
   /**

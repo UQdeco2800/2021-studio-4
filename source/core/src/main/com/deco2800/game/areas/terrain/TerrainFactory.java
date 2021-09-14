@@ -56,7 +56,7 @@ public class TerrainFactory {
    * the correct hitbox.
    * @param tiledMap The map which the boxes should be generated from.
    */
-  private void generateBodies(TiledMap tiledMap) {
+  public static void generateBodies(TiledMap tiledMap) {
     TiledMapTileLayer mapTileLayer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
 
     for (int x = 0; x < mapTileLayer.getWidth(); x++) {
@@ -136,16 +136,6 @@ public class TerrainFactory {
     TerrainTile tile = new TerrainTile(definition,rotation,false,false);
     Cell cell = tile.generateCell();
     layer.setCell(x,y,cell);
-  }
-
-  private static void fillTiles(TiledMapTileLayer layer, GridPoint2 mapSize, TerrainTile tile) {
-    for (int x = 0; x < mapSize.x; x++) {
-      for (int y = 0; y < mapSize.y; y++) {
-        Cell cell = new Cell();
-        cell.setTile(tile);
-        layer.setCell(x, y, cell);
-      }
-    }
   }
 
   /**

@@ -1,8 +1,5 @@
 package com.deco2800.game.components.statuseffects;
 
-import com.deco2800.game.components.CombatStatsComponent;
-import com.deco2800.game.entities.Entity;
-
 public enum StatusEffectEnum implements StatusEffectInterface {
     SPEED (5, 4000, "SPEEDBUFF") {
         @Override
