@@ -33,6 +33,7 @@ import com.deco2800.game.leveleditor.ObstacleToolComponent;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class LevelGameArea extends GameArea {
@@ -48,55 +49,50 @@ public class LevelGameArea extends GameArea {
   public static ArrayList<String> buffers = new ArrayList<>();
   public static ArrayList<String> deBuffers = new ArrayList<>();
 
-  public Map<ObstacleEntity, ObstacleEntity> mapInteractables = new HashMap<>();
+  public Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables = new ConcurrentHashMap<>();
 
   private static final String[] gameTextures = {
-
-          "images/virus_man.png",
-          "images/box_boy_leaf.png",
-          "images/tree.png",
-          "images/ghost_king.png",
-          "images/ghost_1.png",
-          "images/grass_1.png",
-          "images/grass_2.png",
-          "images/grass_3.png",
-          "images/hex_grass_1.png",
-          "images/hex_grass_2.png",
-          "images/hex_grass_3.png",
-          "images/iso_grass_1.png",
-          "images/iso_grass_2.png",
-          "images/iso_grass_3.png",
-          "images/basicenemysprite.png",
-          "images/chasingenemy.png",
-          "images/enemyspritehsee.png",
-          "images/game_background.png",
-          "map-textures/mapTextures_Platforms.png",
-          "map-textures/mapTextures_Middle-Platform.png",
-          "map-textures/mapTextures_Button-On.png",
-          "map-textures/mapTextures_bridge.png",
-          "map-textures/mapTextures_door.png",
-          "map-textures/end_portal.png",
-          "images/animatedvoid.png",
-          "images/void_spritesheet2.png",
-          "images/Pick_Ups.png",
-          "images/portal-door.png",
-          "images/jumppad.png",
-          "images/button.png"
-
+    "images/virus_man.png",
+    "images/box_boy_leaf.png",
+    "images/tree.png",
+    "images/ghost_king.png",
+    "images/ghost_1.png",
+    "images/grass_1.png",
+    "images/grass_2.png",
+    "images/grass_3.png",
+    "images/hex_grass_1.png",
+    "images/hex_grass_2.png",
+    "images/hex_grass_3.png",
+    "images/iso_grass_1.png",
+    "images/iso_grass_2.png",
+    "images/iso_grass_3.png",
+    "images/basicenemysprite.png",
+    "images/chasingenemy.png",
+    "images/enemyspritehsee.png",
+    "images/game_background.png",
+    "map-textures/marker_cross.png",
+    "map-textures/marker_o.png",
+    "map-textures/end_portal.png",
+    "images/animatedvoid.png",
+    "images/void_spritesheet2.png",
+    "images/Pick_Ups.png",
+    "images/portal-door.png",
+    "images/jumppad.png",
+    "images/button.png",
   };
 
   private static final String[] gameTextureAtlases = {
-          "images/terrain_iso_grass.atlas",
-          "images/ghost.atlas",
-          "images/ghostKing.atlas",
-          "images/testingenemy.atlas",
-          "map-spritesheets/mapTextures.atlas",
-          "images/void.atlas",
-          "images/player.atlas",
-          "images/Pick_Ups.atlas",
-          "images/portal-door.atlas",
-          "images/jumppad.atlas",
-          "images/button.atlas"
+    "images/terrain_iso_grass.atlas",
+    "images/ghost.atlas",
+    "images/ghostKing.atlas",
+    "images/testingenemy.atlas",
+    "map-spritesheets/mapTextures.atlas",
+    "images/void.atlas",
+    "images/player.atlas",
+    "images/Pick_Ups.atlas",
+    "images/portal-door.atlas",
+    "images/jumppad.atlas",
+    "images/button.atlas"
   };
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
   private static final String[] gameMusic = {gameSong.click, gameSong.game_level_1,gameSong.end_credits,
@@ -238,59 +234,64 @@ public class LevelGameArea extends GameArea {
     this.spawnPlatform(posX, posY, width, true, true);
   }
 
-  public void spawnPlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
+  public ObstacleEntity spawnPlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
     ObstacleEntity platform = (ObstacleEntity) ObstacleFactory.createPlatform(width);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(platform, position, centerX, centerY);
     obstacleEntities.add(platform);
     platform.setTilePosition(position);
+    return platform;
   }
 
   public void spawnMiddlePlatform(int posX, int posY, int width) {
     this.spawnMiddlePlatform(posX, posY, width, true, true);
   }
 
-  public void spawnMiddlePlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
+  public ObstacleEntity spawnMiddlePlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
     ObstacleEntity platform = (ObstacleEntity) ObstacleFactory.createMiddlePlatform(width);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(platform, position, centerX, centerY);
     obstacleEntities.add(platform);
     platform.setTilePosition(position);
+    return platform;
   }
   public void spawnButton(int posX, int posY) {
     spawnButton(posX, posY, false, true);
   }
 
-  public void spawnButton(int posX, int posY, boolean centerX, boolean centerY) {
+  public ObstacleEntity spawnButton(int posX, int posY, boolean centerX, boolean centerY) {
     ObstacleEntity button = (ObstacleEntity) ObstacleFactory.createButton();
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(button, position, centerX, centerY);
     obstacleEntities.add(button);
     button.setTilePosition(position);
+    return button;
   }
 
   public void spawnBridge(int posX, int posY, int width) {
     spawnBridge(posX, posY, width, false, true);
   }
 
-  public void spawnBridge(int posX, int posY, int width, boolean centerX, boolean centerY) {
+  public ObstacleEntity spawnBridge(int posX, int posY, int width, boolean centerX, boolean centerY) {
     ObstacleEntity bridge = (ObstacleEntity) ObstacleFactory.createBridge(width);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(bridge, position, centerX, centerY);
     obstacleEntities.add(bridge);
     bridge.setTilePosition(position);
+    return bridge;
   }
 
   public void spawnDoor(int posX, int posY, int height) {
     spawnDoor(posX, posY, height, false, true);
   }
 
-  public void spawnDoor(int posX, int posY, int height, boolean centerX, boolean centerY) {
+  public ObstacleEntity spawnDoor(int posX, int posY, int height, boolean centerX, boolean centerY) {
     ObstacleEntity door = (ObstacleEntity) ObstacleFactory.createDoor(height);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(door, position, centerX, centerY);
     obstacleEntities.add(door);
     door.setTilePosition(position);
+    return door;
   }
 
   public void mapInteractables() {
@@ -315,21 +316,61 @@ public class LevelGameArea extends GameArea {
       // map earliest button with earliest door/bridge, continue for all buttons
       if (buttons.size() > 0 && subInteractables.size() > 0) {
         for (int j = 0; j < buttons.size(); j++) {
-          mapInteractables.put(buttons.get(j), subInteractables.get(j));
+          //mapInteractables.put(buttons.get(j), subInteractables.get(j));
         }
       }
+  }
+
+  public ObstacleEntity getObstacle(Entity entity) {
+    for (ObstacleEntity obstacleEntity : obstacleEntities) {
+      if (obstacleEntity.equals(entity)) return obstacleEntity;
+    }
+    return null;
+  }
+
+  /**
+   * Method assigning the interactableID property to all interactable ObstacleEntities.
+   * This is not a very clean solution (this data needs to be moved to be stored on the actual InteractableComponent)
+   * but it's the simplest way to do it with the existing implementation.
+   */
+  private void generateInteractableIDs() {
+    int id = 0;
+    for (ObstacleEntity obstacleEntity : obstacleEntities) {
+      if (obstacleEntity.getComponent(SubInteractableComponent.class) != null
+        || obstacleEntity.getComponent(InteractableComponent.class) != null) {
+        obstacleEntity.interactableID = id++;
+      }
+    }
+  }
+
+  /**
+   * Generates a map of interactableIDs to be saved/loaded from file
+   */
+  private Map<Integer, List<Integer>> generateInteractablesMap() {
+    Map<Integer, List<Integer>> interactableIds = new HashMap<>();
+    for (Map.Entry<ObstacleEntity, List<ObstacleEntity>> obstacleEntityListEntry : mapInteractables.entrySet()) {
+      List<Integer> subInteractableIds = new ArrayList<>();
+      for (ObstacleEntity obstacleEntity : obstacleEntityListEntry.getValue()) {
+        subInteractableIds.add(obstacleEntity.interactableID);
+      }
+
+      interactableIds.put(obstacleEntityListEntry.getKey().interactableID, subInteractableIds);
+    }
+
+    return interactableIds;
   }
 
   public void spawnLevelEndPortal(int posX, int posY, int width) {
     spawnLevelEndPortal(posX, posY, width, false, true);
   }
 
-  public void spawnLevelEndPortal(int posX, int posY, int width, boolean centerX, boolean centerY) {
+  public ObstacleEntity spawnLevelEndPortal(int posX, int posY, int width, boolean centerX, boolean centerY) {
     ObstacleEntity levelEndPortal = (ObstacleEntity) ObstacleFactory.createLevelEndPortal(width);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(levelEndPortal, position, centerX, centerY);
     obstacleEntities.add(levelEndPortal);
     levelEndPortal.setTilePosition(position);
+    return levelEndPortal;
   }
 
   public void writeAll() {
@@ -348,8 +389,10 @@ public class LevelGameArea extends GameArea {
     levelFile.terrain.mapLayer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
 
     // Save the obstacles
+    generateInteractableIDs(); // Assign interactable IDs to obstacles here
     levelFile.obstacles = new LevelFile.Obstacles();
     levelFile.obstacles.obstacleEntities = this.obstacleEntities;
+    levelFile.obstacles.interactablesMap = generateInteractablesMap();
 
     // save the file
     file.writeString(json.prettyPrint(levelFile), false);
@@ -365,9 +408,35 @@ public class LevelGameArea extends GameArea {
     LevelFile levelFile = json.fromJson(LevelFile.class, file);
 
     for (ObstacleEntity obstacleEntity : levelFile.obstacles.obstacleEntities) {
-      spawnObstacle(obstacleEntity.getDefinition(), (int)obstacleEntity.getPosition().x,
+      ObstacleEntity newObstacle = spawnObstacle(obstacleEntity.getDefinition(), (int)obstacleEntity.getPosition().x,
         (int)obstacleEntity.getPosition().y, obstacleEntity.size);
+
+      newObstacle.interactableID = obstacleEntity.interactableID;
     }
+
+    // Add entities to subInteractables list
+    for (ObstacleEntity obstacleEntity : obstacleEntities) {
+      if (obstacleEntity.interactableID != null) {
+//        System.out.println(obstacleEntity.interactableID);
+//        System.out.println(levelFile.obstacles.interactablesMap);
+//        System.out.println(levelFile.obstacles.interactablesMap.keySet());
+//        System.out.println(levelFile.obstacles.interactablesMap.get(obstacleEntity.interactableID);
+//        System.out.println(levelFile.obstacles.interactablesMap.containsKey(obstacleEntity.interactableID));
+        if (levelFile.obstacles.interactablesMap.containsKey(obstacleEntity.interactableID)) {
+          List<Integer> subInteractableIds = levelFile.obstacles.interactablesMap.get(obstacleEntity.interactableID);
+          List<ObstacleEntity> subInteractables = new ArrayList<>();
+          for (ObstacleEntity entity : obstacleEntities) {
+            if (subInteractableIds.contains(entity.interactableID)) {
+              subInteractables.add(entity);
+              break;
+            }
+          }
+
+          mapInteractables.put(obstacleEntity, subInteractables);
+        }
+      }
+    }
+    System.out.println(levelFile.obstacles.interactablesMap);
   }
 
   private void applyTerrainSerializers(Json json) {
@@ -458,28 +527,27 @@ public class LevelGameArea extends GameArea {
     TerrainFactory.generateBodies(terrain.getMap());
   }
 
-  private void spawnObstacle(ObstacleDefinition selectedObstacle, int x, int y, int size) {
+  private ObstacleEntity spawnObstacle(ObstacleDefinition selectedObstacle, int x, int y, int size) {
 //    x = x*2;
 //    y = y*2;
     switch (selectedObstacle){
       case PLATFORM:
-        spawnPlatform(x, y, size, false, false);
-        break;
+        return spawnPlatform(x, y, size, false, false);
       case MIDDLE_PLATFORM:
-        spawnMiddlePlatform(x, y, size, false, false);
-        break;
+        return spawnMiddlePlatform(x, y, size, false, false);
       case DOOR:
-        spawnDoor(x, y, size, false, false);
-        break;
+        return spawnDoor(x, y, size, false, false);
       case BRIDGE:
-        spawnBridge(x, y, size, false, false);
-        break;
+        return spawnBridge(x, y, size, false, false);
       case BUTTON:
-        spawnButton(x, y, false, false);
-        break;
+        return spawnButton(x, y, false, false);
       case LEVEL_END_PORTAL:
-        spawnLevelEndPortal(x,y,size,false,false);
+        return spawnLevelEndPortal(x,y,size,false,false);
+      case JUMPPAD:
+//        return spawnJumpPad ??? why this missing
     }
+
+    return null;
   }
 
   private void spawnLevel() {

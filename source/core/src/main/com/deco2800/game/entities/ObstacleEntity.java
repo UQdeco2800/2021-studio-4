@@ -11,6 +11,9 @@ public class ObstacleEntity extends Entity implements Json.Serializable {
   public ObstacleDefinition definition;
   public int size;
 
+  // ID Used only for mapping interactable entities
+  public Integer interactableID = null;
+
   public ObstacleEntity() {}
 
   public ObstacleEntity(ObstacleDefinition definition, int size) {
@@ -37,6 +40,9 @@ public class ObstacleEntity extends Entity implements Json.Serializable {
   public void write(Json json) {
     GridPoint2 position = this.getTilePosition();
 
+    if (this.interactableID != null) {
+      json.writeValue("interactableID", this.interactableID);
+    }
     json.writeValue("def", this.definition.toString());
     json.writeValue("size", this.size);
     json.writeValue("x", position.x);
@@ -47,6 +53,10 @@ public class ObstacleEntity extends Entity implements Json.Serializable {
   public void read(Json json, JsonValue jsonData) {
     this.definition = ObstacleDefinition.valueOf(jsonData.getString("def"));
     this.size = jsonData.getInt("size");
+
+    if (jsonData.has("interactableID")) {
+      this.interactableID = jsonData.getInt("interactableID");
+    }
 
     Vector2 position = new Vector2();
     position.x = jsonData.getInt("x");

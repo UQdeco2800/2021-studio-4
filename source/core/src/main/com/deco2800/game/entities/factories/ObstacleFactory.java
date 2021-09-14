@@ -129,9 +129,14 @@ public class ObstacleFactory {
   }
 
   public static Entity createButton() {
+    TextureAtlas atlas = ServiceLocator.getResourceService()
+      .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
+
+    Texture buttonTexture = expandTexture(atlas.findRegion("mapTextures_Button-On"), 1, 1);
+
     ObstacleEntity button =
       new ObstacleEntity(ObstacleDefinition.BUTTON,1)
-        .addComponent(new TextureRenderComponent("map-textures/mapTextures_Button-On.png"))
+        .addComponent(new TextureRenderComponent(buttonTexture))
         .addComponent(new PhysicsComponent())
         .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
         .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))

@@ -399,6 +399,7 @@
 			"y": 13
 		},
 		{
+			"interactableID": 0,
 			"def": "BRIDGE",
 			"size": 9,
 			"x": 74,
@@ -735,18 +736,21 @@
 			"y": 13
 		},
 		{
+			"interactableID": 1,
 			"def": "BRIDGE",
 			"size": 4,
 			"x": 150,
 			"y": 8
 		},
 		{
+			"interactableID": 2,
 			"def": "BRIDGE",
 			"size": 4,
 			"x": 155,
 			"y": 10
 		},
 		{
+			"interactableID": 3,
 			"def": "BRIDGE",
 			"size": 4,
 			"x": 160,
@@ -811,7 +815,29 @@
 			"size": 1,
 			"x": 170,
 			"y": 15
+		},
+		{
+			"interactableID": 4,
+			"def": "BUTTON",
+			"size": 1,
+			"x": 67,
+			"y": 16
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 75,
+			"y": 17
 		}
-	]
+	],
+	"interactablesMap": {
+		"class": "java.util.HashMap",
+		"4": [
+			{
+				"class": "java.lang.Integer",
+				"value": 0
+			}
+		]
+	}
 }
 }

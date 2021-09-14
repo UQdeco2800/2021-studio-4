@@ -8,7 +8,10 @@ import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.areas.terrain.TerrainTileDefinition;
 import com.deco2800.game.entities.ObstacleEntity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LevelFile {
   public GridPoint2 playerStartPos;
@@ -55,5 +58,6 @@ public class LevelFile {
 
   public static class Obstacles {
     public List<ObstacleEntity> obstacleEntities;
+    public Map<Integer, List<Integer>> interactablesMap = new HashMap<Integer, List<Integer>>();
   }
 }

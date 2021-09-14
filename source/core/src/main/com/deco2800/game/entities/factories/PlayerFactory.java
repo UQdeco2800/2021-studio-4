@@ -40,7 +40,7 @@ public class PlayerFactory {
    * Create a player entity.
    * @return entity
    */
-  public static Entity createPlayer(Map<ObstacleEntity, ObstacleEntity> mapInteractables) {
+  public static Entity createPlayer(Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables) {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForPlayer();
 

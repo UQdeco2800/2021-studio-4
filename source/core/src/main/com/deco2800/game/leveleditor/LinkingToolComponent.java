@@ -7,22 +7,27 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.physics.components.InteractableComponent;
 import com.deco2800.game.physics.components.SubInteractableComponent;
+import com.deco2800.game.rendering.SpriteRenderComponent;
+import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.screens.LevelEditorScreen;
 import com.deco2800.game.services.ServiceLocator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Component for linking buttons to other entities
  */
 public class LinkingToolComponent extends BaseToolComponent {
-  private Entity selectedParent;
-  private List<Entity> markers = new ArrayList<>();
+  private ObstacleEntity selectedParent;
+  private Map<Entity, Entity> markers = new HashMap<>();
   private LevelGameArea levelGameArea;
   private final LevelEditorScreen screen;
   private EditorUIComponent ui;
@@ -36,9 +41,15 @@ public class LinkingToolComponent extends BaseToolComponent {
   /**
    * Creates an entity marking an entity at position x, y as linked
    */
-  private void createMarker(int x, int y, boolean isSubinteractable) {
-
-    return;
+  private void createMarker(Entity target, boolean isSubinteractable) {
+    String textureName = isSubinteractable ? "map-textures/marker_cross.png" : "map-textures/marker_o.png";
+    Entity marker = new Entity();
+    marker
+      .addComponent(new TextureRenderComponent(textureName));
+    marker.scaleHeight(0.5f);
+    marker.setPosition(target.getPosition());
+    markers.put(target, marker);
+    ServiceLocator.getEntityService().register(marker);
   }
   
   /**
@@ -46,9 +57,14 @@ public class LinkingToolComponent extends BaseToolComponent {
    * @param entity Entity to link
    */
   private void link(Entity entity) {
-    // check is subinteractable
-    // add link if doesn't exist
-    // add marker
+    ObstacleEntity obstacleEntity = levelGameArea.getObstacle(entity);
+    if (obstacleEntity.getComponent(SubInteractableComponent.class) == null) return;
+    if (!levelGameArea.mapInteractables.containsKey(selectedParent)) {
+      levelGameArea.mapInteractables.put(selectedParent, new ArrayList<>());
+    } else if (!levelGameArea.mapInteractables.get(selectedParent).contains(obstacleEntity)){
+      levelGameArea.mapInteractables.get(selectedParent).add(obstacleEntity);
+    }
+    createMarker(obstacleEntity,true);
   }
 
   /**
@@ -56,16 +72,33 @@ public class LinkingToolComponent extends BaseToolComponent {
    * @param entity Entity to unlink
    */
   private void unlink(Entity entity) {
-    // Check is subinteractable
-    // remove link if exists
-    // remove any makers
+    ObstacleEntity obstacleEntity = levelGameArea.getObstacle(entity);
+    if (entity.getComponent(SubInteractableComponent.class) == null) return;
+    if (levelGameArea.mapInteractables.containsKey(selectedParent)) {
+      levelGameArea.mapInteractables.get(selectedParent).remove(obstacleEntity);
+    }
+    ServiceLocator.getEntityService().unregister(markers.get(obstacleEntity));
+    markers.get(obstacleEntity).dispose();
+    markers.remove(obstacleEntity);
+  }
+
+  /**
+   * Disposes all markers
+   */
+  private void clearMarkers() {
+    for (Map.Entry<Entity, Entity> entityEntityEntry : markers.entrySet()) {
+      ServiceLocator.getEntityService().unregister(entityEntityEntry.getValue());
+      entityEntityEntry.getValue().dispose();
+    }
   }
 
   /**
    * Clears all linked entities from the parent
    */
   private void clearLinks() {
-
+    clearMarkers();
+    levelGameArea.mapInteractables.remove(selectedParent);
+    markers = new HashMap<>();
   }
 
   /**
@@ -73,7 +106,18 @@ public class LinkingToolComponent extends BaseToolComponent {
    * Also adds markers from the loaded entity
    */
   private void setSelectedParent(Entity entity) {
-    selectedParent = entity;
+    selectedParent = levelGameArea.getObstacle(entity);
+    clearMarkers();
+
+    createMarker(selectedParent, false);
+
+    if (levelGameArea.mapInteractables.containsKey(selectedParent)) {
+      List<ObstacleEntity> linked = levelGameArea.mapInteractables.get(selectedParent);
+
+      for (ObstacleEntity obstacleEntity : linked) {
+        createMarker(obstacleEntity, true);
+      }
+    }
   }
 
   @Override
@@ -83,10 +127,7 @@ public class LinkingToolComponent extends BaseToolComponent {
 
   @Override
   public void dispose() {
-    for (Entity marker : markers) {
-      ServiceLocator.getEntityService().unregister(marker);
-      marker.dispose();
-    }
+    clearMarkers();
     super.dispose();
   }
 
@@ -105,16 +146,20 @@ public class LinkingToolComponent extends BaseToolComponent {
       }
 
       // Otherwise link entities
-      for (Entity entity : entities) {
-        if (entity.getComponent(SubInteractableComponent.class) != null) {
-          link(entity);
+      if (selectedParent != null) {
+        for (Entity entity : entities) {
+          if (entity.getComponent(SubInteractableComponent.class) != null) {
+            link(entity);
+          }
         }
       }
       return true;
     } else if (button == Input.Buttons.RIGHT) {
-      for (Entity entity : entities) {
-        if (entity.getComponent(SubInteractableComponent.class) != null) {
-          unlink(entity);
+      if (selectedParent != null) {
+        for (Entity entity : entities) {
+          if (entity.getComponent(SubInteractableComponent.class) != null) {
+            unlink(entity);
+          }
         }
       }
       return true;

@@ -17,6 +17,7 @@ import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.input.InputDecorator;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.leveleditor.CameraMoveComponent;
+import com.deco2800.game.leveleditor.LinkingToolComponent;
 import com.deco2800.game.leveleditor.ObstacleToolComponent;
 import com.deco2800.game.leveleditor.TileToolComponent;
 import com.deco2800.game.levels.LevelDefinition;
@@ -156,6 +157,17 @@ public class LevelEditorScreen extends ScreenAdapter {
     hand = new Entity();
     hand
       .addComponent(new ObstacleToolComponent(levelGameArea, this));
+    hand.scaleHeight(0.5f);
+
+    ServiceLocator.getEntityService().register(hand);
+  }
+
+  public void selectLinkingHand() {
+    if (hand != null) hand.dispose();
+
+    hand = new Entity();
+    hand
+      .addComponent(new LinkingToolComponent(levelGameArea, this));
     hand.scaleHeight(0.5f);
 
     ServiceLocator.getEntityService().register(hand);

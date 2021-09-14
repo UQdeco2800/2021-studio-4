@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class PlayerMovementComponent extends Component {
     private short targetLayer;
-    private Map<ObstacleEntity, ObstacleEntity> mapInteractables;
+    private Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables;
     private HitboxComponent hitboxComponent;
 
     /**
@@ -28,7 +28,7 @@ public class PlayerMovementComponent extends Component {
         this.targetLayer = targetLayer;
     }
 
-    public PlayerMovementComponent(short targetLayer, Map<ObstacleEntity, ObstacleEntity> mapInteractables) {
+    public PlayerMovementComponent(short targetLayer, Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables) {
         this.targetLayer = targetLayer;
         this.mapInteractables = mapInteractables;
     }
@@ -82,17 +82,19 @@ public class PlayerMovementComponent extends Component {
                 playerActions.jumpPad();
             }
 
-            if (interactableComponent != null && !mapInteractables.isEmpty()) {
-                ObstacleEntity mapped = mapInteractables.get(target);
-                ColliderComponent colliderComponent = mapped.getComponent(ColliderComponent.class);
+            if (interactableComponent != null && mapInteractables.containsKey(target)) {
+                List<ObstacleEntity> subInteractables = mapInteractables.get(target);
+                for (ObstacleEntity subInteractable : subInteractables) {
+                    ColliderComponent colliderComponent = subInteractable.getComponent(ColliderComponent.class);
 
-                if (mapped != null && mapped.getDefinition() == ObstacleDefinition.DOOR) {
-                    // Desired affect on mapped door - disappears
-                    colliderComponent.dispose();
-                } else if (mapped != null && mapped.getDefinition() == ObstacleDefinition.BRIDGE) {
-                    // Desired affect on mapped bridge - appears
-                    // may need to create bridges without a collider component at the beginning
-                    colliderComponent.create();
+                    if (subInteractable.getDefinition() == ObstacleDefinition.DOOR) {
+                        // Desired affect on mapped door - disappears
+                        colliderComponent.dispose();
+                    } else if (subInteractable.getDefinition() == ObstacleDefinition.BRIDGE) {
+                        // Desired affect on mapped bridge - appears
+                        // may need to create bridges without a collider component at the beginning
+                        colliderComponent.create();
+                    }
                 }
             }
         }
