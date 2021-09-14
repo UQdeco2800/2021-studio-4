@@ -4,10 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.components.CombatStatsComponent;
-import com.deco2800.game.components.mainmenu.MainMenuDisplay;
 import com.deco2800.game.ui.UIComponent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static com.deco2800.game.screens.MainGameScreen.timeScore;
 
@@ -19,7 +16,6 @@ public class PlayerStatsDisplay extends UIComponent {
 
   private Label healthLabel;
   private Label timeLabel;
-  private static final Logger logger = LoggerFactory.getLogger(MainMenuDisplay.class);
   public static boolean gameOver = false;
   /**
    * Creates reusable ui styles and adds actors to the stage.
@@ -41,10 +37,6 @@ public class PlayerStatsDisplay extends UIComponent {
     table.top().left();
     table.setFillParent(true);
     table.padTop(45f);
-
-    // Heart image
-    float heartSideLength = 30f;
-
 
     // Health text
     int health = entity.getComponent(CombatStatsComponent.class).getHealth();

@@ -2,7 +2,6 @@ package com.deco2800.game.components.mainmenu;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
-import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.MusicSingleton;
 import com.deco2800.game.services.MuteManager;
 import org.slf4j.Logger;
@@ -68,7 +67,7 @@ public class MainMenuActions extends Component {
    * Mutes the MainMenuMusic
    */
   private void onMute() {
-    logger.info("Muting MainMenuMusic");
+    logger.info("Muting Music");
 
     MuteManager mute = MuteManager.getInstance();
     MusicSingleton music = MusicSingleton.getInstance();
@@ -78,7 +77,6 @@ public class MainMenuActions extends Component {
     } else {
       mute.setMute(true);
       music.pauseMusicSingleton("sounds/MainMenuMusic.mp3");
-
     }
 
   }
