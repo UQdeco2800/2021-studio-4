@@ -9,8 +9,6 @@ import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class PlayerMovementComponent extends Component {

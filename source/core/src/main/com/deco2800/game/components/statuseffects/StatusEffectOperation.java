@@ -4,13 +4,10 @@ import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.npc.StatusEffectsController;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.physics.components.HitboxComponent;
-import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.services.GameTime;
 
 import java.util.ArrayList;
 import java.util.Timer;
-import java.util.concurrent.TimeUnit;
 
 public class StatusEffectOperation {
     private int type, boost, statOriginal;
