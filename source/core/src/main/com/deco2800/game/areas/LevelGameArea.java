@@ -127,6 +127,7 @@ public class LevelGameArea extends GameArea {
    */
   public void init() {
     loadAssets();
+    //mapInteractables();
 
     displayBackground();
     spawnTerrain();
@@ -176,7 +177,6 @@ public class LevelGameArea extends GameArea {
     Random random = new Random();
     int indexNum = random.nextInt(3);
     return deBuffers.get(indexNum);
-    //mapInteractables();         // may need here
   }
 
   private void displayUI() {
