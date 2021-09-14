@@ -74,6 +74,10 @@ public class LevelGameArea extends GameArea {
           "images/jumppad.png",
           "images/button.png",
           "images/level1_background.jpg",
+          "images/player_sprite_sheet.png",
+          "images/player_sprite_sheet2.png",
+          "images/player_sprite_sheet3.png"
+
 
 
   };
@@ -90,7 +94,8 @@ public class LevelGameArea extends GameArea {
           "images/Pick_Ups.atlas",
           "images/portal-door.atlas",
           "images/jumppad.atlas",
-          "images/button.atlas"
+          "images/button.atlas",
+          "images/player_sprite_sheet.atlas"
   };
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
   private static final String[] gameMusic = {gameSong.click, gameSong.game_level_1,gameSong.end_credits,
