@@ -4,13 +4,10 @@ import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.npc.StatusEffectsController;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.physics.components.HitboxComponent;
-import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.services.GameTime;
 
 import java.util.ArrayList;
 import java.util.Timer;
-import java.util.concurrent.TimeUnit;
 
 public class StatusEffectOperation {
     private int type, boost, statOriginal;
@@ -91,7 +88,8 @@ public class StatusEffectOperation {
      * @param type Whether it is a Buff or DeBuff
      * @return the new speed of the player
      */
-    private int speedChange(int type) { // Returns int for testing in possible future
+    /* Changed the method to be public for testing. Originally private. */
+    public int speedChange(int type) { // Returns int for testing in possible future
         int speedBoost = StatusEffectEnum.SPEED.getStatChange(); // Must be smaller than 10
 
         int statOriginal;
@@ -100,6 +98,12 @@ public class StatusEffectOperation {
             statOriginal = (int) player.getComponent(PlayerActions.class).getSpeed();
         } else {
             statOriginal = originalValues.get(0);
+        }
+
+        if(type == 1) {
+            player.getEvents().trigger("setPowerUpAnimation", "SpeedUp");
+        } else {
+            player.getEvents().trigger("setPowerUpAnimation", "SpeedDown");
         }
 
         int newSpeed = StatusEffectEnum.SPEED.statChange(type, speedBoost, statOriginal);
@@ -117,6 +121,7 @@ public class StatusEffectOperation {
                     public void run() {
                         // your code here
                         player.getComponent(PlayerActions.class).alterSpeed(-changedSpeed);
+                        player.getEvents().trigger("setPowerUpAnimation", "Default");
                         // close the thread
                         t.cancel();
                     }
@@ -130,11 +135,13 @@ public class StatusEffectOperation {
         return changedSpeed;
     }
 
-    private int jumpBoost() {
+    /* Changed the method to be public for testing. Originally private. */
+    public int jumpBoost() {
         int jumpBoost = StatusEffectEnum.JUMPBUFF.getStatChange(); // Must be smaller than 10
 
         singleStatusEffectCheck();
         int changedJumpHeight = player.getComponent(PlayerActions.class).alterJumpHeight(jumpBoost);
+        player.getEvents().trigger("setPowerUpAnimation", "JumpUp");
 
         // Alters the speed back to the original setting after a certain time duration.
         Timer t = new java.util.Timer();
@@ -144,6 +151,7 @@ public class StatusEffectOperation {
                     public void run() {
                         // your code here
                         player.getComponent(PlayerActions.class).alterJumpHeight(-changedJumpHeight);
+                        player.getEvents().trigger("setPowerUpAnimation", "Default");
                         // close the thread
                         t.cancel();
                     }
@@ -157,12 +165,14 @@ public class StatusEffectOperation {
         return changedJumpHeight;
     }
 
-    private void stuckInMud() {
+    /* Changed the method to be public for testing. Originally private. */
+    public void stuckInMud() {
         GameTime gameTime = new GameTime();
         int currentSpeed = (int) player.getComponent(PlayerActions.class).getSpeed();
         int newSpeed = currentSpeed * -1;
        // System.out.println(gameTime.getTime());
         player.getComponent(PlayerActions.class).alterSpeed(newSpeed);
+        player.getEvents().trigger("setPowerUpAnimation", "Stuck");
 
         // Sets delay of 3 seconds before restoring the previous player speed.
         Timer t = new java.util.Timer();
@@ -172,6 +182,7 @@ public class StatusEffectOperation {
                     public void run() {
                         // your code here
                         player.getComponent(PlayerActions.class).alterSpeed(currentSpeed);
+                        player.getEvents().trigger("setPowerUpAnimation", "Default");
                         // close the thread
                         t.cancel();
                     }

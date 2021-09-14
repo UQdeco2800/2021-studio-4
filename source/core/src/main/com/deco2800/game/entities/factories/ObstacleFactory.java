@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.deco2800.game.components.endgame.LevelEndComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleDefinition;
 import com.deco2800.game.entities.ObstacleEntity;
@@ -128,9 +129,14 @@ public class ObstacleFactory {
   }
 
   public static Entity createButton() {
+    TextureAtlas atlas = ServiceLocator.getResourceService()
+      .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
+
+    Texture buttonTexture = expandTexture(atlas.findRegion("mapTextures_Button-On"), 1, 1);
+
     ObstacleEntity button =
       new ObstacleEntity(ObstacleDefinition.BUTTON,1)
-        .addComponent(new TextureRenderComponent("map-textures/mapTextures_Button-On.png"))
+        .addComponent(new TextureRenderComponent(buttonTexture))
         .addComponent(new PhysicsComponent())
         .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
         .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
@@ -144,6 +150,10 @@ public class ObstacleFactory {
     return button;
   }
 
+  /**
+   * Creates a jump pad entity.
+   * @return jump pad
+   */
   public static Entity createJumpPad() {
     ObstacleEntity jumpPad =
             new ObstacleEntity(ObstacleDefinition.JUMPPAD,1)
@@ -201,6 +211,25 @@ public class ObstacleFactory {
     door.scaleHeight(0.5f);
     PhysicsUtils.setScaledCollider(door, 1f, 1f);
     return door;
+  }
+
+  public static Entity createLevelEndPortal(int width) {
+    ObstacleEntity levelEndPortal =
+      new ObstacleEntity(ObstacleDefinition.LEVEL_END_PORTAL,width)
+        .addComponent(new TextureRenderComponent("map-textures/end_portal.png"))
+        .addComponent(new PhysicsComponent())
+        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+        .addComponent(new JumpableComponent())
+        .addComponent(new LevelEndComponent()); // indicates end of level reached
+
+
+    //.addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
+    levelEndPortal.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    levelEndPortal.getComponent(TextureRenderComponent.class).scaleEntity();
+    levelEndPortal.scaleHeight(4f);
+    PhysicsUtils.setScaledColliderForEndPortal(levelEndPortal, 1f, 0.25f);
+    PhysicsUtils.setScaledColliderForEndPortal(levelEndPortal,0.25f,1f);
+    return levelEndPortal;
   }
 
   private ObstacleFactory() {
