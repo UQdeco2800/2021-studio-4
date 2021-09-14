@@ -4,13 +4,10 @@ import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.npc.StatusEffectsController;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.physics.components.HitboxComponent;
-import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.services.GameTime;
 
 import java.util.ArrayList;
 import java.util.Timer;
-import java.util.concurrent.TimeUnit;
 
 public class StatusEffectOperation {
     private int type, boost, statOriginal;
@@ -164,7 +161,7 @@ public class StatusEffectOperation {
         GameTime gameTime = new GameTime();
         int currentSpeed = (int) player.getComponent(PlayerActions.class).getSpeed();
         int newSpeed = currentSpeed * -1;
-        System.out.println(gameTime.getTime());
+       // System.out.println(gameTime.getTime());
         player.getComponent(PlayerActions.class).alterSpeed(newSpeed);
 
         // Sets delay of 3 seconds before restoring the previous player speed.
