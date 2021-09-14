@@ -2,12 +2,9 @@ package com.deco2800.game.areas;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.math.GridPoint3;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.areas.terrain.TerrainTileDefinition;
-import com.deco2800.game.components.npc.StatusEffectsController;
-import com.deco2800.game.components.statuseffects.StatusEffectEnum;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.entities.factories.NPCFactory;
@@ -17,7 +14,6 @@ import com.deco2800.game.physics.components.InteractableComponent;
 import com.deco2800.game.physics.components.SubInteractableComponent;
 import com.deco2800.game.rendering.BackgroundRenderComponent;
 import com.deco2800.game.services.*;
-import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,12 +25,9 @@ import java.util.*;
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class LevelGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(LevelGameArea.class);
-  private static final int NUM_TREES = 7;
-  private static final int NUM_GHOSTS = 2;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(15, 15);
   private static final GridPoint2 STATUSEFFECT_SPAWN1 = new GridPoint2(40, 25);
   private static final GridPoint2 STATUSEFFECT_SPAWN2 = new GridPoint2(30, 25);
-  private static final float WALL_WIDTH = 0.1f;
   public List<ObstacleEntity> obstacleEntities = new ArrayList<>();
   public static ArrayList<TerrainTile> terrainTiles = new ArrayList<>();
   public static ArrayList<String> buffers = new ArrayList<>();
@@ -128,13 +121,16 @@ public class LevelGameArea extends GameArea {
    */
   public void init() {
     loadAssets();
+    mapInteractables();
 
     displayBackground();
     spawnTerrain();
     spawnLevelFromFile();
   }
 
-  /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
+  /**
+   * Create the game area, including terrain, static entities (trees), dynamic entities (player)
+   * */
   @Override
   public void create() {
     init();
@@ -177,7 +173,6 @@ public class LevelGameArea extends GameArea {
     Random random = new Random();
     int indexNum = random.nextInt(3);
     return deBuffers.get(indexNum);
-    //mapInteractables();         // may need here
   }
 
   private void displayUI() {
@@ -200,17 +195,6 @@ public class LevelGameArea extends GameArea {
     terrainEntity.addComponent(terrain);
 
     spawnEntity(terrainEntity);
-  }
-
-  private void spawnTrees() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
-    for (int i = 0; i < NUM_TREES; i++) {
-      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      Entity tree = ObstacleFactory.createTree();
-      spawnEntityAt(tree, randomPos, true, false);
-    }
   }
 
   public void clearTerrainCell(int x, int y) {
@@ -287,6 +271,10 @@ public class LevelGameArea extends GameArea {
     door.setTilePosition(position);
   }
 
+  /**
+   * Maps the sub-interactables (i.e. bridges and doors) to the closest
+   * spawned interactable (i.e. button).
+   */
   public void mapInteractables() {
       // list of all buttons in order of creation
       ArrayList<ObstacleEntity> buttons = new ArrayList<>();
@@ -416,115 +404,12 @@ public class LevelGameArea extends GameArea {
     }
   }
 
-  private void spawnLevel() {
-    int c;
-    int i;
-    for (c = 0; c < 4; c++) {
-      for (i = 0; i < 8; i++) {
-        spawnPlatform(c*8+i, c+5, 1);
-      }
-      spawnMiddlePlatform(c*8+8,c+5, 1);
-    }
-    int x = 32;
-    int y = 8;
-    spawnLadderPlatforms(x,y);
-    spawnPlatform(32,22,8);
-    spawnMiddlePlatform(39,30,2);
-    spawnPlatform(40,14,8);
-    for (i = 0; i < 8; i++) {
-      spawnPlatform(32+i,22,1);
-      spawnMiddlePlatform(39,22-i-1, 1);
-      spawnPlatform(40+i,14, 1);
-    }
-    spawnButton(40,15);
-    for (i = 0; i < 6; i++) {
-      spawnBridge(48+i,14, 1);
-      spawnPlatform(54+i,14, 1);
-    }
-    spawnDoor(56,15, 4);
-    //mapInteractables();     // to be added
-  }
-
-  private void spawnLadderPlatforms(int x, int y) {
-    for (int i = 0; i < 13; i++) {
-      spawnMiddlePlatform(x,y+1+i, 1);
-      spawnMiddlePlatform(x-9,y+6+i, 1);
-    }
-    for (int i = 0; i < 3; i++) {
-      spawnPlatform(x-3+i,y+3, 1);
-      spawnPlatform(x-8+i,y+6, 1);
-      spawnPlatform(x-3+i,y+9, 1);
-      spawnPlatform(x-8+i,y+12, 1);
-    }
-    spawnPlatform(x-3,y+3,3);
-    spawnPlatform(x-8,y+6,3);
-    spawnPlatform(x-3,y+9,3);
-    spawnPlatform(x-8,y+12,3);
-  }
-
   private Entity spawnPlayer() {
     Entity newPlayer = PlayerFactory.createPlayer(mapInteractables);
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     return newPlayer;
   }
 
-  /**
-   * Spawn the ground enemy
-   * It generate a random x cord and a fix y cord to ensure the enemy spawn on the ground
-   * There is list that checks whether a x coordinate exist already to ensure the
-   * enemy do not overlap
-   */
-  private void spawnGroundEnemy() {
-    ArrayList<Integer>  check = new ArrayList<>();
-    for (int i = 0; i < 2; i++) {
-      int xCord = 20 + (int)(Math.random() * ((WALL_WIDTH - 5) + 1));
-
-      while (check.contains(xCord)) {
-        xCord = 20 + (int)(Math.random() * ((WALL_WIDTH - 5) + 1));
-      }
-      check.add(xCord);
-      GridPoint2 randomPos = new GridPoint2(xCord,8);
-      Entity ghost = NPCFactory.createGhost(player);
-      spawnEntityAt(ghost, randomPos, true, true);
-    }
-  }
-
-  /**
-   * Spawns the flying enemy (the GorgonGear)
-   *
-   * the spawn point of the enemy will be dependent on the map of each level and will be implemented further
-   * in the second sprint. The range that the enemy can attack will be fixed to a certain point for chasing the
-   * character when the player is in range of the enemy.
-   *
-   * @param xCoord This is the X-coordinate of where the enemy will spawn.
-   * @param yCoord This is the Y-coordinate of where the enemy will spawn.
-   */
-  private void spawnGorgonGear(int xCoord, int yCoord) {
-    GridPoint2 distinctPos = new GridPoint2(xCoord, yCoord);
-    Entity gorgonGear = NPCFactory.createGorgonGear(player);
-    spawnEntityAt(gorgonGear, distinctPos, true, true);
-  }
-
-  private void spawnGhosts() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
-    for (int i = 0; i < NUM_GHOSTS; i++) {
-      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      Entity ghost = NPCFactory.createGhost(player);
-      spawnEntityAt(ghost, randomPos, true, true);
-    }
-  }
-/*
-  private void spawnGhostKing() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity ghostKing = NPCFactory.createGhostKing(player);
-    spawnEntityAt(ghostKing, randomPos, true, true);
-  }
-*/
   /**
    * Spawns the void on the map by calling the createTheVoid() method in NPCFactory
    * with player as its parameter. The void's vertical placement is determined by 1/2 of

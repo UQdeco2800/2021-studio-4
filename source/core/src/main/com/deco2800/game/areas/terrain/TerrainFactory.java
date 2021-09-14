@@ -138,16 +138,6 @@ public class TerrainFactory {
     layer.setCell(x,y,cell);
   }
 
-  private static void fillTiles(TiledMapTileLayer layer, GridPoint2 mapSize, TerrainTile tile) {
-    for (int x = 0; x < mapSize.x; x++) {
-      for (int y = 0; y < mapSize.y; y++) {
-        Cell cell = new Cell();
-        cell.setTile(tile);
-        layer.setCell(x, y, cell);
-      }
-    }
-  }
-
   /**
    * This enum should contain the different terrains in your game, e.g. forest, cave, home, all with
    * the same oerientation. But for demonstration purposes, the base code has the same level in 3

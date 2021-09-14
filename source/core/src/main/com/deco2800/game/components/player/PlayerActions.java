@@ -79,7 +79,10 @@ public class PlayerActions extends Component {
 
     this.body = physicsComponent.getBody();
     previousAnimation = getAnimation();
-    animator.startAnimation(getAnimation());
+
+    if (animator != null) {
+      animator.startAnimation(getAnimation());
+    }
   }
 
   @Override
@@ -105,7 +108,7 @@ public class PlayerActions extends Component {
     return ACCELERATION.x;
   }
 
-  public float getJumpBoost() {
+  public float getJumpHeight() {
     return jumpSpeed.y;
   }
 
@@ -118,6 +121,7 @@ public class PlayerActions extends Component {
 
     // increase or decrease the players movement
     ACCELERATION.add(newSpeed, 0);
+    //return (int) ACCELERATION.x;
     return newSpeed;
   }
 
@@ -373,6 +377,9 @@ public class PlayerActions extends Component {
   }
 
 
+  /**
+   * Thrusts the player up at the defined jump pad speed.
+   */
   public void jumpPad() {
     body.applyForceToCenter(jumpPadSpeed, true);
   }
