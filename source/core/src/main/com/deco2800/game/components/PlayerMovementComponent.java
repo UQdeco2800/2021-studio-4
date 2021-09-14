@@ -1,11 +1,13 @@
 package com.deco2800.game.components;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.components.endgame.LevelEndComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleDefinition;
 import com.deco2800.game.entities.ObstacleEntity;
+import com.deco2800.game.levels.LevelDefinition;
 import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.*;
@@ -18,6 +20,7 @@ public class PlayerMovementComponent extends Component {
     private short targetLayer;
     private Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables;
     private HitboxComponent hitboxComponent;
+    private LevelGameArea levelGameArea;
 
     /**
      * Create a component which interacts with entities on collision.
@@ -27,7 +30,8 @@ public class PlayerMovementComponent extends Component {
         this.targetLayer = targetLayer;
     }
 
-    public PlayerMovementComponent(short targetLayer, Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables) {
+    public PlayerMovementComponent(short targetLayer, Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables, LevelGameArea levelGameArea) {
+        this.levelGameArea = levelGameArea;
         this.targetLayer = targetLayer;
         this.mapInteractables = mapInteractables;
     }
@@ -81,8 +85,8 @@ public class PlayerMovementComponent extends Component {
                 playerActions.jumpPad();
             }
 
-            if (interactableComponent != null && mapInteractables.containsKey(target)) {
-                List<ObstacleEntity> subInteractables = mapInteractables.get(target);
+            if (interactableComponent != null && mapInteractables.containsKey(levelGameArea.getObstacle(target))) {
+                List<ObstacleEntity> subInteractables = mapInteractables.get(levelGameArea.getObstacle(target));
                 for (ObstacleEntity subInteractable : subInteractables) {
                     ColliderComponent colliderComponent = subInteractable.getComponent(ColliderComponent.class);
                     HitboxComponent mappedHitboxComponent = subInteractable.getComponent(HitboxComponent.class);

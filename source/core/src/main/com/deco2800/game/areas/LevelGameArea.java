@@ -544,7 +544,7 @@ public class LevelGameArea extends GameArea {
   }
 
   private Entity spawnPlayer() {
-    Entity newPlayer = PlayerFactory.createPlayer(mapInteractables);
+    Entity newPlayer = PlayerFactory.createPlayer(mapInteractables, this);
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     return newPlayer;
   }
