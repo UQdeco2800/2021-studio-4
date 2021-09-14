@@ -24,6 +24,10 @@ public class ObstacleEntity extends Entity {
     return (ObstacleEntity)super.addComponent(component);
   }
 
+  /**
+   * Returns the definition of the obstacle.
+   * @return Obstacle definition
+   */
   public ObstacleDefinition getDefinition() {
     return this.definition;
   }

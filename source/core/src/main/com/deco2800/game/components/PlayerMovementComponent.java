@@ -39,7 +39,7 @@ public class PlayerMovementComponent extends Component {
 
     /**
      * Communicate with the player's action ability through monitoring
-     * collision with the ground.
+     * collision with the obstacle entities.
      * @param me The first fixture (player).
      * @param other The second fixture.
      */

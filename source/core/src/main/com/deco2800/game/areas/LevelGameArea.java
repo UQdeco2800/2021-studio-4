@@ -126,14 +126,16 @@ public class LevelGameArea extends GameArea {
    */
   public void init() {
     loadAssets();
-    //mapInteractables();
+    mapInteractables();
 
     displayBackground();
     spawnTerrain();
     spawnLevelFromFile();
   }
 
-  /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
+  /**
+   * Create the game area, including terrain, static entities (trees), dynamic entities (player)
+   * */
   @Override
   public void create() {
     init();
@@ -283,6 +285,10 @@ public class LevelGameArea extends GameArea {
     door.setTilePosition(position);
   }
 
+  /**
+   * Maps the sub-interactables (i.e. bridges and doors) to the closest
+   * spawned interactable (i.e. button).
+   */
   public void mapInteractables() {
       // list of all buttons in order of creation
       ArrayList<ObstacleEntity> buttons = new ArrayList<>();

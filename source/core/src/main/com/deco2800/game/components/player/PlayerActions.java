@@ -318,6 +318,9 @@ public class PlayerActions extends Component {
   }
 
 
+  /**
+   * Thrusts the player up at the defined jump pad speed.
+   */
   public void jumpPad() {
     body.applyForceToCenter(jumpPadSpeed, true);
   }
