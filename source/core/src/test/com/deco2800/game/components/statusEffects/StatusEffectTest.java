@@ -319,7 +319,7 @@ public class StatusEffectTest {
 
     @Test
     public void testStuckInTheMudDebuffNotDead() {
-        
+
     }
 
     /* Test Enum getter methods */
