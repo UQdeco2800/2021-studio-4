@@ -478,40 +478,40 @@ public class LevelGameArea extends GameArea {
     });
   }
 
-  @Deprecated
-  private void _spawnLevelFromFile() {
-    BufferedReader reader = null;
-    try {
-      reader = new BufferedReader(new FileReader("levels/level.txt"));
-
-      String line;
-      while ((line = reader.readLine()) != null) {
-        String[] lineInfo = line.split(":");
-        if (lineInfo[0].equals("O")) {
-          ObstacleDefinition obstacle = ObstacleDefinition.valueOf(lineInfo[1]);
-          int size = Integer.parseInt(lineInfo[2]);
-          int x = Integer.parseInt(lineInfo[3]);
-          int y = Integer.parseInt(lineInfo[4]);
-          spawnObstacle(obstacle, x, y, size);
-        } else {
-          TerrainTileDefinition definition = TerrainTileDefinition.valueOf(lineInfo[1]);
-          int rotation = Integer.parseInt(lineInfo[2]);
-          int x = Integer.parseInt(lineInfo[3]);
-          int y = Integer.parseInt(lineInfo[4]);
-          TiledMapTileLayer mapTileLayer = (TiledMapTileLayer) terrain.getMap().getLayers().get(0);
-          TerrainFactory.loadTilesFromFile(mapTileLayer, definition, rotation, x, y);
-        }
-      }
-    } catch (IOException | NullPointerException e) {
-      e.printStackTrace();
-    } finally {
-      try {
-        reader.close();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-  }
+//  @Deprecated
+//  private void _spawnLevelFromFile() {
+//    BufferedReader reader = null;
+//    try {
+//      reader = new BufferedReader(new FileReader("levels/level.txt"));
+//
+//      String line;
+//      while ((line = reader.readLine()) != null) {
+//        String[] lineInfo = line.split(":");
+//        if (lineInfo[0].equals("O")) {
+//          ObstacleDefinition obstacle = ObstacleDefinition.valueOf(lineInfo[1]);
+//          int size = Integer.parseInt(lineInfo[2]);
+//          int x = Integer.parseInt(lineInfo[3]);
+//          int y = Integer.parseInt(lineInfo[4]);
+//          spawnObstacle(obstacle, x, y, size);
+//        } else {
+//          TerrainTileDefinition definition = TerrainTileDefinition.valueOf(lineInfo[1]);
+//          int rotation = Integer.parseInt(lineInfo[2]);
+//          int x = Integer.parseInt(lineInfo[3]);
+//          int y = Integer.parseInt(lineInfo[4]);
+//          TiledMapTileLayer mapTileLayer = (TiledMapTileLayer) terrain.getMap().getLayers().get(0);
+//          TerrainFactory.loadTilesFromFile(mapTileLayer, definition, rotation, x, y);
+//        }
+//      }
+//    } catch (IOException | NullPointerException e) {
+//      e.printStackTrace();
+//    } finally {
+//      try {
+//        reader.close();
+//      } catch (IOException e) {
+//        e.printStackTrace();
+//      }
+//    }
+//  }
 
   @Override
   public void untrackEntity(Entity entity) {
@@ -520,6 +520,7 @@ public class LevelGameArea extends GameArea {
   }
 
   private void spawnLevelFromFile() {
+  //  _spawnLevelFromFile(); // Used to load an old level.txt file to the new json format.
     // Load actual elements
     readAll();
 
