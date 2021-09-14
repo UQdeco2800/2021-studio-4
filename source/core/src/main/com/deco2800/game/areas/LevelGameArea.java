@@ -150,10 +150,10 @@ public class LevelGameArea extends GameArea {
 
     spawnTheVoid();
 
-    spawnStatusEffectDeBuff("Buff_Time_Stop");
-    spawnStatusEffectBuff("Buff_Jump");
-//    spawnStatusEffectBuff(getBuff()); // To be selected randomly from a list of the effects
-//    spawnStatusEffectDeBuff(getDeBuff()); // To be selected randomly from a list of the effects
+//    spawnStatusEffectDeBuff("Buff_Time_Stop");
+//    spawnStatusEffectBuff("Buff_Jump");
+    spawnStatusEffectBuff(getBuff()); // To be selected randomly from a list of the effects
+    spawnStatusEffectDeBuff(getDeBuff()); // To be selected randomly from a list of the effects
 
     playTheMusic("game_level_1");
     //playMusic();
@@ -382,8 +382,7 @@ public class LevelGameArea extends GameArea {
   }
 
   private void spawnObstacle(ObstacleToolComponent.Obstacle selectedObstacle, int x, int y, int size) {
-//    x = x*2;
-//    y = y*2;
+
     switch (selectedObstacle){
       case PLATFORM:
         spawnPlatform(x, y, size, false, false);

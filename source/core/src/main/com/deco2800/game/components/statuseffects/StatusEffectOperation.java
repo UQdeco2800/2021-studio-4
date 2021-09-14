@@ -190,8 +190,4 @@ public class StatusEffectOperation {
     private void FreezeVoid() {
         pauseVoid();
     }
-
-
-
-
 }
