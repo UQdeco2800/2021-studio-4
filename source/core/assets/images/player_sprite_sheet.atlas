@@ -479,7 +479,7 @@ RunningRightJumpBoost
   orig: 738, 715
   offset: 0, 0
   index: 13
-RunningRightJumpBoost00
+RunningRightJumpBoost
   rotate: false
   xy: 5414, 2817
   size: 738, 715
@@ -703,7 +703,7 @@ RunningRightSpeedUp
   orig: 603, 716
   offset: 0, 0
   index: 2
-RunningRightSpeedUp0004
+RunningRightSpeedUp
   rotate: false
   xy: 5882, 111
   size: 603, 716
@@ -801,7 +801,7 @@ RunningRightTimeStop
   orig: 800, 800
   offset: 0, 0
   index: 8
-RunningRightTimeStop9
+RunningRightTimeStop
   rotate: false
   xy: 0, 6562
   size: 800, 800
@@ -1913,7 +1913,7 @@ RunningRightDefault
   orig: 738, 560
   offset: 0, 0
   index: 11
-RunningRightDefault0
+RunningRightDefault
   rotate: false
   xy: 1190, 4774
   size: 738, 560

@@ -80,7 +80,7 @@ public class LevelGameArea extends GameArea {
           "images/level1_background.jpg",
           "images/player_sprite_sheet.png",
           "images/player_sprite_sheet2.png",
-          "images/player_sprite_sheet3.png"
+          "images/player_sprite_sheet3.png",
 
 
 
@@ -127,7 +127,7 @@ public class LevelGameArea extends GameArea {
           "images/portal-door.atlas",
           "images/jumppad.atlas",
           "images/button.atlas",
-          "images/player_sprite_sheet.atlas"
+          "images/player_sprite_sheet.atlas",
     "images/terrain_iso_grass.atlas",
     "images/ghost.atlas",
     "images/ghostKing.atlas",
