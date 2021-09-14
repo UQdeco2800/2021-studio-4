@@ -1,13 +1,17 @@
 package com.deco2800.game.components.statusEffects;
 
+import com.deco2800.game.ai.tasks.Task;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.statuseffects.StatusEffectEnum;
 import com.deco2800.game.components.statuseffects.StatusEffectOperation;
+import com.deco2800.game.components.tasks.WaitTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.extensions.GameExtension;
+import com.deco2800.game.services.GameTime;
+import com.deco2800.game.services.ServiceLocator;
 import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,6 +41,7 @@ public class StatusEffectTest {
     private CombatStatsComponent combatStatsComponentIsDead;
     //private PlayerActions playerActions;
     private PlayerActions playerActions;
+    private GameTime time;
     /* There are no intractable elements in this HashMap. */
     private Map<ObstacleEntity, ObstacleEntity> mapInteractables = new HashMap<>();
     private ArrayList<String> statusEffectList = new ArrayList<>();
@@ -46,14 +51,15 @@ public class StatusEffectTest {
     public void initialiseClasses() {
         playerActions = new PlayerActions();
         /* The health determines whether the unit is dead. 1 = alive, 0 = dead */
-        combatStatsComponentIsDead = new CombatStatsComponent(1,1);
-        combatStatsComponentNotDead = new CombatStatsComponent(0,1);
+        combatStatsComponentIsDead = new CombatStatsComponent(0,0);
+        combatStatsComponentNotDead = new CombatStatsComponent(1,0);
     }
 
     @BeforeEach
     public void mockClasses() {
         /* Mocking classes */
         player = Mockito.mock(Entity.class);
+        time = Mockito.mock(GameTime.class);
         //playerActions = Mockito.mock(PlayerActions.class);
     }
 
@@ -72,8 +78,7 @@ public class StatusEffectTest {
     public void initialiseStatusEffectOperation() {
         /* Initialise the buff and debuff classes. Also redefining some methods for mocking purposes */
         speedBoost = new StatusEffectOperation(player, "Buff_Speed",  statusEffectList) {
-            public int speedChange(int type) {
-                /* The speedChange() has been rewritten to change the stats in the playerActions class.
+            /* The speedChange() has been rewritten to change the stats in the playerActions class.
                  This is because the player Entity is a mock class, meaning that when we call functions that rely on
                  other classes, those classes will return null because it does not have them initialised,
                  i.e. player.getComponents(PlayerActions.class).getSpeed() will fail because
@@ -83,21 +88,30 @@ public class StatusEffectTest {
                  we change the PlayerActions object manually, the same way as it would be done in practice; only difference
                  is that in practice, the player Entity and PlayerActions object are explicitly linked, here they are not due to mocking.
                  */
+            public int speedChange(int type) {
                 playerActions.alterSpeed(type * StatusEffectEnum.SPEED.getStatChange());
-                Timer t = new java.util.Timer();
-                t.schedule(
-                        new java.util.TimerTask() {
-                            @Override
-                            public void run() {
-                                // your code here
-                                player.getComponent(PlayerActions.class).alterSpeed(-StatusEffectEnum.SPEED.getStatChange());
-                                // close the thread
-                                t.cancel();
-                            }
-                        },
-                        StatusEffectEnum.SPEED.getStatDuration()
-                );
+                System.err.println("In the redefine");
+                //System.err.println(player.getComponent(CombatStatsComponent.class).isDead());
 
+                if (player.getComponent(CombatStatsComponent.class).isDead()) {
+                    System.err.println("Player is dead");
+                    playerActions.alterSpeed(-StatusEffectEnum.SPEED.getStatChange());
+                } else {
+                    System.err.println("Player is not dead");
+                    Timer t = new java.util.Timer();
+                    t.schedule(
+                            new java.util.TimerTask() {
+                                @Override
+                                public void run() {
+                                    // your code here
+                                    player.getComponent(PlayerActions.class).alterSpeed(-StatusEffectEnum.SPEED.getStatChange());
+                                    // close the thread
+                                    t.cancel();
+                                }
+                            },
+                            StatusEffectEnum.SPEED.getStatDuration()
+                    );
+                }
                 return StatusEffectEnum.SPEED.getStatChange();
             }
         };
@@ -108,17 +122,23 @@ public class StatusEffectTest {
 
         };
     }
-    
+
     @Test
-    public void testSpeedChange() {
+    public void testSpeedChangeNotDead() {
+        float expected;
+        float result;
+        int type = 1;
+
         /** Tests stat change from enum (this is how the game will actually determine the stat changes) */
         /** Tests is not dead first */
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
-        //when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentNotDead);
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentNotDead);
 
-        int type = 1;
-        float expected = StatusEffectEnum.SPEED.getStatChange();
-        float result = speedBoost.speedChange(type);
+        //System.err.println(combatStatsComponentNotDead.isDead());
+
+
+        expected = StatusEffectEnum.SPEED.getStatChange();
+        result = speedBoost.speedChange(type);
         assertEquals(expected, result); /* Check the enum for SPEED */
 
         /** Check the change in stat */
@@ -130,7 +150,7 @@ public class StatusEffectTest {
 
         /** Checks if the player's stats returns back to normal */
         //System.err.println("Before timer");
-        expected = 10f;
+        expected = 10;
         try {
             //System.out.println("Inside try catch block");
             Thread.sleep(2000);
@@ -143,8 +163,34 @@ public class StatusEffectTest {
         } catch (InterruptedException e) {
             System.err.println(e);
         }
-        //System.err.println("After");
+        System.err.println("After");
     }
+
+    @Test
+    public void testSpeedChangeIsDead() {
+        float expected;
+        float result;
+        int type = 1;
+
+        /** Tests the condition that the player is dead and got the power up */
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentIsDead);
+        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
+        speedBoost.speedChange(type); /* Call the speed change */
+        
+        expected = 10f;
+        result = player.getComponent(PlayerActions.class).getSpeed();
+
+        assertEquals(expected, result); /* Check that the statusEffect goes away because the player is dead */
+        assertNotEquals(15f, result); /* Checks that the statusEffect does not persist after death */
+    }
+
+    @Test
+    public void testJumpBoost() {
+
+    }
+
+    /** The following tests below were done in order to confirm the correct usage of mocking and other miscellaneous
+     tests to help with understanding. */
 
     @Test
     /* Preliminary test on the player.getComponent class. Making sure the methodology is valid */
