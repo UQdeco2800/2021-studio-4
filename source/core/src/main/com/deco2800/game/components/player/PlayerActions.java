@@ -35,7 +35,7 @@ public class PlayerActions extends Component {
   private Movement currentMovement;
   private String previousAnimation;
 
-  private static Vector2 ACCELERATION;  // Force of acceleration, in Newtons (kg.m.s^2)
+  private static Vector2 ACCELERATION = new Vector2(10f, 0f);;  // Force of acceleration, in Newtons (kg.m.s^2)
   private static final float NORMAL_FRICTION = 0.1f;                 // Coefficient of friction for normal movement
 
   private PlayerState playerState = PlayerState.STOPPED;        // Movement state of the player, see PlayerState
@@ -71,7 +71,7 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("keyReleased", this::keyWasReleased);
     entity.getEvents().addListener("setPowerUpAnimation", this::setPowerUpAnimation);
 
-    ACCELERATION = new Vector2(10f, 0f);
+
     currentPowerUp = "Default";
     movingDirection = MovingDirection.Right;
     currentMovement = Movement.Idle;
