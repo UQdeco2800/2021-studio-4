@@ -11,6 +11,7 @@ import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.*;
 import com.deco2800.game.screens.MainGameScreen;
 
+import java.util.List;
 import java.util.Map;
 
 public class PlayerMovementComponent extends Component {

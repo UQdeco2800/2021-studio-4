@@ -22,6 +22,7 @@ import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
+import java.util.List;
 import java.util.Map;
 
 /**
