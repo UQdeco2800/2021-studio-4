@@ -77,6 +77,7 @@ public class LevelGameArea extends GameArea {
   };
 
   private static final String[] gameTextureAtlases = {
+
     "images/terrain_iso_grass.atlas",
     "images/ghost.atlas",
     "images/ghostKing.atlas",
@@ -88,6 +89,7 @@ public class LevelGameArea extends GameArea {
     "images/portal-door.atlas",
     "images/jumppad.atlas",
     "images/button.atlas"
+
   };
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
   private static final String[] gameMusic = {gameSong.click, gameSong.game_level_1,gameSong.end_credits,

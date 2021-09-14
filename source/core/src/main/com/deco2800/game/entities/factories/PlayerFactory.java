@@ -64,6 +64,8 @@ public class PlayerFactory {
     animator.addAnimation("JumpingRightDefault", 0.1f, Animation.PlayMode.LOOP);
 
 
+
+
     Entity player =
         new Entity()
             .addComponent(new PhysicsComponent())
@@ -77,6 +79,7 @@ public class PlayerFactory {
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(aiComponent)
+
                                                                                                   // Added in to allow                                          // for collision controlled jumping
             .addComponent(new PlayerMovementComponent(PhysicsLayer.OBSTACLE, mapInteractables, levelGameArea)); // Added in to allow
                                                                                   // for collision controlled jumping
