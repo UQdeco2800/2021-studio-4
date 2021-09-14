@@ -3,16 +3,7 @@
 	"mapLayer": [
 		{
 			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 24,
-			"y": 19,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 24,
+			"x": 45,
 			"y": 20,
 			"def": "TILE_FULL_MIDDLE",
 			"rot": 0,
@@ -21,7 +12,7 @@
 		},
 		{
 			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 24,
+			"x": 45,
 			"y": 21,
 			"def": "TILE_FULL_MIDDLE",
 			"rot": 0,
@@ -30,34 +21,7 @@
 		},
 		{
 			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 25,
-			"y": 19,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 26,
-			"y": 19,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 26,
-			"y": 21,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 26,
+			"x": 45,
 			"y": 22,
 			"def": "TILE_FULL_MIDDLE",
 			"rot": 0,
@@ -66,7 +30,7 @@
 		},
 		{
 			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 26,
+			"x": 45,
 			"y": 23,
 			"def": "TILE_FULL_MIDDLE",
 			"rot": 0,
@@ -75,7 +39,340 @@
 		},
 		{
 			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 27,
+			"x": 45,
+			"y": 24,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 45,
+			"y": 25,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 45,
+			"y": 26,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 45,
+			"y": 27,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 45,
+			"y": 28,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 45,
+			"y": 29,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 45,
+			"y": 30,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 45,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 46,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 47,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 48,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 49,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 50,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 51,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 52,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 53,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 54,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 55,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 56,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 57,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 58,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 59,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 60,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 61,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 62,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 63,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 64,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 65,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 66,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 67,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 68,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 69,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 70,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 71,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 72,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 73,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 74,
+			"y": 18,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 74,
 			"y": 19,
 			"def": "TILE_FULL_MIDDLE",
 			"rot": 0,
@@ -84,61 +381,7 @@
 		},
 		{
 			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 28,
-			"y": 19,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 28,
-			"y": 21,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 28,
-			"y": 22,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 28,
-			"y": 23,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 29,
-			"y": 19,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 30,
-			"y": 19,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 30,
+			"x": 74,
 			"y": 20,
 			"def": "TILE_FULL_MIDDLE",
 			"rot": 0,
@@ -147,8 +390,206 @@
 		},
 		{
 			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 30,
+			"x": 74,
 			"y": 21,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 74,
+			"y": 22,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 74,
+			"y": 23,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 74,
+			"y": 24,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 74,
+			"y": 25,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 74,
+			"y": 26,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 74,
+			"y": 27,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 74,
+			"y": 28,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 74,
+			"y": 29,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 74,
+			"y": 30,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 74,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 75,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 76,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 77,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 78,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 79,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 80,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 81,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 82,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 83,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 84,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 85,
+			"y": 31,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 86,
+			"y": 31,
 			"def": "TILE_FULL_MIDDLE",
 			"rot": 0,
 			"flipX": false,
@@ -399,91 +840,6 @@
 			"y": 13
 		},
 		{
-			"interactableID": 0,
-			"def": "BRIDGE",
-			"size": 9,
-			"x": 74,
-			"y": 13
-		},
-		{
-			"def": "PLATFORM",
-			"size": 11,
-			"x": 83,
-			"y": 13
-		},
-		{
-			"def": "PLATFORM",
-			"size": 2,
-			"x": 94,
-			"y": 14
-		},
-		{
-			"def": "PLATFORM",
-			"size": 2,
-			"x": 96,
-			"y": 15
-		},
-		{
-			"def": "PLATFORM",
-			"size": 2,
-			"x": 98,
-			"y": 16
-		},
-		{
-			"def": "PLATFORM",
-			"size": 2,
-			"x": 100,
-			"y": 17
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 96,
-			"y": 14
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 98,
-			"y": 15
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 100,
-			"y": 16
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 94,
-			"y": 13
-		},
-		{
-			"def": "PLATFORM",
-			"size": 7,
-			"x": 102,
-			"y": 17
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 108,
-			"y": 16
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 108,
-			"y": 15
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 108,
-			"y": 14
-		},
-		{
 			"def": "PLATFORM",
 			"size": 12,
 			"x": 109,
@@ -592,12 +948,6 @@
 			"y": 20
 		},
 		{
-			"def": "PLATFORM",
-			"size": 13,
-			"x": 129,
-			"y": 21
-		},
-		{
 			"def": "MIDDLE_PLATFORM",
 			"size": 1,
 			"x": 129,
@@ -660,32 +1010,8 @@
 		{
 			"def": "PLATFORM",
 			"size": 3,
-			"x": 142,
-			"y": 20
-		},
-		{
-			"def": "PLATFORM",
-			"size": 3,
-			"x": 145,
-			"y": 19
-		},
-		{
-			"def": "PLATFORM",
-			"size": 3,
 			"x": 145,
 			"y": 7
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 141,
-			"y": 20
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 144,
-			"y": 19
 		},
 		{
 			"def": "MIDDLE_PLATFORM",
@@ -701,143 +1027,3031 @@
 		},
 		{
 			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 147,
-			"y": 18
+			"size": 29,
+			"x": 16,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 9,
+			"x": 7,
+			"y": 31
 		},
 		{
 			"def": "MIDDLE_PLATFORM",
 			"size": 1,
-			"x": 147,
-			"y": 17
+			"x": 0,
+			"y": 6
 		},
 		{
 			"def": "MIDDLE_PLATFORM",
 			"size": 1,
-			"x": 147,
-			"y": 16
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 147,
-			"y": 15
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 147,
-			"y": 14
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 147,
-			"y": 13
-		},
-		{
-			"interactableID": 1,
-			"def": "BRIDGE",
-			"size": 4,
-			"x": 150,
-			"y": 8
-		},
-		{
-			"interactableID": 2,
-			"def": "BRIDGE",
-			"size": 4,
-			"x": 155,
-			"y": 10
-		},
-		{
-			"interactableID": 3,
-			"def": "BRIDGE",
-			"size": 4,
-			"x": 160,
-			"y": 12
-		},
-		{
-			"def": "PLATFORM",
-			"size": 17,
-			"x": 148,
+			"x": 0,
 			"y": 7
 		},
 		{
 			"def": "MIDDLE_PLATFORM",
 			"size": 1,
-			"x": 165,
-			"y": 7
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 165,
+			"x": 0,
 			"y": 8
 		},
 		{
 			"def": "MIDDLE_PLATFORM",
 			"size": 1,
-			"x": 165,
-			"y": 10
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 165,
+			"x": 0,
 			"y": 9
 		},
 		{
 			"def": "MIDDLE_PLATFORM",
 			"size": 1,
-			"x": 165,
+			"x": 0,
 			"y": 11
 		},
 		{
 			"def": "MIDDLE_PLATFORM",
 			"size": 1,
-			"x": 165,
+			"x": 0,
+			"y": 10
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 0,
 			"y": 12
 		},
 		{
 			"def": "MIDDLE_PLATFORM",
 			"size": 1,
-			"x": 165,
-			"y": 13
-		},
-		{
-			"def": "PLATFORM",
-			"size": 5,
-			"x": 165,
+			"x": 0,
 			"y": 14
 		},
 		{
-			"def": "LEVEL_END_PORTAL",
+			"def": "MIDDLE_PLATFORM",
 			"size": 1,
-			"x": 170,
+			"x": 0,
+			"y": 13
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 0,
 			"y": 15
 		},
 		{
-			"interactableID": 4,
-			"def": "BUTTON",
+			"def": "MIDDLE_PLATFORM",
 			"size": 1,
-			"x": 67,
+			"x": 0,
+			"y": 16
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 0,
+			"y": 17
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 0,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 0,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 0,
+			"y": 21
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 0,
+			"y": 21
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 0,
+			"y": 20
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 0,
+			"y": 22
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 0,
+			"y": 23
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 0,
+			"y": 24
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 0,
+			"y": 25
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 0,
+			"y": 26
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 0,
+			"y": 27
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 0,
+			"y": 28
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 0,
+			"y": 29
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 0,
+			"y": 30
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 0,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 1,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 2,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 3,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 4,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 5,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 6,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 108,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 108,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 108,
+			"y": 16
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 108,
+			"y": 17
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 108,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 108,
+			"y": 19
+		},
+		{
+			"def": "PLATFORM",
+			"size": 9,
+			"x": 100,
+			"y": 20
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 97,
+			"y": 19
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 94,
+			"y": 18
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 91,
+			"y": 17
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 88,
 			"y": 16
 		},
 		{
 			"def": "PLATFORM",
+			"size": 3,
+			"x": 85,
+			"y": 15
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 82,
+			"y": 14
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 74,
+			"y": 13
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 77,
+			"y": 13
+		},
+		{
+			"def": "PLATFORM",
 			"size": 1,
-			"x": 75,
+			"x": 80,
+			"y": 13
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 81,
+			"y": 13
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 137,
+			"y": 11
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 138,
+			"y": 10
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 139,
+			"y": 10
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 140,
+			"y": 10
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 141,
+			"y": 10
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 142,
+			"y": 11
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 138,
+			"y": 11
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 139,
+			"y": 11
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 140,
+			"y": 11
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 141,
+			"y": 11
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 10,
+			"x": 148,
+			"y": 12
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 158,
+			"y": 13
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 159,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 160,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 162,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 161,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 163,
+			"y": 15
+		},
+		{
+			"def": "PLATFORM",
+			"size": 9,
+			"x": 148,
+			"y": 7
+		},
+		{
+			"def": "PLATFORM",
+			"size": 4,
+			"x": 157,
+			"y": 7
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 161,
+			"y": 8
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 162,
+			"y": 9
+		},
+		{
+			"def": "PLATFORM",
+			"size": 7,
+			"x": 163,
+			"y": 10
+		},
+		{
+			"def": "PLATFORM",
+			"size": 7,
+			"x": 170,
+			"y": 10
+		},
+		{
+			"def": "PLATFORM",
+			"size": 7,
+			"x": 177,
+			"y": 10
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 7,
+			"x": 164,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 7,
+			"x": 171,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 7,
+			"x": 178,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 169,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 170,
+			"y": 13
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 172,
+			"y": 13
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 171,
+			"y": 13
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 173,
+			"y": 13
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 174,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 172,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 171,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 170,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 173,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 22,
+			"x": 87,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 22,
+			"x": 109,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 22,
+			"x": 131,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 129,
+			"y": 21
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 129,
+			"y": 22
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 129,
+			"y": 23
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 129,
+			"y": 24
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 129,
+			"y": 25
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 131,
+			"y": 25
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 130,
+			"y": 25
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 120,
+			"y": 30
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 120,
+			"y": 29
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 120,
+			"y": 28
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 120,
+			"y": 27
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 120,
+			"y": 27
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 120,
+			"y": 26
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 120,
+			"y": 25
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 120,
+			"y": 24
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 120,
+			"y": 23
+		},
+		{
+			"def": "PLATFORM",
+			"size": 4,
+			"x": 121,
+			"y": 23
+		},
+		{
+			"def": "PLATFORM",
+			"size": 14,
+			"x": 132,
+			"y": 25
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 185,
+			"y": 16
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 186,
 			"y": 17
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 187,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 188,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 189,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 190,
+			"y": 19
+		},
+		{
+			"def": "PLATFORM",
+			"size": 4,
+			"x": 184,
+			"y": 10
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 188,
+			"y": 11
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 189,
+			"y": 12
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 190,
+			"y": 13
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 191,
+			"y": 14
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 193,
+			"y": 14
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 192,
+			"y": 14
+		},
+		{
+			"def": "PLATFORM",
+			"size": 5,
+			"x": 194,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 5,
+			"x": 191,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 3,
+			"x": 196,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 20,
+			"x": 161,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 20,
+			"x": 181,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 20,
+			"x": 201,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 20,
+			"x": 153,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 20,
+			"x": 173,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 20,
+			"x": 193,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 20,
+			"x": 213,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 141,
+			"y": 26
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 141,
+			"y": 27
+		},
+		{
+			"def": "PLATFORM",
+			"size": 5,
+			"x": 146,
+			"y": 25
+		},
+		{
+			"def": "PLATFORM",
+			"size": 15,
+			"x": 166,
+			"y": 25
+		},
+		{
+			"def": "PLATFORM",
+			"size": 15,
+			"x": 151,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 150,
+			"y": 24
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 150,
+			"y": 23
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 150,
+			"y": 22
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 150,
+			"y": 21
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 150,
+			"y": 20
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 150,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 150,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 166,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 166,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 166,
+			"y": 20
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 166,
+			"y": 21
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 166,
+			"y": 22
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 166,
+			"y": 23
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 166,
+			"y": 24
+		},
+		{
+			"interactableID": 0,
+			"def": "BRIDGE",
+			"size": 16,
+			"x": 151,
+			"y": 25
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 201,
+			"y": 25
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 202,
+			"y": 25
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 198,
+			"y": 20
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 198,
+			"y": 21
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 198,
+			"y": 22
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 198,
+			"y": 23
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 198,
+			"y": 24
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 173,
+			"y": 28
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 172,
+			"y": 29
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 172,
+			"y": 30
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 174,
+			"y": 28
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 175,
+			"y": 28
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 176,
+			"y": 28
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 177,
+			"y": 29
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 177,
+			"y": 30
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 173,
+			"y": 30
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 173,
+			"y": 30
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 174,
+			"y": 30
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 175,
+			"y": 30
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 176,
+			"y": 30
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 176,
+			"y": 29
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 175,
+			"y": 29
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 174,
+			"y": 29
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 173,
+			"y": 29
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 185,
+			"y": 27
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 185,
+			"y": 26
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 186,
+			"y": 27
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 186,
+			"y": 27
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 186,
+			"y": 26
+		},
+		{
+			"def": "PLATFORM",
+			"size": 4,
+			"x": 181,
+			"y": 25
+		},
+		{
+			"def": "PLATFORM",
+			"size": 4,
+			"x": 185,
+			"y": 25
+		},
+		{
+			"def": "PLATFORM",
+			"size": 4,
+			"x": 197,
+			"y": 25
+		},
+		{
+			"interactableID": 1,
+			"def": "BRIDGE",
+			"size": 8,
+			"x": 189,
+			"y": 25
+		},
+		{
+			"def": "PLATFORM",
+			"size": 5,
+			"x": 201,
+			"y": 14
+		},
+		{
+			"def": "PLATFORM",
+			"size": 5,
+			"x": 207,
+			"y": 16
+		},
+		{
+			"def": "PLATFORM",
+			"size": 5,
+			"x": 213,
+			"y": 18
+		},
+		{
+			"def": "PLATFORM",
+			"size": 5,
+			"x": 219,
+			"y": 20
+		},
+		{
+			"def": "PLATFORM",
+			"size": 5,
+			"x": 225,
+			"y": 22
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 225,
+			"y": 21
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 225,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 225,
+			"y": 20
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 225,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 225,
+			"y": 17
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 225,
+			"y": 17
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 225,
+			"y": 16
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 225,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 225,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 225,
+			"y": 13
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 225,
+			"y": 12
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 225,
+			"y": 11
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 225,
+			"y": 9
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 225,
+			"y": 10
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 221,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 223,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 222,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 224,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 225,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 225,
+			"y": 8
+		},
+		{
+			"def": "PLATFORM",
+			"size": 12,
+			"x": 230,
+			"y": 22
+		},
+		{
+			"def": "PLATFORM",
+			"size": 17,
+			"x": 242,
+			"y": 16
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 17,
+			"x": 226,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 17,
+			"x": 243,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 16,
+			"x": 260,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 16,
+			"x": 233,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 16,
+			"x": 249,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 16,
+			"x": 265,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 241,
+			"y": 21
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 241,
+			"y": 20
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 241,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 241,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 241,
+			"y": 17
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 241,
+			"y": 16
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 258,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 258,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 258,
+			"y": 13
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 275,
+			"y": 9
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 275,
+			"y": 8
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 275,
+			"y": 10
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 275,
+			"y": 11
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 258,
+			"y": 12
+		},
+		{
+			"def": "PLATFORM",
+			"size": 17,
+			"x": 259,
+			"y": 12
+		},
+		{
+			"def": "PLATFORM",
+			"size": 17,
+			"x": 276,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 252,
+			"y": 21
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 252,
+			"y": 22
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 252,
+			"y": 23
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 252,
+			"y": 24
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 252,
+			"y": 25
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 252,
+			"y": 27
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 252,
+			"y": 26
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 252,
+			"y": 28
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 252,
+			"y": 29
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 252,
+			"y": 30
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 268,
+			"y": 17
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 268,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 268,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 268,
+			"y": 20
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 268,
+			"y": 21
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 268,
+			"y": 22
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 268,
+			"y": 23
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 268,
+			"y": 24
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 268,
+			"y": 25
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 268,
+			"y": 26
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 268,
+			"y": 27
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 268,
+			"y": 28
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 268,
+			"y": 30
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 268,
+			"y": 29
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 285,
+			"y": 12
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 285,
+			"y": 13
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 285,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 285,
+			"y": 16
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 285,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 285,
+			"y": 17
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 285,
+			"y": 21
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 285,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 285,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 285,
+			"y": 20
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 285,
+			"y": 23
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 285,
+			"y": 22
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 285,
+			"y": 24
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 285,
+			"y": 25
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 285,
+			"y": 26
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 285,
+			"y": 27
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 285,
+			"y": 28
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 285,
+			"y": 29
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 285,
+			"y": 30
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 22,
+			"x": 281,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 198,
+			"y": 13
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 198,
+			"y": 12
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 198,
+			"y": 11
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 198,
+			"y": 10
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 198,
+			"y": 9
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 198,
+			"y": 8
+		},
+		{
+			"def": "PLATFORM",
+			"size": 13,
+			"x": 293,
+			"y": 7
+		},
+		{
+			"def": "PLATFORM",
+			"size": 7,
+			"x": 306,
+			"y": 9
+		},
+		{
+			"def": "PLATFORM",
+			"size": 7,
+			"x": 314,
+			"y": 11
+		},
+		{
+			"def": "PLATFORM",
+			"size": 7,
+			"x": 322,
+			"y": 13
+		},
+		{
+			"def": "PLATFORM",
+			"size": 7,
+			"x": 330,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 12,
+			"x": 303,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 12,
+			"x": 315,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 12,
+			"x": 327,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 12,
+			"x": 339,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 12,
+			"x": 351,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 12,
+			"x": 363,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 12,
+			"x": 306,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 12,
+			"x": 318,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 12,
+			"x": 330,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 12,
+			"x": 342,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 12,
+			"x": 354,
+			"y": 7
+		},
+		{
+			"def": "PLATFORM",
+			"size": 7,
+			"x": 338,
+			"y": 17
+		},
+		{
+			"def": "PLATFORM",
+			"size": 7,
+			"x": 346,
+			"y": 19
+		},
+		{
+			"def": "PLATFORM",
+			"size": 7,
+			"x": 354,
+			"y": 21
+		},
+		{
+			"def": "PLATFORM",
+			"size": 13,
+			"x": 361,
+			"y": 21
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 354,
+			"y": 20
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 354,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 354,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 354,
+			"y": 17
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 354,
+			"y": 16
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 354,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 354,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 354,
+			"y": 13
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 354,
+			"y": 12
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 354,
+			"y": 11
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 354,
+			"y": 10
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 354,
+			"y": 8
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 354,
+			"y": 9
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 23,
+			"x": 366,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 23,
+			"x": 375,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 23,
+			"x": 398,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 23,
+			"x": 389,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 23,
+			"x": 412,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 23,
+			"x": 421,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 306,
+			"y": 8
+		},
+		{
+			"def": "PLATFORM",
+			"size": 17,
+			"x": 374,
+			"y": 13
+		},
+		{
+			"def": "PLATFORM",
+			"size": 17,
+			"x": 408,
+			"y": 13
+		},
+		{
+			"def": "PLATFORM",
+			"size": 17,
+			"x": 442,
+			"y": 13
+		},
+		{
+			"def": "PLATFORM",
+			"size": 17,
+			"x": 459,
+			"y": 21
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 17,
+			"x": 435,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 17,
+			"x": 452,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 17,
+			"x": 469,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 17,
+			"x": 486,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 17,
+			"x": 444,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 17,
+			"x": 461,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 17,
+			"x": 478,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 17,
+			"x": 495,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 373,
+			"y": 20
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 373,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 373,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 373,
+			"y": 17
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 373,
+			"y": 16
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 373,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 373,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 373,
+			"y": 13
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 391,
+			"y": 13
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 391,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 391,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 391,
+			"y": 16
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 391,
+			"y": 17
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 391,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 391,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 391,
+			"y": 20
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 407,
+			"y": 20
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 407,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 407,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 407,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 407,
+			"y": 17
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 407,
+			"y": 16
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 407,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 407,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 407,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 407,
+			"y": 13
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 425,
+			"y": 13
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 425,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 425,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 425,
+			"y": 16
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 425,
+			"y": 17
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 425,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 425,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 425,
+			"y": 20
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 441,
+			"y": 20
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 441,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 441,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 441,
+			"y": 17
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 441,
+			"y": 16
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 441,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 441,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 441,
+			"y": 13
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 459,
+			"y": 13
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 459,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 459,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 459,
+			"y": 16
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 459,
+			"y": 17
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 459,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 459,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 459,
+			"y": 20
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 391,
+			"y": 21
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 392,
+			"y": 21
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 407,
+			"y": 21
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 406,
+			"y": 21
+		},
+		{
+			"def": "PLATFORM",
+			"size": 17,
+			"x": 425,
+			"y": 21
+		},
+		{
+			"interactableID": 2,
+			"def": "BRIDGE",
+			"size": 13,
+			"x": 393,
+			"y": 21
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 433,
+			"y": 26
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 433,
+			"y": 27
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 433,
+			"y": 28
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 433,
+			"y": 29
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 433,
+			"y": 29
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 433,
+			"y": 30
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 383,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 383,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 383,
+			"y": 20
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 383,
+			"y": 21
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 383,
+			"y": 22
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 383,
+			"y": 24
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 383,
+			"y": 23
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 383,
+			"y": 25
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 383,
+			"y": 26
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 383,
+			"y": 27
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 383,
+			"y": 28
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 383,
+			"y": 29
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 383,
+			"y": 30
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 388,
+			"y": 15
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 384,
+			"y": 18
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 388,
+			"y": 21
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 417,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 417,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 417,
+			"y": 20
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 417,
+			"y": 21
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 417,
+			"y": 22
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 417,
+			"y": 23
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 417,
+			"y": 24
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 417,
+			"y": 26
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 417,
+			"y": 25
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 417,
+			"y": 27
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 417,
+			"y": 29
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 417,
+			"y": 30
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 417,
+			"y": 28
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 451,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 451,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 451,
+			"y": 20
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 451,
+			"y": 21
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 451,
+			"y": 22
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 451,
+			"y": 23
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 451,
+			"y": 24
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 451,
+			"y": 25
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 451,
+			"y": 27
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 451,
+			"y": 27
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 451,
+			"y": 26
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 451,
+			"y": 28
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 451,
+			"y": 29
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 451,
+			"y": 30
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 418,
+			"y": 18
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 422,
+			"y": 21
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 422,
+			"y": 15
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 456,
+			"y": 15
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 452,
+			"y": 18
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 456,
+			"y": 21
+		},
+		{
+			"def": "PLATFORM",
+			"size": 21,
+			"x": 476,
+			"y": 16
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 475,
+			"y": 20
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 475,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 475,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 475,
+			"y": 17
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 475,
+			"y": 16
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 490,
+			"y": 21
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 490,
+			"y": 22
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 490,
+			"y": 23
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 490,
+			"y": 24
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 490,
+			"y": 25
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 490,
+			"y": 26
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 490,
+			"y": 27
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 490,
+			"y": 28
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 490,
+			"y": 29
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 490,
+			"y": 30
+		},
+		{
+			"def": "PLATFORM",
+			"size": 4,
+			"x": 497,
+			"y": 15
+		},
+		{
+			"def": "PLATFORM",
+			"size": 4,
+			"x": 501,
+			"y": 14
+		},
+		{
+			"def": "PLATFORM",
+			"size": 4,
+			"x": 505,
+			"y": 13
+		},
+		{
+			"def": "PLATFORM",
+			"size": 4,
+			"x": 509,
+			"y": 12
+		},
+		{
+			"def": "PLATFORM",
+			"size": 4,
+			"x": 513,
+			"y": 11
+		},
+		{
+			"def": "PLATFORM",
+			"size": 4,
+			"x": 517,
+			"y": 10
+		},
+		{
+			"def": "PLATFORM",
+			"size": 4,
+			"x": 521,
+			"y": 9
+		},
+		{
+			"def": "PLATFORM",
+			"size": 4,
+			"x": 525,
+			"y": 8
+		},
+		{
+			"def": "PLATFORM",
+			"size": 4,
+			"x": 529,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 26,
+			"x": 503,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 26,
+			"x": 512,
+			"y": 31
+		},
+		{
+			"def": "PLATFORM",
+			"size": 16,
+			"x": 533,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 8
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 9
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 10
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 11
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 12
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 13
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 16
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 17
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 20
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 21
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 23
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 22
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 24
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 25
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 26
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 28
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 27
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 29
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 30
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 549,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 11,
+			"x": 538,
+			"y": 31
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 562,
+			"y": 17
+		},
+		{
+			"def": "LEVEL_END_PORTAL",
+			"size": 1,
+			"x": 541,
+			"y": 7
 		}
-	],
-	"interactablesMap": {
-		"class": "java.util.HashMap",
-		"4": [
-			{
-				"class": "java.lang.Integer",
-				"value": 0
-			}
-		]
-	}
+	]
 }
 }
