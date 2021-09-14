@@ -16,6 +16,7 @@ import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -25,7 +26,7 @@ public class PlayerMovementComponentTest {
     void beforeEach() {
         ServiceLocator.registerPhysicsService(new PhysicsService());
     }
-/**
+
     @Test
     void canJump() {
         short playerLayer = (1 << 1);
@@ -56,13 +57,17 @@ public class PlayerMovementComponentTest {
 
     Entity createPlayer(short playerLayer, short layer) {
 
+        AnimationRenderComponent animationRenderComponent;
+        animationRenderComponent = Mockito.mock(AnimationRenderComponent.class);
+
         Entity entity =
                 new Entity()
                         .addComponent(new PlayerMovementComponent(layer))
                         .addComponent(new ColliderComponent())
                         .addComponent(new PhysicsComponent())
                         .addComponent(new HitboxComponent().setLayer(playerLayer))
-                        .addComponent(new PlayerActions());
+                        .addComponent(new PlayerActions())
+                        .addComponent(animationRenderComponent);
         entity.create();
         return entity;
     }
@@ -77,5 +82,5 @@ public class PlayerMovementComponentTest {
         target.create();
         return target;
     }
-    */
+
  }

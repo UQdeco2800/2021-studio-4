@@ -90,7 +90,8 @@ public class LevelGameArea extends GameArea {
           "images/Pick_Ups.atlas",
           "images/portal-door.atlas",
           "images/jumppad.atlas",
-          "images/button.atlas"
+          "images/button.atlas",
+          "images/anotherPlayer.atlas"
   };
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
   private static final String[] gameMusic = {gameSong.click, gameSong.game_level_1,gameSong.end_credits,
