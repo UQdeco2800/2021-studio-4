@@ -236,35 +236,35 @@ public class StatusEffectTest {
         assertEquals(expected, result); /* Check that the statusEffect goes away because the player is dead */
         assertNotEquals(15f, result); /* Checks that the statusEffect does not persist after death */
     }
-//
-//    @Test
-//    public void testJumpBoostNotDead() {
-//        /* Define the function actions */
-//        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentNotDead);
-//        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
-//
-//        /* Check that the current jumpHeight remains true to the original */
-//        expected = 300f;
-//        result = player.getComponent(PlayerActions.class).getJumpHeight();
-//        assertEquals(expected, result);
-//        assertTrue(result == expected);
-//        assertFalse(result != expected);
-//        assertNotEquals(expected + 1, result);
-//
-//        /* Check that the jumpBoost amount is correct */
-//        expected = StatusEffectEnum.JUMPBUFF.getStatChange();
-//        result = jumpBoost.jumpBoost();
-//        assertEquals(expected, result);
-//        assertTrue(expected == result);
-//        assertFalse(expected != result);
-//
-//        /* Check that the jump height has changed */
-//        expected = 500f;
-//        result = player.getComponent(PlayerActions.class).getJumpHeight();
-//        assertEquals(expected, result);
-//        assertTrue(expected == result);
-//        assertFalse(expected != result);
-//
+
+    @Test
+    public void testJumpBoostNotDead() {
+        /* Define the function actions */
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentNotDead);
+        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
+
+        /* Check that the current jumpHeight remains true to the original */
+        expected = 300f;
+        result = player.getComponent(PlayerActions.class).getJumpHeight();
+        assertEquals(expected, result);
+        assertTrue(result == expected);
+        assertFalse(result != expected);
+        assertNotEquals(expected + 1, result);
+
+        /* Check that the jumpBoost amount is correct */
+        expected = StatusEffectEnum.JUMPBUFF.getStatChange();
+        result = jumpBoost.jumpBoost();
+        assertEquals(expected, result);
+        assertTrue(expected == result);
+        assertFalse(expected != result);
+
+        /* Check that the jump height has changed */
+        expected = 500f;
+        result = player.getComponent(PlayerActions.class).getJumpHeight();
+        assertEquals(expected, result);
+        assertTrue(expected == result);
+        assertFalse(expected != result);
+
 //        /* Check that the statusEffect ends */
 ////        try {
 ////            /* Check that the statusEffect does not end prematurely */
@@ -283,7 +283,7 @@ public class StatusEffectTest {
 ////        } catch (InterruptedException e) {
 ////            System.err.println(e);
 ////        }
-//    }
+    }
 //
 //    @Test
 //    public void testJumpBoostIsDead() {
