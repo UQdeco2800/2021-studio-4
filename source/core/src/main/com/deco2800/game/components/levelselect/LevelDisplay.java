@@ -36,12 +36,9 @@ public class LevelDisplay extends UIComponent {
     }
 
     private void playTheMusic() {
-        MuteManager mute = MuteManager.getInstance();
-        if (mute.getMute() == false) {
-            MusicServiceDirectory mainMenuSong = new MusicServiceDirectory();
-            MusicService musicScreen = new MusicService(mainMenuSong.main_menu);
-            musicScreen.playMusic();
-        }
+        MusicServiceDirectory mainMenuSong = new MusicServiceDirectory();
+        MusicService musicScreen = new MusicService(mainMenuSong.main_menu);
+        musicScreen.playMusic();
         //MusicSingleton s = MusicSingleton.getInstance();
         //s.playSingleton("sounds/MainMenuMusic.mp3");
     }
