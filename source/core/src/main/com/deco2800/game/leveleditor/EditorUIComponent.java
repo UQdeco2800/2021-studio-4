@@ -70,7 +70,7 @@ public class EditorUIComponent extends UIComponent {
             new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent changeEvent, Actor actor) {
-                    levelGameArea.saveAll(levelName.getText());
+                    levelGameArea.writeAll(levelName.getText());
                     dispose();
                 }
             }
