@@ -107,6 +107,12 @@ public class StatusEffectOperation {
             statOriginal = originalValues.get(0);
         }
 
+        if(type == 1) {
+            player.getEvents().trigger("setPowerUpAnimation", "SpeedUp");
+        } else {
+            player.getEvents().trigger("setPowerUpAnimation", "SpeedDown");
+        }
+
         int newSpeed = StatusEffectEnum.SPEED.statChange(type, speedBoost, statOriginal);
 
         originalValues.add(0, statOriginal);
@@ -122,6 +128,9 @@ public class StatusEffectOperation {
                     public void run() {
                         // your code here
                         player.getComponent(PlayerActions.class).alterSpeed(-changedSpeed);
+
+                        player.getEvents().trigger("setPowerUpAnimation", "Default");
+
                         // close the thread
                         t.cancel();
                     }
@@ -141,6 +150,7 @@ public class StatusEffectOperation {
 
         singleStatusEffectCheck();
         int changedJumpHeight = player.getComponent(PlayerActions.class).alterJumpHeight(jumpBoost);
+        player.getEvents().trigger("setPowerUpAnimation", "JumpUp");
 
         // Alters the speed back to the original setting after a certain time duration.
         Timer t = new java.util.Timer();
@@ -150,6 +160,7 @@ public class StatusEffectOperation {
                     public void run() {
                         // your code here
                         player.getComponent(PlayerActions.class).alterJumpHeight(-changedJumpHeight);
+                        player.getEvents().trigger("setPowerUpAnimation", "Default");
                         // close the thread
                         t.cancel();
                     }
@@ -170,6 +181,7 @@ public class StatusEffectOperation {
         int newSpeed = currentSpeed * -1;
        // System.out.println(gameTime.getTime());
         player.getComponent(PlayerActions.class).alterSpeed(newSpeed);
+        player.getEvents().trigger("setPowerUpAnimation", "Stuck");
 
         // Sets delay of 3 seconds before restoring the previous player speed.
         Timer t = new java.util.Timer();
@@ -179,6 +191,7 @@ public class StatusEffectOperation {
                     public void run() {
                         // your code here
                         player.getComponent(PlayerActions.class).alterSpeed(currentSpeed);
+                        player.getEvents().trigger("setPowerUpAnimation", "Default");
                         // close the thread
                         t.cancel();
                     }

@@ -27,6 +27,7 @@ public class PlayerChangeAnimationHelper extends DefaultTask implements Priority
         if(body.getLinearVelocity().y < 0) {
             this.owner.getEntity().getEvents().trigger("playerIsFalling");
         }
-        this.owner.getEntity().getEvents().trigger("isFallingOrSlidingDone");
+        this.owner.getEntity().getEvents().trigger("isFallingDone");
+        this.owner.getEntity().getEvents().trigger("isSlidingDone");
     }
 }
