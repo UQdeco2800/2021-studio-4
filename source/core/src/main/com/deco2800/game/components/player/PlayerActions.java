@@ -112,6 +112,7 @@ public class PlayerActions extends Component {
   public int alterSpeed(int newSpeed) {
     // increase or decrease the players movement
     ACCELERATION.add(newSpeed, 0);
+    //return (int) ACCELERATION.x;
     return newSpeed;
   }
 

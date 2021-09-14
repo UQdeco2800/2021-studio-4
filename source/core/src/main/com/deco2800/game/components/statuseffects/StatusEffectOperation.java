@@ -91,7 +91,8 @@ public class StatusEffectOperation {
      * @param type Whether it is a Buff or DeBuff
      * @return the new speed of the player
      */
-    private int speedChange(int type) { // Returns int for testing in possible future
+    /* Changed the method to be public for testing. Originally private. */
+    public int speedChange(int type) { // Returns int for testing in possible future
         int speedBoost = StatusEffectEnum.SPEED.getStatChange(); // Must be smaller than 10
 
         int statOriginal;
@@ -116,7 +117,7 @@ public class StatusEffectOperation {
                     @Override
                     public void run() {
                         // your code here
-                        player.getComponent(PlayerActions.class).alterSpeed(-changedSpeed);
+                        player.getComponent(PlayerActions.class).alterSpeed(changedSpeed);
                         // close the thread
                         t.cancel();
                     }
@@ -130,7 +131,8 @@ public class StatusEffectOperation {
         return changedSpeed;
     }
 
-    private int jumpBoost() {
+    /* Changed the method to be public for testing. Originally private. */
+    public int jumpBoost() {
         int jumpBoost = StatusEffectEnum.JUMPBUFF.getStatChange(); // Must be smaller than 10
 
         singleStatusEffectCheck();
@@ -157,7 +159,8 @@ public class StatusEffectOperation {
         return changedJumpHeight;
     }
 
-    private void stuckInMud() {
+    /* Changed the method to be public for testing. Originally private. */
+    public void stuckInMud() {
         GameTime gameTime = new GameTime();
         int currentSpeed = (int) player.getComponent(PlayerActions.class).getSpeed();
         int newSpeed = currentSpeed * -1;
