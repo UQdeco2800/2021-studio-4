@@ -183,19 +183,19 @@ public class StatusEffectTest {
         result = player.getComponent(PlayerActions.class).getSpeed();
         assertEquals(expected, result);
 
-//        try {
-//            /* Check if the buff duration ended prematurely */
-//            Thread.sleep(100);
-//            assertEquals(expected, result); /* Tests if the statusEffect is still active. */
-//
-//            /* Check if the buff has ended */
-//            Thread.sleep(StatusEffectEnum.SPEED.getStatDuration()/20 - 100);
-//            expected = 10;
-//            result = player.getComponent(PlayerActions.class).getSpeed();
-//            assertEquals(expected, result); /* Tests that the statusEffect is not active. */
-//        } catch (InterruptedException e) {
-//            System.err.println(e);
-//        }
+        try {
+            /* Check if the buff duration ended prematurely */
+            Thread.sleep(100);
+            assertEquals(expected, result); /* Tests if the statusEffect is still active. */
+
+            /* Check if the buff has ended */
+            Thread.sleep(StatusEffectEnum.SPEED.getStatDuration()/20 - 100);
+            expected = 10;
+            result = player.getComponent(PlayerActions.class).getSpeed();
+            assertEquals(expected, result); /* Tests that the statusEffect is not active. */
+        } catch (InterruptedException e) {
+            System.err.println(e);
+        }
     }
 
 
