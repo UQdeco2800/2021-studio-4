@@ -197,23 +197,23 @@ public class StatusEffectTest {
 //            System.err.println(e);
 //        }
     }
-    
-//
-//    @Test
-//    public void testSpeedBuffIsDead() {
-//        type = 1;
-//
-//        /* Tests the condition that the player is dead and got the power up */
-//        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentIsDead);
-//        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
-//        speedBoost.speedChange(type); /* Call the speed change */
-//
-//        expected = 10f;
-//        result = player.getComponent(PlayerActions.class).getSpeed();
-//
-//        assertEquals(expected, result); /* Check that the statusEffect goes away because the player is dead */
-//        assertNotEquals(15f, result); /* Checks that the statusEffect does not persist after death */
-//    }
+
+
+    @Test
+    public void testSpeedBuffIsDead() {
+        type = 1;
+
+        /* Tests the condition that the player is dead and got the power up */
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentIsDead);
+        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
+        speedBoost.speedChange(type); /* Call the speed change */
+
+        expected = 10f;
+        result = player.getComponent(PlayerActions.class).getSpeed();
+
+        assertEquals(expected, result); /* Check that the statusEffect goes away because the player is dead */
+        assertNotEquals(15f, result); /* Checks that the statusEffect does not persist after death */
+    }
 //
 //    @Test
 //    public void testJumpBoostNotDead() {
