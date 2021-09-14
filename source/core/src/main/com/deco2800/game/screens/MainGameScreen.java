@@ -13,6 +13,7 @@ import com.deco2800.game.entities.factories.RenderFactory;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.input.InputDecorator;
 import com.deco2800.game.input.InputService;
+import com.deco2800.game.levels.LevelDefinition;
 import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
@@ -26,6 +27,8 @@ import com.deco2800.game.components.maingame.MainGameExitDisplay;
 import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.logging.Level;
 
 import static com.deco2800.game.components.player.PlayerStatsDisplay.gameOver;
 
@@ -43,13 +46,15 @@ public class MainGameScreen extends ScreenAdapter {
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
+  private final LevelDefinition levelDefinition;
 
   private final long timeStarted = System.currentTimeMillis();
   public static int timeScore = 0;
   private static boolean levelComplete = false;
 
-  public MainGameScreen(GdxGame game) {
+  public MainGameScreen(GdxGame game, LevelDefinition levelDefinition) {
     this.game = game;
+    this.levelDefinition = levelDefinition;
 
     logger.debug("Initialising main game screen services");
     ServiceLocator.registerTimeSource(new GameTime());
@@ -75,10 +80,8 @@ public class MainGameScreen extends ScreenAdapter {
 
     logger.debug("Initialising main game screen entities");
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
-    LevelGameArea levelGameArea = new LevelGameArea(terrainFactory);
+    LevelGameArea levelGameArea = new LevelGameArea(terrainFactory, levelDefinition);
     levelGameArea.create();
-
-
   }
 
   public static void setLevelComplete() {

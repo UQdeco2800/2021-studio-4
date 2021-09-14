@@ -20,6 +20,7 @@ import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.files.LevelFile;
+import com.deco2800.game.levels.LevelDefinition;
 import com.deco2800.game.physics.components.InteractableComponent;
 import com.deco2800.game.physics.components.SubInteractableComponent;
 import com.deco2800.game.rendering.BackgroundRenderComponent;
@@ -85,7 +86,6 @@ public class LevelGameArea extends GameArea {
   };
 
   private static final String[] gameTextureAtlases = {
-
           "images/terrain_iso_grass.atlas",
           "images/ghost.atlas",
           "images/ghostKing.atlas",
@@ -114,11 +114,14 @@ public class LevelGameArea extends GameArea {
 
 
   private final TerrainFactory terrainFactory;
+  private final LevelDefinition levelDefinition;
 
   private Entity player;
 
-  public LevelGameArea(TerrainFactory terrainFactory) {
+  public LevelGameArea(TerrainFactory terrainFactory, LevelDefinition levelDefinition) {
     super();
+    this.levelDefinition = levelDefinition;
+
     this.terrainFactory = terrainFactory;
     buffers.add(0, "Buff_Jump");
     buffers.add(1, "Buff_Time_Stop");
@@ -329,11 +332,11 @@ public class LevelGameArea extends GameArea {
     levelEndPortal.setTilePosition(position);
   }
 
-  private void writeAll() {
+  public void writeAll() {
     Json json = new Json();
     json.setOutputType(JsonWriter.OutputType.json);
 
-    FileHandle file = Gdx.files.local("levels/leveltest.json");
+    FileHandle file = Gdx.files.local(levelDefinition.getLevelFileName());
     assert file != null;
 
     // Create a new LevelFile object
@@ -356,7 +359,7 @@ public class LevelGameArea extends GameArea {
     Json json = new Json();
     applyTerrainSerializers(json);
 
-    FileHandle file = Gdx.files.local("levels/leveltest.json");
+    FileHandle file = Gdx.files.local(levelDefinition.getLevelFileName());
     assert file != null;
 
     LevelFile levelFile = json.fromJson(LevelFile.class, file);
@@ -406,47 +409,40 @@ public class LevelGameArea extends GameArea {
     });
   }
 
-//  public void saveAll(String name){
-//    FileWriter writer = null;
-//    try {
-//      writer = new FileWriter("levels/" + name + ".txt");
-//      saveTerrain(writer);
-//      saveObstacles(writer);
-//      writer.flush();
-//    } catch (IOException | NullPointerException e) {
-//      e.printStackTrace();
-//    } finally {
-//      try {
-//        writer.close();
-//      } catch (IOException e) {
-//        e.printStackTrace();
-//      }
-//    }
-//
-//    writeAll();
-//  }
+  @Deprecated
+  private void _spawnLevelFromFile() {
+    BufferedReader reader = null;
+    try {
+      reader = new BufferedReader(new FileReader("levels/level.txt"));
 
-//  private void saveTerrain(FileWriter writer) throws IOException {
-//    TiledMapTileLayer mapTileLayer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
-//    for (int x = 0; x < mapTileLayer.getWidth(); x++) {
-//      for (int y = 0; y < mapTileLayer.getHeight(); y++) {
-//        TiledMapTileLayer.Cell cell = mapTileLayer.getCell(x, y);
-//
-//        if (cell != null) {
-//          TerrainTile terrainTile = (TerrainTile)cell.getTile();
-//          String tileInfo = terrainTile.serialize(x, y);
-//          writer.write("T:"+tileInfo);
-//        }
-//      }
-//    }
-//  }
-//
-//  private void saveObstacles(FileWriter writer) throws IOException {
-//    for (ObstacleEntity obstacle: obstacleEntities) {
-//      String obstacleInfo = obstacle.serialise();
-//      writer.write("O:"+obstacleInfo);
-//    }
-//  }
+      String line;
+      while ((line = reader.readLine()) != null) {
+        String[] lineInfo = line.split(":");
+        if (lineInfo[0].equals("O")) {
+          ObstacleDefinition obstacle = ObstacleDefinition.valueOf(lineInfo[1]);
+          int size = Integer.parseInt(lineInfo[2]);
+          int x = Integer.parseInt(lineInfo[3]);
+          int y = Integer.parseInt(lineInfo[4]);
+          spawnObstacle(obstacle, x, y, size);
+        } else {
+          TerrainTileDefinition definition = TerrainTileDefinition.valueOf(lineInfo[1]);
+          int rotation = Integer.parseInt(lineInfo[2]);
+          int x = Integer.parseInt(lineInfo[3]);
+          int y = Integer.parseInt(lineInfo[4]);
+          TiledMapTileLayer mapTileLayer = (TiledMapTileLayer) terrain.getMap().getLayers().get(0);
+          TerrainFactory.loadTilesFromFile(mapTileLayer, definition, rotation, x, y);
+        }
+      }
+    } catch (IOException | NullPointerException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        reader.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+  }
 
   @Override
   public void untrackEntity(Entity entity) {

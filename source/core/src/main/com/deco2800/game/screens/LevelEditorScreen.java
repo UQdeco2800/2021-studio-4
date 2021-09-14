@@ -19,6 +19,7 @@ import com.deco2800.game.input.InputService;
 import com.deco2800.game.leveleditor.CameraMoveComponent;
 import com.deco2800.game.leveleditor.ObstacleToolComponent;
 import com.deco2800.game.leveleditor.TileToolComponent;
+import com.deco2800.game.levels.LevelDefinition;
 import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
@@ -45,13 +46,15 @@ public class LevelEditorScreen extends ScreenAdapter {
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
+  private final LevelDefinition levelDefinition;
 
   private LevelGameArea levelGameArea;
 
   private Entity hand;
 
-  public LevelEditorScreen(GdxGame game) {
+  public LevelEditorScreen(GdxGame game, LevelDefinition levelDefinition) {
     this.game = game;
+    this.levelDefinition = levelDefinition;
 
     logger.debug("Initialising level editor screen services");
     ServiceLocator.registerTimeSource(new GameTime());
@@ -77,7 +80,7 @@ public class LevelEditorScreen extends ScreenAdapter {
 
     logger.debug("Initialising main game screen entities");
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
-    levelGameArea = new LevelGameArea(terrainFactory);
+    levelGameArea = new LevelGameArea(terrainFactory, levelDefinition);
     levelGameArea.init();
 
     selectTileHand();
