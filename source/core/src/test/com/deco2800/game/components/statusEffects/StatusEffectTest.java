@@ -164,7 +164,6 @@ public class StatusEffectTest {
 
     @Test
     public void testSpeedBuffNotDead() {
-        playerActions = new PlayerActions();
         type = 1;
 
         /* Initialise method functionality */
@@ -227,6 +226,7 @@ public class StatusEffectTest {
         expected = StatusEffectEnum.JUMPBUFF.getStatChange();
         result = jumpBoost.jumpBoost();
         assertEquals(expected, result);
+        assertNotEquals(expected + 1, result);
         assertTrue(expected == result);
         assertFalse(expected != result);
 
@@ -234,6 +234,7 @@ public class StatusEffectTest {
         expected = 500f;
         result = player.getComponent(PlayerActions.class).getJumpHeight();
         assertEquals(expected, result);
+        assertNotEquals(expected + 1, result);
         assertTrue(expected == result);
         assertFalse(expected != result);
     }
@@ -264,12 +265,15 @@ public class StatusEffectTest {
         result = speedBoost.speedChange(type);
         assertEquals(expected, result);
         assertNotEquals(expected + 1, result);
+        assertTrue(expected == result);
+        assertFalse(expected != result);
 
         /* Test that the player stat decreased */
         expected = 5;
         result = player.getComponent(PlayerActions.class).getSpeed();
         assertEquals(expected, result);
         assertTrue(expected == result);
+        assertFalse(expected != result);
         assertNotEquals(expected + 1, result);
     }
 
