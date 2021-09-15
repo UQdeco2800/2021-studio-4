@@ -110,7 +110,8 @@ public class LevelGameArea extends GameArea {
     "images/jumppad.png",
     "images/button.png",
     "images/level1_background.jpg",
-    "images/playerStill.png"
+    "images/playerStill.png",
+          "images/testingrunningsprite.png"
   };
 
   private static final String[] gameTextureAtlases = {
@@ -128,7 +129,8 @@ public class LevelGameArea extends GameArea {
     "images/jumppad.atlas",
     "images/button.atlas",
         "images/walking_sprite.atlas",
-    "images/playerStill.atlas"
+    "images/playerStill.atlas",
+          "images/testingrunning.atlas"
 
   };
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
