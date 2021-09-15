@@ -293,7 +293,7 @@ public class StatusEffectTest {
     }
 
     @Test
-    public void testStuckInTheMudDebuff() {
+    public void testStuckInTheMudDebuffNotDead() {
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentNotDead);
         stuckInTheMud.stuckInMud();
@@ -305,6 +305,19 @@ public class StatusEffectTest {
         assertTrue(expected == result);
         assertFalse(expected != result);
 
+    }
+
+    @Test public void testStuckInTheMudDebuffIsDead() {
+        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentIsDead);
+        stuckInTheMud.stuckInMud();
+
+        expected = 0;
+        result = playerActions.getSpeed();
+        assertEquals(expected, result);
+        assertNotEquals(expected + 1, result);
+        assertTrue(expected == result);
+        assertFalse(expected != result);
     }
 
     /* Uncomment if you want to see how the null works */
