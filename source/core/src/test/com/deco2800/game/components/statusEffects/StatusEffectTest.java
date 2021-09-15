@@ -164,7 +164,6 @@ public class StatusEffectTest {
 
     @Test
     public void testSpeedBuffNotDead() {
-        playerActions = new PlayerActions();
         type = 1;
 
         /* Initialise method functionality */
