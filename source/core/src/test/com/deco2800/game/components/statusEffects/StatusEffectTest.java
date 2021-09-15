@@ -45,7 +45,7 @@ public class StatusEffectTest {
         combatStatsComponentIsDead = new CombatStatsComponent(0,0);
         combatStatsComponentNotDead = new CombatStatsComponent(1,0);
 
-        /* Reset the original speed of the player */
+        /* Reset the original speed of the player. This is mathematically done as there is no setter method */
         float speed = playerActions.getSpeed();
         int originalSpeed;
         if (speed != 10f) {
@@ -306,56 +306,7 @@ public class StatusEffectTest {
 
     }
 
-    /* Test Enum getter methods */
-
-
-    /** The tests below were done in order to confirm the correct usage of mocking and other miscellaneous
-     tests to help with understanding. */
-
-    @Test
-    /* Preliminary test on the player.getComponent class. Making sure the methodology is valid */
-    public void playerComponentReturn() {
-        float expected = 10f;
-        // Mock the first function.
-        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
-        // Mock the second function.
-        //when(player.getComponent(PlayerActions.class).getSpeed()).thenReturn(10f);
-        //System.err.println(player.getComponent(PlayerActions.class).getSpeed());
-        //System.err.println(playerActions.getSpeed());
-        assertEquals(expected, player.getComponent(PlayerActions.class).getSpeed());
-    }
-
-    @Test
-    /* This test is to check that the @Before class is set up properly. */
-    public void testArray() {
-        String expected = "Buff_Jump";
-        assertEquals(expected, statusEffectList.get(0));
-
-        expected = "Buff_Time_Stop";
-        assertEquals(expected, statusEffectList.get(1));
-
-        expected = "Buff_Speed";
-        assertEquals(expected, statusEffectList.get(2));
-
-        expected = "Debuff_Bomb";
-        assertEquals(expected, statusEffectList.get(3));
-
-        expected = "Debuff_Speed";
-        assertEquals(expected, statusEffectList.get(4));
-
-        expected = "Debuff_Stuck";
-        assertEquals(expected, statusEffectList.get(5));
-    }
-
-    @Test
-    /* This test is to test that the mock class and when().thenReturn() statement works. */
-    public void testMock() {
-        when(player.toString()).thenReturn("hello");
-        assertEquals("hello", player.toString());
-        assertNotEquals("apple", player.toString());
-    }
-
-    /* Uncomment if you want to see how this works */
+    /* Uncomment if you want to see how the null works */
 //    @Test
 //    public void testNullClasses() {
 //        System.err.println("" + "Result of player.getComponent(PlayerActions.class) = " + player.getComponent(PlayerActions.class)); // This will print null.

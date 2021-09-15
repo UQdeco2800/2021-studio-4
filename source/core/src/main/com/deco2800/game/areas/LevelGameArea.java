@@ -528,6 +528,8 @@ public class LevelGameArea extends GameArea {
 
 
   private void spawnObstacle(ObstacleToolComponent.Obstacle selectedObstacle, int x, int y, int size) {
+  }
+
 
   }
 
