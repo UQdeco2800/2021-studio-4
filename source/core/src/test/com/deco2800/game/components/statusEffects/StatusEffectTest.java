@@ -28,7 +28,6 @@ public class StatusEffectTest {
     private Entity player;
     private CombatStatsComponent combatStatsComponentNotDead;
     private CombatStatsComponent combatStatsComponentIsDead;
-    GameTime time;
     float expected;
     float result;
     int type;
@@ -66,8 +65,6 @@ public class StatusEffectTest {
     public void mockClasses() {
         /* Mocking classes */
         player = Mockito.mock(Entity.class);
-        time = Mockito.mock(GameTime.class);
-        ServiceLocator.registerTimeSource(time);
     }
 
     @BeforeEach

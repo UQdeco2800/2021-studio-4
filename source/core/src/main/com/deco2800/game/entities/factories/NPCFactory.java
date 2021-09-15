@@ -122,13 +122,16 @@ public class NPCFactory {
   }
 
 
-
-
+/* Method that is supposed to spawn an entity that would block the player's view of game.
+Shelved because this method cannot spawn entity mid-game.
+ */
+/**
   public static Entity createInterference(Entity target) {
     Entity interference = new Entity()
             .addComponent(new TextureRenderComponent("images/lizzy.png"));
     return interference;
   }
+ */
 
   /**
    * Creates a ghost entity.
