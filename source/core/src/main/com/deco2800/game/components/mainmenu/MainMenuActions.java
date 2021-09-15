@@ -66,7 +66,7 @@ public class MainMenuActions extends Component {
   }
 
   /**
-   * Mutes the MainMenuMusic
+   * Mutes/Unmutes the MainMenuMusic
    */
   private void onMute() {
     logger.info("Muting Music");

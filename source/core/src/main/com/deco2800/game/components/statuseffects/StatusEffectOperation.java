@@ -4,14 +4,19 @@ import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.npc.StatusEffectsController;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.services.GameTime;
 
 import java.util.ArrayList;
 import java.util.Timer;
 
+import static com.deco2800.game.components.npc.TheVoidController.pauseVoid;
+
 public class StatusEffectOperation {
     private int type, boost, statOriginal;
     private String statusEffect;
+
+    // Could also be Entity void
     private Entity player;
     private ArrayList<String> statusEffects;
 
@@ -42,12 +47,17 @@ public class StatusEffectOperation {
         }
     }
 
+    /**
+     * Inspects which random statusEffect was triggered by the player
+     * and then trigger the appropriate effects
+     */
     public void inspect() {
         switch (statusEffect) {
             case "Buff_Jump":
                 jumpBoost();
                 break;
-            case "Buff_Time_Stop": // Will not implement yet. Need to get Voids Entity
+            case "Buff_Time_Stop":
+                FreezeVoid();
                 break;
             case "Buff_Speed":
                 speedChange(1);
@@ -100,6 +110,12 @@ public class StatusEffectOperation {
             statOriginal = originalValues.get(0);
         }
 
+        if(type == 1) {
+            player.getEvents().trigger("setPowerUpAnimation", "SpeedUp");
+        } else {
+            player.getEvents().trigger("setPowerUpAnimation", "SpeedDown");
+        }
+
         int newSpeed = StatusEffectEnum.SPEED.statChange(type, speedBoost, statOriginal);
 
         originalValues.add(0, statOriginal);
@@ -114,7 +130,10 @@ public class StatusEffectOperation {
                     @Override
                     public void run() {
                         // your code here
-                        player.getComponent(PlayerActions.class).alterSpeed(changedSpeed);
+                        player.getComponent(PlayerActions.class).alterSpeed(-changedSpeed);
+
+                        player.getEvents().trigger("setPowerUpAnimation", "Default");
+
                         // close the thread
                         t.cancel();
                     }
@@ -129,11 +148,16 @@ public class StatusEffectOperation {
     }
 
     /* Changed the method to be public for testing. Originally private. */
+    /**
+     * changes the jump height of the player
+     * @return the new jump height of the player
+     */
     public int jumpBoost() {
         int jumpBoost = StatusEffectEnum.JUMPBUFF.getStatChange(); // Must be smaller than 10
 
         singleStatusEffectCheck();
         int changedJumpHeight = player.getComponent(PlayerActions.class).alterJumpHeight(jumpBoost);
+        player.getEvents().trigger("setPowerUpAnimation", "JumpUp");
 
         // Alters the speed back to the original setting after a certain time duration.
         Timer t = new java.util.Timer();
@@ -143,6 +167,7 @@ public class StatusEffectOperation {
                     public void run() {
                         // your code here
                         player.getComponent(PlayerActions.class).alterJumpHeight(-changedJumpHeight);
+                        player.getEvents().trigger("setPowerUpAnimation", "Default");
                         // close the thread
                         t.cancel();
                     }
@@ -157,12 +182,17 @@ public class StatusEffectOperation {
     }
 
     /* Changed the method to be public for testing. Originally private. */
+
+    /**
+     * Traps the player in place (immobilises the player)
+     */
     public void stuckInMud() {
         GameTime gameTime = new GameTime();
         int currentSpeed = (int) player.getComponent(PlayerActions.class).getSpeed();
         int newSpeed = currentSpeed * -1;
        // System.out.println(gameTime.getTime());
         player.getComponent(PlayerActions.class).alterSpeed(newSpeed);
+        player.getEvents().trigger("setPowerUpAnimation", "Stuck");
 
         // Sets delay of 3 seconds before restoring the previous player speed.
         Timer t = new java.util.Timer();
@@ -172,6 +202,7 @@ public class StatusEffectOperation {
                     public void run() {
                         // your code here
                         player.getComponent(PlayerActions.class).alterSpeed(currentSpeed);
+                        player.getEvents().trigger("setPowerUpAnimation", "Default");
                         // close the thread
                         t.cancel();
                     }
@@ -180,7 +211,10 @@ public class StatusEffectOperation {
         );
     }
 
-    private void FreezeVoid() { // Could do later
-    // Hard to initialise the void's entity
+    /**
+     * Pauses the void for 3 seconds
+     */
+    private void FreezeVoid() {
+        pauseVoid();
     }
 }

@@ -33,11 +33,4 @@ dependencies {
     implementation 'junit:junit:4.13.1'
     implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
     implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
-
-    // Added Mockito to allow mocking during testing.
-    // https://mvnrepository.com/artifact/org.mockito/mockito-core
-    //testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.12.4'
-    // https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter
-    //testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '3.12.4'
-
 }

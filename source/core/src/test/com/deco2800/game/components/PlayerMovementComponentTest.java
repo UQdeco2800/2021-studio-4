@@ -10,11 +10,13 @@ import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.physics.components.*;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -109,13 +111,18 @@ public class PlayerMovementComponentTest {
      */
 
     Entity createPlayer(short playerLayer, short layer) {
+
+        AnimationRenderComponent animationRenderComponent;
+        animationRenderComponent = Mockito.mock(AnimationRenderComponent.class);
+
         Entity entity =
                 new Entity()
                         .addComponent(new PlayerMovementComponent(layer))
                         .addComponent(new ColliderComponent())
                         .addComponent(new PhysicsComponent())
                         .addComponent(new HitboxComponent().setLayer(playerLayer))
-                        .addComponent(new PlayerActions());
+                        .addComponent(new PlayerActions())
+                        .addComponent(animationRenderComponent);
         entity.create();
         return entity;
     }
@@ -130,6 +137,7 @@ public class PlayerMovementComponentTest {
         target.create();
         return target;
     }
+
 
     Entity createButton() {
         ObstacleEntity button =

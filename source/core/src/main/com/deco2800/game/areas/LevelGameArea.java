@@ -46,6 +46,7 @@ public class LevelGameArea extends GameArea {
   public Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables = new ConcurrentHashMap<>();
 
   private static final String[] gameTextures = {
+
     "images/virus_man.png",
     "images/box_boy_leaf.png",
     "images/tree.png",
@@ -74,9 +75,19 @@ public class LevelGameArea extends GameArea {
     "images/jumppad.png",
     "images/button.png",
     "images/level1_background.jpg",
+    "images/player_sprite_sheet.png",
+    "images/player_sprite_sheet2.png",
+    "images/player_sprite_sheet3.png",
+    "images/walkingsprite.png",
+    "images/playerStill.png",
+    "images/testingrunningsprite.png",
+    "images/background_level1.jpg" ,
+    "images/playerStill.png"
   };
 
   private static final String[] gameTextureAtlases = {
+
+
     "images/terrain_iso_grass.atlas",
     "images/ghost.atlas",
     "images/ghostKing.atlas",
@@ -87,7 +98,11 @@ public class LevelGameArea extends GameArea {
     "images/Pick_Ups.atlas",
     "images/portal-door.atlas",
     "images/jumppad.atlas",
-    "images/button.atlas"
+    "images/button.atlas",
+    "images/walking_sprite.atlas",
+    "images/playerStill.atlas",
+    "images/testingrunning.atlas"
+
   };
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
   private static final String[] gameMusic = {gameSong.click, gameSong.game_level_1,gameSong.end_credits,
@@ -128,7 +143,6 @@ public class LevelGameArea extends GameArea {
   public void init() {
     loadAssets();
     mapInteractables();
-
     displayBackground();
     spawnTerrain();
     spawnLevelFromFile();
@@ -140,41 +154,38 @@ public class LevelGameArea extends GameArea {
   @Override
   public void create() {
     init();
-
     displayUI();
-
-    //spawnTrees();
-    //spawnLevel();
     player = spawnPlayer();
-    //spawnGhosts();
-    //spawnGhostKing();
-
     spawnLevelFromFile();
-    //spawnGroundEnemy();
-
-    //spawnGorgonGear(20,8);
-
-
     spawnTheVoid();
 
-//    spawnStatusEffectDeBuff("Debuff_Speed");
-//    spawnStatusEffectBuff("Buff_Jump");
-    spawnStatusEffectBuff(getBuff()); // To be selected randomly from a list of the effects
-    spawnStatusEffectDeBuff(getDeBuff()); // To be selected randomly from a list of the effects
+//  spawnStatusEffectDeBuff("Buff_Time_Stop"); //Spawns specified statusEffect for testing purposes
+//  spawnStatusEffectBuff("Buff_Jump");
+    spawnStatusEffectBuff(getBuff()); // Select randomly from a list of the effects
+    spawnStatusEffectDeBuff(getDeBuff()); // Select randomly from a list of the effects
+
 
     playTheMusic("game_level_1");
-    //playMusic();
+
 
     spawnPlatform(8, 21, 5);
     spawnDoor(9, 23, 5);
   }
 
+  /**
+   * Get a random buff to spawn in game
+   * @return Buff name
+   */
   private String getBuff() {
     Random random = new Random();
     int indexNum = random.nextInt(3);
     return buffers.get(indexNum);
   }
-  
+
+  /**
+   * Get a random debuff to spawn in game
+   * @return Debuff name
+   */
   private String getDeBuff() {
     Random random = new Random();
     int indexNum = random.nextInt(3);
@@ -189,7 +200,7 @@ public class LevelGameArea extends GameArea {
 
   private void displayBackground() {
     Entity background = new Entity();
-    background.addComponent(new BackgroundRenderComponent("images/level1_background.jpg"));
+    background.addComponent(new BackgroundRenderComponent("images/background_level1.jpg"));
     spawnEntity(background);
   }
 
@@ -520,9 +531,14 @@ public class LevelGameArea extends GameArea {
     TerrainFactory.generateBodies(terrain.getMap());
   }
 
+
+  private void spawnObstacle(ObstacleToolComponent.Obstacle selectedObstacle, int x, int y, int size) {
+  }
+
   private ObstacleEntity spawnObstacle(ObstacleDefinition selectedObstacle, int x, int y, int size) {
 //    x = x*2;
 //    y = y*2;
+
     switch (selectedObstacle){
       case PLATFORM:
         return spawnPlatform(x, y, size, false, false);
@@ -585,6 +601,10 @@ public class LevelGameArea extends GameArea {
     Entity statusEffect = NPCFactory.createStatusEffect(player, statusEffectType);
     spawnEntityAt(statusEffect, STATUSEFFECT_SPAWN2, true, true);
   }
+
+
+
+
 
   /**
    * Music Dictionary for intialisation of various sound effects
