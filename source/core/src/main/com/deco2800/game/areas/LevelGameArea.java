@@ -47,7 +47,6 @@ public class LevelGameArea extends GameArea {
 
   private static final String[] gameTextures = {
 
-
     "images/virus_man.png",
     "images/box_boy_leaf.png",
     "images/tree.png",
@@ -75,7 +74,14 @@ public class LevelGameArea extends GameArea {
     "images/portal-door.png",
     "images/jumppad.png",
     "images/button.png",
-    "images/background_level1.jpg",
+    "images/level1_background.jpg",
+    "images/player_sprite_sheet.png",
+    "images/player_sprite_sheet2.png",
+    "images/player_sprite_sheet3.png",
+    "images/walkingsprite.png",
+    "images/playerStill.png",
+    "images/testingrunningsprite.png",
+    "images/background_level1.jpg" ,
     "images/playerStill.png"
   };
 
@@ -93,7 +99,9 @@ public class LevelGameArea extends GameArea {
     "images/portal-door.atlas",
     "images/jumppad.atlas",
     "images/button.atlas",
-    "images/playerStill.atlas"
+    "images/walking_sprite.atlas",
+    "images/playerStill.atlas",
+    "images/testingrunning.atlas"
 
   };
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
