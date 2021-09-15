@@ -13,15 +13,16 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class MusicDirectoryTests {
     MusicServiceDirectory musicServiceDirectory = new MusicServiceDirectory();
-    //LevelDefinition levelDefinition = new LevelDefinition();
     String player_collision = musicServiceDirectory.player_collision;
-    //CameraComponent cameraComponent = new CameraComponent();
-    //TerrainFactory terrainFactory = new TerrainFactory(cameraComponent);
-    //LevelGameArea levelGameArea = new LevelGameArea(terrainFactory);
     @Test
     void MusicServiceDirectory() {
         assertEquals(musicServiceDirectory.player_collision.hashCode(), player_collision.hashCode());
     }
+
+    /**
+     *
+     * Not Initialising levelGameArea yet
+     */
     @Test
     void PlayingMusicTest() {
       //  levelGameArea.create();
