@@ -4,14 +4,19 @@ import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.npc.StatusEffectsController;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.services.GameTime;
 
 import java.util.ArrayList;
 import java.util.Timer;
 
+import static com.deco2800.game.components.npc.TheVoidController.pauseVoid;
+
 public class StatusEffectOperation {
     private int type, boost, statOriginal;
     private String statusEffect;
+
+    // Could also be Entity void
     private Entity player;
     private ArrayList<String> statusEffects;
 
@@ -47,7 +52,8 @@ public class StatusEffectOperation {
             case "Buff_Jump":
                 jumpBoost();
                 break;
-            case "Buff_Time_Stop": // Will not implement yet. Need to get Voids Entity
+            case "Buff_Time_Stop":
+                FreezeVoid();
                 break;
             case "Buff_Speed":
                 speedChange(1);
@@ -121,7 +127,9 @@ public class StatusEffectOperation {
                     public void run() {
                         // your code here
                         player.getComponent(PlayerActions.class).alterSpeed(-changedSpeed);
+
                         player.getEvents().trigger("setPowerUpAnimation", "Default");
+
                         // close the thread
                         t.cancel();
                     }
@@ -136,6 +144,10 @@ public class StatusEffectOperation {
     }
 
     /* Changed the method to be public for testing. Originally private. */
+    /**
+     * changes the jump height of the player
+     * @return the new jump height of the player
+     */
     public int jumpBoost() {
         int jumpBoost = StatusEffectEnum.JUMPBUFF.getStatChange(); // Must be smaller than 10
 
@@ -166,6 +178,10 @@ public class StatusEffectOperation {
     }
 
     /* Changed the method to be public for testing. Originally private. */
+
+    /**
+     * Traps the player in place (immobilises the player)
+     */
     public void stuckInMud() {
         GameTime gameTime = new GameTime();
         int currentSpeed = (int) player.getComponent(PlayerActions.class).getSpeed();
@@ -191,7 +207,10 @@ public class StatusEffectOperation {
         );
     }
 
-    private void FreezeVoid() { // Could do later
-    // Hard to initialise the void's entity
+    /**
+     * Pauses the void for 3 seconds
+     */
+    private void FreezeVoid() {
+        pauseVoid();
     }
 }

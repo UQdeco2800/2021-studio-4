@@ -172,7 +172,7 @@ public class LevelGameArea extends GameArea {
 
     spawnTheVoid();
 
-//    spawnStatusEffectDeBuff("Debuff_Speed");
+//    spawnStatusEffectDeBuff("Buff_Time_Stop");
 //    spawnStatusEffectBuff("Buff_Jump");
     spawnStatusEffectBuff(getBuff()); // To be selected randomly from a list of the effects
     spawnStatusEffectDeBuff(getDeBuff()); // To be selected randomly from a list of the effects
@@ -189,7 +189,7 @@ public class LevelGameArea extends GameArea {
     int indexNum = random.nextInt(3);
     return buffers.get(indexNum);
   }
-  
+
   private String getDeBuff() {
     Random random = new Random();
     int indexNum = random.nextInt(3);
@@ -535,9 +535,14 @@ public class LevelGameArea extends GameArea {
     TerrainFactory.generateBodies(terrain.getMap());
   }
 
+
+  private void spawnObstacle(ObstacleToolComponent.Obstacle selectedObstacle, int x, int y, int size) {
+  }
+
   private ObstacleEntity spawnObstacle(ObstacleDefinition selectedObstacle, int x, int y, int size) {
 //    x = x*2;
 //    y = y*2;
+
     switch (selectedObstacle){
       case PLATFORM:
         return spawnPlatform(x, y, size, false, false);
@@ -600,6 +605,10 @@ public class LevelGameArea extends GameArea {
     Entity statusEffect = NPCFactory.createStatusEffect(player, statusEffectType);
     spawnEntityAt(statusEffect, STATUSEFFECT_SPAWN2, true, true);
   }
+
+
+
+
 
   /**
    * Music Dictionary for intialisation of various sound effects

@@ -127,4 +127,6 @@ public class StatusEffectsController extends Component {
     public void addStatusEffect(int index, String statusEffect) {
         statusEffects.add(index, statusEffect);
     }
+
+
 }
