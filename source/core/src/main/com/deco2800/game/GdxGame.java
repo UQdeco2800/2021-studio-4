@@ -66,6 +66,10 @@ public class GdxGame extends Game {
     if (currentScreen != null) {
       currentScreen.dispose();
     }
+
+    System.gc();
+    System.runFinalization();
+
     setScreen(newScreen(screenType));
   }
 
