@@ -110,12 +110,6 @@ public class TheVoidController extends Component {
                      musicService.changeVolume((float)0.6);
                  }
              }
-
-     /*if (distance_from_player < (float)(-8)){
-             musicService.stopMusic(); //It should be fine for now. Later when the void team could detect void-player
-             // collision, we stop the music at that point.
-         } */
-
     }
 
     /**

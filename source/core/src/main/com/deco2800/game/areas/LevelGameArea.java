@@ -143,7 +143,6 @@ public class LevelGameArea extends GameArea {
   public void init() {
     loadAssets();
     mapInteractables();
-
     displayBackground();
     spawnTerrain();
     spawnLevelFromFile();
@@ -155,41 +154,38 @@ public class LevelGameArea extends GameArea {
   @Override
   public void create() {
     init();
-
     displayUI();
-
-    //spawnTrees();
-    //spawnLevel();
     player = spawnPlayer();
-    //spawnGhosts();
-    //spawnGhostKing();
-
     spawnLevelFromFile();
-    //spawnGroundEnemy();
-
-    //spawnGorgonGear(20,8);
-
-
     spawnTheVoid();
 
-//    spawnStatusEffectDeBuff("Buff_Time_Stop");
-//    spawnStatusEffectBuff("Buff_Jump");
-    spawnStatusEffectBuff(getBuff()); // To be selected randomly from a list of the effects
-    spawnStatusEffectDeBuff(getDeBuff()); // To be selected randomly from a list of the effects
+//  spawnStatusEffectDeBuff("Buff_Time_Stop"); //Spawns specified statusEffect for testing purposes
+//  spawnStatusEffectBuff("Buff_Jump");
+    spawnStatusEffectBuff(getBuff()); // Select randomly from a list of the effects
+    spawnStatusEffectDeBuff(getDeBuff()); // Select randomly from a list of the effects
+
 
     playTheMusic("game_level_1");
-    //playMusic();
+
 
     spawnPlatform(8, 21, 5);
     spawnDoor(9, 23, 5);
   }
 
+  /**
+   * Get a random buff to spawn in game
+   * @return Buff name
+   */
   private String getBuff() {
     Random random = new Random();
     int indexNum = random.nextInt(3);
     return buffers.get(indexNum);
   }
 
+  /**
+   * Get a random debuff to spawn in game
+   * @return Debuff name
+   */
   private String getDeBuff() {
     Random random = new Random();
     int indexNum = random.nextInt(3);

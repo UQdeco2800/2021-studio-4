@@ -47,6 +47,10 @@ public class StatusEffectOperation {
         }
     }
 
+    /**
+     * Inspects which random statusEffect was triggered by the player
+     * and then trigger the appropriate effects
+     */
     public void inspect() {
         switch (statusEffect) {
             case "Buff_Jump":
