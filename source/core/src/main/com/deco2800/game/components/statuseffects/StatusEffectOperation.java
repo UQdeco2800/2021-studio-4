@@ -66,7 +66,6 @@ public class StatusEffectOperation {
             case "Debuff_Stuck":
                 stuckInMud();
                 break;
-
             default:
                 break;
         }

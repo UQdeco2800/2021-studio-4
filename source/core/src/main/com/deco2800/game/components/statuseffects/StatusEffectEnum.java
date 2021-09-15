@@ -13,13 +13,13 @@ public enum StatusEffectEnum implements StatusEffectInterface {
             return statChange;
         }
     },
-    JUMPBUFF (200, 4000, "JUMPBUFF") {
+    JUMPBUFF (200, 4000, " ") {
         @Override
         public int statChange(int type, int boost, int statOriginal) {
             return statOriginal;
         }
     },
-    VOIDFREEZE (0, 0, "VOIDFREEZE") {
+    VOIDFREEZE (0, 3000, "VOIDFREEZE") {
         @Override
         public int statChange(int type, int boost, int statOriginal) {
             int statChange = type * boost + statOriginal;

@@ -130,7 +130,7 @@ public class TheVoidController extends Component {
                         t.cancel();
                     }
                 },
-                3000
+                StatusEffectEnum.VOIDFREEZE.getStatDuration()
         );
     }
 }
