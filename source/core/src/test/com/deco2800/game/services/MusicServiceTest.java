@@ -31,7 +31,7 @@ public class MusicServiceTest {
         resourceService.unloadAssets(textures);
 
         assertFalse(assetManager.contains(music1, Music.class));
-       try {
+      try {
            MusicService musicService = new MusicService(music1);
             verify(musicService).playMusic();
             assertTrue(musicService.isMusicPlaying());
@@ -45,7 +45,7 @@ public class MusicServiceTest {
     void stopMusic() throws NullPointerException {
         resourceService.loadMusic(textures);
         resourceService.loadAll();
-        try {
+       try {
             MusicService musicService = new MusicService(music1);
             verify(musicService).stopMusic();
             assertFalse(musicService.isMusicPlaying());

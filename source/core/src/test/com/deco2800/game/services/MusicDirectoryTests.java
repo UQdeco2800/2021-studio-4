@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
  * Testing Team 5's Music Directory
  * First test checks whether the directory is intalised for all tests using hashCode,
  * this is only an initialisation test
- *
  * Secound Tests checks whether the music directory can be used in the LevelManager Switch function:
  */
 public class MusicDirectoryTests {
@@ -26,5 +25,6 @@ public class MusicDirectoryTests {
     @Test
     void PlayingMusicTest() {
       //  levelGameArea.create();
+
     }
 }
