@@ -75,6 +75,13 @@ public class LevelGameArea extends GameArea {
     "images/jumppad.png",
     "images/button.png",
     "images/level1_background.jpg",
+    "images/player_sprite_sheet.png",
+    "images/player_sprite_sheet2.png",
+    "images/player_sprite_sheet3.png",
+    "images/walkingsprite.png",
+    "images/playerStill.png",
+    "images/testingrunningsprite.png",
+    "images/background_level1.jpg" ,
     "images/playerStill.png"
   };
 
@@ -92,7 +99,9 @@ public class LevelGameArea extends GameArea {
     "images/portal-door.atlas",
     "images/jumppad.atlas",
     "images/button.atlas",
-    "images/playerStill.atlas"
+    "images/walking_sprite.atlas",
+    "images/playerStill.atlas",
+    "images/testingrunning.atlas"
 
   };
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
@@ -195,7 +204,7 @@ public class LevelGameArea extends GameArea {
 
   private void displayBackground() {
     Entity background = new Entity();
-    background.addComponent(new BackgroundRenderComponent("images/level1_background.jpg"));
+    background.addComponent(new BackgroundRenderComponent("images/background_level1.jpg"));
     spawnEntity(background);
   }
 

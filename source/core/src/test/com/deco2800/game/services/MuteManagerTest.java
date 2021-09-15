@@ -4,6 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Testing Team 5's Mute Manager
+ * Checking whether Mute is set to true or false
+ */
 class MuteManagerTest {
     MuteManager mute = MuteManager.getInstance();
 
