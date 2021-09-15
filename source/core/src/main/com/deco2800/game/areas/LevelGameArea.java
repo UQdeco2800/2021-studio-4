@@ -81,6 +81,7 @@ public class LevelGameArea extends GameArea {
           "images/player_sprite_sheet.png",
           "images/player_sprite_sheet2.png",
           "images/player_sprite_sheet3.png",
+          "images/walkingsprite.png"
 
 
 
@@ -138,7 +139,8 @@ public class LevelGameArea extends GameArea {
     "images/Pick_Ups.atlas",
     "images/portal-door.atlas",
     "images/jumppad.atlas",
-    "images/button.atlas"
+    "images/button.atlas",
+          "images/walking_sprite.atlas"
 
   };
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
