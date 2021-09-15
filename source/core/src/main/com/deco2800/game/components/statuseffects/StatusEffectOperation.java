@@ -144,6 +144,10 @@ public class StatusEffectOperation {
     }
 
     /* Changed the method to be public for testing. Originally private. */
+    /**
+     * changes the jump height of the player
+     * @return the new jump height of the player
+     */
     public int jumpBoost() {
         int jumpBoost = StatusEffectEnum.JUMPBUFF.getStatChange(); // Must be smaller than 10
 
@@ -174,6 +178,10 @@ public class StatusEffectOperation {
     }
 
     /* Changed the method to be public for testing. Originally private. */
+
+    /**
+     * Traps the player in place (immobilises the player)
+     */
     public void stuckInMud() {
         GameTime gameTime = new GameTime();
         int currentSpeed = (int) player.getComponent(PlayerActions.class).getSpeed();
