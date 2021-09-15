@@ -23,9 +23,10 @@ import static java.lang.Math.abs;
  */
 public class TheVoidController extends Component {
     // private static final Vector2 SPEED = new Vector2(8f, 0f);
+    // Changes so that the speed of void can be changed
     private static Vector2 normalSpeed = new Vector2(8f, 0f);
     private static Vector2 pausedSpeed = new Vector2(0f, 0f);
-    static Vector2 SPEED = normalSpeed;
+    private static Vector2 SPEED = normalSpeed;
 
     private PhysicsComponent physicsComponent;
     private AnimationRenderComponent animator;
@@ -117,6 +118,10 @@ public class TheVoidController extends Component {
 
     }
 
+    /**
+     * Reduces the void's speed to 0 for 3 seconds
+     * Afterward, reverts the speed back to normal
+     */
     public static void pauseVoid() {
         SPEED = pausedSpeed;
         Timer t = new java.util.Timer();

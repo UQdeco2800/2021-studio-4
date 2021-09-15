@@ -200,6 +200,9 @@ public class StatusEffectOperation {
         );
     }
 
+    /**
+     * Pauses the void for 3 seconds
+     */
     private void FreezeVoid() {
         pauseVoid();
     }
