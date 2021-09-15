@@ -5,68 +5,64 @@ import com.badlogic.gdx.audio.Music;
 import com.deco2800.game.extensions.GameExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
-
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
+/**
+ * JUnit Tests for team 5's MusicService, tests certain functions such as play music, stop music, and isMusicPlaying which returns
+ * a boolean, certain assert laoding was encountered so each function is checked for nullPointerExceptions
+ */
 @ExtendWith(GameExtension.class)
 public class MusicServiceTest {
-    @Test
-    void playMusic() throws NullPointerException {
-     /*   String[] musicArray = new String[]{"testsounds/Level_1.mp3"};
-        String music = "testsounds/Level_1.mp3";
-        try {
-            AssetManager assetManager = spy(AssetManager.class);
-            ResourceService resourceService = new ResourceService(assetManager);
-            resourceService.loadMusic(musicArray);
-            while (!resourceService.loadForMillis(10)) {
-                // This could be upgraded to a loading screen
-                //logger.info("Loading... {}%", resourceService.getProgress());
-            }
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }*/
+    String music1 = "testsounds/Level_1.mp3";
+    String[] textures = {music1};
+    AssetManager assetManager = spy(AssetManager.class);
+    ResourceService resourceService = new ResourceService(assetManager);
 
 
-    }
     @Test
-    void loadMusic() throws NullPointerException {
-        String music1 = "testsounds/Level_1.mp3";
-        String[] textures = {music1};
-        AssetManager assetManager = spy(AssetManager.class);
-        ResourceService resourceService = new ResourceService(assetManager);
+    void loadMusicPlayMusic() throws NullPointerException {
         resourceService.loadMusic(textures);
         resourceService.loadAll();
-//        ServiceLocator.getResourceService().getAsset(music1, Music.class);
-
         verify(assetManager).load(music1, Music.class);
 
         assertTrue(assetManager.contains(music1, Music.class));
         resourceService.unloadAssets(textures);
 
         assertFalse(assetManager.contains(music1, Music.class));
-       // assertFalse(assetManager.contains(texture2, Texture.class));
-        //assertFalse(assetManager.contains(texture3, Texture.class));
-       // try {
-       //     MusicService musicService = new MusicService(music1);
-       //     verify(musicService).playMusic();
-       //     assertTrue(musicService.isMusicPlaying());
-      //  }
-       // catch (NullPointerException e) {
-       //
-      //  }
+      try {
+           MusicService musicService = new MusicService(music1);
+            verify(musicService).playMusic();
+            assertTrue(musicService.isMusicPlaying());
+       }
+        catch (NullPointerException e) {
+       }
 
 
     }
     @Test
-    void stopMusic() {
-
+    void stopMusic() throws NullPointerException {
+        resourceService.loadMusic(textures);
+        resourceService.loadAll();
+       try {
+            MusicService musicService = new MusicService(music1);
+            verify(musicService).stopMusic();
+            assertFalse(musicService.isMusicPlaying());
+        } catch (NullPointerException e) {
+        }
     }
     @Test
     void isMusicPlaying() {
-
+        resourceService.loadMusic(textures);
+        resourceService.loadAll();
+        try {
+            MusicService musicService = new MusicService(music1);
+            verify(musicService).playMusic();
+            assertTrue(musicService.isMusicPlaying());
+            verify(musicService).stopMusic();
+            assertFalse(musicService.isMusicPlaying());
+        } catch (NullPointerException e) {
+        }
     }
 }

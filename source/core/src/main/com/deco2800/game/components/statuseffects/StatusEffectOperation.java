@@ -66,7 +66,6 @@ public class StatusEffectOperation {
             case "Debuff_Stuck":
                 stuckInMud();
                 break;
-
             default:
                 break;
         }
@@ -200,6 +199,9 @@ public class StatusEffectOperation {
         );
     }
 
+    /**
+     * Pauses the void for 3 seconds
+     */
     private void FreezeVoid() {
         pauseVoid();
     }

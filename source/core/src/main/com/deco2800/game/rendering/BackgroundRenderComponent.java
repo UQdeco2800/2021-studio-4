@@ -22,7 +22,6 @@ public class BackgroundRenderComponent extends RenderComponent {
     super.create();
     texture = ServiceLocator.getResourceService().getAsset(texturePath, Texture.class);
   }
-
   @Override
   public void draw(SpriteBatch batch) {
     // The background must follow the camera

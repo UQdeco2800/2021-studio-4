@@ -51,8 +51,9 @@ public class PlayerFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
-                            .getAsset("images/player.atlas", TextureAtlas.class));
-    animator.addAnimation("RunningRightDefault", 0.1f, Animation.PlayMode.LOOP);
+                            .getAsset("images/testingrunning.atlas", TextureAtlas.class));
+    animator.addAnimation("still", 0.05f, Animation.PlayMode.LOOP);
+    /*
     animator.addAnimation("RunningLeftDefault", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("IdleLeftDefault", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("IdleRightDefault", 0.1f, Animation.PlayMode.LOOP);
@@ -62,7 +63,7 @@ public class PlayerFactory {
     animator.addAnimation("SlidingLeftDefault", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("JumpingLeftDefault", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("JumpingRightDefault", 0.1f, Animation.PlayMode.LOOP);
-
+*/
 
 
 
@@ -86,9 +87,11 @@ public class PlayerFactory {
                                                     // Recently added mapInteractables for interactable functionality
 
 
+
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
     player.getComponent(AnimationRenderComponent.class).scaleEntity();
+    player.setScale(1.7f,1.3f);
     return player;
   }
 

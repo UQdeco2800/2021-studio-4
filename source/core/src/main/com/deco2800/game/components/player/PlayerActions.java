@@ -81,7 +81,7 @@ public class PlayerActions extends Component {
     previousAnimation = getAnimation();
 
     if (animator != null) {
-      animator.startAnimation(getAnimation());
+      animator.startAnimation("still");//getAnimation());
     }
   }
 
@@ -162,7 +162,7 @@ public class PlayerActions extends Component {
       //System.out.println(value);
       currentMovement = value;
       previousAnimation = getAnimation();
-      animator.startAnimation(getAnimation());
+     // animator.startAnimation(getAnimation());
     }
   }
 
