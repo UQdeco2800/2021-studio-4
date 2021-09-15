@@ -81,10 +81,7 @@ public class LevelGameArea extends GameArea {
           "images/player_sprite_sheet.png",
           "images/player_sprite_sheet2.png",
           "images/player_sprite_sheet3.png",
-          "images/walkingsprite.png"
-
-
-
+          "images/walkingsprite.png",
     "images/virus_man.png",
     "images/box_boy_leaf.png",
     "images/tree.png",
@@ -113,22 +110,12 @@ public class LevelGameArea extends GameArea {
     "images/jumppad.png",
     "images/button.png",
     "images/level1_background.jpg",
+    "images/playerStill.png"
   };
 
   private static final String[] gameTextureAtlases = {
 
-          "images/terrain_iso_grass.atlas",
-          "images/ghost.atlas",
-          "images/ghostKing.atlas",
-          "images/testingenemy.atlas",
-          "map-spritesheets/mapTextures.atlas",
-          "images/void.atlas",
-          "images/player.atlas",
-          "images/Pick_Ups.atlas",
-          "images/portal-door.atlas",
-          "images/jumppad.atlas",
-          "images/button.atlas",
-          "images/player_sprite_sheet.atlas",
+
     "images/terrain_iso_grass.atlas",
     "images/ghost.atlas",
     "images/ghostKing.atlas",
@@ -140,7 +127,8 @@ public class LevelGameArea extends GameArea {
     "images/portal-door.atlas",
     "images/jumppad.atlas",
     "images/button.atlas",
-          "images/walking_sprite.atlas"
+        "images/walking_sprite.atlas",
+    "images/playerStill.atlas"
 
   };
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();

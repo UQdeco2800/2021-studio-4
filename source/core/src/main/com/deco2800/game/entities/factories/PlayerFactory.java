@@ -51,8 +51,9 @@ public class PlayerFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
-                            .getAsset("images/player.atlas", TextureAtlas.class));
-    animator.addAnimation("RunningRightDefault", 0.1f, Animation.PlayMode.LOOP);
+                            .getAsset("images/playerStill.atlas", TextureAtlas.class));
+    animator.addAnimation("still", 0.1f, Animation.PlayMode.LOOP);
+    /*
     animator.addAnimation("RunningLeftDefault", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("IdleLeftDefault", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("IdleRightDefault", 0.1f, Animation.PlayMode.LOOP);
@@ -62,7 +63,7 @@ public class PlayerFactory {
     animator.addAnimation("SlidingLeftDefault", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("JumpingLeftDefault", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("JumpingRightDefault", 0.1f, Animation.PlayMode.LOOP);
-
+*/
 
 
 
