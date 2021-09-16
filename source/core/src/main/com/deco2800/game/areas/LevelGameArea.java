@@ -122,7 +122,7 @@ public class LevelGameArea extends GameArea {
 
   private final TerrainFactory terrainFactory;
   private final LevelDefinition levelDefinition;
-
+  private static boolean loading = true;
   private Entity player;
 
   public LevelGameArea(TerrainFactory terrainFactory, LevelDefinition levelDefinition) {
@@ -142,11 +142,15 @@ public class LevelGameArea extends GameArea {
    * Initializes basic components such as loading assets, background and terrain
    */
   public void init() {
+
     loadAssets();
     mapInteractables();
     displayBackground();
     spawnTerrain();
     spawnLevelFromFile();
+    while (loading == true){
+        // add code to show the loading screen
+    }
   }
 
   /**
@@ -195,6 +199,7 @@ public class LevelGameArea extends GameArea {
     Entity ui = new Entity();
     ui.addComponent(new GameAreaDisplay("Box Forest"));
     spawnEntity(ui);
+    loading = false;
   }
 
   private void displayBackground() {
