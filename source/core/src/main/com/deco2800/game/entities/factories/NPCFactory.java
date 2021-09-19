@@ -59,7 +59,6 @@ public class NPCFactory {
   public static void RemoveEntities() {
     for (Entity entity : entitiesForRemoval) {
       entity.dispose();
-      entity.
     }
   }
 
