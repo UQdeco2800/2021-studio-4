@@ -34,6 +34,7 @@ public class LevelGameArea extends GameArea {
   public static ArrayList<String> deBuffers = new ArrayList<>();
 
   public Map<ObstacleEntity, ObstacleEntity> mapInteractables = new HashMap<>();
+  public List<ObstacleEntity> interactableEntities = new ArrayList<>();
 
   private static final String[] gameTextures = {
 
@@ -293,10 +294,11 @@ public class LevelGameArea extends GameArea {
         }
       }
 
-      // map earliest button with earliest door/bridge, continue for all buttons
       if (buttons.size() > 0 && subInteractables.size() > 0) {
         for (int j = 0; j < buttons.size(); j++) {
-          mapInteractables.put(buttons.get(j), subInteractables.get(j));
+          InteractableComponent interactable = buttons.get(j).getComponent(InteractableComponent.class);
+          interactable.addSubInteractable(subInteractables.get(j));
+          interactableEntities.add(buttons.get(j));
         }
       }
   }

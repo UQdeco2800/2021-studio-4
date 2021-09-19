@@ -1,6 +1,7 @@
 package com.deco2800.game.components;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleDefinition;
@@ -9,6 +10,7 @@ import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.*;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class PlayerMovementComponent extends Component {
@@ -77,24 +79,30 @@ public class PlayerMovementComponent extends Component {
                 playerActions.jumpPad();
             }
 
-            if (interactableComponent != null && !mapInteractables.isEmpty()) {
+            if (interactableComponent != null) {
                 // Colliding with button
-                ObstacleEntity mapped = mapInteractables.get(target);
-                ColliderComponent colliderComponent = mapped.getComponent(ColliderComponent.class);
-                HitboxComponent mappedHitboxComponent = mapped.getComponent(HitboxComponent.class);
-                ObstacleDefinition mappedType = mapped.getDefinition();
-                // System.out.println("definition");
+                // Get the list of mapped sub-interactables
+                ArrayList<ObstacleEntity> mappedSubInts = interactableComponent.getMapped();
 
-                if (mappedType == ObstacleDefinition.DOOR) {
-                    // Desired affect on mapped door - disappears
-                    // System.out.println("dispose");
-                    mappedHitboxComponent.dispose();
-                    colliderComponent.dispose();
-                } else if (mappedType == ObstacleDefinition.BRIDGE) {
-                    // Desired affect on mapped bridge - appears
-                    // System.out.println("created");
-                    mappedHitboxComponent.create();
-                    colliderComponent.create();
+                ObstacleEntity mapped = mappedSubInts.get(0); // Default retrieve first mapped element
+
+                if (mapped != null) {
+                    ColliderComponent colliderComponent = mapped.getComponent(ColliderComponent.class);
+                    HitboxComponent mappedHitboxComponent = mapped.getComponent(HitboxComponent.class);
+                    ObstacleDefinition mappedType = mapped.getDefinition();
+                    // System.out.println("definition");
+
+                    if (mappedType == ObstacleDefinition.DOOR) {
+                        // Desired affect on mapped door - disappears
+                        // System.out.println("dispose");
+                        mappedHitboxComponent.setSensor(true);
+                        colliderComponent.setSensor(true);
+                    } else if (mappedType == ObstacleDefinition.BRIDGE) {
+                        // Desired affect on mapped bridge - appears
+                        // System.out.println("created");
+                        mappedHitboxComponent.setSensor(false);
+                        colliderComponent.setSensor(false);
+                    }
                 }
             }
         }
