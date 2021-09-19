@@ -1,7 +1,7 @@
 package com.deco2800.game.components.statuseffects;
 
 public enum StatusEffectEnum implements StatusEffectInterface {
-    SPEED (5, 4000, "SPEEDBUFF") {
+    SPEED (5, 7000, "SPEEDBUFF") {
         @Override
         public int statChange(int type, int boost, int statOriginal) {
             int statChange;
@@ -13,7 +13,7 @@ public enum StatusEffectEnum implements StatusEffectInterface {
             return statChange;
         }
     },
-    JUMPBUFF (200, 4000, " ") {
+    JUMPBUFF (200, 10000, " ") {
         @Override
         public int statChange(int type, int boost, int statOriginal) {
             return statOriginal;
@@ -35,7 +35,7 @@ public enum StatusEffectEnum implements StatusEffectInterface {
             return statChange;
         }
     },
-    STUCKINMUD (0, 3000, "INTERFERANCE") {
+    STUCKINMUD (0, 4000, "INTERFERANCE") {
         @Override
         public int statChange(int type, int boost, int statOriginal) {
             int statChange = type * boost + statOriginal;

@@ -36,8 +36,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class LevelGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(LevelGameArea.class);
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(15, 15);
-  private static final GridPoint2 STATUSEFFECT_SPAWN1 = new GridPoint2(40, 25);
-  private static final GridPoint2 STATUSEFFECT_SPAWN2 = new GridPoint2(30, 25);
+  private static final GridPoint2 STATUSEFFECT_SPAWN1 = new GridPoint2(60, 25);
+  private static final GridPoint2 STATUSEFFECT_SPAWN2 = new GridPoint2(40, 25);
   public List<ObstacleEntity> obstacleEntities = new ArrayList<>();
   public static ArrayList<TerrainTile> terrainTiles = new ArrayList<>();
   public static ArrayList<String> buffers = new ArrayList<>();
