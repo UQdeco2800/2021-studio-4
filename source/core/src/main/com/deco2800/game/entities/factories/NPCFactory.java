@@ -26,6 +26,9 @@ import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
  *
@@ -39,6 +42,26 @@ import com.deco2800.game.services.ServiceLocator;
 public class NPCFactory {
   private static final NPCConfigs configs =
       FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
+
+  private static final List<Entity> entitiesForRemoval = new ArrayList<>();
+
+
+  /**
+   * Adds the entities schedualed for removal to a list
+   */
+  public static void entitiesForRemovalAdd(Entity entity) {
+    entitiesForRemoval.add(entity);
+  }
+
+  /**
+   * Adds the entities schedualed for removal to a list
+   */
+  public static void RemoveEntities() {
+    for (Entity entity : entitiesForRemoval) {
+      entity.dispose();
+      entity.
+    }
+  }
 
   /**
    * Creates the void entity
@@ -73,7 +96,6 @@ public class NPCFactory {
     theVoid.getComponent(AnimationRenderComponent.class).scaleEntity();
     theVoid.setScale(20f,22);
     return theVoid;
-
   }
 
   /**
@@ -118,6 +140,7 @@ public class NPCFactory {
     //statusEffect.getComponent(AnimationRenderComponent.class).scaleEntity(); // Don't understand but throws
                                                                                // NullPointerException
     statusEffect.setScale(0.5f,0.5f);
+
     return statusEffect;
   }
 

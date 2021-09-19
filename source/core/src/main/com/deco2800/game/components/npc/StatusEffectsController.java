@@ -8,6 +8,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
+import com.deco2800.game.entities.factories.NPCFactory;
 
 import java.util.ArrayList;
 
@@ -84,8 +85,10 @@ public class StatusEffectsController extends Component {
      */
     public void remove() {
         if (getPlayerDistance() < 0.05) {
-            entity.getComponent(ColliderComponent.class).setSensor(true);
-            entity.setScale(-0.01f, -0.01f); // Makes it invisible. However still has origin sized collision box
+            NPCFactory.entitiesForRemovalAdd(entity);
+            NPCFactory.RemoveEntities();
+//            entity.getComponent(ColliderComponent.class).setSensor(true);
+//            entity.setScale(-0.01f, -0.01f); // Makes it invisible. However still has origin sized collision box
 
             //adds the effect to the Array
             switch (effect) {
