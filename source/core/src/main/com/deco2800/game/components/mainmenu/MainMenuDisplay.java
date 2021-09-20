@@ -151,7 +151,7 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Sets the size and position of the button after texture applied.
          */
-        settingsBtn.setBounds(centreWidth-width35Percent,centreHeight-height83Percent,
+        settingsBtn.setBounds((float)(centreWidth-width35Percent),(float)(centreHeight-height83Percent),
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
 
@@ -166,7 +166,7 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Sets the size and position of the button after texture applied.
          */
-        exitBtn.setBounds(centreWidth,centreHeight-height98Percent,
+        exitBtn.setBounds(centreWidth,(float)(centreHeight-height98Percent),
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         /**
@@ -194,7 +194,7 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Sets the size and position of the button after texture applied, for Mute and Currently Muted both.
          */
-        muteBtn.setBounds(centreWidth+width35Percent,centreHeight-height83Percent,
+        muteBtn.setBounds((float)(centreWidth+width35Percent),(float)(centreHeight-height83Percent),
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         /**
@@ -208,7 +208,7 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Sets the size and position of the button after texture applied.
          */
-        leaderBoardBtn.setBounds(centreWidth+width35Percent,centreHeight-height53Percent,
+        leaderBoardBtn.setBounds((float)(centreWidth+width35Percent),(float)(centreHeight-height53Percent),
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         TextButton levelEditorBtn = new TextButton("LevelEditor", skin);

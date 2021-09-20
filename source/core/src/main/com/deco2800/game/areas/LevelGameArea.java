@@ -42,6 +42,7 @@ public class LevelGameArea extends GameArea {
   public static ArrayList<TerrainTile> terrainTiles = new ArrayList<>();
   public static ArrayList<String> buffers = new ArrayList<>();
   public static ArrayList<String> deBuffers = new ArrayList<>();
+  private Random random = new Random();
 
   public Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables = new ConcurrentHashMap<>();
 
@@ -122,7 +123,7 @@ public class LevelGameArea extends GameArea {
 
   private final TerrainFactory terrainFactory;
   private final LevelDefinition levelDefinition;
-
+  private static boolean loading = true;
   private Entity player;
 
   public LevelGameArea(TerrainFactory terrainFactory, LevelDefinition levelDefinition) {
@@ -142,11 +143,15 @@ public class LevelGameArea extends GameArea {
    * Initializes basic components such as loading assets, background and terrain
    */
   public void init() {
+
     loadAssets();
     mapInteractables();
     displayBackground();
     spawnTerrain();
     spawnLevelFromFile();
+    while (loading == true){
+        // add code to show the loading screen
+    }
   }
 
   /**
@@ -184,7 +189,6 @@ public class LevelGameArea extends GameArea {
    * @return Buff name
    */
   private String getBuff() {
-    Random random = new Random();
     int indexNum = random.nextInt(3);
     return buffers.get(indexNum);
   }
@@ -194,7 +198,6 @@ public class LevelGameArea extends GameArea {
    * @return Debuff name
    */
   private String getDeBuff() {
-    Random random = new Random();
     int indexNum = random.nextInt(3);
     return deBuffers.get(indexNum);
   }
@@ -203,6 +206,7 @@ public class LevelGameArea extends GameArea {
     Entity ui = new Entity();
     ui.addComponent(new GameAreaDisplay("Box Forest"));
     spawnEntity(ui);
+    loading = false;
   }
 
   private void displayBackground() {
@@ -416,12 +420,15 @@ public class LevelGameArea extends GameArea {
     assert file != null;
 
     LevelFile levelFile = json.fromJson(LevelFile.class, file);
-
+  try {
     for (ObstacleEntity obstacleEntity : levelFile.obstacles.obstacleEntities) {
-      ObstacleEntity newObstacle = spawnObstacle(obstacleEntity.getDefinition(), (int)obstacleEntity.getPosition().x,
-        (int)obstacleEntity.getPosition().y, obstacleEntity.size);
+      ObstacleEntity newObstacle = spawnObstacle(obstacleEntity.getDefinition(), (int) obstacleEntity.getPosition().x,
+              (int) obstacleEntity.getPosition().y, obstacleEntity.size);
 
       newObstacle.interactableID = obstacleEntity.interactableID;
+    }
+  }catch (NullPointerException e) {
+    e.printStackTrace();
     }
 
     // Add entities to subInteractables list
