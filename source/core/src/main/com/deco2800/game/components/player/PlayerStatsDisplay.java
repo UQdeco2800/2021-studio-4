@@ -43,12 +43,9 @@ public class PlayerStatsDisplay extends UIComponent {
     CharSequence healthText = String.format("Health: %d", health);
     healthLabel = new Label(healthText, skin, "large");
 
-
     table.add(healthLabel);
 
-
     table.row();
-
 
     long time = timeScore;
 

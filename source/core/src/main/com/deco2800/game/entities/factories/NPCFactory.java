@@ -43,24 +43,24 @@ public class NPCFactory {
   private static final NPCConfigs configs =
       FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
 
-  private static final List<Entity> entitiesForRemoval = new ArrayList<>();
-
-
-  /**
-   * Adds the entities schedualed for removal to a list
-   */
-  public static void entitiesForRemovalAdd(Entity entity) {
-    entitiesForRemoval.add(entity);
-  }
-
-  /**
-   * Adds the entities schedualed for removal to a list
-   */
-  public static void RemoveEntities() {
-    for (Entity entity : entitiesForRemoval) {
-      entity.dispose();
-    }
-  }
+//  private static final List<Entity> entitiesForRemoval = new ArrayList<>();
+//
+//
+//  /**
+//   * Adds the entities schedualed for removal to a list
+//   */
+//  public static void entitiesForRemovalAdd(Entity entity) {
+//    entitiesForRemoval.add(entity);
+//  }
+//
+//  /**
+//   * Adds the entities schedualed for removal to a list
+//   */
+//  public static void RemoveEntities() {
+//    for (Entity entity : entitiesForRemoval) {
+//      entity.dispose();
+//    }
+//  }
 
   /**
    * Creates the void entity

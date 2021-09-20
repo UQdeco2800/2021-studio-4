@@ -93,11 +93,12 @@ public class MainGameScreen extends ScreenAdapter {
     physicsEngine.update();
     ServiceLocator.getEntityService().update();
     renderer.render();
+
     if (gameOver) {
       gameOver = false;
-      logger.info("Show Death Screen");
-      game.setScreen(GdxGame.ScreenType.DEATH_SCREEN);
+      endgame();
     }
+
     if (levelComplete)   {
       levelComplete = false;
       logger.info("Level completed");
@@ -105,6 +106,11 @@ public class MainGameScreen extends ScreenAdapter {
     }
     timeScore = (int) ((System.currentTimeMillis() - timeStarted) / 1000);
 
+  }
+
+  public void endgame() {
+      logger.info("Show Death Screen");
+      game.setScreen(GdxGame.ScreenType.DEATH_SCREEN);
   }
 
   @Override

@@ -51,6 +51,13 @@ public class StatusEffectsController extends Component {
         this.body = physicsComponent.getBody();
     }
 
+    @Override
+    public void dispose() {
+        super.dispose();
+        entity.getComponent(ColliderComponent.class).setSensor(true);
+        entity.setScale(-0.01f, -0.01f); // Makes it invisible. However still has origin sized collision box
+    }
+
     /**
      * Starts the void's animation
      */
@@ -85,10 +92,7 @@ public class StatusEffectsController extends Component {
      */
     public void remove() {
         if (getPlayerDistance() < 0.05) {
-            NPCFactory.entitiesForRemovalAdd(entity);
-            NPCFactory.RemoveEntities();
-//            entity.getComponent(ColliderComponent.class).setSensor(true);
-//            entity.setScale(-0.01f, -0.01f); // Makes it invisible. However still has origin sized collision box
+            dispose();
 
             //adds the effect to the Array
             switch (effect) {
