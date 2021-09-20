@@ -51,21 +51,17 @@ public class PlayerFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
-                            .getAsset("images/testingrunning.atlas", TextureAtlas.class));
-    animator.addAnimation("still", 0.05f, Animation.PlayMode.LOOP);
-    /*
-    animator.addAnimation("RunningLeftDefault", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("IdleLeftDefault", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("IdleRightDefault", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("FallingRightDefault", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("FallingLeftDefault", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("SlidingRightDefault", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("SlidingLeftDefault", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("JumpingLeftDefault", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("JumpingRightDefault", 0.1f, Animation.PlayMode.LOOP);
-*/
+                            .getAsset("images/player_sprite_sheet.atlas", TextureAtlas.class));
 
 
+    String[] movement = {"Running", "Jumping", "Sliding", "Falling", "Idle"};
+    String[] direction = {"Left", "Right"};
+
+    for(String mov : movement) {
+      for (String dir : direction) {
+        animator.addAnimation(mov + dir, 0.1f, Animation.PlayMode.LOOP);
+      }
+    }
 
     Entity player =
         new Entity()
@@ -80,7 +76,6 @@ public class PlayerFactory {
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(aiComponent)
-
                                                                                                   // Added in to allow                                          // for collision controlled jumping
             .addComponent(new PlayerMovementComponent(PhysicsLayer.OBSTACLE, mapInteractables, levelGameArea)); // Added in to allow
                                                                                   // for collision controlled jumping

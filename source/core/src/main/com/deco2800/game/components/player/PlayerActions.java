@@ -30,8 +30,8 @@ public class PlayerActions extends Component {
     Left,
     Right
   }
+
   private MovingDirection movingDirection;
-  private String currentPowerUp;
   private Movement currentMovement;
   private String previousAnimation;
 
@@ -69,10 +69,8 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("isSlidingDone", this::checkIfSlidingIsDone);
     entity.getEvents().addListener("keyPressed", this::keyWasPressed);
     entity.getEvents().addListener("keyReleased", this::keyWasReleased);
-    entity.getEvents().addListener("setPowerUpAnimation", this::setPowerUpAnimation);
 
 
-    currentPowerUp = "Default";
     movingDirection = MovingDirection.Right;
     currentMovement = Movement.Idle;
     keysPressed = 0;
@@ -80,9 +78,8 @@ public class PlayerActions extends Component {
     this.body = physicsComponent.getBody();
     previousAnimation = getAnimation();
 
-    if (animator != null) {
-      animator.startAnimation("still");//getAnimation());
-    }
+    animator.startAnimation(getAnimation());
+
   }
 
   @Override
@@ -143,11 +140,7 @@ public class PlayerActions extends Component {
    */
   //This is currently commented out since i have not made any placeholder sprites for powerUps
   // so I can't try and load in an animation i havent defined
-  private void setPowerUpAnimation(String value){
-    //System.out.println(value);
-    //currentPowerUp = value;
-    //animator.startAnimation(getAnimation());
-  }
+
 
   /**
    * Sets the movementAnimation of the player to the animation corresponding
@@ -162,7 +155,7 @@ public class PlayerActions extends Component {
       //System.out.println(value);
       currentMovement = value;
       previousAnimation = getAnimation();
-     // animator.startAnimation(getAnimation());
+      animator.startAnimation(getAnimation());
     }
   }
 
@@ -183,7 +176,7 @@ public class PlayerActions extends Component {
    * @returns String containing currentMovement + movingDirection + powerUp
    */
   private String getAnimation(){
-    return  getCurrentMovement() + getCurrentDirection() + getCurrentPowerUp();
+    return  getCurrentMovement() + getCurrentDirection();
   }
 
   String getCurrentMovement() {
@@ -194,9 +187,7 @@ public class PlayerActions extends Component {
     return movingDirection.toString();
   }
 
-  String getCurrentPowerUp() {
-    return currentPowerUp;
-  }
+
 
 
   /**

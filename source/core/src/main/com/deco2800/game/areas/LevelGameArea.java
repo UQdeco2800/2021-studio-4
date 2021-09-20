@@ -101,7 +101,8 @@ public class LevelGameArea extends GameArea {
     "images/button.atlas",
     "images/walking_sprite.atlas",
     "images/playerStill.atlas",
-    "images/testingrunning.atlas"
+    "images/testingrunning.atlas",
+    "images/player_sprite_sheet.atlas"
 
   };
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
