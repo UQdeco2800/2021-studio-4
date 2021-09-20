@@ -12,6 +12,7 @@ import com.deco2800.game.input.InputDecorator;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
+import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
@@ -22,6 +23,8 @@ public class ScoreScreen extends ScreenAdapter {
     private final GdxGame game;
     private final Renderer renderer;
     private static final String[] scoreScreenTextures = {"images/title_screen_clean.png"};
+    private static final MusicServiceDirectory mainMenuSong = new MusicServiceDirectory();
+    private static final String[] MainMenuMusic = {mainMenuSong.main_menu};
 
 
     public ScoreScreen (GdxGame game) {
@@ -74,6 +77,7 @@ public class ScoreScreen extends ScreenAdapter {
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(scoreScreenTextures);
         ServiceLocator.getResourceService().loadAll();
+        resourceService.loadMusic(MainMenuMusic);
 
         while (!resourceService.loadForMillis(10)) {
             // This could be upgraded to a loading screen
@@ -85,6 +89,7 @@ public class ScoreScreen extends ScreenAdapter {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.unloadAssets(scoreScreenTextures);
+        resourceService.unloadAssets(MainMenuMusic);
     }
 
     /**

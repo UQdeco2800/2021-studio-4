@@ -108,7 +108,8 @@ public class LevelGameArea extends GameArea {
   private static final String[] gameMusic = {gameSong.click, gameSong.game_level_1,gameSong.end_credits,
     gameSong.enemy_collision,gameSong.enemy_death, gameSong.obstacle_boost, gameSong.obstacle_button,
     gameSong.player_collision, gameSong.player_power_up, gameSong.void_death, gameSong.void_noise, gameSong.game_level_1_option2,
-  gameSong.ending_menu, gameSong.game_level_2, gameSong.main_menu, gameSong.death_noise_2};
+  gameSong.ending_menu, gameSong.game_level_2, gameSong.main_menu, gameSong.death_noise_2,
+          gameSong.game_level_3};
 
   /*private static final String backgroundMusic = "sounds/BackingMusicWithDrums.mp3";
   private static final String[] gameMusic = {"sounds/BackingMusicWithDrums.mp3",
@@ -165,7 +166,13 @@ public class LevelGameArea extends GameArea {
     spawnStatusEffectDeBuff(getDeBuff()); // Select randomly from a list of the effects
 
 
-    playTheMusic("game_level_1");
+    String level = levelDefinition.getLevelFileName();
+    if (level.equals("levels/level1.json")) {
+      playTheMusic("game_level_1");
+    } else if (level.equals("levels/level4.json")) {
+      playTheMusic("level_1_2"); //replace with level 4 music when it's created
+    }
+
 
 
     spawnPlatform(8, 21, 5);
@@ -611,6 +618,7 @@ public class LevelGameArea extends GameArea {
    * @param musicPath - String (see Music Directory for more information)
    */
   private void playTheMusic(String musicPath) {
+    logger.debug("Playing game area music"); //??
     MusicServiceDirectory dict = new  MusicServiceDirectory();
     MusicService gameMusic = null;
     switch (musicPath) {
@@ -658,6 +666,9 @@ public class LevelGameArea extends GameArea {
         break;
       case "death_noise_2":
         gameMusic = new MusicService(dict.death_noise_2);
+        break;
+      case "level_3":
+        gameMusic = new MusicService(dict.game_level_3);
         break;
       default:
         gameMusic = new MusicService(dict.game_level_1);//To make sure gameMusic is never null

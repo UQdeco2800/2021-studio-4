@@ -43,12 +43,6 @@ public class MainMenuDisplay extends UIComponent {
     public void playTheMusic() {
             MusicSingleton music = MusicSingleton.getInstance();
             music.playMusicSingleton("sounds/MainMenuMusic.mp3");
-            /*MusicServiceDirectory dict = new  MusicServiceDirectory();
-            MusicService musicScreen = new MusicService(dict.main_menu);
-            musicScreen.playMusic();*/
-
-
-
     }
 
     /**

@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.services.MusicService;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +51,7 @@ public class ScoreDisplay extends UIComponent {
         }
         super.create();
         addActors();
+        playTheMusic();
     }
 
     /**
@@ -121,6 +123,14 @@ public class ScoreDisplay extends UIComponent {
         stage.addActor(levelLabel);
         stage.addActor(scoreLabel);
         //stage.
+    }
+
+    /**
+     * Play the music
+     */
+    public void playTheMusic() {
+        MusicService musicScreen = new MusicService("sounds/MainMenuMusic.mp3");
+        musicScreen.playMusic();
     }
 
     @Override
