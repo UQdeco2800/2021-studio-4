@@ -1,11 +1,13 @@
 package com.deco2800.game.components.scores;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -43,7 +45,7 @@ public class ScoreDisplay extends UIComponent {
         highScore = highScores.get(level);
         if (newScore > highScore) { // For now, this only works for level 1
             highScore = newScore;
-            System.out.println(highScore);
+            // System.out.println(highScore);  // CHANGE TO A LOGGER
             writeHighScores();  // Implement in sprint 2 to store high score in file
         } else {
             highScore = highScores.get(level);
@@ -99,6 +101,7 @@ public class ScoreDisplay extends UIComponent {
         CharSequence scoreText = String.format("%d", highScore);
         scoreLabel = new Label(scoreText, skin, "large");
         levelLabel = new Label(levelText, skin, "large");
+        levelLabel.getStyle().fontColor.add(Color.WHITE);
 
         int widthLabel = (int) Math.round(Gdx.graphics.getWidth()*0.3);
         int centreScreenLevelWidth = (int) Math.round(scoreLabel.getWidth());
@@ -111,15 +114,29 @@ public class ScoreDisplay extends UIComponent {
         /**
          * Sets the position of the label.
          */
-        levelLabel.setBounds(widthLabel + centreScreenLevelWidth,levelHeight,
+        levelLabel.setBounds(widthLabel + centreScreenLevelWidth,levelHeight-200,
                 textDimenstionWidth,textDimenstionHeight);
-        scoreLabel.setBounds(widthLabel + centreScreenScoreWidth,scoreHeight,
+        scoreLabel.setBounds(widthLabel + centreScreenScoreWidth,scoreHeight-200,
                 textDimenstionWidth,textDimenstionHeight);
+
+        /**
+         * Creates the 'SCOREDISPLAY' title texture.
+         */
+        Texture scoreDisplay = new Texture(Gdx.files.internal("images/ScoreTitlePlaceHolder.png"));
+        Drawable scoreDisplayDrawable = new TextureRegionDrawable(new TextureRegion(scoreDisplay));
+        Image scoreDisplayTitle = new Image(scoreDisplayDrawable);
+        scoreDisplayTitle.setBounds(0,Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/5,
+                Gdx.graphics.getWidth(),Gdx.graphics.getHeight()/6);
+//        Image image1 = new Image(new Texture("images/ScoreTitlePlaceHolder.png"));
+        //image1.setBounds(200, 80, 70, 40);
+//        image1.setBounds(400, 200, 700, 200);
+//        image1.setSize(50, 50);
 
         stage.addActor(table);
         stage.addActor(exitBtn);
         stage.addActor(levelLabel);
         stage.addActor(scoreLabel);
+        stage.addActor(scoreDisplayTitle);
         //stage.
     }
 
@@ -158,6 +175,8 @@ public class ScoreDisplay extends UIComponent {
         }
         finally {
             try {
+                // Removes NullPointerException
+                assert myScoresReader != null;
                 myScoresReader.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -178,6 +197,8 @@ public class ScoreDisplay extends UIComponent {
         }
         finally {
             try {
+                // Removes NullPointerException
+                assert scoresWriter != null;
                 scoresWriter.close();
             } catch (IOException e) {
                 e.printStackTrace();
