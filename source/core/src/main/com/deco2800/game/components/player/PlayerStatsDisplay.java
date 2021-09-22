@@ -11,6 +11,7 @@ import com.deco2800.game.ui.UIComponent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import static com.deco2800.game.screens.MainGameScreen.timeScore;
 
@@ -23,6 +24,7 @@ public class PlayerStatsDisplay extends UIComponent {
   private Label healthLabel;
   private Label timeLabel;
   public static boolean gameOver = false;
+
   /**
    * Creates reusable ui styles and adds actors to the stage.
    */
@@ -32,6 +34,7 @@ public class PlayerStatsDisplay extends UIComponent {
     addActors();
 
     entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
+    entity.getEvents().addListener("updateScore", this::updatePlayerScore);
   }
 
   /**
@@ -53,11 +56,20 @@ public class PlayerStatsDisplay extends UIComponent {
 
     table.row();
 
-    long time = timeScore;
-
-    CharSequence timer = String.format("Current Score: %d", time);
+    CharSequence timer = String.format("Current Score: %d", timeScore); // Time not changing
     timeLabel = new Label(timer, skin, "large");
     timeLabel.getStyle().fontColor.add(Color.MAGENTA);
+
+    TimerTask task = new TimerTask() {
+      @Override
+      public void run() {
+        entity.getEvents().trigger("updateScore");
+      }
+    };
+
+    Timer myTimer = new Timer();
+    myTimer.schedule(task, 0, 1000);
+
     table.add(timeLabel);
     stage.addActor(table);
   }
@@ -77,6 +89,14 @@ public class PlayerStatsDisplay extends UIComponent {
     if (health == 0) {
       gameOver = true;
     }
+  }
+
+  /**
+   * Updates the player's score on the ui.
+   */
+  public void updatePlayerScore() {
+    CharSequence text = String.format("Current Score: %d", timeScore);
+    timeLabel.setText(text);
   }
 
   @Override

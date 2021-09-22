@@ -7,6 +7,7 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.MainGameActions;
+import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -25,6 +26,7 @@ import com.deco2800.game.ui.terminal.Terminal;
 import com.deco2800.game.ui.terminal.TerminalDisplay;
 import com.deco2800.game.components.maingame.MainGameExitDisplay;
 import com.deco2800.game.components.gamearea.PerformanceDisplay;
+import net.dermetfan.gdx.physics.box2d.PositionController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -107,7 +109,7 @@ public class MainGameScreen extends ScreenAdapter {
       game.setScreen(GdxGame.ScreenType.MAIN_MENU);
     }
 
-    timeScore = gameTime.getTimeSince(0);
+    timeScore = gameTime.getTime(); // Doesn't change the time????
     //timeScore = (int) ((System.currentTimeMillis() - timeStarted) / 1000);
   }
 
