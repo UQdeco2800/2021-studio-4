@@ -84,7 +84,7 @@ public class PhysicsComponent extends Component {
   public void earlyUpdate() {
     Vector2 bodyPos = body.getPosition();
     // Don't notify position changes due to physics
-    entity.setPosition(bodyPos, false);
+    entity.setPosition(bodyPos.cpy(), false);
   }
 
   @Override

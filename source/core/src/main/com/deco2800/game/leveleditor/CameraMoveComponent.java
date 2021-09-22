@@ -28,7 +28,6 @@ public class CameraMoveComponent extends InputComponent {
     } else if (moveRight) {
       camPos.x += 0.25f;
     }
-    cameraComponent.getEntity().setPosition(camPos);
     super.update();
   }
 

@@ -2,6 +2,7 @@ package com.deco2800.game.components;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 
@@ -21,9 +22,9 @@ public class CameraComponent extends Component {
   @Override
   public void update() {
     Vector2 position = entity.getPosition();
-    if (!lastPosition.epsilonEquals(entity.getPosition())) {
+    if (!lastPosition.epsilonEquals(position)) {
       camera.position.set(position.x, position.y, 0f);
-      lastPosition = position;
+      lastPosition = position.cpy();
       camera.update();
     }
   }

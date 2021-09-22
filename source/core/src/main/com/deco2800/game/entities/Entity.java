@@ -65,7 +65,7 @@ public class Entity {
    * @return position
    */
   public Vector2 getPosition() {
-    return position.cpy(); // Cpy gives us pass-by-value to prevent bugs
+    return position; // Cpy gives us pass-by-value to prevent bugs
   }
 
   /**
@@ -74,8 +74,8 @@ public class Entity {
    * @param position new position.
    */
   public void setPosition(Vector2 position) {
-    this.position = position.cpy();
-    getEvents().trigger(EVT_NAME_POS, position.cpy());
+    this.position = position;
+    getEvents().trigger(EVT_NAME_POS, position);
   }
 
   /**
@@ -87,7 +87,7 @@ public class Entity {
   public void setPosition(float x, float y) {
     this.position.x = x;
     this.position.y = y;
-    getEvents().trigger(EVT_NAME_POS, position.cpy());
+    getEvents().trigger(EVT_NAME_POS, this.position);
   }
 
   /**
@@ -166,7 +166,7 @@ public class Entity {
    * @return center position
    */
   public Vector2 getCenterPosition() {
-    return getPosition().mulAdd(getScale(), 0.5f);
+    return getPosition().cpy().mulAdd(getScale(), 0.5f);
   }
 
   /**
