@@ -23,7 +23,8 @@ public class PlayerActions extends Component {
     Idle,
     Falling,
     Sliding,
-    Jumping
+    Jump,
+    Walk
   }
   //direction the player is moving
   private enum MovingDirection {
@@ -32,6 +33,7 @@ public class PlayerActions extends Component {
   }
 
   private MovingDirection movingDirection;
+  private String currentPowerUp;
   private Movement currentMovement;
   private String previousAnimation;
 
@@ -69,10 +71,12 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("isSlidingDone", this::checkIfSlidingIsDone);
     entity.getEvents().addListener("keyPressed", this::keyWasPressed);
     entity.getEvents().addListener("keyReleased", this::keyWasReleased);
+    entity.getEvents().addListener("setPowerUpAnimation", this::setCurrentPowerUp);
 
 
     movingDirection = MovingDirection.Right;
     currentMovement = Movement.Idle;
+    currentPowerUp = "Default";
     keysPressed = 0;
 
     this.body = physicsComponent.getBody();
@@ -135,12 +139,19 @@ public class PlayerActions extends Component {
    * case sensitive and should begin with a capital letter. This should be called when
    * a player hits a powerUp and when their powerUp runs out.
    *
-   * @param value the string name of the power up animation, these are the options:
-   *              Default, SpeedUp, SpeedDown, JumpBoost, Stuck, TimeStop, VisionImpaired
+   * @param powerUp the string name of the power up animation, these are the options:
+   *              Default, SpeedUp, SpeedDown, Stuck
    */
   //This is currently commented out since i have not made any placeholder sprites for powerUps
   // so I can't try and load in an animation i havent defined
+private void setCurrentPowerUp(String powerUp) {
+  currentPowerUp = powerUp;
+  setMovementAnimation(currentMovement);
+}
 
+public String getCurrentPowerUp() {
+  return currentPowerUp;
+}
 
   /**
    * Sets the movementAnimation of the player to the animation corresponding
@@ -151,6 +162,14 @@ public class PlayerActions extends Component {
    *              Running, Idle, Falling, Jumping, Sliding
    */
   private void setMovementAnimation(Movement value){
+    if(value == Movement.Walk && getCurrentPowerUp() == "SpeedUp") {
+      value = Movement.Running;
+    }
+
+    if(currentPowerUp == "Stuck") {
+      value = Movement.Idle;
+    }
+
     if(!(previousAnimation.equals(getAnimation())) || value != currentMovement){
       //System.out.println(value);
       currentMovement = value;
@@ -199,7 +218,7 @@ public class PlayerActions extends Component {
   }
 
   void setIsJumping(){
-    setMovementAnimation(Movement.Jumping);
+    setMovementAnimation(Movement.Jump);
   }
 
   void setIsSliding() {
@@ -211,11 +230,11 @@ public class PlayerActions extends Component {
    * be and sets the player to the correct animation
    */
   void checkIfFallingIsDone(){
-    if((currentMovement == Movement.Falling | currentMovement == Movement.Jumping) & canJump){
+    if((currentMovement == Movement.Falling | currentMovement == Movement.Jump) & canJump){
         if(body.getLinearVelocity().x == 0 | keysPressed == 0){
           setMovementAnimation(Movement.Idle);
         } else {
-          setMovementAnimation(Movement.Running);
+          setMovementAnimation(Movement.Walk);
         }
     }
   }
@@ -226,7 +245,7 @@ public class PlayerActions extends Component {
           setMovementAnimation(Movement.Idle);
         } else if (keysPressed > 0 && (body.getLinearVelocity().x < 7 && body.getLinearVelocity().x > 0 ||
                 body.getLinearVelocity().x > -7 && body.getLinearVelocity().x < 7)) {
-          setMovementAnimation(Movement.Running);
+          setMovementAnimation(Movement.Walk);
         }
       }
   }
@@ -287,7 +306,7 @@ public class PlayerActions extends Component {
     }
 
     if(canJump) {
-      setMovementAnimation(Movement.Running);
+      setMovementAnimation(Movement.Walk);
     }
 
     this.walkDirection = direction;

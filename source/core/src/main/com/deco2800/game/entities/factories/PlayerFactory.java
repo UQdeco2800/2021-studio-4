@@ -51,15 +51,21 @@ public class PlayerFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
-                            .getAsset("images/player_sprite_sheet.atlas", TextureAtlas.class));
+                            .getAsset("images/simple_player_sprite.atlas", TextureAtlas.class));
 
 
-    String[] movement = {"Running", "Jumping", "Sliding", "Falling", "Idle"};
+    String[] movement = {"Running", "Jump", "Sliding", "Falling", "Idle", "Walk"};
     String[] direction = {"Left", "Right"};
 
     for(String mov : movement) {
       for (String dir : direction) {
-        animator.addAnimation(mov + dir, 0.1f, Animation.PlayMode.LOOP);
+        if (mov.equals("Jump") | mov.equals("Sliding")) {
+          animator.addAnimation(mov + dir, 0.05f, Animation.PlayMode.NORMAL);
+        } else if (mov.equals("Falling")){
+          animator.addAnimation(mov + dir, 0.03f, Animation.PlayMode.NORMAL);
+        } else {
+          animator.addAnimation(mov + dir, 0.1f, Animation.PlayMode.LOOP);
+        }
       }
     }
 

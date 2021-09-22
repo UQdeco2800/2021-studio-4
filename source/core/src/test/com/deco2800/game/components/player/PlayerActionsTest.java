@@ -97,7 +97,7 @@ public class PlayerActionsTest {
 
        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
        playerActions.setIsJumping();
-       assertEquals("Jumping" , playerActions.getCurrentMovement());
+       assertEquals("Jump" , playerActions.getCurrentMovement());
    }
 
     //test that the setIsSliding() function sets the player's animation to Sliding
@@ -147,7 +147,7 @@ public class PlayerActionsTest {
         //set player state to something other than AIR
         playerActions.walk(Vector2Utils.RIGHT);
         playerActions.jump();
-        assertEquals("Jumping" , playerActions.getCurrentMovement());
+        assertEquals("Jump" , playerActions.getCurrentMovement());
     }
 
     //test that the jump() function does not change the player's movement to
@@ -160,7 +160,7 @@ public class PlayerActionsTest {
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
         playerActions.setCanJump(false);
         playerActions.jump();
-        assertNotEquals("Jumping" , playerActions.getCurrentMovement());
+        assertNotEquals("Jump" , playerActions.getCurrentMovement());
     }
 
 
@@ -202,7 +202,7 @@ public class PlayerActionsTest {
         playerActions.setCanJump(true);
         //Any direction will do
         playerActions.walk(Vector2Utils.RIGHT);
-        assertEquals("Running" , playerActions.getCurrentMovement());
+        assertEquals("Walk" , playerActions.getCurrentMovement());
     }
 
 
@@ -322,7 +322,7 @@ public class PlayerActionsTest {
         //keys a being pressed
         playerActions.keyWasPressed();
         playerActions.checkIfFallingIsDone();
-        assertEquals("Running" , playerActions.getCurrentMovement());
+        assertEquals("Walk" , playerActions.getCurrentMovement());
     }
 
     //Test that the checkIfSlidingFunction() function does not change the player's animation
@@ -378,7 +378,7 @@ public class PlayerActionsTest {
         //they are moving slower than 7m/s
         entity.getComponent(PhysicsComponent.class).getBody().setLinearVelocity(6f, 0f);
         playerActions.checkIfSlidingIsDone();
-        assertEquals("Running" , playerActions.getCurrentMovement());
+        assertEquals("Walk" , playerActions.getCurrentMovement());
     }
 
     //Test that the checkIfSlidingFunction() function does not change the player's animation
