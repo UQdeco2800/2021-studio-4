@@ -15,14 +15,18 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.GdxGame;
+import com.deco2800.game.services.GameTime;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.time.Clock;
 import java.util.ArrayList;
+import java.util.StringJoiner;
 
-import static com.deco2800.game.screens.MainGameScreen.timeScore;
+//import static com.deco2800.game.screens.MainGameScreen.timeScore;
 
 public class ScoreDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(ScoreDisplay.class);
@@ -31,24 +35,30 @@ public class ScoreDisplay extends UIComponent {
     private Sprite sprite;
     private Label scoreLabel; // Shows the score.
     private Label levelLabel; // Shows the current level.
-    int newScore = timeScore;
+    //int newScore = timeScore;
+    int newScore = 0; // Will need to be set using GameTime
     //int newScore = 1;
     int highScore;
-    private int level = 0; // The current Level. Levels need to be implemented later in development
+    private ArrayList<Integer> levels = new ArrayList<>();; // The current Level. Levels need to be implemented later in development
                            // when multiple levels are available. For now, it will be 0.
 
     private ArrayList<Integer> highScores = new ArrayList<>();
 
     @Override
     public void create() {
+        for (int i = 0; i < 4; i++) { // Adds the number of levels to an arrayList of that size
+            levels.add(i, i+1);
+        }
+//        System.out.println(levels);
+
         readHighScores();
-        highScore = highScores.get(level);
+        highScore = highScores.get(levels.get(0) - 1);
         if (newScore > highScore) { // For now, this only works for level 1
             highScore = newScore;
             // System.out.println(highScore);  // CHANGE TO A LOGGER
             writeHighScores();  // Implement in sprint 2 to store high score in file
         } else {
-            highScore = highScores.get(level);
+            highScore = highScores.get(levels.get(0) - 1);
         }
         super.create();
         addActors();
@@ -97,26 +107,36 @@ public class ScoreDisplay extends UIComponent {
                 });
 
         // Text to display the score for the current Level.
-        CharSequence levelText = String.format("Level %d Highest Score ever", level);
-        CharSequence scoreText = String.format("%d", highScore);
+        StringJoiner sjLevels = new StringJoiner("\n");
+        StringJoiner sjText = new StringJoiner("\n");
+        for (int level : levels) {
+            try {
+                String numLevel = String.format("Level %d", level);
+                sjLevels.add(numLevel);
+                String levelScores = String.format("%d", highScores.get(level-1));
+                sjText.add(levelScores);
+            } catch (IndexOutOfBoundsException e) {
+                sjText.add("-"); // Added '-' if uncompleted level
+            }
+        }
+
+        CharSequence levelText = sjLevels.toString();
+        CharSequence scoreText = sjText.toString();
         scoreLabel = new Label(scoreText, skin, "large");
         levelLabel = new Label(levelText, skin, "large");
-        levelLabel.getStyle().fontColor.add(Color.WHITE);
+        levelLabel.getStyle().fontColor.add(Color.GOLD);
 
-        int widthLabel = (int) Math.round(Gdx.graphics.getWidth()*0.3);
-        int centreScreenLevelWidth = (int) Math.round(scoreLabel.getWidth());
-        int centreScreenScoreWidth = (int) Math.round(levelLabel.getWidth());
-        int levelHeight = (int) Math.round(Gdx.graphics.getHeight()*0.8);
-        int scoreHeight = (int) Math.round(Gdx.graphics.getHeight()*0.75);
-        int textDimenstionWidth = (int) Math.round(Gdx.graphics.getWidth()*0.1);
+        int CenterScoreTextWidth = Math.round(centreWidth1 - scoreLabel.getWidth()/2);
+        int CenterLevelTextWidth = Math.round(centreWidth1 - levelLabel.getWidth()/2);
         int textDimenstionHeight = (int) Math.round(Gdx.graphics.getHeight()*0.1);
+        int textDimenstionWidth = (int) Math.round(Gdx.graphics.getWidth()*0.1);
 
         /**
          * Sets the position of the label.
          */
-        levelLabel.setBounds(widthLabel + centreScreenLevelWidth,levelHeight-200,
+        levelLabel.setBounds(CenterLevelTextWidth - 100,400,
                 textDimenstionWidth,textDimenstionHeight);
-        scoreLabel.setBounds(widthLabel + centreScreenScoreWidth,scoreHeight-200,
+        scoreLabel.setBounds(CenterScoreTextWidth + 100,400,
                 textDimenstionWidth,textDimenstionHeight);
 
         /**
@@ -190,11 +210,18 @@ public class ScoreDisplay extends UIComponent {
     private void writeHighScores() {
         FileWriter scoresWriter = null;
         try {
+
             scoresWriter = new FileWriter("High_Scores.txt");
+            // Goes to the correct levels indentations
+            for (int i = 0; i < levels.get(0); i++) {
+                scoresWriter.write(highScores.get(i) + "\r\n"); // writes a blank line
+            }
             scoresWriter.write(String.valueOf(highScore));
+
         } catch (IOException | NullPointerException e) {
             System.err.println("High_Scores.txt is corrupted or missing.");
         }
+
         finally {
             try {
                 // Removes NullPointerException

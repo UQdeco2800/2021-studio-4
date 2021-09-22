@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.ui.UIComponent;
 
-import static com.deco2800.game.screens.MainGameScreen.timeScore;
+//import static com.deco2800.game.screens.MainGameScreen.timeScore;
 
 /**
  * A ui component for displaying player stats, e.g. health.
@@ -15,7 +15,7 @@ public class PlayerStatsDisplay extends UIComponent {
   Table table;
 
   private Label healthLabel;
-  private Label timeLabel;
+  //private Label timeLabel;
   public static boolean gameOver = false;
   /**
    * Creates reusable ui styles and adds actors to the stage.
@@ -47,11 +47,11 @@ public class PlayerStatsDisplay extends UIComponent {
 
     table.row();
 
-    long time = timeScore;
+    //long time = timeScore;
 
-    CharSequence timer = String.format("           Your previous Score: %d", time);
-    timeLabel = new Label(timer, skin, "large");
-    table.add(timeLabel);
+    //CharSequence timer = String.format("           Your previous Score: %d", time);
+    //timeLabel = new Label(timer, skin, "large");
+    //table.add(timeLabel);
     stage.addActor(table);
   }
 

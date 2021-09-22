@@ -48,8 +48,8 @@ public class MainGameScreen extends ScreenAdapter {
   private final PhysicsEngine physicsEngine;
   private final LevelDefinition levelDefinition;
 
-  private final long timeStarted = System.currentTimeMillis();
-  public static int timeScore = 0;
+  //private final long timeStarted = System.currentTimeMillis();
+  //public static int timeScore = 0;
   private static boolean levelComplete = false;
 
   public MainGameScreen(GdxGame game, LevelDefinition levelDefinition) {
@@ -104,7 +104,7 @@ public class MainGameScreen extends ScreenAdapter {
       logger.info("Level completed");
       game.setScreen(GdxGame.ScreenType.MAIN_MENU);
     }
-    timeScore = (int) ((System.currentTimeMillis() - timeStarted) / 1000);
+    //timeScore = (int) ((System.currentTimeMillis() - timeStarted) / 1000);
 
   }
 
