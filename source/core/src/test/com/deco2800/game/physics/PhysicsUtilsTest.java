@@ -32,7 +32,7 @@ class PhysicsUtilsTest {
 
   @Test
   void shouldScaleHalfCollider() {
-    setAndCheckScale(Vector2Utils.ONE, new Vector2(0.5f, 0.5f));
+    setAndCheckScale(Vector2Utils.ONE.cpy(), new Vector2(0.5f, 0.5f));
   }
 
   @Test

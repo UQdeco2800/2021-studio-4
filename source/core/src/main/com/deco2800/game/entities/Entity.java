@@ -65,7 +65,7 @@ public class Entity {
    * @return position
    */
   public Vector2 getPosition() {
-    return position; // Cpy gives us pass-by-value to prevent bugs
+    return position;
   }
 
   /**
@@ -117,7 +117,7 @@ public class Entity {
    * @return Scale in x and y directions. 1 = 1 metre.
    */
   public Vector2 getScale() {
-    return scale.cpy(); // Cpy gives us pass-by-value to prevent bugs
+    return scale;
   }
 
   /**
@@ -126,7 +126,7 @@ public class Entity {
    * @param scale new scale in metres
    */
   public void setScale(Vector2 scale) {
-    this.scale = scale.cpy();
+    this.scale = scale;
   }
 
   /**
