@@ -49,12 +49,14 @@ public class MainGameScreen extends ScreenAdapter {
   private final LevelDefinition levelDefinition;
 
   //private final long timeStarted = System.currentTimeMillis();
-  //public static int timeScore = 0;
+  public static long timeScore;
   private static boolean levelComplete = false;
+  public GameTime gameTime;
 
   public MainGameScreen(GdxGame game, LevelDefinition levelDefinition) {
     this.game = game;
     this.levelDefinition = levelDefinition;
+    this.gameTime = new GameTime();
 
     logger.debug("Initialising main game screen services");
     ServiceLocator.registerTimeSource(new GameTime());
@@ -104,8 +106,9 @@ public class MainGameScreen extends ScreenAdapter {
       logger.info("Level completed");
       game.setScreen(GdxGame.ScreenType.MAIN_MENU);
     }
-    //timeScore = (int) ((System.currentTimeMillis() - timeStarted) / 1000);
 
+    timeScore = gameTime.getTimeSince(0);
+    //timeScore = (int) ((System.currentTimeMillis() - timeStarted) / 1000);
   }
 
   public void endgame() {
