@@ -149,9 +149,11 @@ public class LevelGameArea extends GameArea {
     displayBackground();
     spawnTerrain();
     spawnLevelFromFile();
-    while (loading == true){
+    //while (loading == true){
+    //  logger.info("Loading Screen is loading in!");
+     // displayLoadingScreen();
         // add code to show the loading screen
-    }
+    //}
   }
 
   /**
@@ -213,6 +215,9 @@ public class LevelGameArea extends GameArea {
     Entity background = new Entity();
     background.addComponent(new BackgroundRenderComponent("images/background_level1.jpg"));
     spawnEntity(background);
+  }
+  private void displayLoadingScreen() {
+    Entity background = new Entity();
   }
 
   private void spawnTerrain() {
