@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.services.GameTime;
+import com.deco2800.game.services.MusicService;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,6 +63,7 @@ public class ScoreDisplay extends UIComponent {
         }
         super.create();
         addActors();
+        playTheMusic();
     }
 
     /**
@@ -92,7 +94,7 @@ public class ScoreDisplay extends UIComponent {
         /**
          * Sets the size and position of the button after texture applied.
          */
-        exitBtn.setBounds(centreWidth,centreHeight-height105Percent,
+        exitBtn.setBounds(centreWidth,(float)(centreHeight-height105Percent),
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         // Exit button event.
@@ -160,6 +162,14 @@ public class ScoreDisplay extends UIComponent {
         //stage.
     }
 
+    /**
+     * Play the music
+     */
+    public void playTheMusic() {
+        MusicService musicScreen = new MusicService("sounds/MainMenuMusic.mp3");
+        musicScreen.playMusic();
+    }
+
     @Override
     protected void draw(SpriteBatch batch) {
         // draw is handled by the stage
@@ -198,7 +208,7 @@ public class ScoreDisplay extends UIComponent {
                 // Removes NullPointerException
                 assert myScoresReader != null;
                 myScoresReader.close();
-            } catch (IOException e) {
+            } catch (IOException | NullPointerException e) {
                 e.printStackTrace();
             }
         }
@@ -227,10 +237,9 @@ public class ScoreDisplay extends UIComponent {
                 // Removes NullPointerException
                 assert scoresWriter != null;
                 scoresWriter.close();
-            } catch (IOException e) {
+            } catch (IOException | NullPointerException e) {
                 e.printStackTrace();
             }
         }
-
     }
 }

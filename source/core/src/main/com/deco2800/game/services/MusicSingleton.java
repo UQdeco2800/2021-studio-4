@@ -46,15 +46,6 @@ public class MusicSingleton {
             music.setVolume(0.3f);
             music.play();
         }
-           /* if (is_playing == false) {
-                is_playing = true;
-                music.setLooping(true);
-                music.setVolume(0.3f);
-
-                music.play();
-            }
-            //music.setPosition(3.0f);
-            //System.out.println(music.getPosition());*/
 
     }
 
@@ -65,17 +56,6 @@ public class MusicSingleton {
     public void pauseMusicSingleton(String filename) {
         Music music = ServiceLocator.getResourceService().getAsset(filename, Music.class);
         music.pause();
-        /*if (is_playing == false) {
-                music.setLooping(true);
-                music.setVolume(0.3f);
-                is_playing = true;
-                is_muted = false;
-                music.play();
-            } else {
-                music.pause();
-                is_playing = false;
-                is_muted = true;
-            }*/
 
     }
 
