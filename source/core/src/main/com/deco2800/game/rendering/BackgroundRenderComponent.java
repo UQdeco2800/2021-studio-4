@@ -1,9 +1,15 @@
 package com.deco2800.game.rendering;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.deco2800.game.services.ServiceLocator;
 
 /** Render a static background texture, similar to TextureRenderComponent however image is at z=0 and is scaled to fit
@@ -13,6 +19,9 @@ public class BackgroundRenderComponent extends RenderComponent {
   private Texture texture;
   private String texturePath;
 
+
+
+
   public BackgroundRenderComponent(String texturePath) {
     this.texturePath = texturePath;
   }
@@ -21,6 +30,8 @@ public class BackgroundRenderComponent extends RenderComponent {
   public void create() {
     super.create();
     texture = ServiceLocator.getResourceService().getAsset(texturePath, Texture.class);
+
+
   }
   @Override
   public void draw(SpriteBatch batch) {
@@ -30,10 +41,24 @@ public class BackgroundRenderComponent extends RenderComponent {
     // Camera lock is removed
     // Get actual viewport width and height, not screen width and height (not always fullscreen)
     float screenWidth = cam.viewportWidth*3.5f;
-    float screenHeight = cam.viewportHeight;
+    //float screenHeight = cam.viewportHeight;
+    float screenHeight = cam.viewportHeight*1.3f;
+
 
     // Draw texture
-    batch.draw(texture, screenWidth/6, screenHeight/6, screenWidth, screenHeight);
+    //batch.draw(texture, screenWidth/6, screenHeight/6, screenWidth, screenHeight);
+    //batch.begin();
+    batch.draw(texture, -1, -2, screenWidth, screenHeight);
+    //batch.draw(texture, -screenWidth/10, -screenHeight/10, screenWidth, screenHeight);
+    //batch.end();
+
+
+    /*sprite = new Sprite(texture);
+    sprite.setPosition(Gdx.graphics.getWidth()/2 - texture.getWidth()/2,
+            Gdx.graphics.getHeight()/2 - texture.getHeight()/2);
+    //sprite.setRotation(90f);
+    sprite.setScale(0.3f);//scale down by 30%*/
+
   /*
   // The background must follow the camera
     Camera cam = ServiceLocator.getCamera().getCamera();
@@ -56,4 +81,7 @@ public class BackgroundRenderComponent extends RenderComponent {
   public float getZIndex() {
     return 0;
   }
+
+
+
 }

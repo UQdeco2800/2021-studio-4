@@ -12,6 +12,7 @@ import com.deco2800.game.input.InputDecorator;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
+import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
@@ -22,6 +23,8 @@ public class DeathScreen extends ScreenAdapter {
     private final GdxGame game;
     private final Renderer renderer;
     private static final String[] DeathScreenTextures = {"images/FailScreenPlaceholder.png"};
+    private static final MusicServiceDirectory deathSong = new MusicServiceDirectory();
+    private static final String[] DeathMusic = {deathSong.death_noise_2};
 
     public DeathScreen(GdxGame game) {
         this.game = game;
@@ -77,6 +80,7 @@ public class DeathScreen extends ScreenAdapter {
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(DeathScreenTextures);
         ServiceLocator.getResourceService().loadAll();
+        resourceService.loadMusic(DeathMusic);
 
         while (!resourceService.loadForMillis(10)) {
             // This could be upgraded to a loading screen
@@ -88,6 +92,7 @@ public class DeathScreen extends ScreenAdapter {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.unloadAssets(DeathScreenTextures);
+        resourceService.unloadAssets(DeathMusic);
     }
 
     /**
