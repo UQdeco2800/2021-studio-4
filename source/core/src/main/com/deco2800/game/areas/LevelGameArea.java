@@ -42,6 +42,7 @@ public class LevelGameArea extends GameArea {
   public static ArrayList<TerrainTile> terrainTiles = new ArrayList<>();
   public static ArrayList<String> buffers = new ArrayList<>();
   public static ArrayList<String> deBuffers = new ArrayList<>();
+  private Random random = new Random();
 
   public Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables = new ConcurrentHashMap<>();
 
@@ -108,7 +109,8 @@ public class LevelGameArea extends GameArea {
   private static final String[] gameMusic = {gameSong.click, gameSong.game_level_1,gameSong.end_credits,
     gameSong.enemy_collision,gameSong.enemy_death, gameSong.obstacle_boost, gameSong.obstacle_button,
     gameSong.player_collision, gameSong.player_power_up, gameSong.void_death, gameSong.void_noise, gameSong.game_level_1_option2,
-  gameSong.ending_menu, gameSong.game_level_2, gameSong.main_menu, gameSong.death_noise_2};
+  gameSong.ending_menu, gameSong.game_level_2, gameSong.main_menu, gameSong.death_noise_2,
+          gameSong.game_level_3};
 
   /*private static final String backgroundMusic = "sounds/BackingMusicWithDrums.mp3";
   private static final String[] gameMusic = {"sounds/BackingMusicWithDrums.mp3",
@@ -121,7 +123,7 @@ public class LevelGameArea extends GameArea {
 
   private final TerrainFactory terrainFactory;
   private final LevelDefinition levelDefinition;
-
+  private static boolean loading = true;
   private Entity player;
 
   public LevelGameArea(TerrainFactory terrainFactory, LevelDefinition levelDefinition) {
@@ -141,11 +143,17 @@ public class LevelGameArea extends GameArea {
    * Initializes basic components such as loading assets, background and terrain
    */
   public void init() {
+
     loadAssets();
     mapInteractables();
     displayBackground();
     spawnTerrain();
     spawnLevelFromFile();
+    //while (loading == true){
+    //  logger.info("Loading Screen is loading in!");
+     // displayLoadingScreen();
+        // add code to show the loading screen
+    //}
   }
 
   /**
@@ -165,7 +173,13 @@ public class LevelGameArea extends GameArea {
     spawnStatusEffectDeBuff(getDeBuff()); // Select randomly from a list of the effects
 
 
-    playTheMusic("game_level_1");
+    String level = levelDefinition.getLevelFileName();
+    if (level.equals("levels/level1.json")) {
+      playTheMusic("game_level_1");
+    } else if (level.equals("levels/level4.json")) {
+      playTheMusic("level_1_2"); //replace with level 4 music when it's created
+    }
+
 
 
     spawnPlatform(8, 21, 5);
@@ -177,7 +191,6 @@ public class LevelGameArea extends GameArea {
    * @return Buff name
    */
   private String getBuff() {
-    Random random = new Random();
     int indexNum = random.nextInt(3);
     return buffers.get(indexNum);
   }
@@ -187,7 +200,6 @@ public class LevelGameArea extends GameArea {
    * @return Debuff name
    */
   private String getDeBuff() {
-    Random random = new Random();
     int indexNum = random.nextInt(3);
     return deBuffers.get(indexNum);
   }
@@ -196,12 +208,16 @@ public class LevelGameArea extends GameArea {
     Entity ui = new Entity();
     ui.addComponent(new GameAreaDisplay("Box Forest"));
     spawnEntity(ui);
+    loading = false;
   }
 
   private void displayBackground() {
     Entity background = new Entity();
     background.addComponent(new BackgroundRenderComponent("images/background_level1.jpg"));
     spawnEntity(background);
+  }
+  private void displayLoadingScreen() {
+    Entity background = new Entity();
   }
 
   private void spawnTerrain() {
@@ -409,12 +425,15 @@ public class LevelGameArea extends GameArea {
     assert file != null;
 
     LevelFile levelFile = json.fromJson(LevelFile.class, file);
-
+  try {
     for (ObstacleEntity obstacleEntity : levelFile.obstacles.obstacleEntities) {
-      ObstacleEntity newObstacle = spawnObstacle(obstacleEntity.getDefinition(), (int)obstacleEntity.getPosition().x,
-        (int)obstacleEntity.getPosition().y, obstacleEntity.size);
+      ObstacleEntity newObstacle = spawnObstacle(obstacleEntity.getDefinition(), (int) obstacleEntity.getPosition().x,
+              (int) obstacleEntity.getPosition().y, obstacleEntity.size);
 
       newObstacle.interactableID = obstacleEntity.interactableID;
+    }
+  }catch (NullPointerException e) {
+    e.printStackTrace();
     }
 
     // Add entities to subInteractables list
@@ -611,6 +630,7 @@ public class LevelGameArea extends GameArea {
    * @param musicPath - String (see Music Directory for more information)
    */
   private void playTheMusic(String musicPath) {
+    logger.debug("Playing game area music"); //??
     MusicServiceDirectory dict = new  MusicServiceDirectory();
     MusicService gameMusic = null;
     switch (musicPath) {
@@ -658,6 +678,9 @@ public class LevelGameArea extends GameArea {
         break;
       case "death_noise_2":
         gameMusic = new MusicService(dict.death_noise_2);
+        break;
+      case "level_3":
+        gameMusic = new MusicService(dict.game_level_3);
         break;
       default:
         gameMusic = new MusicService(dict.game_level_1);//To make sure gameMusic is never null
