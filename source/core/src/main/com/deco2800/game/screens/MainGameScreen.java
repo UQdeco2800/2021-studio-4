@@ -7,6 +7,7 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.MainGameActions;
+import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -25,6 +26,7 @@ import com.deco2800.game.ui.terminal.Terminal;
 import com.deco2800.game.ui.terminal.TerminalDisplay;
 import com.deco2800.game.components.maingame.MainGameExitDisplay;
 import com.deco2800.game.components.gamearea.PerformanceDisplay;
+import net.dermetfan.gdx.physics.box2d.PositionController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,13 +50,15 @@ public class MainGameScreen extends ScreenAdapter {
   private final PhysicsEngine physicsEngine;
   private final LevelDefinition levelDefinition;
 
-  private final long timeStarted = System.currentTimeMillis();
-  public static int timeScore = 0;
+  //private final long timeStarted = System.currentTimeMillis();
+  public static long timeScore;
   private static boolean levelComplete = false;
+  public GameTime gameTime;
 
   public MainGameScreen(GdxGame game, LevelDefinition levelDefinition) {
     this.game = game;
     this.levelDefinition = levelDefinition;
+    this.gameTime = new GameTime();
 
     logger.debug("Initialising main game screen services");
     ServiceLocator.registerTimeSource(new GameTime());
@@ -93,18 +97,25 @@ public class MainGameScreen extends ScreenAdapter {
     physicsEngine.update();
     ServiceLocator.getEntityService().update();
     renderer.render();
+
     if (gameOver) {
       gameOver = false;
-      logger.info("Show Death Screen");
-      game.setScreen(GdxGame.ScreenType.DEATH_SCREEN);
+      endgame();
     }
+
     if (levelComplete)   {
       levelComplete = false;
       logger.info("Level completed");
       game.setScreen(GdxGame.ScreenType.MAIN_MENU);
     }
-    timeScore = (int) ((System.currentTimeMillis() - timeStarted) / 1000);
 
+    timeScore = gameTime.getTime(); // Doesn't change the time????
+    //timeScore = (int) ((System.currentTimeMillis() - timeStarted) / 1000);
+  }
+
+  public void endgame() {
+      logger.info("Show Death Screen");
+      game.setScreen(GdxGame.ScreenType.DEATH_SCREEN);
   }
 
   @Override

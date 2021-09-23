@@ -36,8 +36,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class LevelGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(LevelGameArea.class);
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(15, 15);
-  private static final GridPoint2 STATUSEFFECT_SPAWN1 = new GridPoint2(40, 25);
-  private static final GridPoint2 STATUSEFFECT_SPAWN2 = new GridPoint2(30, 25);
+  private static final GridPoint2 STATUSEFFECT_SPAWN1 = new GridPoint2(60, 25);
+  private static final GridPoint2 STATUSEFFECT_SPAWN2 = new GridPoint2(40, 25);
   public List<ObstacleEntity> obstacleEntities = new ArrayList<>();
   public static ArrayList<TerrainTile> terrainTiles = new ArrayList<>();
   public static ArrayList<String> buffers = new ArrayList<>();
@@ -169,8 +169,11 @@ public class LevelGameArea extends GameArea {
 
 //  spawnStatusEffectDeBuff("Buff_Time_Stop"); //Spawns specified statusEffect for testing purposes
 //  spawnStatusEffectBuff("Buff_Jump");
-    spawnStatusEffectBuff(getBuff()); // Select randomly from a list of the effects
-    spawnStatusEffectDeBuff(getDeBuff()); // Select randomly from a list of the effects
+    spawnStatusEffectBuff(getBuff()); // Selected randomly from a list of the effects
+    spawnStatusEffectDeBuff(getDeBuff()); // Selected randomly from a list of the effects
+    // Spawns two more power ups further down in the map later on
+    spawnStatusEffectBuff2(getBuff());
+    spawnStatusEffectDeBuff2(getDeBuff());
 
 
     String level = levelDefinition.getLevelFileName();
@@ -604,7 +607,6 @@ public class LevelGameArea extends GameArea {
   /**
    * Spawns the Buff StatusEffect on the map by calling the createStatusEffect() method in NPCFactory
    * with player as its parameter.
-   * @return void
    */
   private void spawnStatusEffectBuff(String statusEffectType) {
     Entity statusEffect = NPCFactory.createStatusEffect(player, statusEffectType);
@@ -612,18 +614,33 @@ public class LevelGameArea extends GameArea {
   }
 
   /**
+   * Spawns the second Buff StatusEffect on the map by calling the createStatusEffect() method in NPCFactory
+   * with player as its parameter.
+   */
+  private void spawnStatusEffectBuff2(String statusEffectType) {
+    Entity statusEffect = NPCFactory.createStatusEffect(player, statusEffectType);
+    GridPoint2 StatusEffectSpawn2 = STATUSEFFECT_SPAWN1.add(100, 0);
+    spawnEntityAt(statusEffect, StatusEffectSpawn2, true, true);
+  }
+
+  /**
    * Spawns the DeBuff StatusEffect on the map by calling the createStatusEffect() method in NPCFactory
    * with player as its parameter.
-   * @return void
    */
   private void spawnStatusEffectDeBuff(String statusEffectType) {
     Entity statusEffect = NPCFactory.createStatusEffect(player, statusEffectType);
     spawnEntityAt(statusEffect, STATUSEFFECT_SPAWN2, true, true);
   }
 
-
-
-
+  /**
+   * Spawns the second DeBuff StatusEffect on the map by calling the createStatusEffect() method in NPCFactory
+   * with player as its parameter.
+   */
+  private void spawnStatusEffectDeBuff2(String statusEffectType) {
+    Entity statusEffect = NPCFactory.createStatusEffect(player, statusEffectType);
+    GridPoint2 StatusEffectSpawn2 = STATUSEFFECT_SPAWN2.add(100, 0);
+    spawnEntityAt(statusEffect, STATUSEFFECT_SPAWN2, true, true);
+  }
 
   /**
    * Music Dictionary for intialisation of various sound effects
