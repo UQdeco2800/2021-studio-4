@@ -231,6 +231,5 @@ public class ScoreDisplay extends UIComponent {
                 e.printStackTrace();
             }
         }
-
     }
 }

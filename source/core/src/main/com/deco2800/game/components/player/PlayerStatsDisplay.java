@@ -24,6 +24,7 @@ public class PlayerStatsDisplay extends UIComponent {
   private Label healthLabel;
   private Label timeLabel;
   public static boolean gameOver = false;
+  private int initialValue;
 
   /**
    * Creates reusable ui styles and adds actors to the stage.
@@ -35,6 +36,8 @@ public class PlayerStatsDisplay extends UIComponent {
 
     entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
     entity.getEvents().addListener("updateScore", this::updatePlayerScore);
+
+    initialValue = (int) timeScore;
   }
 
   /**
@@ -95,7 +98,8 @@ public class PlayerStatsDisplay extends UIComponent {
    * Updates the player's score on the ui.
    */
   public void updatePlayerScore() {
-    CharSequence text = String.format("Current Score: %d", timeScore);
+    int seconds = Math.round(timeScore/1000) - initialValue;
+    CharSequence text = String.format("Current Score: %d", seconds);
     timeLabel.setText(text);
   }
 
