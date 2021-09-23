@@ -1,5 +1,6 @@
 package com.deco2800.game.components.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -24,6 +25,7 @@ public class PlayerStatsDisplay extends UIComponent {
   private Label healthLabel;
   private Label timeLabel;
   public static boolean gameOver = false;
+  private int iterator;
   private int initialValue;
 
   /**
@@ -36,8 +38,6 @@ public class PlayerStatsDisplay extends UIComponent {
 
     entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
     entity.getEvents().addListener("updateScore", this::updatePlayerScore);
-
-    initialValue = (int) timeScore;
   }
 
   /**
@@ -58,10 +58,16 @@ public class PlayerStatsDisplay extends UIComponent {
     table.add(healthLabel);
 
     table.row();
+    iterator = 0;
 
     CharSequence timer = String.format("Current Score: %d", timeScore); // Time not changing
     timeLabel = new Label(timer, skin, "large");
     timeLabel.getStyle().fontColor.add(Color.MAGENTA);
+
+    int middleScreen = Gdx.graphics.getWidth()/2;
+    int heightOfTimeText = (int) Math.round(Gdx.graphics.getHeight()/1.5);
+
+    timeLabel.setBounds(middleScreen, heightOfTimeText, 200, 200); // Try to increase Font size
 
     TimerTask task = new TimerTask() {
       @Override
@@ -73,8 +79,8 @@ public class PlayerStatsDisplay extends UIComponent {
     Timer myTimer = new Timer();
     myTimer.schedule(task, 0, 1000);
 
-    table.add(timeLabel);
     stage.addActor(table);
+    stage.addActor(timeLabel);
   }
 
   @Override
@@ -98,7 +104,15 @@ public class PlayerStatsDisplay extends UIComponent {
    * Updates the player's score on the ui.
    */
   public void updatePlayerScore() {
-    int seconds = Math.round(timeScore/1000) - initialValue;
+    if (iterator < 5) {
+      initialValue = (int) Math.round(timeScore/1000);
+      iterator++;
+    }
+
+    int seconds;
+
+    seconds = Math.round(timeScore / 1000) - initialValue;
+
     CharSequence text = String.format("Current Score: %d", seconds);
     timeLabel.setText(text);
   }
