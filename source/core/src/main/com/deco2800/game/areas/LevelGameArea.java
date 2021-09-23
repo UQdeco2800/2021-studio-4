@@ -46,52 +46,14 @@ public class LevelGameArea extends GameArea {
   public Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables = new ConcurrentHashMap<>();
 
   private static final String[] gameTextures = {
-
-    "images/virus_man.png",
-    "images/box_boy_leaf.png",
-    "images/tree.png",
-    "images/ghost_king.png",
-    "images/ghost_1.png",
-    "images/grass_1.png",
-    "images/grass_2.png",
-    "images/grass_3.png",
-    "images/hex_grass_1.png",
-    "images/hex_grass_2.png",
-    "images/hex_grass_3.png",
-    "images/iso_grass_1.png",
-    "images/iso_grass_2.png",
-    "images/iso_grass_3.png",
-    "images/basicenemysprite.png",
-    "images/chasingenemy.png",
-    "images/enemyspritehsee.png",
     "images/game_background.png",
     "map-textures/marker_cross.png",
     "map-textures/marker_o.png",
     "map-textures/end_portal.png",
-    "images/animatedvoid.png",
-    "images/void_spritesheet2.png",
-    "images/Pick_Ups.png",
-    "images/portal-door.png",
-    "images/jumppad.png",
-    "images/button.png",
-    "images/level1_background.jpg",
-    "images/player_sprite_sheet.png",
-    "images/player_sprite_sheet2.png",
-    "images/player_sprite_sheet3.png",
-    "images/walkingsprite.png",
-    "images/playerStill.png",
-    "images/testingrunningsprite.png",
-    "images/background_level1.jpg" ,
-    "images/playerStill.png"
+    "images/background_level1.jpg"
   };
 
   private static final String[] gameTextureAtlases = {
-
-
-    "images/terrain_iso_grass.atlas",
-    "images/ghost.atlas",
-    "images/ghostKing.atlas",
-    "images/testingenemy.atlas",
     "map-spritesheets/mapTextures.atlas",
     "images/void.atlas",
     "images/player.atlas",
@@ -100,10 +62,9 @@ public class LevelGameArea extends GameArea {
     "images/jumppad.atlas",
     "images/button.atlas",
     "images/walking_sprite.atlas",
-    "images/playerStill.atlas",
     "images/testingrunning.atlas"
-
   };
+
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
   private static final String[] gameMusic = {gameSong.click, gameSong.game_level_1,gameSong.end_credits,
     gameSong.enemy_collision,gameSong.enemy_death, gameSong.obstacle_boost, gameSong.obstacle_button,
