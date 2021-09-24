@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.components.InsertImageButton;
 import com.deco2800.game.services.*;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -54,6 +55,8 @@ public class MainMenuDisplay extends UIComponent {
         table.setFillParent(true);
         Sprite sprite = new Sprite(new Texture("images/title_screen_clean.png"));
         table.setBackground(new SpriteDrawable(sprite)); // Set background
+
+        InsertImageButton insImage = new InsertImageButton();
 
         /**
          * Creates the button size and position based off
@@ -109,64 +112,45 @@ public class MainMenuDisplay extends UIComponent {
                 buttonDimensionsWidth, buttonDimensionsHeight*2);
         virusHead.setDisabled(true);
 
-
         /**
          * Creates the button texture for the Start Button.
          */
-        Texture startTexture = new Texture(Gdx.files.internal("images/button_start.png"));
-        Texture startHoverTexture = new Texture(Gdx.files.internal("images/button_start_hover.png"));
-        Drawable startDrawable = new TextureRegionDrawable(new TextureRegion(startTexture));
-        ImageButton startBtn = new ImageButton(startDrawable);
-        startBtn.getStyle().imageOver = new TextureRegionDrawable(startHoverTexture);
-        /**
-         * Sets the size and position of the button after texture applied.
-         */
-        startBtn.setBounds(centreWidth,centreHeight-height38Percent,
+        String startMainImage = "images/button_start.png";
+        String startHoverImage = "images/button_start_hover.png";
+        ImageButton startBtn;
+        startBtn = insImage.setImage(startMainImage, startHoverImage,
+                centreWidth,centreHeight-height38Percent,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
 
         /**
          * Creates the button texture for the Level Selection Button.
          */
-        Texture levelSelTexture = new Texture(Gdx.files.internal("images/button_levels.png"));
-        Texture levelSelHoverTexture = new Texture(Gdx.files.internal("images/button_levels_hover.png"));
-        Drawable levelSelDrawing = new TextureRegionDrawable(new TextureRegion(levelSelTexture));
-        ImageButton levelSelectBtn = new ImageButton(levelSelDrawing);
-        levelSelectBtn.getStyle().imageOver = new TextureRegionDrawable(levelSelHoverTexture);
-        /**
-         * Sets the size and position of the button after texture applied.
-         */
-        levelSelectBtn.setBounds(centreWidth-width35Percent,centreHeight-height53Percent,
+        String levelMainImage = "images/button_levels.png";
+        String levelHoverImage = "images/button_levels_hover.png";
+        ImageButton levelSelectBtn;
+        levelSelectBtn = insImage.setImage(levelMainImage, levelHoverImage,
+                centreWidth-width35Percent,centreHeight-height53Percent,
                 buttonDimensionsWidth, buttonDimensionsHeight);
-
 
         /**
          * Creates the button texture for the Settings Button.
          */
-        Texture settingsTexture = new Texture(Gdx.files.internal("images/button_settings.png"));
-        Texture settingsHoverTexture = new Texture(Gdx.files.internal("images/button_settings_hover.png"));
-        Drawable settingsDrawing = new TextureRegionDrawable(new TextureRegion(settingsTexture));
-        ImageButton settingsBtn = new ImageButton(settingsDrawing);
-        settingsBtn.getStyle().imageOver = new TextureRegionDrawable(settingsHoverTexture);
-        /**
-         * Sets the size and position of the button after texture applied.
-         */
-        settingsBtn.setBounds((float)(centreWidth-width35Percent),(float)(centreHeight-height83Percent),
+        String settingsMainImage = "images/button_settings.png";
+        String settingsHoverImage = "images/button_settings_hover.png";
+        ImageButton settingsBtn;
+        settingsBtn = insImage.setImage(settingsMainImage, settingsHoverImage,
+                centreWidth-width35Percent,centreHeight-height83Percent,
                 buttonDimensionsWidth, buttonDimensionsHeight);
-
 
         /**
          * Creates the button texture for the Exit Button.
          */
-        Texture exitTexture = new Texture(Gdx.files.internal("images/button_exit.png"));
-        Texture exitHoverTexture = new Texture(Gdx.files.internal("images/button_exit_hover.png"));
-        Drawable exitDrawing = new TextureRegionDrawable(new TextureRegion(exitTexture));
-        ImageButton exitBtn = new ImageButton(exitDrawing);
-        exitBtn.getStyle().imageOver = new TextureRegionDrawable(exitHoverTexture);
-        /**
-         * Sets the size and position of the button after texture applied.
-         */
-        exitBtn.setBounds(centreWidth,(float)(centreHeight-height98Percent),
+        String exitMainImage = "images/button_settings.png";
+        String  exitHoverImage = "images/button_settings_hover.png";
+        ImageButton exitBtn;
+        exitBtn = insImage.setImage(exitMainImage, exitHoverImage,
+                centreWidth,centreHeight-height98Percent,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         /**
@@ -191,24 +175,18 @@ public class MainMenuDisplay extends UIComponent {
             muteBtn.getStyle().imageOver = new TextureRegionDrawable(currentlyMutedHoverTexture);
         }
 
-        /**
-         * Sets the size and position of the button after texture applied, for Mute and Currently Muted both.
-         */
+        //Sets the size and position of the button after texture applied, for Mute and Currently Muted both.
         muteBtn.setBounds((float)(centreWidth+width35Percent),(float)(centreHeight-height83Percent),
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         /**
          * Creates the button texture for the Leaderboard Button.
          */
-        Texture leaderTexture = new Texture(Gdx.files.internal("images/button_leader_board.png"));
-        Texture leaderHoverTexture = new Texture(Gdx.files.internal("images/button_leader_board_hover.png"));
-        Drawable leaderDrawing = new TextureRegionDrawable(new TextureRegion(leaderTexture));
-        ImageButton leaderBoardBtn = new ImageButton(leaderDrawing);
-        leaderBoardBtn.getStyle().imageOver = new TextureRegionDrawable(leaderHoverTexture);
-        /**
-         * Sets the size and position of the button after texture applied.
-         */
-        leaderBoardBtn.setBounds((float)(centreWidth+width35Percent),(float)(centreHeight-height53Percent),
+        String leaderBoardMainImage = "images/button_leader_board.png";
+        String  leaderBoardHoverImage = "images/button_leader_board_hover.png";
+        ImageButton leaderBoardBtn;
+        leaderBoardBtn = insImage.setImage(leaderBoardMainImage, leaderBoardHoverImage,
+                centreWidth+width35Percent,centreHeight-height53Percent,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         TextButton levelEditorBtn = new TextButton("LevelEditor", skin);
