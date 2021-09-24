@@ -9,6 +9,7 @@ import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.services.GameTime;
 import com.deco2800.game.ui.UIComponent;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Timer;
@@ -61,13 +62,16 @@ public class PlayerStatsDisplay extends UIComponent {
     iterator = 0;
 
     CharSequence timer = String.format("Current Score: %d", timeScore); // Time not changing
+//    skin.getFont("fonts/EvilEmpire_32.fnt").getData().setScale(0.33f,0.33f); // doesn't work
     timeLabel = new Label(timer, skin, "large");
     timeLabel.getStyle().fontColor.add(Color.MAGENTA);
 
     int middleScreen = Gdx.graphics.getWidth()/2;
-    int heightOfTimeText = (int) Math.round(Gdx.graphics.getHeight()/1.5);
+    int heightOfTimeText = (int) Math.round(Gdx.graphics.getHeight()/1.25);
 
     timeLabel.setBounds(middleScreen, heightOfTimeText, 200, 200); // Try to increase Font size
+    timeLabel.setSize(100, 100);
+    System.out.println(timeLabel.setText(100));
 
     TimerTask task = new TimerTask() {
       @Override

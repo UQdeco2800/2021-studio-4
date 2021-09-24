@@ -1,7 +1,5 @@
 package com.deco2800.game.components.scores;
 
-import java.text.DecimalFormat;
-
 public class CalcScore {
 
     /**
