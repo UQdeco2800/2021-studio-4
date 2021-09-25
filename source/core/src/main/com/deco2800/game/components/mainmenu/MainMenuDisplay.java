@@ -65,22 +65,17 @@ public class MainMenuDisplay extends UIComponent {
         int centreWidth1 = Gdx.graphics.getWidth()/2;
         int centreHeight1 = Gdx.graphics.getHeight()/2;
         int buttonDimensionsWidth = (int) Math.round(centreWidth1*0.35);
-        int buttonDimensionsHeight = (int) Math.round(centreHeight1*0.31);
-        int titleHeightDimension = (int) Math.round(centreHeight1*0.4);
-        int titleWidthDimension = (int) Math.round(centreWidth1*1.3);
+        int buttonDimensionsHeight = (int) Math.round(centreHeight1*0.25);
+        int titleHeightDimension = (int) Math.round(centreHeight1*0.45);
+        int titleWidthDimension = (int) Math.round(centreWidth1*1.4);
         int centreWidth = centreWidth1 - buttonDimensionsWidth/2; // Moves middle of button to Centre
-        int centreHeight = centreWidth1 - buttonDimensionsHeight/2;
-        int centreTitleWidth = centreWidth1 - titleWidthDimension/2; // Moves middle of button to Centre
+        int screenRight = centreWidth*2;
+        int screenRightWithXOffset = screenRight - (int) Math.round(centreWidth1 * 0.1);
+        int centreHeight = centreHeight1 - buttonDimensionsHeight/2; // Height of top image
+        int heightDifference = (int) Math.round(centreHeight * 0.3);
+        int centreTitleWidth = centreWidth1 - titleWidthDimension/2;
+        int titleWidth = (int) Math.round(centreTitleWidth * 0.5);
         int centreTitleHeight = centreHeight1 - titleHeightDimension/2;
-
-        int width35Percent = (int) Math.round(centreWidth*0.40);
-
-        int titleHeight = (int) Math.round(centreHeight*0.35);
-        int height38Percent = (int) Math.round(centreHeight*0.38);
-        int height53Percent = (int) Math.round(centreHeight*0.53);
-        int height79Percent = (int) Math.round(centreHeight*0.79);
-        int height83Percent = (int) Math.round(centreHeight*0.83);
-        int height98Percent = (int) Math.round(centreHeight*0.98);
 
         int topLeftWidth = (int) Math.round(Gdx.graphics.getWidth()*0.01);
         int topLeftHeight = (int) Math.round(Gdx.graphics.getHeight()*0.93);
@@ -94,23 +89,23 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Sets the size and position of the Runtime Title after texture applied.
          */
-        runtimeTitle.setBounds(centreTitleWidth, centreTitleHeight+titleHeight,
+        runtimeTitle.setBounds(titleWidth, centreTitleHeight,
                 titleWidthDimension, titleHeightDimension);
         runtimeTitle.setDisabled(true);
 
 
-        /**
-         * Creates the VirusHead texture for the virus image
-         */
-        Texture virusTexture = new Texture(Gdx.files.internal("images/VirusHead.png"));
-        Drawable virusDrawable = new TextureRegionDrawable(new TextureRegion(virusTexture));
-        ImageButton virusHead = new ImageButton(virusDrawable);
-        /**
-         * Sets the size and position of the virusHead after texture applied.
-         */
-        virusHead.setBounds(centreWidth,centreHeight-height79Percent,
-                buttonDimensionsWidth, buttonDimensionsHeight*2);
-        virusHead.setDisabled(true);
+//        /**
+//         * Creates the VirusHead texture for the virus image
+//         */
+//        Texture virusTexture = new Texture(Gdx.files.internal("images/VirusHead.png"));
+//        Drawable virusDrawable = new TextureRegionDrawable(new TextureRegion(virusTexture));
+//        ImageButton virusHead = new ImageButton(virusDrawable);
+//        /**
+//         * Sets the size and position of the virusHead after texture applied.
+//         */
+//        virusHead.setBounds(centreWidth,centreHeight-height79Percent,
+//                buttonDimensionsWidth, buttonDimensionsHeight*2);
+//        virusHead.setDisabled(true);
 
         /**
          * Creates the button texture for the Start Button.
@@ -119,7 +114,7 @@ public class MainMenuDisplay extends UIComponent {
         String startHoverImage = "images/button_start_hover.png";
         ImageButton startBtn;
         startBtn = insImage.setImage(startMainImage, startHoverImage,
-                centreWidth,centreHeight-height38Percent,
+                screenRight,centreHeight + heightDifference * 3,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
 
@@ -130,7 +125,7 @@ public class MainMenuDisplay extends UIComponent {
         String levelHoverImage = "images/button_levels_hover.png";
         ImageButton levelSelectBtn;
         levelSelectBtn = insImage.setImage(levelMainImage, levelHoverImage,
-                centreWidth-width35Percent,centreHeight-height53Percent,
+                screenRightWithXOffset,centreHeight + heightDifference*2,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         /**
@@ -140,17 +135,17 @@ public class MainMenuDisplay extends UIComponent {
         String settingsHoverImage = "images/button_settings_hover.png";
         ImageButton settingsBtn;
         settingsBtn = insImage.setImage(settingsMainImage, settingsHoverImage,
-                centreWidth-width35Percent,centreHeight-height83Percent,
+                screenRightWithXOffset,centreHeight,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         /**
          * Creates the button texture for the Exit Button.
          */
-        String exitMainImage = "images/button_settings.png";
-        String  exitHoverImage = "images/button_settings_hover.png";
+        String exitMainImage = "images/button_exit.png";
+        String  exitHoverImage = "images/button_exit_hover.png";
         ImageButton exitBtn;
         exitBtn = insImage.setImage(exitMainImage, exitHoverImage,
-                centreWidth,centreHeight-height98Percent,
+                screenRightWithXOffset,centreHeight - heightDifference * 2,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         /**
@@ -176,7 +171,7 @@ public class MainMenuDisplay extends UIComponent {
         }
 
         //Sets the size and position of the button after texture applied, for Mute and Currently Muted both.
-        muteBtn.setBounds((float)(centreWidth+width35Percent),(float)(centreHeight-height83Percent),
+        muteBtn.setBounds(screenRight,centreHeight - heightDifference,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         /**
@@ -186,7 +181,7 @@ public class MainMenuDisplay extends UIComponent {
         String  leaderBoardHoverImage = "images/button_leader_board_hover.png";
         ImageButton leaderBoardBtn;
         leaderBoardBtn = insImage.setImage(leaderBoardMainImage, leaderBoardHoverImage,
-                centreWidth+width35Percent,centreHeight-height53Percent,
+                screenRight,centreHeight + heightDifference,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         TextButton levelEditorBtn = new TextButton("LevelEditor", skin);
@@ -274,16 +269,6 @@ public class MainMenuDisplay extends UIComponent {
                     }
                 });
 
-        virusHead.addListener(
-          new ChangeListener() {
-              @Override
-              public void changed(ChangeEvent changeEvent, Actor actor) {
-
-                  logger.debug("Level editor button clicked");
-                  entity.getEvents().trigger("levelEditor");
-              }
-          });
-
 
         stage.addActor(table);
         stage.addActor(startBtn);
@@ -292,7 +277,7 @@ public class MainMenuDisplay extends UIComponent {
         stage.addActor(settingsBtn);
         stage.addActor(exitBtn);
         stage.addActor(leaderBoardBtn);
-        stage.addActor(virusHead);
+//        stage.addActor(virusHead);
         stage.addActor(runtimeTitle);
         stage.addActor(levelEditorBtn);
     }

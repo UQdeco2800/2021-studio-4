@@ -21,7 +21,7 @@ public class InsertImageButton {
      * @param posX - X-Coord on the screen
      * @param posY - Y-Coord on the screen
      * @param Width - Width of the button
-     * @param height - Hight of the button
+     * @param height - Height of the button
      * @return ImageButton: The button to be displayed
      */
     public ImageButton setImage(String texturePathName, String hoverTexturePathName,
