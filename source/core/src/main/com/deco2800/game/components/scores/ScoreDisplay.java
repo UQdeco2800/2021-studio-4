@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.components.InsertImageButton;
 import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.ui.UIComponent;
@@ -75,6 +76,8 @@ public class ScoreDisplay extends UIComponent {
         sprite = new Sprite(new Texture("images/title_screen_clean.png"));
         table.setBackground(new SpriteDrawable(sprite)); // Set background
 
+        InsertImageButton insImage = new InsertImageButton();
+
         int centreWidth1 = Gdx.graphics.getWidth()/2;
         int centreHeight1 = Gdx.graphics.getHeight()/2;
         int buttonDimensionsWidth = (int) Math.round(centreWidth1*0.35);
@@ -86,15 +89,11 @@ public class ScoreDisplay extends UIComponent {
         /**
          * Creates the button texture for the Exit Button.
          */
-        Texture exitTexture = new Texture(Gdx.files.internal("images/button_exit.png"));
-        Texture exitHoverTexture = new Texture(Gdx.files.internal("images/button_exit_hover.png"));
-        Drawable exitDrawing = new TextureRegionDrawable(new TextureRegion(exitTexture));
-        ImageButton exitBtn = new ImageButton(exitDrawing);
-        exitBtn.getStyle().imageOver = new TextureRegionDrawable(exitHoverTexture);
-        /**
-         * Sets the size and position of the button after texture applied.
-         */
-        exitBtn.setBounds(centreWidth,(float)(centreHeight-height105Percent),
+        String startMainImage = "images/button_exit.png";
+        String startHoverImage = "images/button_exit_hover.png";
+        ImageButton exitBtn;
+        exitBtn = insImage.setImage(startMainImage, startHoverImage,
+                centreWidth,centreHeight-height105Percent,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         // Exit button event.
