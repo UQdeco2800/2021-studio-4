@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.components.InsertImageButton;
 import com.deco2800.game.services.*;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -52,8 +53,10 @@ public class MainMenuDisplay extends UIComponent {
 
         table = new Table();
         table.setFillParent(true);
-        Sprite sprite = new Sprite(new Texture("images/title_screen_clean.png"));
+        Sprite sprite = new Sprite(new Texture("images/title-screen.png"));
         table.setBackground(new SpriteDrawable(sprite)); // Set background
+
+        InsertImageButton insImage = new InsertImageButton();
 
         /**
          * Creates the button size and position based off
@@ -61,26 +64,24 @@ public class MainMenuDisplay extends UIComponent {
          */
         int centreWidth1 = Gdx.graphics.getWidth()/2;
         int centreHeight1 = Gdx.graphics.getHeight()/2;
-        int buttonDimensionsWidth = (int) Math.round(centreWidth1*0.35);
-        int buttonDimensionsHeight = (int) Math.round(centreHeight1*0.31);
-        int titleHeightDimension = (int) Math.round(centreHeight1*0.4);
-        int titleWidthDimension = (int) Math.round(centreWidth1*1.3);
+
+        // Buttons dimensions
+        int buttonDimensionsWidth = (int) Math.round(centreWidth1*0.3);
+        int buttonDimensionsHeight = (int) Math.round(centreHeight1*0.15);
+        int titleHeightDimension = (int) Math.round(centreHeight1*0.45);
+        int titleWidthDimension = (int) Math.round(centreWidth1*1.4);
         int centreWidth = centreWidth1 - buttonDimensionsWidth/2; // Moves middle of button to Centre
-        int centreHeight = centreWidth1 - buttonDimensionsHeight/2;
-        int centreTitleWidth = centreWidth1 - titleWidthDimension/2; // Moves middle of button to Centre
+        int screenRight = centreWidth*2;
+        int screenRightWithXOffset = screenRight - (int) Math.round(centreWidth1 * 0.1);
+        int centreHeight = centreHeight1 - buttonDimensionsHeight/2; // Height of top image
+        // Gap Between buttons (Y-axis)
+        int heightDifference = (int) Math.round(centreHeight * 0.2);
+
+        // Titles Dimensions
+        int centreTitleWidth = centreWidth1 - titleWidthDimension/2;
+        int titleWidth = (int) Math.round(centreTitleWidth * 0.5);
         int centreTitleHeight = centreHeight1 - titleHeightDimension/2;
-
-        int width35Percent = (int) Math.round(centreWidth*0.40);
-
-        int titleHeight = (int) Math.round(centreHeight*0.35);
-        int height38Percent = (int) Math.round(centreHeight*0.38);
-        int height53Percent = (int) Math.round(centreHeight*0.53);
-        int height79Percent = (int) Math.round(centreHeight*0.79);
-        int height83Percent = (int) Math.round(centreHeight*0.83);
-        int height98Percent = (int) Math.round(centreHeight*0.98);
-
-        int topLeftWidth = (int) Math.round(Gdx.graphics.getWidth()*0.01);
-        int topLeftHeight = (int) Math.round(Gdx.graphics.getHeight()*0.93);
+        int titleHeight = (int) Math.round(centreTitleHeight * 1.1);
 
         /**
          * Creates the 'RUNTIME' title texture.
@@ -91,91 +92,76 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Sets the size and position of the Runtime Title after texture applied.
          */
-        runtimeTitle.setBounds(centreTitleWidth, centreTitleHeight+titleHeight,
+        runtimeTitle.setBounds(titleWidth, titleHeight,
                 titleWidthDimension, titleHeightDimension);
         runtimeTitle.setDisabled(true);
 
 
-        /**
-         * Creates the VirusHead texture for the virus image
-         */
-        Texture virusTexture = new Texture(Gdx.files.internal("images/VirusHead.png"));
-        Drawable virusDrawable = new TextureRegionDrawable(new TextureRegion(virusTexture));
-        ImageButton virusHead = new ImageButton(virusDrawable);
-        /**
-         * Sets the size and position of the virusHead after texture applied.
-         */
-        virusHead.setBounds(centreWidth,centreHeight-height79Percent,
-                buttonDimensionsWidth, buttonDimensionsHeight*2);
-        virusHead.setDisabled(true);
-
+//        /**
+//         * Creates the VirusHead texture for the virus image
+//         */
+//        Texture virusTexture = new Texture(Gdx.files.internal("images/VirusHead.png"));
+//        Drawable virusDrawable = new TextureRegionDrawable(new TextureRegion(virusTexture));
+//        ImageButton virusHead = new ImageButton(virusDrawable);
+//        /**
+//         * Sets the size and position of the virusHead after texture applied.
+//         */
+//        virusHead.setBounds(centreWidth,centreHeight-height79Percent,
+//                buttonDimensionsWidth, buttonDimensionsHeight*2);
+//        virusHead.setDisabled(true);
 
         /**
          * Creates the button texture for the Start Button.
          */
-        Texture startTexture = new Texture(Gdx.files.internal("images/button_start.png"));
-        Texture startHoverTexture = new Texture(Gdx.files.internal("images/button_start_hover.png"));
-        Drawable startDrawable = new TextureRegionDrawable(new TextureRegion(startTexture));
-        ImageButton startBtn = new ImageButton(startDrawable);
-        startBtn.getStyle().imageOver = new TextureRegionDrawable(startHoverTexture);
-        /**
-         * Sets the size and position of the button after texture applied.
-         */
-        startBtn.setBounds(centreWidth,centreHeight-height38Percent,
+        String startMainImage = "images/default_buttons/start-button.png";
+        String startHoverImage = "images/hovered-buttons/start-button-hovered.png";
+        ImageButton startBtn;
+        startBtn = insImage.setImage(startMainImage, startHoverImage,
+                screenRight,centreHeight + heightDifference * 3,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
 
         /**
          * Creates the button texture for the Level Selection Button.
          */
-        Texture levelSelTexture = new Texture(Gdx.files.internal("images/button_levels.png"));
-        Texture levelSelHoverTexture = new Texture(Gdx.files.internal("images/button_levels_hover.png"));
-        Drawable levelSelDrawing = new TextureRegionDrawable(new TextureRegion(levelSelTexture));
-        ImageButton levelSelectBtn = new ImageButton(levelSelDrawing);
-        levelSelectBtn.getStyle().imageOver = new TextureRegionDrawable(levelSelHoverTexture);
-        /**
-         * Sets the size and position of the button after texture applied.
-         */
-        levelSelectBtn.setBounds(centreWidth-width35Percent,centreHeight-height53Percent,
+        String levelMainImage = "images/default_buttons/levels-button.png";
+        String levelHoverImage = "images/hovered-buttons/levels-button-hovered.png";
+        ImageButton levelSelectBtn;
+        levelSelectBtn = insImage.setImage(levelMainImage, levelHoverImage,
+                screenRightWithXOffset,centreHeight + heightDifference*2,
                 buttonDimensionsWidth, buttonDimensionsHeight);
-
 
         /**
          * Creates the button texture for the Settings Button.
          */
-        Texture settingsTexture = new Texture(Gdx.files.internal("images/button_settings.png"));
-        Texture settingsHoverTexture = new Texture(Gdx.files.internal("images/button_settings_hover.png"));
-        Drawable settingsDrawing = new TextureRegionDrawable(new TextureRegion(settingsTexture));
-        ImageButton settingsBtn = new ImageButton(settingsDrawing);
-        settingsBtn.getStyle().imageOver = new TextureRegionDrawable(settingsHoverTexture);
-        /**
-         * Sets the size and position of the button after texture applied.
-         */
-        settingsBtn.setBounds((float)(centreWidth-width35Percent),(float)(centreHeight-height83Percent),
+        String settingsMainImage = "images/default_buttons/settings-button.png";
+        String settingsHoverImage = "images/hovered-buttons/settings-button-hovered.png";
+        ImageButton settingsBtn;
+        settingsBtn = insImage.setImage(settingsMainImage, settingsHoverImage,
+                screenRightWithXOffset,centreHeight,
                 buttonDimensionsWidth, buttonDimensionsHeight);
-
 
         /**
          * Creates the button texture for the Exit Button.
          */
-        Texture exitTexture = new Texture(Gdx.files.internal("images/button_exit.png"));
-        Texture exitHoverTexture = new Texture(Gdx.files.internal("images/button_exit_hover.png"));
-        Drawable exitDrawing = new TextureRegionDrawable(new TextureRegion(exitTexture));
-        ImageButton exitBtn = new ImageButton(exitDrawing);
-        exitBtn.getStyle().imageOver = new TextureRegionDrawable(exitHoverTexture);
-        /**
-         * Sets the size and position of the button after texture applied.
-         */
-        exitBtn.setBounds(centreWidth,(float)(centreHeight-height98Percent),
+        String exitMainImage = "images/default_buttons/exit-button.png";
+        String  exitHoverImage = "images/hovered-buttons/exit-button-hovered.png";
+        ImageButton exitBtn;
+        exitBtn = insImage.setImage(exitMainImage, exitHoverImage,
+                screenRight,centreHeight - heightDifference * 3,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         /**
          * Creates the button texture for the Mute Button. Also loads the 'Muted' button.
          */
-        Texture muteTexture = new Texture(Gdx.files.internal("images/button_mute.png"));
-        Texture muteHoverTexture = new Texture(Gdx.files.internal("images/button_mute_hover.png"));
-        Texture currentlyMutedTexture = new Texture(Gdx.files.internal("images/button_unmute.png"));
-        Texture currentlyMutedHoverTexture = new Texture(Gdx.files.internal("images/button_unmute_hover.png"));
+        Texture muteTexture = new Texture(Gdx
+                .files.internal("images/default_buttons/mute-button.png"));
+        Texture muteHoverTexture = new Texture(Gdx
+                .files.internal("images/hovered-buttons/mute-button-hovered.png"));
+        Texture currentlyMutedTexture = new Texture(Gdx
+                .files.internal("images/default_buttons/unmute-button.png"));
+        Texture currentlyMutedHoverTexture = new Texture(Gdx
+                .files.internal("images/hovered-buttons/unmute-button-hovered.png"));
         Drawable muteDrawing = new TextureRegionDrawable(new TextureRegion(muteTexture));
         muteBtn = new ImageButton(muteDrawing);
         // Initialise the image of the button to muteTexture.
@@ -191,29 +177,29 @@ public class MainMenuDisplay extends UIComponent {
             muteBtn.getStyle().imageOver = new TextureRegionDrawable(currentlyMutedHoverTexture);
         }
 
-        /**
-         * Sets the size and position of the button after texture applied, for Mute and Currently Muted both.
-         */
-        muteBtn.setBounds((float)(centreWidth+width35Percent),(float)(centreHeight-height83Percent),
+        //Sets the size and position of the button after texture applied, for Mute and Currently Muted both.
+        muteBtn.setBounds(screenRight,centreHeight - heightDifference,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         /**
          * Creates the button texture for the Leaderboard Button.
          */
-        Texture leaderTexture = new Texture(Gdx.files.internal("images/button_leader_board.png"));
-        Texture leaderHoverTexture = new Texture(Gdx.files.internal("images/button_leader_board_hover.png"));
-        Drawable leaderDrawing = new TextureRegionDrawable(new TextureRegion(leaderTexture));
-        ImageButton leaderBoardBtn = new ImageButton(leaderDrawing);
-        leaderBoardBtn.getStyle().imageOver = new TextureRegionDrawable(leaderHoverTexture);
-        /**
-         * Sets the size and position of the button after texture applied.
-         */
-        leaderBoardBtn.setBounds((float)(centreWidth+width35Percent),(float)(centreHeight-height53Percent),
+        String leaderBoardMainImage = "images/default_buttons/scores-button.png";
+        String  leaderBoardHoverImage = "images/hovered-buttons/scores-button-hovered.png";
+        ImageButton leaderBoardBtn;
+        leaderBoardBtn = insImage.setImage(leaderBoardMainImage, leaderBoardHoverImage,
+                screenRight,centreHeight + heightDifference,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
-        TextButton levelEditorBtn = new TextButton("LevelEditor", skin);
-        levelEditorBtn.setColor(Color.ROYAL);
-        levelEditorBtn.setBounds(topLeftWidth, topLeftHeight, 200, 50);
+        /**
+         * Creates the button texture for the Leaderboard Button.
+         */
+        String levelEditorImage = "images/default_buttons/level-editor-button.png";
+        String  levelEditorHoverImage = "images/hovered-buttons/level-editor-button-hovered.png";
+        ImageButton levelEditorBtn;
+        levelEditorBtn = insImage.setImage(levelEditorImage, levelEditorHoverImage,
+                screenRightWithXOffset,centreHeight - heightDifference * 2,
+                buttonDimensionsWidth, buttonDimensionsHeight);
 
         levelEditorBtn.addListener(
                 new ChangeListener() {
@@ -296,16 +282,6 @@ public class MainMenuDisplay extends UIComponent {
                     }
                 });
 
-        virusHead.addListener(
-          new ChangeListener() {
-              @Override
-              public void changed(ChangeEvent changeEvent, Actor actor) {
-
-                  logger.debug("Level editor button clicked");
-                  entity.getEvents().trigger("levelEditor");
-              }
-          });
-
 
         stage.addActor(table);
         stage.addActor(startBtn);
@@ -314,7 +290,7 @@ public class MainMenuDisplay extends UIComponent {
         stage.addActor(settingsBtn);
         stage.addActor(exitBtn);
         stage.addActor(leaderBoardBtn);
-        stage.addActor(virusHead);
+//        stage.addActor(virusHead);
         stage.addActor(runtimeTitle);
         stage.addActor(levelEditorBtn);
     }

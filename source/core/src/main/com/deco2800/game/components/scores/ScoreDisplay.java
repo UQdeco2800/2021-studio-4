@@ -16,6 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.components.InsertImageButton;
+import com.deco2800.game.levels.LevelDefinition;
 import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.ui.UIComponent;
@@ -27,8 +29,6 @@ import java.time.Clock;
 import java.util.ArrayList;
 import java.util.StringJoiner;
 
-//import static com.deco2800.game.screens.MainGameScreen.timeScore;
-
 public class ScoreDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(ScoreDisplay.class);
     private static final float Z_INDEX = 2f;
@@ -36,34 +36,73 @@ public class ScoreDisplay extends UIComponent {
     private Sprite sprite;
     private Label scoreLabel; // Shows the score.
     private Label levelLabel; // Shows the current level.
-    //int newScore = timeScore;
-    int newScore = 0; // Will need to be set using GameTime
-    //int newScore = 1;
-    int highScore;
-    private ArrayList<Integer> levels = new ArrayList<>();; // The current Level. Levels need to be implemented later in development
-                           // when multiple levels are available. For now, it will be 0.
-
+    private Label congratsLabel; // Shows the congratulations text.
+    private LevelDefinition levelDefinition;
+    private boolean newBest = false;
+    private int newScore; // Will need to be set using GameTime
+    private int completionTime; // Will need to be set using GameTime
+    private int highScore;
+    private ArrayList<Integer> levels = new ArrayList<>();; // The current Level
     private ArrayList<Integer> highScores = new ArrayList<>();
+
+    public ScoreDisplay(LevelDefinition levelDefinition, int completionTime) {
+        this.levelDefinition = levelDefinition;
+        this.completionTime = completionTime;
+    }
 
     @Override
     public void create() {
         for (int i = 0; i < 4; i++) { // Adds the number of levels to an arrayList of that size
             levels.add(i, i+1);
         }
-//        System.out.println(levels);
 
-        readHighScores();
-        highScore = highScores.get(levels.get(0) - 1);
-        if (newScore > highScore) { // For now, this only works for level 1
+        readHighScores(); // Bug note: Doesn't show new high score straight away
+
+        int level = 0;
+
+        if (levelDefinition != null) {
+            switch (levelDefinition.getName()) {
+                case ("Level 1"):
+                    highScore = highScores.get(0);
+                    level = 1;
+                    break;
+                case ("Level 2"):
+                    highScore = highScores.get(1);
+                    level = 2;
+                    break;
+                case ("Level 3"):
+                    highScore = highScores.get(2);
+                    level = 3;
+                    break;
+                case ("Level 4"):
+                    highScore = highScores.get(3);
+                    level = 4;
+                    break;
+                default:
+                    logger.error("not a valid levelName");
+            }
+        }
+
+        // Sets the newScore
+        getNewScore();
+        if (newScore > highScore) {
             highScore = newScore;
             // System.out.println(highScore);  // CHANGE TO A LOGGER
-            writeHighScores();  // Implement in sprint 2 to store high score in file
-        } else {
-            highScore = highScores.get(levels.get(0) - 1);
+            writeHighScores(level);  // Implement in sprint 2 to store high score in file
+            newBest = true;
         }
+
         super.create();
         addActors();
         playTheMusic();
+    }
+
+    /**
+     * creates the score based off of the calculation done in the CalcScore class
+     */
+    private void getNewScore() {
+        CalcScore calcScore = new CalcScore();
+        newScore = calcScore.calculateScore(completionTime);
     }
 
     /**
@@ -75,10 +114,12 @@ public class ScoreDisplay extends UIComponent {
         sprite = new Sprite(new Texture("images/title_screen_clean.png"));
         table.setBackground(new SpriteDrawable(sprite)); // Set background
 
+        InsertImageButton insImage = new InsertImageButton();
+
         int centreWidth1 = Gdx.graphics.getWidth()/2;
         int centreHeight1 = Gdx.graphics.getHeight()/2;
-        int buttonDimensionsWidth = (int) Math.round(centreWidth1*0.35);
-        int buttonDimensionsHeight = (int) Math.round(centreHeight1*0.31);
+        int buttonDimensionsWidth = (int) Math.round(centreWidth1*0.3);
+        int buttonDimensionsHeight = (int) Math.round(centreHeight1*0.15);
         int centreWidth = centreWidth1 - buttonDimensionsWidth/2; // Moves middle of button to Centre
         int centreHeight = centreWidth1 - buttonDimensionsHeight/2;
         int height105Percent = (int) Math.round(centreHeight*0.98);
@@ -86,15 +127,11 @@ public class ScoreDisplay extends UIComponent {
         /**
          * Creates the button texture for the Exit Button.
          */
-        Texture exitTexture = new Texture(Gdx.files.internal("images/button_exit.png"));
-        Texture exitHoverTexture = new Texture(Gdx.files.internal("images/button_exit_hover.png"));
-        Drawable exitDrawing = new TextureRegionDrawable(new TextureRegion(exitTexture));
-        ImageButton exitBtn = new ImageButton(exitDrawing);
-        exitBtn.getStyle().imageOver = new TextureRegionDrawable(exitHoverTexture);
-        /**
-         * Sets the size and position of the button after texture applied.
-         */
-        exitBtn.setBounds(centreWidth,(float)(centreHeight-height105Percent),
+        String startMainImage = "images/default_buttons/exit-button.png";
+        String startHoverImage = "images/hovered-buttons/exit-button-hovered.png";
+        ImageButton exitBtn;
+        exitBtn = insImage.setImage(startMainImage, startHoverImage,
+                centreWidth,centreHeight-height105Percent,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         // Exit button event.
@@ -108,24 +145,41 @@ public class ScoreDisplay extends UIComponent {
                     }
                 });
 
-        // Text to display the score for the current Level.
+        // Text to display the score for the current Level. If score is 0 or null '-' os displayed
         StringJoiner sjLevels = new StringJoiner("\n");
-        StringJoiner sjText = new StringJoiner("\n");
+        StringJoiner sjScores = new StringJoiner("\n");
+        String congratsText = "";
+
+        if (levelDefinition != null) {
+            if (newBest) {
+                congratsText = "new PB: \n" +
+                        levelDefinition.getName() + ": " + newScore + "!";
+                sjLevels.add("Previous Scores:");
+                sjScores.add("\n");
+                newBest = false;
+            }
+        }
+
         for (int level : levels) {
             try {
                 String numLevel = String.format("Level %d", level);
                 sjLevels.add(numLevel);
                 String levelScores = String.format("%d", highScores.get(level-1));
-                sjText.add(levelScores);
+                if (levelScores.equals("0")) {
+                    sjScores.add("-");
+                } else {
+                    sjScores.add(levelScores);
+                }
             } catch (IndexOutOfBoundsException e) {
-                sjText.add("-"); // Added '-' if uncompleted level
+                sjScores.add("-"); // Added '-' if uncompleted level
             }
         }
 
         CharSequence levelText = sjLevels.toString();
-        CharSequence scoreText = sjText.toString();
+        CharSequence scoreText = sjScores.toString();
         scoreLabel = new Label(scoreText, skin, "large");
         levelLabel = new Label(levelText, skin, "large");
+        congratsLabel = new Label(congratsText, skin, "large");
         levelLabel.getStyle().fontColor.add(Color.GOLD);
 
         int CenterScoreTextWidth = Math.round(centreWidth1 - scoreLabel.getWidth()/2);
@@ -140,6 +194,8 @@ public class ScoreDisplay extends UIComponent {
                 textDimenstionWidth,textDimenstionHeight);
         scoreLabel.setBounds(CenterScoreTextWidth + 100,400,
                 textDimenstionWidth,textDimenstionHeight);
+        congratsLabel.setBounds(CenterLevelTextWidth - 100, 560,
+                textDimenstionWidth, textDimenstionHeight);
 
         /**
          * Creates the 'SCOREDISPLAY' title texture.
@@ -158,6 +214,7 @@ public class ScoreDisplay extends UIComponent {
         stage.addActor(exitBtn);
         stage.addActor(levelLabel);
         stage.addActor(scoreLabel);
+        stage.addActor(congratsLabel);
         stage.addActor(scoreDisplayTitle);
         //stage.
     }
@@ -195,11 +252,20 @@ public class ScoreDisplay extends UIComponent {
             File scoresReader = new File("High_Scores.txt");
             myScoresReader = new BufferedReader(new FileReader(scoresReader));
             String str;
+
+            // Reads the contents of the file. If there is an empty string it sets
+            // the HighScore value to 0 to avoid any possibly bugs.
             while ((str = myScoresReader.readLine()) != null) {
-                int score = Integer.parseInt(str);
-                highScores.add(score);
+                if (!str.equals("")) {
+                    int score = Integer.parseInt(str);
+                    highScores.add(score);
+                } else {
+                    highScores.add(0);
+                }
             }
+
             myScoresReader.close();
+
         } catch (IOException | NullPointerException e) {
             System.err.println("High_Scores.txt is corrupted or missing.");
         }
@@ -215,18 +281,21 @@ public class ScoreDisplay extends UIComponent {
     }
 
     /**
-     * Writes the high score to the text file. Only works for level 0
+     * Writes the high score to the text file.
      */
-    private void writeHighScores() {
+    private void writeHighScores(int level) {
         FileWriter scoresWriter = null;
         try {
 
             scoresWriter = new FileWriter("High_Scores.txt");
             // Goes to the correct levels indentations
-            for (int i = 0; i < levels.get(0); i++) {
-                scoresWriter.write(highScores.get(i) + "\r\n"); // writes a blank line
+            for (int i = 0; i < levels.size(); i++) {
+                if (levels.get(i) == level) {
+                    scoresWriter.write(highScore + "\r\n"); // writes a new line
+                } else {
+                    scoresWriter.write(highScores.get(i) + "\r\n");
+                }
             }
-            scoresWriter.write(String.valueOf(highScore));
 
         } catch (IOException | NullPointerException e) {
             System.err.println("High_Scores.txt is corrupted or missing.");
@@ -234,7 +303,7 @@ public class ScoreDisplay extends UIComponent {
 
         finally {
             try {
-                // Removes NullPointerException
+                // Removes NullPointerException possibility
                 assert scoresWriter != null;
                 scoresWriter.close();
             } catch (IOException | NullPointerException e) {
