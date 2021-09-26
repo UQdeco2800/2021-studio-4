@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.InsertImageButton;
+import com.deco2800.game.levels.LevelDefinition;
 import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.ui.UIComponent;
@@ -28,7 +29,7 @@ import java.time.Clock;
 import java.util.ArrayList;
 import java.util.StringJoiner;
 
-//import static com.deco2800.game.screens.MainGameScreen.timeScore;
+import static com.deco2800.game.screens.MainGameScreen.timeScore;
 
 public class ScoreDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(ScoreDisplay.class);
@@ -37,24 +38,43 @@ public class ScoreDisplay extends UIComponent {
     private Sprite sprite;
     private Label scoreLabel; // Shows the score.
     private Label levelLabel; // Shows the current level.
+    private LevelDefinition levelDefinition;
     //int newScore = timeScore;
     int newScore = 0; // Will need to be set using GameTime
     //int newScore = 1;
     int highScore;
-    private ArrayList<Integer> levels = new ArrayList<>();; // The current Level. Levels need to be implemented later in development
-                           // when multiple levels are available. For now, it will be 0.
-
+    private ArrayList<Integer> levels = new ArrayList<>();; // The current Level
     private ArrayList<Integer> highScores = new ArrayList<>();
+
+    public ScoreDisplay(LevelDefinition levelDefinition) {
+        this.levelDefinition = levelDefinition;
+    }
 
     @Override
     public void create() {
         for (int i = 0; i < 4; i++) { // Adds the number of levels to an arrayList of that size
             levels.add(i, i+1);
         }
-//        System.out.println(levels);
 
         readHighScores();
-        highScore = highScores.get(levels.get(0) - 1);
+
+        switch (levelDefinition.getName()) {
+            case ("Level 1"):
+                highScore = highScores.get(0);
+                break;
+            case ("Level 2"):
+                highScore = highScores.get(1);
+                break;
+            case ("Level 3"):
+                highScore = highScores.get(2);
+                break;
+            case ("Level 4"):
+                highScore = highScores.get(3);
+                break;
+            default:
+                logger.error("not a valid levelName");
+        }
+
         if (newScore > highScore) { // For now, this only works for level 1
             highScore = newScore;
             // System.out.println(highScore);  // CHANGE TO A LOGGER
@@ -62,6 +82,7 @@ public class ScoreDisplay extends UIComponent {
         } else {
             highScore = highScores.get(levels.get(0) - 1);
         }
+
         super.create();
         addActors();
         playTheMusic();
@@ -194,11 +215,20 @@ public class ScoreDisplay extends UIComponent {
             File scoresReader = new File("High_Scores.txt");
             myScoresReader = new BufferedReader(new FileReader(scoresReader));
             String str;
+
+            // Reads the contents of the file. If there is an empty string it sets
+            // the HighScore value to 0 to avoid any possibly bugs.
             while ((str = myScoresReader.readLine()) != null) {
-                int score = Integer.parseInt(str);
-                highScores.add(score);
+                if (!str.equals("")) {
+                    int score = Integer.parseInt(str);
+                    highScores.add(score);
+                } else {
+                    highScores.add(0);
+                }
             }
+
             myScoresReader.close();
+
         } catch (IOException | NullPointerException e) {
             System.err.println("High_Scores.txt is corrupted or missing.");
         }
@@ -214,7 +244,7 @@ public class ScoreDisplay extends UIComponent {
     }
 
     /**
-     * Writes the high score to the text file. Only works for level 0
+     * Writes the high score to the text file.
      */
     private void writeHighScores() {
         FileWriter scoresWriter = null;
@@ -233,7 +263,7 @@ public class ScoreDisplay extends UIComponent {
 
         finally {
             try {
-                // Removes NullPointerException
+                // Removes NullPointerException possibility
                 assert scoresWriter != null;
                 scoresWriter.close();
             } catch (IOException | NullPointerException e) {

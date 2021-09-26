@@ -108,7 +108,8 @@ public class PlayerStatsDisplay extends UIComponent {
    * Updates the player's score on the ui.
    */
   public void updatePlayerScore() {
-    if (iterator < 5) {
+    // Seems to be the perfect time to start on
+    if (iterator < 3) {
       initialValue = (int) Math.round(timeScore/1000);
       iterator++;
     }

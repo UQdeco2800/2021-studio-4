@@ -18,6 +18,7 @@ import static com.badlogic.gdx.Gdx.app;
  */
 public class GdxGame extends Game {
   private static final Logger logger = LoggerFactory.getLogger(GdxGame.class);
+  private LevelDefinition levelDefinition;
 
   @Override
   public void create() {
@@ -40,6 +41,7 @@ public class GdxGame extends Game {
   }
 
   public void setLevel(ScreenType screenType, LevelDefinition levelDefinition) {
+    this.levelDefinition = levelDefinition;
     logger.info("Setting game screen to {}", screenType);
     Screen currentScreen = getScreen();
     if (currentScreen != null) {
@@ -95,7 +97,7 @@ public class GdxGame extends Game {
       case DEATH_SCREEN:
         return new DeathScreen(this);
       case SCORE_SCREEN:
-        return new ScoreScreen(this);
+        return new ScoreScreen(this, levelDefinition);
       default:
         return null;
     }
