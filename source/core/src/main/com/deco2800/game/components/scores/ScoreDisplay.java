@@ -56,7 +56,7 @@ public class ScoreDisplay extends UIComponent {
             levels.add(i, i+1);
         }
 
-        readHighScores();
+        readHighScores(); // Bug note: Doesn't show new high score straight away
 
         int level = 0;
 
@@ -118,8 +118,8 @@ public class ScoreDisplay extends UIComponent {
 
         int centreWidth1 = Gdx.graphics.getWidth()/2;
         int centreHeight1 = Gdx.graphics.getHeight()/2;
-        int buttonDimensionsWidth = (int) Math.round(centreWidth1*0.35);
-        int buttonDimensionsHeight = (int) Math.round(centreHeight1*0.31);
+        int buttonDimensionsWidth = (int) Math.round(centreWidth1*0.3);
+        int buttonDimensionsHeight = (int) Math.round(centreHeight1*0.15);
         int centreWidth = centreWidth1 - buttonDimensionsWidth/2; // Moves middle of button to Centre
         int centreHeight = centreWidth1 - buttonDimensionsHeight/2;
         int height105Percent = (int) Math.round(centreHeight*0.98);
@@ -127,8 +127,8 @@ public class ScoreDisplay extends UIComponent {
         /**
          * Creates the button texture for the Exit Button.
          */
-        String startMainImage = "images/button_exit.png";
-        String startHoverImage = "images/button_exit_hover.png";
+        String startMainImage = "images/default_buttons/exit-button.png";
+        String startHoverImage = "images/hovered-buttons/exit-button-hovered.png";
         ImageButton exitBtn;
         exitBtn = insImage.setImage(startMainImage, startHoverImage,
                 centreWidth,centreHeight-height105Percent,
@@ -148,12 +148,12 @@ public class ScoreDisplay extends UIComponent {
         // Text to display the score for the current Level. If score is 0 or null '-' os displayed
         StringJoiner sjLevels = new StringJoiner("\n");
         StringJoiner sjScores = new StringJoiner("\n");
-        String congratsText = new String();
+        String congratsText = "";
 
         if (levelDefinition != null) {
             if (newBest) {
-                congratsText = "Congratulations, you have \nachieved a new PersonalBest \n" +
-                        "for " + levelDefinition.getName() + " with " + newScore + " points";
+                congratsText = "new PB: \n" +
+                        levelDefinition.getName() + ": " + newScore + "!";
                 sjLevels.add("Previous Scores:");
                 sjScores.add("\n");
                 newBest = false;

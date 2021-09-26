@@ -53,7 +53,7 @@ public class MainMenuDisplay extends UIComponent {
 
         table = new Table();
         table.setFillParent(true);
-        Sprite sprite = new Sprite(new Texture("images/title_screen_clean.png"));
+        Sprite sprite = new Sprite(new Texture("images/title-screen.png"));
         table.setBackground(new SpriteDrawable(sprite)); // Set background
 
         InsertImageButton insImage = new InsertImageButton();
@@ -64,21 +64,24 @@ public class MainMenuDisplay extends UIComponent {
          */
         int centreWidth1 = Gdx.graphics.getWidth()/2;
         int centreHeight1 = Gdx.graphics.getHeight()/2;
-        int buttonDimensionsWidth = (int) Math.round(centreWidth1*0.35);
-        int buttonDimensionsHeight = (int) Math.round(centreHeight1*0.25);
+
+        // Buttons dimensions
+        int buttonDimensionsWidth = (int) Math.round(centreWidth1*0.3);
+        int buttonDimensionsHeight = (int) Math.round(centreHeight1*0.15);
         int titleHeightDimension = (int) Math.round(centreHeight1*0.45);
         int titleWidthDimension = (int) Math.round(centreWidth1*1.4);
         int centreWidth = centreWidth1 - buttonDimensionsWidth/2; // Moves middle of button to Centre
         int screenRight = centreWidth*2;
         int screenRightWithXOffset = screenRight - (int) Math.round(centreWidth1 * 0.1);
         int centreHeight = centreHeight1 - buttonDimensionsHeight/2; // Height of top image
-        int heightDifference = (int) Math.round(centreHeight * 0.3);
+        // Gap Between buttons (Y-axis)
+        int heightDifference = (int) Math.round(centreHeight * 0.2);
+
+        // Titles Dimensions
         int centreTitleWidth = centreWidth1 - titleWidthDimension/2;
         int titleWidth = (int) Math.round(centreTitleWidth * 0.5);
         int centreTitleHeight = centreHeight1 - titleHeightDimension/2;
-
-        int topLeftWidth = (int) Math.round(Gdx.graphics.getWidth()*0.01);
-        int topLeftHeight = (int) Math.round(Gdx.graphics.getHeight()*0.93);
+        int titleHeight = (int) Math.round(centreTitleHeight * 1.1);
 
         /**
          * Creates the 'RUNTIME' title texture.
@@ -89,7 +92,7 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Sets the size and position of the Runtime Title after texture applied.
          */
-        runtimeTitle.setBounds(titleWidth, centreTitleHeight,
+        runtimeTitle.setBounds(titleWidth, titleHeight,
                 titleWidthDimension, titleHeightDimension);
         runtimeTitle.setDisabled(true);
 
@@ -110,8 +113,8 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Creates the button texture for the Start Button.
          */
-        String startMainImage = "images/button_start.png";
-        String startHoverImage = "images/button_start_hover.png";
+        String startMainImage = "images/default_buttons/start-button.png";
+        String startHoverImage = "images/hovered-buttons/start-button-hovered.png";
         ImageButton startBtn;
         startBtn = insImage.setImage(startMainImage, startHoverImage,
                 screenRight,centreHeight + heightDifference * 3,
@@ -121,8 +124,8 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Creates the button texture for the Level Selection Button.
          */
-        String levelMainImage = "images/button_levels.png";
-        String levelHoverImage = "images/button_levels_hover.png";
+        String levelMainImage = "images/default_buttons/levels-button.png";
+        String levelHoverImage = "images/hovered-buttons/levels-button-hovered.png";
         ImageButton levelSelectBtn;
         levelSelectBtn = insImage.setImage(levelMainImage, levelHoverImage,
                 screenRightWithXOffset,centreHeight + heightDifference*2,
@@ -131,8 +134,8 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Creates the button texture for the Settings Button.
          */
-        String settingsMainImage = "images/button_settings.png";
-        String settingsHoverImage = "images/button_settings_hover.png";
+        String settingsMainImage = "images/default_buttons/settings-button.png";
+        String settingsHoverImage = "images/hovered-buttons/settings-button-hovered.png";
         ImageButton settingsBtn;
         settingsBtn = insImage.setImage(settingsMainImage, settingsHoverImage,
                 screenRightWithXOffset,centreHeight,
@@ -141,20 +144,24 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Creates the button texture for the Exit Button.
          */
-        String exitMainImage = "images/button_exit.png";
-        String  exitHoverImage = "images/button_exit_hover.png";
+        String exitMainImage = "images/default_buttons/exit-button.png";
+        String  exitHoverImage = "images/hovered-buttons/exit-button-hovered.png";
         ImageButton exitBtn;
         exitBtn = insImage.setImage(exitMainImage, exitHoverImage,
-                screenRightWithXOffset,centreHeight - heightDifference * 2,
+                screenRight,centreHeight - heightDifference * 3,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         /**
          * Creates the button texture for the Mute Button. Also loads the 'Muted' button.
          */
-        Texture muteTexture = new Texture(Gdx.files.internal("images/button_mute.png"));
-        Texture muteHoverTexture = new Texture(Gdx.files.internal("images/button_mute_hover.png"));
-        Texture currentlyMutedTexture = new Texture(Gdx.files.internal("images/button_unmute.png"));
-        Texture currentlyMutedHoverTexture = new Texture(Gdx.files.internal("images/button_unmute_hover.png"));
+        Texture muteTexture = new Texture(Gdx
+                .files.internal("images/default_buttons/mute-button.png"));
+        Texture muteHoverTexture = new Texture(Gdx
+                .files.internal("images/hovered-buttons/mute-button-hovered.png"));
+        Texture currentlyMutedTexture = new Texture(Gdx
+                .files.internal("images/default_buttons/unmute-button.png"));
+        Texture currentlyMutedHoverTexture = new Texture(Gdx
+                .files.internal("images/hovered-buttons/unmute-button-hovered.png"));
         Drawable muteDrawing = new TextureRegionDrawable(new TextureRegion(muteTexture));
         muteBtn = new ImageButton(muteDrawing);
         // Initialise the image of the button to muteTexture.
@@ -177,16 +184,22 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Creates the button texture for the Leaderboard Button.
          */
-        String leaderBoardMainImage = "images/button_leader_board.png";
-        String  leaderBoardHoverImage = "images/button_leader_board_hover.png";
+        String leaderBoardMainImage = "images/default_buttons/scores-button.png";
+        String  leaderBoardHoverImage = "images/hovered-buttons/scores-button-hovered.png";
         ImageButton leaderBoardBtn;
         leaderBoardBtn = insImage.setImage(leaderBoardMainImage, leaderBoardHoverImage,
                 screenRight,centreHeight + heightDifference,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
-        TextButton levelEditorBtn = new TextButton("LevelEditor", skin);
-        levelEditorBtn.setColor(Color.ROYAL);
-        levelEditorBtn.setBounds(topLeftWidth, topLeftHeight, 200, 50);
+        /**
+         * Creates the button texture for the Leaderboard Button.
+         */
+        String levelEditorImage = "images/default_buttons/level-editor-button.png";
+        String  levelEditorHoverImage = "images/hovered-buttons/level-editor-button-hovered.png";
+        ImageButton levelEditorBtn;
+        levelEditorBtn = insImage.setImage(levelEditorImage, levelEditorHoverImage,
+                screenRightWithXOffset,centreHeight - heightDifference * 2,
+                buttonDimensionsWidth, buttonDimensionsHeight);
 
         levelEditorBtn.addListener(
                 new ChangeListener() {

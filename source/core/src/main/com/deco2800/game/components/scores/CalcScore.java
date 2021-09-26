@@ -5,10 +5,9 @@ public class CalcScore {
     /**
      * Returns a score based off of the time it took the player to complete the level
      * If the player does not complete the level before a specific time, their score
-     * will default to 0
-     *
+     * will default to 100
      * @param clock - in seconds
-     * @return A score which is proportional to the clocks time
+     * @return A score which is inversely proportional to the clocks time
      */
     public int calculateScore(int clock) {
         int levelMaxTime = 3 * 60; // The player has to completed the level within 3 minutes
