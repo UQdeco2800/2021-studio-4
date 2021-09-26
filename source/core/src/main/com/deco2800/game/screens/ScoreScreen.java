@@ -27,11 +27,12 @@ public class ScoreScreen extends ScreenAdapter {
     private static final MusicServiceDirectory mainMenuSong = new MusicServiceDirectory();
     private static final String[] MainMenuMusic = {mainMenuSong.main_menu};
     private LevelDefinition levelDefinition;
+    private int completionTime;
 
-
-    public ScoreScreen (GdxGame game, LevelDefinition levelDefinition) {
+    public ScoreScreen (GdxGame game, LevelDefinition levelDefinition, int completionTime) {
         this.game = game;
         this.levelDefinition = levelDefinition;
+        this.completionTime = completionTime;
         logger.debug("Initialising score screen");
         ServiceLocator.registerInputService(new InputService());
         ServiceLocator.registerResourceService(new ResourceService());
@@ -103,7 +104,7 @@ public class ScoreScreen extends ScreenAdapter {
         logger.debug("Creating ui");
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
-        ui.addComponent(new ScoreDisplay(levelDefinition))
+        ui.addComponent(new ScoreDisplay(levelDefinition, completionTime))
                 .addComponent(new InputDecorator(stage, 10))
                 .addComponent(new ScoreActions(game));
         ServiceLocator.getEntityService().register(ui);

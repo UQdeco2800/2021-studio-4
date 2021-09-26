@@ -29,8 +29,6 @@ import java.time.Clock;
 import java.util.ArrayList;
 import java.util.StringJoiner;
 
-import static com.deco2800.game.screens.MainGameScreen.timeScore;
-
 public class ScoreDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(ScoreDisplay.class);
     private static final float Z_INDEX = 2f;
@@ -40,14 +38,16 @@ public class ScoreDisplay extends UIComponent {
     private Label levelLabel; // Shows the current level.
     private LevelDefinition levelDefinition;
     //int newScore = timeScore;
-    int newScore = 0; // Will need to be set using GameTime
+    int newScore; // Will need to be set using GameTime
+    int completionTime; // Will need to be set using GameTime
     //int newScore = 1;
     int highScore;
     private ArrayList<Integer> levels = new ArrayList<>();; // The current Level
     private ArrayList<Integer> highScores = new ArrayList<>();
 
-    public ScoreDisplay(LevelDefinition levelDefinition) {
+    public ScoreDisplay(LevelDefinition levelDefinition, int completionTime) {
         this.levelDefinition = levelDefinition;
+        this.completionTime = completionTime;
     }
 
     @Override
@@ -56,36 +56,59 @@ public class ScoreDisplay extends UIComponent {
             levels.add(i, i+1);
         }
 
-        readHighScores();
-
-        switch (levelDefinition.getName()) {
-            case ("Level 1"):
-                highScore = highScores.get(0);
-                break;
-            case ("Level 2"):
-                highScore = highScores.get(1);
-                break;
-            case ("Level 3"):
-                highScore = highScores.get(2);
-                break;
-            case ("Level 4"):
-                highScore = highScores.get(3);
-                break;
-            default:
-                logger.error("not a valid levelName");
+        // SHOULDNT NEED IF YOU INITIALISE ALL IN READHIGHSCORES
+        // Initialises all values to 0 only the first time
+        for (int i = 0; i < 10; i++) {
+            try {
+                highScores.get(i);
+            } catch (IndexOutOfBoundsException e) {
+                highScores.add(i, 0);
+            }
         }
 
-        if (newScore > highScore) { // For now, this only works for level 1
+        readHighScores();
+
+        if (levelDefinition != null) {
+            switch (levelDefinition.getName()) {
+                case ("Level 1"):
+                    highScore = highScores.get(0);
+                    break;
+                case ("Level 2"):
+                    highScore = highScores.get(1);
+                    break;
+                case ("Level 3"):
+                    highScore = highScores.get(2);
+                    break;
+                case ("Level 4"):
+                    highScore = highScores.get(3);
+                    break;
+                default:
+                    logger.error("not a valid levelName");
+            }
+        }
+
+        // Sets the newScore
+        getNewScore();
+        if (newScore > highScore) {
             highScore = newScore;
             // System.out.println(highScore);  // CHANGE TO A LOGGER
             writeHighScores();  // Implement in sprint 2 to store high score in file
-        } else {
-            highScore = highScores.get(levels.get(0) - 1);
         }
+//        else {
+//            highScore = highScores.get(levels.get(0));
+//        } DONT NEED??????????????????????????????????????????
 
         super.create();
         addActors();
         playTheMusic();
+    }
+
+    /**
+     * creates the score based off of the calculation done in the CalcScore class
+     */
+    private void getNewScore() {
+        CalcScore calcScore = new CalcScore();
+        newScore = calcScore.calculateScore(completionTime);
     }
 
     /**

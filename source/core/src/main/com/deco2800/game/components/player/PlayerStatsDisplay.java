@@ -61,7 +61,7 @@ public class PlayerStatsDisplay extends UIComponent {
     table.row();
     iterator = 0;
 
-    CharSequence timer = String.format("Current Score: %d", timeScore); // Time not changing
+    CharSequence timer = String.format("Current Time: %d", timeScore); // Time not changing
 //    skin.getFont("fonts/EvilEmpire_32.fnt").getData().setScale(0.33f,0.33f); // doesn't work
     timeLabel = new Label(timer, skin, "large");
     timeLabel.getStyle().fontColor.add(Color.MAGENTA);
@@ -118,7 +118,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
     seconds = Math.round(timeScore / 1000) - initialValue;
 
-    CharSequence text = String.format("Current Score: %d", seconds);
+    CharSequence text = String.format("Current Time: %d", seconds);
     timeLabel.setText(text);
   }
 
