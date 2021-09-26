@@ -36,12 +36,12 @@ public class ScoreDisplay extends UIComponent {
     private Sprite sprite;
     private Label scoreLabel; // Shows the score.
     private Label levelLabel; // Shows the current level.
+    private Label congratsLabel; // Shows the congratulations text.
     private LevelDefinition levelDefinition;
-    //int newScore = timeScore;
-    int newScore; // Will need to be set using GameTime
-    int completionTime; // Will need to be set using GameTime
-    //int newScore = 1;
-    int highScore;
+    private boolean newBest = false;
+    private int newScore; // Will need to be set using GameTime
+    private int completionTime; // Will need to be set using GameTime
+    private int highScore;
     private ArrayList<Integer> levels = new ArrayList<>();; // The current Level
     private ArrayList<Integer> highScores = new ArrayList<>();
 
@@ -89,10 +89,8 @@ public class ScoreDisplay extends UIComponent {
             highScore = newScore;
             // System.out.println(highScore);  // CHANGE TO A LOGGER
             writeHighScores(level);  // Implement in sprint 2 to store high score in file
+            newBest = true;
         }
-
-        // Reread the high scores in case they have been changed
-        readHighScores();
 
         super.create();
         addActors();
@@ -149,26 +147,39 @@ public class ScoreDisplay extends UIComponent {
 
         // Text to display the score for the current Level. If score is 0 or null '-' os displayed
         StringJoiner sjLevels = new StringJoiner("\n");
-        StringJoiner sjText = new StringJoiner("\n");
+        StringJoiner sjScores = new StringJoiner("\n");
+        String congratsText = new String();
+
+        if (levelDefinition != null) {
+            if (newBest) {
+                congratsText = "Congratulations, you have \nachieved a new PersonalBest \n" +
+                        "for " + levelDefinition.getName() + " with " + newScore + " points";
+                sjLevels.add("Previous Scores:");
+                sjScores.add("\n");
+                newBest = false;
+            }
+        }
+
         for (int level : levels) {
             try {
                 String numLevel = String.format("Level %d", level);
                 sjLevels.add(numLevel);
                 String levelScores = String.format("%d", highScores.get(level-1));
                 if (levelScores.equals("0")) {
-                    sjText.add("-");
+                    sjScores.add("-");
                 } else {
-                    sjText.add(levelScores);
+                    sjScores.add(levelScores);
                 }
             } catch (IndexOutOfBoundsException e) {
-                sjText.add("-"); // Added '-' if uncompleted level
+                sjScores.add("-"); // Added '-' if uncompleted level
             }
         }
 
         CharSequence levelText = sjLevels.toString();
-        CharSequence scoreText = sjText.toString();
+        CharSequence scoreText = sjScores.toString();
         scoreLabel = new Label(scoreText, skin, "large");
         levelLabel = new Label(levelText, skin, "large");
+        congratsLabel = new Label(congratsText, skin, "large");
         levelLabel.getStyle().fontColor.add(Color.GOLD);
 
         int CenterScoreTextWidth = Math.round(centreWidth1 - scoreLabel.getWidth()/2);
@@ -183,6 +194,8 @@ public class ScoreDisplay extends UIComponent {
                 textDimenstionWidth,textDimenstionHeight);
         scoreLabel.setBounds(CenterScoreTextWidth + 100,400,
                 textDimenstionWidth,textDimenstionHeight);
+        congratsLabel.setBounds(CenterLevelTextWidth - 100, 560,
+                textDimenstionWidth, textDimenstionHeight);
 
         /**
          * Creates the 'SCOREDISPLAY' title texture.
@@ -201,6 +214,7 @@ public class ScoreDisplay extends UIComponent {
         stage.addActor(exitBtn);
         stage.addActor(levelLabel);
         stage.addActor(scoreLabel);
+        stage.addActor(congratsLabel);
         stage.addActor(scoreDisplayTitle);
         //stage.
     }
