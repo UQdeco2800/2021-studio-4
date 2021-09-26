@@ -56,31 +56,27 @@ public class ScoreDisplay extends UIComponent {
             levels.add(i, i+1);
         }
 
-        // SHOULDNT NEED IF YOU INITIALISE ALL IN READHIGHSCORES
-        // Initialises all values to 0 only the first time
-        for (int i = 0; i < 10; i++) {
-            try {
-                highScores.get(i);
-            } catch (IndexOutOfBoundsException e) {
-                highScores.add(i, 0);
-            }
-        }
-
         readHighScores();
+
+        int level = 0;
 
         if (levelDefinition != null) {
             switch (levelDefinition.getName()) {
                 case ("Level 1"):
                     highScore = highScores.get(0);
+                    level = 1;
                     break;
                 case ("Level 2"):
                     highScore = highScores.get(1);
+                    level = 2;
                     break;
                 case ("Level 3"):
                     highScore = highScores.get(2);
+                    level = 3;
                     break;
                 case ("Level 4"):
                     highScore = highScores.get(3);
+                    level = 4;
                     break;
                 default:
                     logger.error("not a valid levelName");
@@ -92,11 +88,11 @@ public class ScoreDisplay extends UIComponent {
         if (newScore > highScore) {
             highScore = newScore;
             // System.out.println(highScore);  // CHANGE TO A LOGGER
-            writeHighScores();  // Implement in sprint 2 to store high score in file
+            writeHighScores(level);  // Implement in sprint 2 to store high score in file
         }
-//        else {
-//            highScore = highScores.get(levels.get(0));
-//        } DONT NEED??????????????????????????????????????????
+
+        // Reread the high scores in case they have been changed
+        readHighScores();
 
         super.create();
         addActors();
@@ -151,7 +147,7 @@ public class ScoreDisplay extends UIComponent {
                     }
                 });
 
-        // Text to display the score for the current Level.
+        // Text to display the score for the current Level. If score is 0 or null '-' os displayed
         StringJoiner sjLevels = new StringJoiner("\n");
         StringJoiner sjText = new StringJoiner("\n");
         for (int level : levels) {
@@ -159,7 +155,11 @@ public class ScoreDisplay extends UIComponent {
                 String numLevel = String.format("Level %d", level);
                 sjLevels.add(numLevel);
                 String levelScores = String.format("%d", highScores.get(level-1));
-                sjText.add(levelScores);
+                if (levelScores.equals("0")) {
+                    sjText.add("-");
+                } else {
+                    sjText.add(levelScores);
+                }
             } catch (IndexOutOfBoundsException e) {
                 sjText.add("-"); // Added '-' if uncompleted level
             }
@@ -269,16 +269,19 @@ public class ScoreDisplay extends UIComponent {
     /**
      * Writes the high score to the text file.
      */
-    private void writeHighScores() {
+    private void writeHighScores(int level) {
         FileWriter scoresWriter = null;
         try {
 
             scoresWriter = new FileWriter("High_Scores.txt");
             // Goes to the correct levels indentations
-            for (int i = 0; i < levels.get(0); i++) {
-                scoresWriter.write(highScores.get(i) + "\r\n"); // writes a blank line
+            for (int i = 0; i < levels.size(); i++) {
+                if (levels.get(i) == level) {
+                    scoresWriter.write(highScore + "\r\n"); // writes a new line
+                } else {
+                    scoresWriter.write(highScores.get(i) + "\r\n");
+                }
             }
-            scoresWriter.write(String.valueOf(highScore));
 
         } catch (IOException | NullPointerException e) {
             System.err.println("High_Scores.txt is corrupted or missing.");

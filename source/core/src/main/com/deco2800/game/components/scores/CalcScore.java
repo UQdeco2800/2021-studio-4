@@ -17,7 +17,8 @@ public class CalcScore {
 
         int secondsLeftOver = levelMaxTime - clock;
 
-        score = Math.max(0, secondsLeftOver) * levelScore;
+        // You can't ever get a score of 0. (Since 0 score turns into a '-' when read
+        score = Math.max(1, secondsLeftOver) * levelScore;
 
         return score;
     }
