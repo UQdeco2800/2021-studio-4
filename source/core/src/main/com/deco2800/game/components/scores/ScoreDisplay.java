@@ -15,19 +15,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.InsertImageButton;
 import com.deco2800.game.levels.LevelDefinition;
-import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.*;
-import java.time.Clock;
 import java.util.ArrayList;
 import java.util.StringJoiner;
+import static com.deco2800.game.screens.MainGameScreen.levelComplete;
 
 public class ScoreDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(ScoreDisplay.class);
@@ -42,12 +39,15 @@ public class ScoreDisplay extends UIComponent {
     private int newScore; // Will need to be set using GameTime
     private int completionTime; // Will need to be set using GameTime
     private int highScore;
+    private boolean levelCompleted;
     private ArrayList<Integer> levels = new ArrayList<>();; // The current Level
     private ArrayList<Integer> highScores = new ArrayList<>();
 
     public ScoreDisplay(LevelDefinition levelDefinition, int completionTime) {
         this.levelDefinition = levelDefinition;
         this.completionTime = completionTime;
+        levelCompleted = levelComplete;
+        levelComplete = false;
     }
 
     @Override
@@ -83,13 +83,15 @@ public class ScoreDisplay extends UIComponent {
             }
         }
 
-        // Sets the newScore
-        getNewScore();
-        if (newScore > highScore) {
-            highScore = newScore;
-            // System.out.println(highScore);  // CHANGE TO A LOGGER
-            writeHighScores(level);  // Implement in sprint 2 to store high score in file
-            newBest = true;
+        if (levelCompleted) {
+            // Sets the newScore
+            getNewScore();
+            if (newScore > highScore) {
+                highScore = newScore;
+                // System.out.println(highScore);  // CHANGE TO A LOGGER
+                writeHighScores(level);  // Implement in sprint 2 to store high score in file
+                newBest = true;
+            }
         }
 
         super.create();
@@ -150,19 +152,29 @@ public class ScoreDisplay extends UIComponent {
         StringJoiner sjScores = new StringJoiner("\n");
         String congratsText = "";
 
-        if (levelDefinition != null) {
-            if (newBest) {
-                congratsText = "new PB: \n" +
-                        levelDefinition.getName() + ": " + newScore + "!";
-                sjLevels.add("Previous Scores:");
-                sjScores.add("\n");
-                newBest = false;
+        if (levelCompleted) {
+            if (levelDefinition != null) {
+                if (newBest) {
+                    congratsText = "new PB: \n" +
+                            levelDefinition.getName() + ": " + newScore + "!";
+                    sjLevels.add("Previous Scores");
+                    sjScores.add(""); // Does a new line for scores string
+                    newBest = false;
+                } else {
+                    congratsText = "most recent score: \n" +
+                            levelDefinition.getName() + ": " + newScore;
+                    sjLevels.add("High Scores");
+                    sjScores.add(""); // Does a new line for scores string
+                }
             }
+        } else {
+            sjLevels.add("High Scores");
+            sjScores.add(""); // Does a new line for scores string
         }
 
         for (int level : levels) {
             try {
-                String numLevel = String.format("Level %d", level);
+                String numLevel = String.format("Level %d:", level);
                 sjLevels.add(numLevel);
                 String levelScores = String.format("%d", highScores.get(level-1));
                 if (levelScores.equals("0")) {
@@ -180,7 +192,10 @@ public class ScoreDisplay extends UIComponent {
         scoreLabel = new Label(scoreText, skin, "large");
         levelLabel = new Label(levelText, skin, "large");
         congratsLabel = new Label(congratsText, skin, "large");
-        levelLabel.getStyle().fontColor.add(Color.GOLD);
+        levelLabel.getStyle().fontColor.add(Color.WHITE); // Other colours
+                                                          // default to white is
+                                                          // this colour is changed?
+//        scoreLabel.getStyle().fontColor.add(Color.GOLD);
 
         int CenterScoreTextWidth = Math.round(centreWidth1 - scoreLabel.getWidth()/2);
         int CenterLevelTextWidth = Math.round(centreWidth1 - levelLabel.getWidth()/2);

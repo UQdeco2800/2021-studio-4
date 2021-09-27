@@ -48,7 +48,7 @@ public class MainGameScreen extends ScreenAdapter {
 
   //private final long timeStarted = System.currentTimeMillis();
   public static long timeScore;
-  private static boolean levelComplete = false;
+  public static boolean levelComplete = false;
   public GameTime gameTime;
 
   public MainGameScreen(GdxGame game, LevelDefinition levelDefinition) {
@@ -100,9 +100,9 @@ public class MainGameScreen extends ScreenAdapter {
     }
 
     if (levelComplete)   {
-      levelComplete = false;
       logger.info("Level completed");
-      game.setScreen(GdxGame.ScreenType.SCORE_SCREEN);
+      game.setScreen(GdxGame.ScreenType.SCORE_SCREEN); // Must go to scoreScreen
+                                                       // to change levelComplete to false
     }
 
     timeScore = gameTime.getTime(); // Doesn't change the time????
