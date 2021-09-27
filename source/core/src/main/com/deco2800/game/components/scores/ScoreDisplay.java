@@ -35,19 +35,20 @@ public class ScoreDisplay extends UIComponent {
     private Label levelLabel; // Shows the current level.
     private Label congratsLabel; // Shows the congratulations text.
     private LevelDefinition levelDefinition;
-    private boolean newBest = false;
+    private boolean newBest;
     private int newScore; // Will need to be set using GameTime
     private int completionTime; // Will need to be set using GameTime
     private int highScore;
-    private boolean levelCompleted;
+    private boolean isSuccessful;
     private ArrayList<Integer> levels = new ArrayList<>();; // The current Level
     private ArrayList<Integer> highScores = new ArrayList<>();
 
     public ScoreDisplay(LevelDefinition levelDefinition, int completionTime) {
         this.levelDefinition = levelDefinition;
         this.completionTime = completionTime;
-        levelCompleted = levelComplete;
+        isSuccessful = levelComplete;
         levelComplete = false;
+        newBest = false;
     }
 
     @Override
@@ -58,32 +59,9 @@ public class ScoreDisplay extends UIComponent {
 
         readHighScores(); // Bug note: Doesn't show new high score straight away
 
-        int level = 0;
+        int level = selectLevel();
 
-        if (levelDefinition != null) {
-            switch (levelDefinition.getName()) {
-                case ("Level 1"):
-                    highScore = highScores.get(0);
-                    level = 1;
-                    break;
-                case ("Level 2"):
-                    highScore = highScores.get(1);
-                    level = 2;
-                    break;
-                case ("Level 3"):
-                    highScore = highScores.get(2);
-                    level = 3;
-                    break;
-                case ("Level 4"):
-                    highScore = highScores.get(3);
-                    level = 4;
-                    break;
-                default:
-                    logger.error("not a valid levelName");
-            }
-        }
-
-        if (levelCompleted) {
+        if (isSuccessful) {
             // Sets the newScore
             getNewScore();
             if (newScore > highScore) {
@@ -152,7 +130,7 @@ public class ScoreDisplay extends UIComponent {
         StringJoiner sjScores = new StringJoiner("\n");
         String congratsText = "";
 
-        if (levelCompleted) {
+        if (isSuccessful) {
             if (levelDefinition != null) {
                 if (newBest) {
                     congratsText = "new PB: \n" +
@@ -232,6 +210,33 @@ public class ScoreDisplay extends UIComponent {
         stage.addActor(congratsLabel);
         stage.addActor(scoreDisplayTitle);
         //stage.
+    }
+
+    /**
+     * Determines the level that the player accomplished
+     * @return the level as an integer
+     */
+    private int selectLevel() {
+        if (levelDefinition != null) {
+            switch (levelDefinition.getName()) {
+                case ("Level 1"):
+                    highScore = highScores.get(0);
+                    return 1;
+                case ("Level 2"):
+                    highScore = highScores.get(1);
+                    return 2;
+                case ("Level 3"):
+                    highScore = highScores.get(2);
+                    return 3;
+                case ("Level 4"):
+                    highScore = highScores.get(3);
+                    return 4;
+                default:
+                    logger.error("not a valid levelName");
+                    return 0;
+            }
+        }
+        return 0;
     }
 
     /**
