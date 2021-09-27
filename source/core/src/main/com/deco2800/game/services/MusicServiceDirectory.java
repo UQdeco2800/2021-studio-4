@@ -17,8 +17,9 @@ public class MusicServiceDirectory {
     public String main_menu = "sounds/MainMenuMusic.mp3";
     public String ending_menu = "sounds/Ending_menu.mp3";
     public String game_level_1_option2 = "sounds/Level_1.mp3";
-    public String game_level_2 = "sounds/Level_2.m4a" ;//??
+    public String game_level_2 = "sounds/Level_2.mp4" ;
     public String death_noise_2 = "sounds/NEW DEATH.mp3";
+    public String game_level_3 = "sounds/level_3.mp3";
 
     /**
      *  Empty constructor method for calling
