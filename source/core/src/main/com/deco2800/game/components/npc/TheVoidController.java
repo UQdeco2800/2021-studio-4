@@ -17,7 +17,7 @@ import static java.lang.Math.abs;
  * when an event is triggered
  */
 public class TheVoidController extends Component {
-    private static final Vector2 SPEED = new Vector2(8f, 0f);
+    private static Vector2 Speed = new Vector2(8f, 0f);
 
     private PhysicsComponent physicsComponent;
     private AnimationRenderComponent animator;
@@ -46,6 +46,7 @@ public class TheVoidController extends Component {
         entity.getEvents().addListener("TheVoidAnimate", this::theVoidAnimate);
         entity.getEvents().addListener("TheVoidMove", this::theVoidMove);
         entity.getEvents().addListener("UpdateSound", this::updateSound);
+        entity.getEvents().addListener("StopVoidIfPlayerDead", this:: stopVoidIfPlayerDead);
 
         this.body = physicsComponent.getBody();
     }
@@ -57,11 +58,19 @@ public class TheVoidController extends Component {
         animator.startAnimation("void");
     }
 
+    void stopVoidIfPlayerDead() {
+         if (getPlayerDistance() < 0.06) {
+             Speed = new Vector2(0f, 0f);
+             System.out.println("it worked");
+         }
+    }
+
+
     /**
      * Makes the void move (if called repeatedly the void will move at a constant speed)
      */
      void theVoidMove(){
-        this.body.applyForceToCenter(Vector2Utils.RIGHT.cpy().scl(SPEED), true);
+        this.body.applyForceToCenter(Vector2Utils.RIGHT.cpy().scl(Speed), true);
     }
 
     /**

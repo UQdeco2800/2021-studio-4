@@ -59,15 +59,27 @@ public class PlayerFactory {
 
     for(String mov : movement) {
       for (String dir : direction) {
-        if (mov.equals("Jump") | mov.equals("Sliding")) {
-          animator.addAnimation(mov + dir, 0.05f, Animation.PlayMode.NORMAL);
-        } else if (mov.equals("Falling")){
+        if (mov.equals("Jump") | mov.equals("Sliding") | mov.equals("Falling")) {
           animator.addAnimation(mov + dir, 0.03f, Animation.PlayMode.NORMAL);
         } else {
-          animator.addAnimation(mov + dir, 0.1f, Animation.PlayMode.LOOP);
+          animator.addAnimation(mov + dir, 0.08f, Animation.PlayMode.LOOP);
         }
       }
     }
+
+    /**
+
+    animator.addAnimation("spawnOne", 0.1f, Animation.PlayMode.NORMAL);
+    animator.addAnimation("spawnTwo", 0.1f, Animation.PlayMode.NORMAL);
+    animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
+
+    animator.addAnimation("levelOneSpawn", 0.1f, Animation.PlayMode.NORMAL);
+
+     */
+
+
+
+
 
     Entity player =
         new Entity()
@@ -75,7 +87,7 @@ public class PlayerFactory {
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
             .addComponent(animator)
-            .addComponent(new PlayerActions())
+            .addComponent(new PlayerActions(levelGameArea.getLevelDefinition()))
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
             .addComponent(new InventoryComponent(stats.gold))
             //.addComponent(new StatusEffectsController()) /** Added a new StatusEffects Component */

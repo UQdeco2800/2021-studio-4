@@ -97,7 +97,7 @@ public class LevelGameArea extends GameArea {
     "images/button.atlas",
     "images/walking_sprite.atlas",
     "images/testingrunning.atlas",
-    "images/simple_player_sprite.atlas",
+    "images/simple_player_sprite.atlas"
 
   };
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
@@ -164,9 +164,10 @@ public class LevelGameArea extends GameArea {
     //spawnGroundEnemy();
 
     //spawnGorgonGear(20,8);
-
-
     spawnTheVoid();
+
+
+
 
 //    spawnStatusEffectDeBuff("Debuff_Speed");
 //    spawnStatusEffectBuff("Buff_Jump");
@@ -178,6 +179,7 @@ public class LevelGameArea extends GameArea {
 
     spawnPlatform(8, 21, 5);
     spawnDoor(9, 23, 5);
+
   }
 
   private String getBuff() {
@@ -693,4 +695,12 @@ public class LevelGameArea extends GameArea {
     //ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
     this.unloadAssets();
   }
+
+  public String getLevelDefinition() {
+    return this.levelDefinition.name();
+  }
+
+
 }
+
+
