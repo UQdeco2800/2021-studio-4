@@ -21,6 +21,9 @@ task run(dependsOn: classes, type: JavaExec) {
     jvmArgs = jvmArgs = ["-Djava.util.logging.config.file=../../logging.properties", "-XstartOnFirstThread"]
 
 
+    //jvmArgs = ["-Djava.util.logging.config.file=../../logging.properties", "-Xmx2G"]
+    // MAC jvmArgs.
+    jvmArgs = jvmArgs = ["-Djava.util.logging.config.file=../../logging.properties", "-Xmx2G", "-XstartOnFirstThread"]
 }
    
 

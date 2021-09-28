@@ -3,375 +3,6 @@
 	"mapLayer": [
 		{
 			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 9,
-			"y": 14,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 9,
-			"y": 15,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 10,
-			"y": 11,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 10,
-			"y": 12,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 10,
-			"y": 13,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 10,
-			"y": 18,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 11,
-			"y": 8,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 11,
-			"y": 9,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 11,
-			"y": 13,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 11,
-			"y": 14,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 11,
-			"y": 21,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 12,
-			"y": 8,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 12,
-			"y": 10,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 13,
-			"y": 9,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 13,
-			"y": 14,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 14,
-			"y": 10,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 14,
-			"y": 11,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 14,
-			"y": 15,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 14,
-			"y": 16,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 14,
-			"y": 22,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 15,
-			"y": 10,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 15,
-			"y": 14,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 15,
-			"y": 15,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 15,
-			"y": 16,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 15,
-			"y": 23,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 16,
-			"y": 13,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 16,
-			"y": 16,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 16,
-			"y": 17,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 16,
-			"y": 18,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 17,
-			"y": 11,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 17,
-			"y": 22,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 18,
-			"y": 13,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 18,
-			"y": 16,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 19,
-			"y": 14,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 19,
-			"y": 15,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 19,
-			"y": 16,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 19,
-			"y": 19,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 20,
-			"y": 12,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 20,
-			"y": 15,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 20,
-			"y": 17,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 23,
-			"y": 12,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 			"x": 24,
 			"y": 19,
 			"def": "TILE_FULL_MIDDLE",
@@ -392,15 +23,6 @@
 			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 			"x": 24,
 			"y": 21,
-			"def": "TILE_FULL_MIDDLE",
-			"rot": 0,
-			"flipX": false,
-			"flipY": false
-		},
-		{
-			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
-			"x": 25,
-			"y": 12,
 			"def": "TILE_FULL_MIDDLE",
 			"rot": 0,
 			"flipX": false,
@@ -585,190 +207,10 @@
 			"y": 10
 		},
 		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 54,
-			"y": 11
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 54,
-			"y": 12
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 54,
-			"y": 13
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 54,
-			"y": 14
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 54,
-			"y": 15
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 54,
-			"y": 16
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 54,
-			"y": 17
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 54,
-			"y": 18
-		},
-		{
 			"def": "PLATFORM",
 			"size": 3,
 			"x": 51,
 			"y": 10
-		},
-		{
-			"def": "PLATFORM",
-			"size": 3,
-			"x": 46,
-			"y": 12
-		},
-		{
-			"def": "PLATFORM",
-			"size": 3,
-			"x": 51,
-			"y": 14
-		},
-		{
-			"def": "PLATFORM",
-			"size": 3,
-			"x": 46,
-			"y": 16
-		},
-		{
-			"def": "PLATFORM",
-			"size": 3,
-			"x": 51,
-			"y": 18
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 54,
-			"y": 19
-		},
-		{
-			"def": "PLATFORM",
-			"size": 13,
-			"x": 54,
-			"y": 20
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 45,
-			"y": 12
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 45,
-			"y": 13
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 45,
-			"y": 14
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 45,
-			"y": 15
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 45,
-			"y": 16
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 45,
-			"y": 17
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 45,
-			"y": 18
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 45,
-			"y": 19
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 45,
-			"y": 20
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 66,
-			"y": 19
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 66,
-			"y": 18
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 66,
-			"y": 17
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 66,
-			"y": 16
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 66,
-			"y": 15
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 66,
-			"y": 14
-		},
-		{
-			"def": "MIDDLE_PLATFORM",
-			"size": 1,
-			"x": 66,
-			"y": 13
 		},
 		{
 			"def": "PLATFORM",
@@ -777,6 +219,7 @@
 			"y": 13
 		},
 		{
+			"interactableID": 0,
 			"def": "BRIDGE",
 			"size": 9,
 			"x": 74,
@@ -1113,18 +556,21 @@
 			"y": 13
 		},
 		{
+			"interactableID": 1,
 			"def": "BRIDGE",
 			"size": 4,
 			"x": 150,
 			"y": 8
 		},
 		{
+			"interactableID": 2,
 			"def": "BRIDGE",
 			"size": 4,
 			"x": 155,
 			"y": 10
 		},
 		{
+			"interactableID": 3,
 			"def": "BRIDGE",
 			"size": 4,
 			"x": 160,
@@ -1189,6 +635,72 @@
 			"size": 1,
 			"x": 170,
 			"y": 15
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 54,
+			"y": 11
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 57,
+			"y": 12
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 60,
+			"y": 13
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 63,
+			"y": 13
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 66,
+			"y": 13
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 50,
+			"y": 9
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 49,
+			"y": 9
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 48,
+			"y": 9
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 123,
+			"y": 15
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 124,
+			"y": 15
+		},
+		{
+			"def": "PLATFORM",
+			"size": 8,
+			"x": 170,
+			"y": 14
 		}
 	]
 }
