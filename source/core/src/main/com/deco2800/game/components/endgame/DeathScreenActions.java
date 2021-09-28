@@ -3,6 +3,8 @@ package com.deco2800.game.components.endgame;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.levelselect.LevelDisplayActions;
+import com.deco2800.game.components.levelselect.PreviousLevel;
+import com.deco2800.game.levels.LevelDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +14,7 @@ import org.slf4j.LoggerFactory;
 public class DeathScreenActions extends Component {
     private static final Logger logger = LoggerFactory.getLogger(LevelDisplayActions.class);
     private GdxGame game;
+    private PreviousLevel previousLevel = new PreviousLevel();
 
     public DeathScreenActions(GdxGame game) {
         this.game = game;
@@ -36,6 +39,6 @@ public class DeathScreenActions extends Component {
      */
     private void onRestart() {
         logger.info("Restart the level");
-        game.setScreen(GdxGame.ScreenType.MAIN_GAME);
+        game.setLevel(GdxGame.ScreenType.MAIN_GAME, previousLevel.getPreviousLevel());
     }
 }
