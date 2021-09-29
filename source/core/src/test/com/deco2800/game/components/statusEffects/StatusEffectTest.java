@@ -39,7 +39,7 @@ public class StatusEffectTest {
 
     @BeforeEach
     public void initialiseClasses() {
-        playerActions = new PlayerActions();
+        playerActions = new PlayerActions("some level string");
         /* The health determines whether the unit is dead. 1 = alive, 0 = dead */
         combatStatsComponentIsDead = new CombatStatsComponent(0,0);
         combatStatsComponentNotDead = new CombatStatsComponent(1,0);
