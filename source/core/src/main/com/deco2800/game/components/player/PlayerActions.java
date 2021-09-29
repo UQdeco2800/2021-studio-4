@@ -89,7 +89,7 @@ public class PlayerActions extends Component {
 
     movingDirection = MovingDirection.Right;
     currentMovement = Movement.Idle;
-    currentPowerUp = "Default";aaaaa
+    currentPowerUp = "Default";
     keysPressed = 0;
 
     this.body = physicsComponent.getBody();
