@@ -100,13 +100,17 @@ public class MainGameScreen extends ScreenAdapter {
     }
 
     if (levelComplete)   {
-      logger.info("Level completed");
-      game.setScreen(GdxGame.ScreenType.SCORE_SCREEN); // Must go to scoreScreen
-                                                       // to change levelComplete to false
+      playerWon();
     }
 
     timeScore = gameTime.getTime(); // Doesn't change the time????
     //timeScore = (int) ((System.currentTimeMillis() - timeStarted) / 1000);
+  }
+
+  public void playerWon() {
+    logger.info("Level completed");
+    game.setScreen(GdxGame.ScreenType.SCORE_SCREEN); // Must go to scoreScreen
+                                                     // to change levelComplete to false
   }
 
   public void playerDied() {

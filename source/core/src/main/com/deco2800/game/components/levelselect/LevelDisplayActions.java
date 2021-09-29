@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 public class LevelDisplayActions extends Component {
     private static final Logger logger = LoggerFactory.getLogger(LevelDisplayActions.class);
     private GdxGame game;
+    private PreviousLevel previousLevel = new PreviousLevel();
 
     public LevelDisplayActions(GdxGame game) {
         this.game = game;
@@ -31,6 +32,7 @@ public class LevelDisplayActions extends Component {
     private void startGame(LevelDefinition levelDefinition) {
         logger.info("Start game level: " + levelDefinition);
         game.setLevel(GdxGame.ScreenType.MAIN_GAME, levelDefinition);
+        previousLevel.updatePreviousLevel(levelDefinition);
     }
 
     /**
