@@ -28,7 +28,8 @@ public class PlayerActionsTest {
 
     @Test
     void shouldWalkLeft() {
-        PlayerActions playerActions = new PlayerActions();
+        PlayerActions playerActions = new PlayerActions("some level string");
+        playerActions.setCanPlayerMove(true);
         playerActions.walk(Vector2Utils.LEFT);
 
         assertEquals(Vector2Utils.LEFT, playerActions.getWalkDirection());
@@ -37,7 +38,8 @@ public class PlayerActionsTest {
 
     @Test
     void shouldWalkRight() {
-        PlayerActions playerActions = new PlayerActions();
+        PlayerActions playerActions = new PlayerActions("some level string");
+        playerActions.setCanPlayerMove(true);
         playerActions.walk(Vector2Utils.RIGHT);
 
         assertEquals(Vector2Utils.RIGHT, playerActions.getWalkDirection());
@@ -420,7 +422,7 @@ public class PlayerActionsTest {
                         .addComponent(new ColliderComponent())
                         .addComponent(new PhysicsComponent())
                         .addComponent(new HitboxComponent().setLayer(playerLayer))
-                        .addComponent(new PlayerActions())
+                        .addComponent(new PlayerActions("some level string"))
                         .addComponent(animationRenderComponent);
 
 

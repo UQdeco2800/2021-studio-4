@@ -177,6 +177,10 @@ public class PlayerActions extends Component {
     return newJump;
   }
 
+  public void setCanPlayerMove(boolean value) {
+      this.canPlayerMove = value;
+  }
+
 
 
   /**

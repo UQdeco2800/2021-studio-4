@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
+import com.deco2800.game.services.MusicService;
+import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,7 @@ public class DeathScreenDisplay extends UIComponent {
     public void create() {
         super.create();
         addActors();
+        playTheMusic();
     }
 
     /**
@@ -69,6 +72,15 @@ public class DeathScreenDisplay extends UIComponent {
         table.add(retryBtn).center().padLeft(50).padTop(50); // Places the button in the centre.
         stage.addActor(table);
         //stage.
+    }
+
+    /**
+     * Play death music
+     */
+    public void playTheMusic() {
+        MusicServiceDirectory deathSong = new MusicServiceDirectory();
+        MusicService music = new MusicService(deathSong.death_noise_2);
+        music.changeVolume((float)0.8);
     }
 
     @Override

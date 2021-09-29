@@ -23,7 +23,11 @@ import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
+import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
@@ -38,6 +42,25 @@ import com.deco2800.game.services.ServiceLocator;
 public class NPCFactory {
   private static final NPCConfigs configs =
       FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
+
+//  private static final List<Entity> entitiesForRemoval = new ArrayList<>();
+//
+//
+//  /**
+//   * Adds the entities schedualed for removal to a list
+//   */
+//  public static void entitiesForRemovalAdd(Entity entity) {
+//    entitiesForRemoval.add(entity);
+//  }
+//
+//  /**
+//   * Adds the entities schedualed for removal to a list
+//   */
+//  public static void RemoveEntities() {
+//    for (Entity entity : entitiesForRemoval) {
+//      entity.dispose();
+//    }
+//  }
 
   /**
    * Creates the void entity
@@ -72,7 +95,6 @@ public class NPCFactory {
     theVoid.getComponent(AnimationRenderComponent.class).scaleEntity();
     theVoid.setScale(20f,22);
     return theVoid;
-
   }
 
   /**
@@ -117,8 +139,21 @@ public class NPCFactory {
     //statusEffect.getComponent(AnimationRenderComponent.class).scaleEntity(); // Don't understand but throws
                                                                                // NullPointerException
     statusEffect.setScale(0.5f,0.5f);
+
     return statusEffect;
   }
+
+
+/* Method that is supposed to spawn an entity that would block the player's view of game.
+Shelved because this method cannot spawn entity mid-game.
+ */
+/**
+  public static Entity createInterference(Entity target) {
+    Entity interference = new Entity()
+            .addComponent(new TextureRenderComponent("images/lizzy.png"));
+    return interference;
+  }
+ */
 
   /**
    * Creates a ghost entity.
@@ -145,6 +180,11 @@ public class NPCFactory {
 
     return ghost;
   }
+
+
+
+
+
 
   /**
    * Creates a gorgon gear entity.

@@ -121,7 +121,7 @@ public class PlayerMovementComponentTest {
                         .addComponent(new ColliderComponent())
                         .addComponent(new PhysicsComponent())
                         .addComponent(new HitboxComponent().setLayer(playerLayer))
-                        .addComponent(new PlayerActions())
+                        .addComponent(new PlayerActions("some level string"))
                         .addComponent(animationRenderComponent);
         entity.create();
         return entity;
