@@ -1,7 +1,5 @@
 package com.deco2800.game.entities.factories;
 
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -18,7 +16,6 @@ import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
 import com.deco2800.game.files.FileLoader;
-import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
@@ -124,6 +121,18 @@ public class NPCFactory {
     return statusEffect;
   }
 
+
+/* Method that is supposed to spawn an entity that would block the player's view of game.
+Shelved because this method cannot spawn entity mid-game.
+ */
+/**
+  public static Entity createInterference(Entity target) {
+    Entity interference = new Entity()
+            .addComponent(new TextureRenderComponent("images/lizzy.png"));
+    return interference;
+  }
+ */
+
   /**
    * Creates a ghost entity.
    *
@@ -149,6 +158,11 @@ public class NPCFactory {
 
     return ghost;
   }
+
+
+
+
+
 
   /**
    * Creates a gorgon gear entity.

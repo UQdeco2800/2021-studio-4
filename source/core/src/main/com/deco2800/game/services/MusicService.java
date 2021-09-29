@@ -48,6 +48,7 @@ public class MusicService {
      */
     public void setTime(float time) {
         MuteManager mute = MuteManager.getInstance();
+        /* If the mute button is off */
         if (mute.getMute() == false) {
             music.setPosition(time);
             music.play();
@@ -59,9 +60,10 @@ public class MusicService {
      */
     public void playMusic() {
         MuteManager mute = MuteManager.getInstance();
+        /* If the mute button is off, play the music otherwise do nothing. */
         if (mute.getMute() == false) {
             music.setLooping(true);
-            music.setVolume(0.3f);
+            music.setVolume(0.2f);
             music.play();
         }
     }
@@ -72,10 +74,15 @@ public class MusicService {
      */
     public void changeVolume(float vol) {
         MuteManager mute = MuteManager.getInstance();
+        /* If the mute button is off */
         if (mute.getMute() == false) {
             music.setVolume(vol);
             music.play();
         }
     }
+
+
+
+
 
 }

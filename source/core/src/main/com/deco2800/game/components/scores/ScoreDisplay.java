@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.services.MusicService;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +51,7 @@ public class ScoreDisplay extends UIComponent {
         }
         super.create();
         addActors();
+        playTheMusic();
     }
 
     /**
@@ -80,7 +82,7 @@ public class ScoreDisplay extends UIComponent {
         /**
          * Sets the size and position of the button after texture applied.
          */
-        exitBtn.setBounds(centreWidth,centreHeight-height105Percent,
+        exitBtn.setBounds(centreWidth,(float)(centreHeight-height105Percent),
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         // Exit button event.
@@ -111,9 +113,9 @@ public class ScoreDisplay extends UIComponent {
         /**
          * Sets the position of the label.
          */
-        levelLabel.setBounds(widthLabel + centreScreenLevelWidth,levelHeight,
+        levelLabel.setBounds((float)widthLabel + (float)centreScreenLevelWidth,levelHeight,
                 textDimenstionWidth,textDimenstionHeight);
-        scoreLabel.setBounds(widthLabel + centreScreenScoreWidth,scoreHeight,
+        scoreLabel.setBounds((float)widthLabel + (float)centreScreenScoreWidth,scoreHeight,
                 textDimenstionWidth,textDimenstionHeight);
 
         stage.addActor(table);
@@ -121,6 +123,14 @@ public class ScoreDisplay extends UIComponent {
         stage.addActor(levelLabel);
         stage.addActor(scoreLabel);
         //stage.
+    }
+
+    /**
+     * Play the music
+     */
+    public void playTheMusic() {
+        MusicService musicScreen = new MusicService("sounds/MainMenuMusic.mp3");
+        musicScreen.playMusic();
     }
 
     @Override
@@ -159,7 +169,7 @@ public class ScoreDisplay extends UIComponent {
         finally {
             try {
                 myScoresReader.close();
-            } catch (IOException e) {
+            } catch (IOException | NullPointerException e) {
                 e.printStackTrace();
             }
         }
@@ -179,7 +189,7 @@ public class ScoreDisplay extends UIComponent {
         finally {
             try {
                 scoresWriter.close();
-            } catch (IOException e) {
+            } catch (IOException | NullPointerException e) {
                 e.printStackTrace();
             }
         }

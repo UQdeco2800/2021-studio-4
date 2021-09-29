@@ -1,8 +1,5 @@
 package com.deco2800.game.components.statuseffects;
 
-import com.deco2800.game.components.CombatStatsComponent;
-import com.deco2800.game.entities.Entity;
-
 public enum StatusEffectEnum implements StatusEffectInterface {
     SPEED (5, 4000, "SPEEDBUFF") {
         @Override
@@ -16,13 +13,13 @@ public enum StatusEffectEnum implements StatusEffectInterface {
             return statChange;
         }
     },
-    JUMPBUFF (200, 4000, "JUMPBUFF") {
+    JUMPBUFF (200, 4000, " ") {
         @Override
         public int statChange(int type, int boost, int statOriginal) {
             return statOriginal;
         }
     },
-    VOIDFREEZE (0, 0, "VOIDFREEZE") {
+    VOIDFREEZE (0, 3000, "VOIDFREEZE") {
         @Override
         public int statChange(int type, int boost, int statOriginal) {
             int statChange = type * boost + statOriginal;
@@ -32,6 +29,8 @@ public enum StatusEffectEnum implements StatusEffectInterface {
     INTERFERANCE (0, 0, "INTERFERANCE") {
         @Override
         public int statChange(int type, int boost, int statOriginal) {
+
+
             int statChange = type * boost + statOriginal;
             return statChange;
         }

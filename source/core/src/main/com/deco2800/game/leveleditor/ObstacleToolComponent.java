@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /**
  * Component for editing the obstacles within the map, such as platforms etc
  */
-public class ObstacleToolComponent extends InputComponent {
+public class ObstacleToolComponent extends BaseToolComponent {
   private Obstacle selectedObstacle = Obstacle.PLATFORM;
   private Entity heldEntity;
   private LevelGameArea levelGameArea;
@@ -50,6 +50,8 @@ public class ObstacleToolComponent extends InputComponent {
         return ObstacleFactory.createBridge(size);
       case BUTTON:
         return ObstacleFactory.createButton();
+      case LEVEL_END_PORTAL:
+        return ObstacleFactory.createLevelEndPortal(size);
     }
     return null;
   }
@@ -95,6 +97,9 @@ public class ObstacleToolComponent extends InputComponent {
       case BUTTON:
         levelGameArea.spawnButton(x, y, false, true);
         break;
+      case LEVEL_END_PORTAL:
+        levelGameArea.spawnLevelEndPortal(x, y, size,false, true);
+        break;
     }
   }
 
@@ -106,20 +111,6 @@ public class ObstacleToolComponent extends InputComponent {
     size += step;
 
     if (size < 1) size = 1;
-  }
-
-  private Vector2 getMousePos() {
-    // Convert the current mouse position to the correct units
-    Vector3 pos = ServiceLocator.getCamera().getCamera().unproject(
-      new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
-
-    return new Vector2(pos.x, pos.y);
-  }
-
-  private Vector2 getCellPos() {
-    // Convert units to the cell the mouse is in
-    Vector2 mousePos = getMousePos();
-    return new Vector2((int)Math.floor(mousePos.x * 2) * 0.5f, (int)Math.floor(mousePos.y * 2) * 0.5f);
   }
 
   /**
@@ -227,10 +218,14 @@ public class ObstacleToolComponent extends InputComponent {
         selectedObstacle = Obstacle.BRIDGE;
         refreshHeldEntity();
         break;
+      case (Input.Keys.N):
+        selectedObstacle = Obstacle.LEVEL_END_PORTAL;
+        refreshHeldEntity();
+        break;
     }
 
     if (keycode == Input.Keys.TAB) {
-      this.screen.selectTileHand();
+      this.screen.selectLinkingHand();
     }
 
     if (keycode == Input.Keys.P) {
@@ -241,6 +236,6 @@ public class ObstacleToolComponent extends InputComponent {
   }
 
   public enum Obstacle {
-    PLATFORM, MIDDLE_PLATFORM, BUTTON, DOOR, BRIDGE
+    PLATFORM, MIDDLE_PLATFORM, BUTTON, DOOR, BRIDGE, LEVEL_END_PORTAL
   }
 }

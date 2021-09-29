@@ -14,10 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.deco2800.game.GdxGame;
 import com.deco2800.game.services.*;
-import com.deco2800.game.services.MusicService;
-import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,12 +43,6 @@ public class MainMenuDisplay extends UIComponent {
     public void playTheMusic() {
             MusicSingleton music = MusicSingleton.getInstance();
             music.playMusicSingleton("sounds/MainMenuMusic.mp3");
-            /*MusicServiceDirectory dict = new  MusicServiceDirectory();
-            MusicService musicScreen = new MusicService(dict.main_menu);
-            musicScreen.playMusic();*/
-
-
-
     }
 
     /**
@@ -102,6 +93,7 @@ public class MainMenuDisplay extends UIComponent {
          */
         runtimeTitle.setBounds(centreTitleWidth, centreTitleHeight+titleHeight,
                 titleWidthDimension, titleHeightDimension);
+        runtimeTitle.setDisabled(true);
 
 
         /**
@@ -115,6 +107,7 @@ public class MainMenuDisplay extends UIComponent {
          */
         virusHead.setBounds(centreWidth,centreHeight-height79Percent,
                 buttonDimensionsWidth, buttonDimensionsHeight*2);
+        virusHead.setDisabled(true);
 
 
         /**
@@ -158,7 +151,7 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Sets the size and position of the button after texture applied.
          */
-        settingsBtn.setBounds(centreWidth-width35Percent,centreHeight-height83Percent,
+        settingsBtn.setBounds((float)(centreWidth-width35Percent),(float)(centreHeight-height83Percent),
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
 
@@ -173,7 +166,7 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Sets the size and position of the button after texture applied.
          */
-        exitBtn.setBounds(centreWidth,centreHeight-height98Percent,
+        exitBtn.setBounds(centreWidth,(float)(centreHeight-height98Percent),
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         /**
@@ -201,7 +194,7 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Sets the size and position of the button after texture applied, for Mute and Currently Muted both.
          */
-        muteBtn.setBounds(centreWidth+width35Percent,centreHeight-height83Percent,
+        muteBtn.setBounds((float)(centreWidth+width35Percent),(float)(centreHeight-height83Percent),
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         /**
@@ -215,7 +208,7 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Sets the size and position of the button after texture applied.
          */
-        leaderBoardBtn.setBounds(centreWidth+width35Percent,centreHeight-height53Percent,
+        leaderBoardBtn.setBounds((float)(centreWidth+width35Percent),(float)(centreHeight-height53Percent),
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         TextButton levelEditorBtn = new TextButton("LevelEditor", skin);

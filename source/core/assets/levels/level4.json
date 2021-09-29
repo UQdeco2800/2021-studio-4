@@ -1,0 +1,707 @@
+{
+"terrain": {
+	"mapLayer": [
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 24,
+			"y": 19,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 24,
+			"y": 20,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 24,
+			"y": 21,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 25,
+			"y": 19,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 26,
+			"y": 19,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 26,
+			"y": 21,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 26,
+			"y": 22,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 26,
+			"y": 23,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 27,
+			"y": 19,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 28,
+			"y": 19,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 28,
+			"y": 21,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 28,
+			"y": 22,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 28,
+			"y": 23,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 29,
+			"y": 19,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 30,
+			"y": 19,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 30,
+			"y": 20,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		},
+		{
+			"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+			"x": 30,
+			"y": 21,
+			"def": "TILE_FULL_MIDDLE",
+			"rot": 0,
+			"flipX": false,
+			"flipY": false
+		}
+	]
+},
+"obstacles": {
+	"obstacleEntities": [
+		{
+			"def": "PLATFORM",
+			"size": 18,
+			"x": 0,
+			"y": 6
+		},
+		{
+			"def": "PLATFORM",
+			"size": 18,
+			"x": 18,
+			"y": 7
+		},
+		{
+			"def": "PLATFORM",
+			"size": 18,
+			"x": 36,
+			"y": 8
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 18,
+			"y": 6
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 36,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 54,
+			"y": 8
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 54,
+			"y": 9
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 54,
+			"y": 10
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 51,
+			"y": 10
+		},
+		{
+			"def": "PLATFORM",
+			"size": 7,
+			"x": 67,
+			"y": 13
+		},
+		{
+			"interactableID": 0,
+			"def": "BRIDGE",
+			"size": 9,
+			"x": 74,
+			"y": 13
+		},
+		{
+			"def": "PLATFORM",
+			"size": 11,
+			"x": 83,
+			"y": 13
+		},
+		{
+			"def": "PLATFORM",
+			"size": 2,
+			"x": 94,
+			"y": 14
+		},
+		{
+			"def": "PLATFORM",
+			"size": 2,
+			"x": 96,
+			"y": 15
+		},
+		{
+			"def": "PLATFORM",
+			"size": 2,
+			"x": 98,
+			"y": 16
+		},
+		{
+			"def": "PLATFORM",
+			"size": 2,
+			"x": 100,
+			"y": 17
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 96,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 98,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 100,
+			"y": 16
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 94,
+			"y": 13
+		},
+		{
+			"def": "PLATFORM",
+			"size": 7,
+			"x": 102,
+			"y": 17
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 108,
+			"y": 16
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 108,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 108,
+			"y": 14
+		},
+		{
+			"def": "PLATFORM",
+			"size": 12,
+			"x": 109,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 120,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 120,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 120,
+			"y": 20
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 120,
+			"y": 21
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 120,
+			"y": 22
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 120,
+			"y": 13
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 120,
+			"y": 12
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 120,
+			"y": 11
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 120,
+			"y": 10
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 120,
+			"y": 9
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 120,
+			"y": 8
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 120,
+			"y": 7
+		},
+		{
+			"def": "PLATFORM",
+			"size": 24,
+			"x": 121,
+			"y": 7
+		},
+		{
+			"def": "PLATFORM",
+			"size": 2,
+			"x": 121,
+			"y": 14
+		},
+		{
+			"def": "PLATFORM",
+			"size": 4,
+			"x": 125,
+			"y": 16
+		},
+		{
+			"def": "PLATFORM",
+			"size": 2,
+			"x": 121,
+			"y": 18
+		},
+		{
+			"def": "PLATFORM",
+			"size": 4,
+			"x": 125,
+			"y": 20
+		},
+		{
+			"def": "PLATFORM",
+			"size": 13,
+			"x": 129,
+			"y": 21
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 129,
+			"y": 20
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 129,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 129,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 129,
+			"y": 17
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 129,
+			"y": 16
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 129,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 129,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 129,
+			"y": 13
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 129,
+			"y": 12
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 16,
+			"x": 130,
+			"y": 12
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 142,
+			"y": 20
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 145,
+			"y": 19
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 145,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 141,
+			"y": 20
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 144,
+			"y": 19
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 146,
+			"y": 12
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 147,
+			"y": 12
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 147,
+			"y": 18
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 147,
+			"y": 17
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 147,
+			"y": 16
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 147,
+			"y": 15
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 147,
+			"y": 14
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 147,
+			"y": 13
+		},
+		{
+			"interactableID": 1,
+			"def": "BRIDGE",
+			"size": 4,
+			"x": 150,
+			"y": 8
+		},
+		{
+			"interactableID": 2,
+			"def": "BRIDGE",
+			"size": 4,
+			"x": 155,
+			"y": 10
+		},
+		{
+			"interactableID": 3,
+			"def": "BRIDGE",
+			"size": 4,
+			"x": 160,
+			"y": 12
+		},
+		{
+			"def": "PLATFORM",
+			"size": 17,
+			"x": 148,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 165,
+			"y": 7
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 165,
+			"y": 8
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 165,
+			"y": 10
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 165,
+			"y": 9
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 165,
+			"y": 11
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 165,
+			"y": 12
+		},
+		{
+			"def": "MIDDLE_PLATFORM",
+			"size": 1,
+			"x": 165,
+			"y": 13
+		},
+		{
+			"def": "PLATFORM",
+			"size": 5,
+			"x": 165,
+			"y": 14
+		},
+		{
+			"def": "LEVEL_END_PORTAL",
+			"size": 1,
+			"x": 170,
+			"y": 15
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 54,
+			"y": 11
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 57,
+			"y": 12
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 60,
+			"y": 13
+		},
+		{
+			"def": "PLATFORM",
+			"size": 3,
+			"x": 63,
+			"y": 13
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 66,
+			"y": 13
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 50,
+			"y": 9
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 49,
+			"y": 9
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 48,
+			"y": 9
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 123,
+			"y": 15
+		},
+		{
+			"def": "PLATFORM",
+			"size": 1,
+			"x": 124,
+			"y": 15
+		},
+		{
+			"def": "PLATFORM",
+			"size": 8,
+			"x": 170,
+			"y": 14
+		}
+	]
+}
+}

@@ -3,6 +3,8 @@ package com.deco2800.game.components.npc;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.player.PlayerActions;
+import com.deco2800.game.components.statuseffects.StatusEffectEnum;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
@@ -10,6 +12,9 @@ import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.services.MuteManager;
 import com.deco2800.game.utils.math.Vector2Utils;
+
+import java.util.Timer;
+
 import static java.lang.Math.abs;
 
 /**
@@ -17,7 +22,11 @@ import static java.lang.Math.abs;
  * when an event is triggered
  */
 public class TheVoidController extends Component {
-    private static final Vector2 SPEED = new Vector2(8f, 0f);
+    // private static final Vector2 SPEED = new Vector2(8f, 0f);
+    // Changed so that the speed of void can be changed
+    private static Vector2 normalSpeed = new Vector2(8f, 0f);
+    private static Vector2 pausedSpeed = new Vector2(0f, 0f);
+    private static Vector2 SPEED = normalSpeed;
 
     private PhysicsComponent physicsComponent;
     private AnimationRenderComponent animator;
@@ -101,11 +110,26 @@ public class TheVoidController extends Component {
                      musicService.changeVolume((float)0.6);
                  }
              }
+    }
 
-     /*if (distance_from_player < (float)(-8)){
-             musicService.stopMusic(); //It should be fine for now. Later when the void team could detect void-player
-             // collision, we stop the music at that point.
-         } */
-
+    /**
+     * Reduces the void's speed to 0 for 3 seconds
+     * Afterward, reverts the speed back to normal
+     */
+    public static void pauseVoid() {
+        SPEED = pausedSpeed;
+        Timer t = new java.util.Timer();
+        t.schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        // your code here
+                        SPEED = normalSpeed;
+                        // close the thread
+                        t.cancel();
+                    }
+                },
+                StatusEffectEnum.VOIDFREEZE.getStatDuration()
+        );
     }
 }

@@ -2,7 +2,6 @@ package com.deco2800.game.components.tasks;
 import com.deco2800.game.ai.tasks.DefaultTask;
 import com.deco2800.game.ai.tasks.PriorityTask;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.services.GameTime;
 
 /**
  * Starts the void's animation when the game starts and makes the void constantly move as

@@ -1,0 +1,166 @@
+testingrunningsprite.png
+size:3690,2800
+format: RGBA8888
+filter: Nearest,Nearest
+repeat:none
+default
+    rotate: false
+    xy: 0,0
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 0
+still
+    rotate: false
+    xy: 738,0
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 0
+still
+    rotate: false
+    xy: 1476,0
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 1
+still
+    rotate: false
+    xy: 2214,0
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 2
+still
+    rotate: false
+    xy: 2952,0
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 3
+still
+    rotate: false
+    xy: 0,560
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 4
+still
+    rotate: false
+    xy: 738,560
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 5
+still
+    rotate: false
+    xy: 1476,560
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 6
+still
+    rotate: false
+    xy: 2214,560
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 7
+still
+    rotate: false
+    xy: 2952,560
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 8
+still
+    rotate: false
+    xy: 0,1120
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 9
+still
+    rotate: false
+    xy: 738,1120
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 10
+still
+    rotate: false
+    xy: 1476,1120
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 11
+still
+    rotate: false
+    xy: 2214,1120
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 12
+still
+    rotate: false
+    xy: 2952,1120
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 13
+still
+    rotate: false
+    xy: 0,1680
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 14
+still
+    rotate: false
+    xy: 738,1680
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 15
+still
+    rotate: false
+    xy: 1476,1680
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 16
+still
+    rotate: false
+    xy: 2214,1680
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 17
+still
+    rotate: false
+    xy: 2952,1680
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 18
+still
+    rotate: false
+    xy: 0,2240
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 19
+still
+    rotate: false
+    xy: 738,2240
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 20
+still
+    rotate: false
+    xy: 1476,2240
+    size: 738, 560
+    orig: 738, 560
+    offset: 0, 0
+    index: 21
