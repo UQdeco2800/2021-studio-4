@@ -72,6 +72,7 @@ public class BackgroundRenderComponent extends RenderComponent {
     batch.draw(texture, position.x-(screenWidth/2), position.y-(screenHeight/2), screenWidth, screenHeight);*/
   }
 
+
   @Override
   public int getLayer() {
     return 0;

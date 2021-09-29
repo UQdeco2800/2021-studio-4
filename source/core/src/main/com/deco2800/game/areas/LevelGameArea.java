@@ -1,6 +1,7 @@
 package com.deco2800.game.areas;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
@@ -29,6 +30,7 @@ import org.slf4j.LoggerFactory;
 import com.deco2800.game.leveleditor.ObstacleToolComponent;
 
 import java.io.*;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -43,6 +45,10 @@ public class LevelGameArea extends GameArea {
   public static ArrayList<String> buffers = new ArrayList<>();
   public static ArrayList<String> deBuffers = new ArrayList<>();
   private Random random = new Random();
+  //private static boolean loading = true;
+  private boolean loading = true;
+  //private static boolean assetLoading = true;//final?static?
+  //private static boolean UILoading = true;
 
   public Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables = new ConcurrentHashMap<>();
 
@@ -52,6 +58,7 @@ public class LevelGameArea extends GameArea {
     "images/box_boy_leaf.png",
     "images/tree.png",
     "images/ghost_king.png",
+          "images/background_level4.png",
     "images/ghost_1.png",
     "images/grass_1.png",
     "images/grass_2.png",
@@ -123,7 +130,7 @@ public class LevelGameArea extends GameArea {
 
   private final TerrainFactory terrainFactory;
   private final LevelDefinition levelDefinition;
-  private static boolean loading = true;
+
   private Entity player;
 
   public LevelGameArea(TerrainFactory terrainFactory, LevelDefinition levelDefinition) {
@@ -143,17 +150,23 @@ public class LevelGameArea extends GameArea {
    * Initializes basic components such as loading assets, background and terrain
    */
   public void init() {
-
     loadAssets();
     mapInteractables();
-    displayBackground();
+    String level = levelDefinition.getLevelFileName();
+    if (level.equals("levels/level1.json")) {
+      displayBackground("images/background_level1.jpg");
+    } else if (level.equals("levels/level4.json")) {
+      displayBackground("images/background_level4.png");
+    }
     spawnTerrain();
     spawnLevelFromFile();
-    //while (loading == true){
-    //  logger.info("Loading Screen is loading in!");
+
+     /*while (loading == true){
+        logger.info("Loading Screen is loading in!");
      // displayLoadingScreen();
+     // displayBackground("images/background_level4.png");
         // add code to show the loading screen
-    //}
+    }*/
   }
 
   /**
@@ -162,10 +175,12 @@ public class LevelGameArea extends GameArea {
   @Override
   public void create() {
     init();
+
     displayUI();
     player = spawnPlayer();
-    spawnLevelFromFile();
+    //spawnLevelFromFile();
     spawnTheVoid();
+
 
 //  spawnStatusEffectDeBuff("Buff_Time_Stop"); //Spawns specified statusEffect for testing purposes
 //  spawnStatusEffectBuff("Buff_Jump");
@@ -179,11 +194,9 @@ public class LevelGameArea extends GameArea {
     } else if (level.equals("levels/level4.json")) {
       playTheMusic("level_1_2"); //replace with level 4 music when it's created
     }
-
-
-
     spawnPlatform(8, 21, 5);
     spawnDoor(9, 23, 5);
+    //loading = false;
   }
 
   /**
@@ -208,12 +221,12 @@ public class LevelGameArea extends GameArea {
     Entity ui = new Entity();
     ui.addComponent(new GameAreaDisplay("Box Forest"));
     spawnEntity(ui);
-    loading = false;
+    //loading = false;
   }
 
-  private void displayBackground() {
+  private void displayBackground(String image) {
     Entity background = new Entity();
-    background.addComponent(new BackgroundRenderComponent("images/background_level1.jpg"));
+    background.addComponent(new BackgroundRenderComponent(image));
     spawnEntity(background);
   }
   private void displayLoadingScreen() {
@@ -689,14 +702,6 @@ public class LevelGameArea extends GameArea {
 
   }
 
-  /*private void playMusic() {
-    //MusicServiceDirectory mainMenuSong = new MusicServiceDirectory();
-    //MusicService musicScreen = new MusicService(mainMenuSong.main_menu);
-    //musicScreen.playMusic();
-    MusicSingleton s = MusicSingleton.getInstance();
-    s.playMusicSingleton("sounds/BackingMusicWithDrums.mp3");
-  }*/
-
   private void loadAssets() {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
@@ -708,7 +713,12 @@ public class LevelGameArea extends GameArea {
     while (!resourceService.loadForMillis(10)) {
       // This could be upgraded to a loading screen
       logger.info("Loading... {}%", resourceService.getProgress());
+      if (resourceService.getProgress() > 90) { //better calculation??
+        loading = false;
+      }
     }
+    //
+
   }
 
   private void unloadAssets() {
@@ -718,6 +728,19 @@ public class LevelGameArea extends GameArea {
     resourceService.unloadAssets(gameTextureAtlases);
     resourceService.unloadAssets(gameMusic);
   }
+
+  /*public boolean getLoading() {
+    return loading;
+  }
+  public void setLoading(boolean loadingValue) {
+    loading = loadingValue;
+  }
+  public boolean isAllLoadingFinished() {
+    if (assetLoading == false && UILoading == false) {
+      return true;
+    }
+    return false;
+  }*/
 
   @Override
   public void dispose() {
