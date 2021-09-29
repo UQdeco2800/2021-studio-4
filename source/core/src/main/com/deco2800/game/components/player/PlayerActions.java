@@ -89,7 +89,7 @@ public class PlayerActions extends Component {
 
     movingDirection = MovingDirection.Right;
     currentMovement = Movement.Idle;
-    currentPowerUp = "Default";
+    currentPowerUp = "Default";aaaaa
     keysPressed = 0;
 
     this.body = physicsComponent.getBody();
@@ -98,6 +98,7 @@ public class PlayerActions extends Component {
 
     animator.startAnimation(getAnimation());
     canPlayerMove = true;
+    //animator.startAnimation("spawn_level1");
 /*
     hasSpawnAnimationFinished = false;
     if(gameLevel == "LEVEL_4") {

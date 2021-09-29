@@ -1,29 +1,44 @@
-michelle spawna.png
+levelOneSpawn.png
 size:4096,8192
 repeat:none
-char_spawn_level1_01
+spawn_level1
 bounds:0,6400,1280,1600
-char_spawn_level1_02
+index: 1
+spawn_level1
 bounds:2560,4800,1280,1600
-char_spawn_level1_03
+index: 2
+spawn_level1
 bounds:0,3200,1280,1600
-char_spawn_level1_04
+index: 3
+spawn_level1
 bounds:2560,3200,1280,1600
-char_spawn_level1_05
+index: 4
+spawn_level1
 bounds:0,1600,1280,1600
-char_spawn_level1_06
+index: 5
+spawn_level1
 bounds:0,4800,1280,1600
-char_spawn_level1_07
+index: 6
+spawn_level1
 bounds:0,0,1280,1600
-char_spawn_level1_08
+index: 7
+spawn_level1
 bounds:1280,4800,1280,1600
-char_spawn_level1_09
+index: 8
+spawn_level1
 bounds:1280,0,1280,1600
-char_spawn_level1_10
+index: 9
+spawn_level1
 bounds:1280,3200,1280,1600
-char_spawn_level1_11
+index: 10
+spawn_level1
 bounds:1280,6400,1280,1600
-char_spawn_level1_12
+index: 11
+spawn_level1
 bounds:1280,1600,1280,1600
-char_spawn_level1_13
+index: 12
+spawn_level1
 bounds:2560,6400,1280,1600
+index: 13
+default
+bounds:0,6400,1280,1600

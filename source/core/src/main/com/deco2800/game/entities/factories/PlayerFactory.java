@@ -48,10 +48,13 @@ public class PlayerFactory {
             new AITaskComponent()
                     .addTask(new PlayerChangeAnimationHelper());
 
+   // String[] atlasFiles = new String[] {"images/simple_player_sprite.atlas", "images/levelOneSpawn.atlas"};
+
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
-                    ServiceLocator.getResourceService()
-                            .getAsset("images/simple_player_sprite.atlas", TextureAtlas.class));
+                    ServiceLocator.getResourceService().getAsset("images/simple_player_sprite.atlas", TextureAtlas.class));
+
+    animator.addAnimation("spawn_level1", 0.2f, Animation.PlayMode.LOOP);
 
 
     String[] movement = {"Running", "Jump", "Sliding", "Falling", "Idle", "Walk"};
