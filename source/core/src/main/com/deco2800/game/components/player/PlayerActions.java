@@ -48,6 +48,8 @@ public class PlayerActions extends Component {
   private boolean canPlayerMove;
   private double spawnAnimationToUse;
   private String spawnAnimation;
+  private boolean hasSpawnAnimationFinished;
+  private int iterator = 0;
 
   private static Vector2 ACCELERATION = new Vector2(10f, 0f);;  // Force of acceleration, in Newtons (kg.m.s^2)
   private static final float NORMAL_FRICTION = 0.1f;                 // Coefficient of friction for normal movement
@@ -96,38 +98,53 @@ public class PlayerActions extends Component {
     previousAnimation = getAnimation();
 
 
-    animator.startAnimation(getAnimation());
-    canPlayerMove = true;
     //animator.startAnimation("spawn_level1");
-/*
-    hasSpawnAnimationFinished = false;
-    if(gameLevel == "LEVEL_4") {
-        System.out.println("set animation to slidingRight");
-        spawnAnimation = "levelOneSpawn";
-    } else {
-        spawnAnimationToUse = (Math.random() * (2 - 1)) + 1;
-        if (spawnAnimationToUse == 1) {
-            spawnAnimation = "spawnOne";
-        } else {
-            spawnAnimation = "spawnTwo";
-        }
-    }
 
- */
+      canPlayerMove = false;
+    hasSpawnAnimationFinished = false;
+   // if(gameLevel == "LEVEL_4") {
+   //     spawnAnimation = "spawn_level1";
+   //     entity.setScale(5.5f, 5.5f);
+   // } else {
+      double num = Math.round(Math.random() + 1);
+        spawnAnimationToUse = num;
+        if (spawnAnimationToUse == 1.0) {
+            spawnAnimation = "portal_flip";
+        } else {
+            spawnAnimation = "spawn_level1";
+            entity.setScale(6f, 6f);
+        }
+  //  }
+
+
   }
 
   @Override
   public void update() {
-      /*
-      if(!hasSpawnAnimationFinished && animator.getCurrentAnimation() == null) {
+      iterator++;
+
+      if(isDeathAnimationCompleted()) {
+          this.entity.getComponent(PlayerStatsDisplay.class).playerIsDead();
+      }
+
+
+      if(iterator == 3) {
           animator.startAnimation(spawnAnimation);
-          System.out.println("started" + animator.getCurrentAnimation() + "animation");
       } else if (animator.isFinished() && !hasSpawnAnimationFinished) {
-          System.out.println("has finished");
+          if(animator.getCurrentAnimation() == "spawn_level1") {
+              Vector2 playerPos = new Vector2(this.entity.getPosition().add(1f, 0f));
+              this.entity.setPosition(playerPos.add(2.5f, 0));
+          } else if (animator.getCurrentAnimation() == "portal_flip"){
+              Vector2 playerPos = new Vector2(this.entity.getCenterPosition().x, this.entity.getPosition().y);
+              this.entity.setPosition(playerPos);
+          }
+          this.entity.setScale(2f, 2f);
+
           this.hasSpawnAnimationFinished = true;
+          setCanPlayerMove(true);
           animator.startAnimation(getAnimation());
       }
-      */
+
     if (playerState != PlayerState.STOPPED) {
       updateSpeed();
       ServiceLocator.getCamera().getEntity().setPosition(entity.getCenterPosition());
@@ -136,8 +153,19 @@ public class PlayerActions extends Component {
   }
 
   private void playerIsDead() {
+
       canPlayerMove = false;
-      this.entity.getComponent(PlayerStatsDisplay.class).playerIsDead();
+      entity.setScale(4, 4);
+
+      animator.startAnimation("death");
+  }
+
+  private boolean isDeathAnimationCompleted(){
+      if(animator.getCurrentAnimation() == "death" && animator.isFinished()) {
+          return true;
+      } else {
+          return false;
+      }
   }
 
   /**
@@ -213,15 +241,17 @@ public String getCurrentPowerUp() {
    *              Running, Idle, Falling, Jumping, Sliding
    */
   private void setMovementAnimation(Movement value){
-      /**
+      /*
     if(value == Movement.Walk && getCurrentPowerUp() == "SpeedUp") {
       value = Movement.Running;
     }
+    */
+
 
     if(currentPowerUp == "Stuck") {
       value = Movement.Idle;
     }
-       */
+
 
     if(!(previousAnimation.equals(getAnimation())) || value != currentMovement){
       //System.out.println(value);

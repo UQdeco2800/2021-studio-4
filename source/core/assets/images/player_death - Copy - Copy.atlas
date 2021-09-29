@@ -1,0 +1,189 @@
+
+playerDeathAnimation.png
+size:8192,2048
+format: RGBA8888
+filter: Nearest,Nearest
+repeat:none
+death
+  rotate: false
+  xy: 3880, 175
+  size: 270, 355
+  orig: 270, 355
+  offset: 0, 0
+  index: 1
+death
+  rotate: false
+  xy: 2480, 1390
+  size: 270, 370
+  orig: 270, 370
+  offset: 0, 0
+  index: 2
+death
+  rotate: false
+  xy: 5160, 250
+  size: 360, 275
+  orig: 360, 275
+  offset: 0, 0
+  index: 3
+death
+  rotate: false
+  xy: 3760, 1500
+  size: 365, 270
+  orig: 365, 270
+  offset: 0, 0
+  index: 4
+death
+  rotate: false
+  xy: 950, 850
+  size: 370, 300
+  orig: 370, 300
+  offset: 0, 0
+  index: 5
+death
+  rotate: false
+  xy: 5150, 1440
+  size: 360, 330
+  orig: 360, 330
+  offset: 0, 0
+  index: 6
+death
+  rotate: false
+  xy: 3050, 1450
+  size: 380, 330
+  orig: 380, 330
+  offset: 0, 0
+  index: 7
+death
+  rotate: false
+  xy: 0, 613
+  size: 700, 613
+  orig: 700, 613
+  offset: 0, 0
+  index: 8
+death
+  rotate: false
+  xy: 3500, 613
+  size: 700, 613
+  orig: 700, 613
+  offset: 0, 0
+  index: 9
+death
+  rotate: false
+  xy: 700, 0
+  size: 700, 613
+  orig: 700, 613
+  offset: 0, 0
+  index: 10
+death
+  rotate: false
+  xy: 4900, 613
+  size: 700, 613
+  orig: 700, 613
+  offset: 0, 0
+  index: 11
+death
+  rotate: false
+  xy: 2100, 0
+  size: 700, 613
+  orig: 700, 613
+  offset: 0, 0
+  index: 12
+death
+  rotate: false
+  xy: 700, 1226
+  size: 700, 613
+  orig: 700, 613
+  offset: 0, 0
+  index: 13
+death
+  rotate: false
+  xy: 4200, 613
+  size: 700, 613
+  orig: 700, 613
+  offset: 0, 0
+  index: 14
+death
+  rotate: false
+  xy: 1400, 0
+  size: 700, 613
+  orig: 700, 613
+  offset: 0, 0
+  index: 15
+death
+  rotate: false
+  xy: 5600, 613
+  size: 700, 613
+  orig: 700, 613
+  offset: 0, 0
+  index: 16
+death
+  rotate: false
+  xy: 2800, 0
+  size: 700, 613
+  orig: 700, 613
+  offset: 0, 0
+  index: 17
+death
+  rotate: false
+  xy: 1400, 1226
+  size: 700, 613
+  orig: 700, 613
+  offset: 0, 0
+  index: 18
+death
+  rotate: false
+  xy: 4200, 0
+  size: 700, 613
+  orig: 700, 613
+  offset: 0, 0
+  index: 19
+death
+  rotate: false
+  xy: 2100, 613
+  size: 700, 613
+  orig: 700, 613
+  offset: 0, 0
+  index: 20
+death
+  rotate: false
+  xy: 0, 1226
+  size: 700, 613
+  orig: 700, 613
+  offset: 0, 0
+  index: 21
+death
+  rotate: false
+  xy: 4200, 1226
+  size: 700, 613
+  orig: 700, 613
+  offset: 0, 0
+  index: 22
+death
+  rotate: false
+  xy: 1400, 613
+  size: 700, 613
+  orig: 700, 613
+  offset: 0, 0
+  index: 23
+death
+  rotate: false
+  xy: 5600, 1226
+  size: 700, 613
+  orig: 700, 613
+  offset: 0, 0
+  index: 24
+death
+  rotate: false
+  xy: 2800, 613
+  size: 700, 613
+  orig: 700, 613
+  offset: 0, 0
+  index: 25
+death
+  rotate: false
+  xy: 0, 0
+  size: 700, 613
+  orig: 700, 613
+  offset: 0, 0
+  index: 26
+

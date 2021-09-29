@@ -48,13 +48,15 @@ public class PlayerFactory {
             new AITaskComponent()
                     .addTask(new PlayerChangeAnimationHelper());
 
-   // String[] atlasFiles = new String[] {"images/simple_player_sprite.atlas", "images/levelOneSpawn.atlas"};
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/simple_player_sprite.atlas", TextureAtlas.class));
 
-    animator.addAnimation("spawn_level1", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("spawn_level1", 0.1f, Animation.PlayMode.NORMAL);
+    animator.addAnimation("portal_flip", 0.1f, Animation.PlayMode.NORMAL);
+    animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
+
 
 
     String[] movement = {"Running", "Jump", "Sliding", "Falling", "Idle", "Walk"};
@@ -70,15 +72,6 @@ public class PlayerFactory {
       }
     }
 
-    /**
-
-    animator.addAnimation("spawnOne", 0.1f, Animation.PlayMode.NORMAL);
-    animator.addAnimation("spawnTwo", 0.1f, Animation.PlayMode.NORMAL);
-    animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
-
-    animator.addAnimation("levelOneSpawn", 0.1f, Animation.PlayMode.NORMAL);
-
-     */
 
 
 
@@ -106,8 +99,8 @@ public class PlayerFactory {
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
-    player.getComponent(AnimationRenderComponent.class).scaleEntity();
-    player.setScale(1.7f,1.3f);
+    //player.getComponent(AnimationRenderComponent.class).scaleEntity();
+    player.setScale(4f,4f);
     return player;
   }
 
