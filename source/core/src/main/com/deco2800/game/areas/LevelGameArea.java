@@ -51,19 +51,30 @@ public class LevelGameArea extends GameArea {
     "map-textures/marker_cross.png",
     "map-textures/marker_o.png",
     "map-textures/end_portal.png",
+    "images/animatedvoid.png",
+    "images/void_spritesheet2.png",
+    "images/Pick_Ups.png",
+    "images/portal-door.png",
+    "images/jumppad.png",
+    "images/button.png",
+    "images/level1_background.jpg",
+    "images/simple_player_animation.png",
+    "images/walkingsprite.png",
+    "images/playerStill.png",
+    "images/testingrunningsprite.png",
     "images/background_level1.jpg"
   };
 
   private static final String[] gameTextureAtlases = {
     "map-spritesheets/mapTextures.atlas",
     "images/void.atlas",
-    "images/player.atlas",
     "images/Pick_Ups.atlas",
     "images/portal-door.atlas",
     "images/jumppad.atlas",
     "images/button.atlas",
     "images/walking_sprite.atlas",
-    "images/testingrunning.atlas"
+    "images/testingrunning.atlas",
+    "images/simple_player_sprite.atlas"
   };
 
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
@@ -128,6 +139,10 @@ public class LevelGameArea extends GameArea {
     spawnLevelFromFile();
     spawnTheVoid();
 
+    //spawnGorgonGear(20,8);
+    spawnTheVoid();
+
+
 //  spawnStatusEffectDeBuff("Buff_Time_Stop"); //Spawns specified statusEffect for testing purposes
 //  spawnStatusEffectBuff("Buff_Jump");
     spawnStatusEffectBuff(getBuff()); // Selected randomly from a list of the effects
@@ -146,8 +161,10 @@ public class LevelGameArea extends GameArea {
 
 
 
+
     spawnPlatform(8, 21, 5);
     spawnDoor(9, 23, 5);
+
   }
 
   /**
@@ -703,4 +720,12 @@ public class LevelGameArea extends GameArea {
     //ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
     this.unloadAssets();
   }
+
+  public String getLevelDefinition() {
+    return this.levelDefinition.name();
+  }
+
+
 }
+
+
