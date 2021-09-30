@@ -1,22 +1,17 @@
 package com.deco2800.game.components.statusEffects;
 
-import com.deco2800.game.ai.tasks.Task;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.statuseffects.StatusEffectEnum;
 import com.deco2800.game.components.statuseffects.StatusEffectOperation;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.extensions.GameExtension;
-import com.deco2800.game.services.GameTime;
-import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
-
-import java.time.Duration;
 import java.util.*;
+import java.util.concurrent.Callable;
 
 import static org.awaitility.Awaitility.await;
 import static org.mockito.Mockito.*;
@@ -35,14 +30,44 @@ public class StatusEffectTest {
     float result;
     int type;
     private PlayerActions playerActions;
-    /* There are no intractable elements in this HashMap. */
-    private final Map<ObstacleEntity, ObstacleEntity> mapInteractables = new HashMap<>();
     private ArrayList<String> statusEffectList = new ArrayList<>();
 
+    /**
+     * Waits for the callable stat change of the jump buff to return the player's jump stat
+     * back to normal.
+     * @return a callable that satisfies the above condition.
+     */
+    private Callable jumpStatChangedBack() {
+        return new Callable() {
+          public Boolean call() throws Exception {
+              return playerActions.getJumpHeight() == 300f; // The condition that must be fulfilled in order for the await to stop.
+          }
+        };
+    }
+
+    /**
+     * Waits for the callable stat change of the speed buff to return the player's speed stat
+     * back to normal.
+     * @return a callable that satisfies the above condition.
+     */
+    private Callable speedStatChangedBack() {
+        return new Callable() {
+            public Boolean call() throws Exception {
+                return playerActions.getSpeed() == 10f; // The condition that must be fulfilled in order for the await to stop.
+            }
+        };
+    }
+
+    private void assertTestCase(float expected, float result) {
+        assertEquals(expected, result);
+        assertTrue(expected == result);
+        assertFalse(expected != result);
+        assertNotEquals(expected + 1, result);
+    }
 
     @BeforeEach
     public void initialiseClasses() {
-        playerActions = new PlayerActions("some level string");
+        playerActions = new PlayerActions("example_level_string");
         /* The health determines whether the unit is dead. 1 = alive, 0 = dead */
         combatStatsComponentIsDead = new CombatStatsComponent(0,0);
         combatStatsComponentNotDead = new CombatStatsComponent(1,0);
@@ -176,23 +201,17 @@ public class StatusEffectTest {
         /* Test that the current speed remains true to the original */
         expected = 10;
         result =  player.getComponent(PlayerActions.class).getSpeed();
-        assertEquals(expected, result);
-        assertTrue(result == expected);
-        assertFalse(result != expected);
-        assertNotEquals(expected + 1, result);
+        assertTestCase(expected, result);
 
         /* Check that the change in stat is correct */
         expected = StatusEffectEnum.SPEED.getStatChange();
         result = speedBoost.speedChange(type);
-        assertEquals(expected, result);
-        assertTrue(result == expected);
-        assertFalse(result != expected);
-        assertNotEquals(expected + 1, result);
+        assertTestCase(expected, result);
 
         /* Check the change in stat */
         expected = 15f;
         result = player.getComponent(PlayerActions.class).getSpeed();
-        assertEquals(expected, result);
+        assertTestCase(expected, result);
     }
 
     @Test
@@ -206,9 +225,7 @@ public class StatusEffectTest {
 
         expected = 10f;
         result = player.getComponent(PlayerActions.class).getSpeed();
-
-        assertEquals(expected, result); /* Check that the statusEffect goes away because the player is dead */
-        assertNotEquals(15f, result); /* Checks that the statusEffect does not persist after death */
+        assertTestCase(expected, result);
     }
 
     @Test
@@ -325,6 +342,28 @@ public class StatusEffectTest {
 
     @Test
     public void testSpeedDebuffDelay() {
+        /* Define the function actions */
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentNotDead);
+        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
+        /* Apply the buff */
+        jumpBoost.jumpBoost();
+
+        /* Check that the stat changed. */
+        expected = 500f;
+        result = playerActions.getJumpHeight();
+        assertEquals(expected, result);
+        assertTrue(expected == result);
+        assertFalse(expected != result);
+
+        /* Wait for the stat to change back */
+        await().until(jumpStatChangedBack());
+        expected = 300f;
+        result = playerActions.getJumpHeight();
+        assertTestCase(expected, result);
+//        assertEquals(expected, result);
+//        assertTrue(expected == result);
+//        assertFalse(expected != result);
+
 //        Duration buffDuration = new Duration();
 //
 //        await().atMost();
