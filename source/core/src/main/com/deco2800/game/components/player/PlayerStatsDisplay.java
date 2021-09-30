@@ -71,7 +71,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
     timeLabel.setBounds(middleScreen, heightOfTimeText, 200, 200); // Try to increase Font size
     timeLabel.setSize(100, 100);
-    System.out.println(timeLabel.setText(100));
+    //System.out.println(timeLabel.setText(100));
 
     TimerTask task = new TimerTask() {
       @Override
@@ -111,6 +111,7 @@ public class PlayerStatsDisplay extends UIComponent {
     // Seems to be the perfect time to start on
     if (iterator < 3) {
       initialValue = (int) Math.round(timeScore/1000);
+      //initialValue = 0;
       iterator++;
     }
 
