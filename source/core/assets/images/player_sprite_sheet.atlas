@@ -1094,13 +1094,13 @@ IdleLeftStuck
   orig: 367, 699
   offset: 0, 0
   index: 18
-IdleRightStuck
+IdleRightDefault
   rotate: false
   xy: 4977,1529
   size: 367, 699
   orig: 367, 699
   offset: 0, 0
-  index: 1
+  index: 0
 IdleRightStuck
   rotate: false
   xy: 5138, 830
@@ -2374,3 +2374,11 @@ RunningRightSpeedUp
   orig: 603, 716
   offset: 0, 0
   index: 14
+default
+  rotate: false
+  xy: 0, 716
+  size: 603, 716
+  orig: 603, 716
+  offset: 0, 0
+  index: 14
+
