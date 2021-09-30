@@ -237,26 +237,17 @@ public class StatusEffectTest {
         /* Check that the current jumpHeight remains true to the original */
         expected = 300f;
         result = player.getComponent(PlayerActions.class).getJumpHeight();
-        assertEquals(expected, result);
-        assertTrue(result == expected);
-        assertFalse(result != expected);
-        assertNotEquals(expected + 1, result);
+        assertTestCase(expected, result);
 
         /* Check that the jumpBoost amount is correct */
         expected = StatusEffectEnum.JUMPBUFF.getStatChange();
         result = jumpBoost.jumpBoost();
-        assertEquals(expected, result);
-        assertNotEquals(expected + 1, result);
-        assertTrue(expected == result);
-        assertFalse(expected != result);
+        assertTestCase(expected, result);
 
         /* Check that the jump height has changed */
         expected = 500f;
         result = player.getComponent(PlayerActions.class).getJumpHeight();
-        assertEquals(expected, result);
-        assertNotEquals(expected + 1, result);
-        assertTrue(expected == result);
-        assertFalse(expected != result);
+        assertTestCase(expected, result);
     }
 
     @Test
@@ -268,9 +259,7 @@ public class StatusEffectTest {
         /* Check that the jump height does not change because the player is dead */
         expected = 300f;
         result = player.getComponent(PlayerActions.class).getJumpHeight();
-
-        assertEquals(expected, result);
-        assertNotEquals(500f, result);
+        assertTestCase(expected, result);
     }
 
     @Test
@@ -283,18 +272,12 @@ public class StatusEffectTest {
         /* Test that the stat change is as expected */
         expected = 5;
         result = speedBoost.speedChange(type);
-        assertEquals(expected, result);
-        assertNotEquals(expected + 1, result);
-        assertTrue(expected == result);
-        assertFalse(expected != result);
+        assertTestCase(expected, result);
 
         /* Test that the player stat decreased */
         expected = 5;
         result = player.getComponent(PlayerActions.class).getSpeed();
-        assertEquals(expected, result);
-        assertTrue(expected == result);
-        assertFalse(expected != result);
-        assertNotEquals(expected + 1, result);
+        assertTestCase(expected, result);
     }
 
     @Test
@@ -307,9 +290,7 @@ public class StatusEffectTest {
 
         expected = 10f;
         result = playerActions.getSpeed();
-        assertEquals(expected, result);
-        assertTrue(expected == result);
-        assertFalse(expected != result);
+        assertTestCase(expected, result);
     }
 
     @Test
@@ -320,11 +301,7 @@ public class StatusEffectTest {
 
         expected = 0;
         result = playerActions.getSpeed();
-        assertEquals(expected, result);
-        assertNotEquals(expected + 1, result);
-        assertTrue(expected == result);
-        assertFalse(expected != result);
-
+        assertTestCase(expected, result);
     }
 
     @Test public void testStuckInTheMudDebuffIsDead() {
@@ -334,10 +311,7 @@ public class StatusEffectTest {
 
         expected = 0;
         result = playerActions.getSpeed();
-        assertEquals(expected, result);
-        assertNotEquals(expected + 1, result);
-        assertTrue(expected == result);
-        assertFalse(expected != result);
+        assertTestCase(expected, result);
     }
 
     @Test
@@ -360,13 +334,6 @@ public class StatusEffectTest {
         expected = 300f;
         result = playerActions.getJumpHeight();
         assertTestCase(expected, result);
-//        assertEquals(expected, result);
-//        assertTrue(expected == result);
-//        assertFalse(expected != result);
-
-//        Duration buffDuration = new Duration();
-//
-//        await().atMost();
     }
 
     /* Uncomment if you want to see how the null works */
