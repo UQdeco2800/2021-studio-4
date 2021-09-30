@@ -13,6 +13,7 @@ import com.deco2800.game.entities.factories.RenderFactory;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.input.InputDecorator;
 import com.deco2800.game.input.InputService;
+import com.deco2800.game.levels.LevelDefinition;
 import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
@@ -43,12 +44,17 @@ public class MainGameScreen extends ScreenAdapter {
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
+//  private final LevelDefinition levelDefinition;
 
-  private final long timeStarted = System.currentTimeMillis();
-  public static int timeScore = 0;
+  //private final long timeStarted = System.currentTimeMillis();
+  public static long timeScore;
+  public static boolean levelComplete = false;
+  public GameTime gameTime;
 
-  public MainGameScreen(GdxGame game) {
+  public MainGameScreen(GdxGame game, LevelDefinition levelDefinition) {
     this.game = game;
+//    this.levelDefinition = levelDefinition;
+    this.gameTime = new GameTime();
 
     logger.debug("Initialising main game screen services");
     ServiceLocator.registerTimeSource(new GameTime());
@@ -74,8 +80,12 @@ public class MainGameScreen extends ScreenAdapter {
 
     logger.debug("Initialising main game screen entities");
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
-    LevelGameArea levelGameArea = new LevelGameArea(terrainFactory);
+    LevelGameArea levelGameArea = new LevelGameArea(terrainFactory, levelDefinition);
     levelGameArea.create();
+  }
+
+  public static void setLevelComplete() {
+    levelComplete = true;
   }
 
   @Override
@@ -83,13 +93,29 @@ public class MainGameScreen extends ScreenAdapter {
     physicsEngine.update();
     ServiceLocator.getEntityService().update();
     renderer.render();
+
     if (gameOver) {
       gameOver = false;
+      playerDied();
+    }
+
+    if (levelComplete)   {
+      playerWon();
+    }
+
+    timeScore = gameTime.getTime(); // Doesn't change the time????
+    //timeScore = (int) ((System.currentTimeMillis() - timeStarted) / 1000);
+  }
+
+  public void playerWon() {
+    logger.info("Level completed");
+    game.setScreen(GdxGame.ScreenType.SCORE_SCREEN); // Must go to scoreScreen
+                                                     // to change levelComplete to false
+  }
+
+  public void playerDied() {
       logger.info("Show Death Screen");
       game.setScreen(GdxGame.ScreenType.DEATH_SCREEN);
-    }
-    timeScore = (int) ((System.currentTimeMillis() - timeStarted) / 1000);
-
   }
 
   @Override

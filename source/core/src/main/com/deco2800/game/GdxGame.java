@@ -4,11 +4,13 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.deco2800.game.files.UserSettings;
+import com.deco2800.game.levels.LevelDefinition;
 import com.deco2800.game.screens.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static com.badlogic.gdx.Gdx.app;
+import static com.deco2800.game.screens.MainGameScreen.timeScore;
 
 /**
  * Entry point of the non-platform-specific game logic. Controls which screen is currently running.
@@ -17,6 +19,7 @@ import static com.badlogic.gdx.Gdx.app;
  */
 public class GdxGame extends Game {
   private static final Logger logger = LoggerFactory.getLogger(GdxGame.class);
+  private LevelDefinition levelDefinition;
 
   @Override
   public void create() {
@@ -38,6 +41,24 @@ public class GdxGame extends Game {
     UserSettings.applySettings(settings);
   }
 
+  public void setLevel(ScreenType screenType, LevelDefinition levelDefinition) {
+    this.levelDefinition = levelDefinition;
+    logger.info("Setting game screen to {}", screenType);
+    Screen currentScreen = getScreen();
+    if (currentScreen != null) {
+      currentScreen.dispose();
+    }
+
+    switch (screenType) {
+      case MAIN_GAME:
+        setScreen(new MainGameScreen(this, levelDefinition));
+        break;
+      case LEVEL_EDITOR:
+        setScreen(new LevelEditorScreen(this, levelDefinition));
+        break;
+    }
+  }
+
   /**
    * Sets the game's screen to a new screen of the provided type.
    * @param screenType screen type
@@ -48,6 +69,10 @@ public class GdxGame extends Game {
     if (currentScreen != null) {
       currentScreen.dispose();
     }
+
+    System.gc();
+    System.runFinalization();
+
     setScreen(newScreen(screenType));
   }
 
@@ -66,8 +91,6 @@ public class GdxGame extends Game {
     switch (screenType) {
       case MAIN_MENU:
         return new MainMenuScreen(this);
-      case MAIN_GAME:
-        return new MainGameScreen(this);
       case SETTINGS:
         return new SettingsScreen(this);
       case LOAD_LEVELS:
@@ -75,12 +98,14 @@ public class GdxGame extends Game {
       case DEATH_SCREEN:
         return new DeathScreen(this);
       case SCORE_SCREEN:
-        return new ScoreScreen(this);
-      case LEVEL_EDITOR:
-        return new LevelEditorScreen(this);
+        return new ScoreScreen(this, levelDefinition, getCompletionTime());
       default:
         return null;
     }
+  }
+
+  private int getCompletionTime() {
+    return Math.round(timeScore/1000);
   }
 
   public enum ScreenType {

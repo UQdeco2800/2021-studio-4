@@ -3,6 +3,7 @@ package com.deco2800.game.components.levelselect;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.levelselect.LevelDisplayActions;
+import com.deco2800.game.levels.LevelDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 public class LevelDisplayActions extends Component {
     private static final Logger logger = LoggerFactory.getLogger(LevelDisplayActions.class);
     private GdxGame game;
+    private PreviousLevel previousLevel = new PreviousLevel();
 
     public LevelDisplayActions(GdxGame game) {
         this.game = game;
@@ -20,17 +22,25 @@ public class LevelDisplayActions extends Component {
     @Override
     public void create() {
         entity.getEvents().addListener("exit", this::onExit);
-        entity.getEvents().addListener("start", this::level1);
+        entity.getEvents().addListener("start", this::startGame);
+        entity.getEvents().addListener("levelEditor", this::startLevelEditor);
     }
 
     /**
-     * Swaps to the Main Game screen.
-     * Note that this only goes to the main Game screen at the moment as
-     * there were no levels past level1 created at time of implementation
+     * Starts the game with the selected level (if applicable)
      */
-    private void level1() {
-        logger.info("Start game");
-        game.setScreen(GdxGame.ScreenType.MAIN_GAME);
+    private void startGame(LevelDefinition levelDefinition) {
+        logger.info("Start game level: " + levelDefinition);
+        game.setLevel(GdxGame.ScreenType.MAIN_GAME, levelDefinition);
+        previousLevel.updatePreviousLevel(levelDefinition);
+    }
+
+    /**
+     * Starts the game with the selected level (if applicable)
+     */
+    private void startLevelEditor(LevelDefinition levelDefinition) {
+        logger.info("Level editor for level level: " + levelDefinition);
+        game.setLevel(GdxGame.ScreenType.LEVEL_EDITOR, levelDefinition);
     }
 
     /**

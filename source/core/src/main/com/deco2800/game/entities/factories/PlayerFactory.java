@@ -3,6 +3,7 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deco2800.game.ai.tasks.AITaskComponent;
+import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.PlayerMovementComponent;
 import com.deco2800.game.components.player.InventoryComponent;
@@ -22,6 +23,7 @@ import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,7 +40,7 @@ public class PlayerFactory {
    * Create a player entity.
    * @return entity
    */
-  public static Entity createPlayer(Map<ObstacleEntity, ObstacleEntity> mapInteractables) {
+  public static Entity createPlayer(Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables, LevelGameArea levelGameArea) {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForPlayer();
 
@@ -46,20 +48,40 @@ public class PlayerFactory {
             new AITaskComponent()
                     .addTask(new PlayerChangeAnimationHelper());
 
+   // String[] atlasFiles = new String[] {"images/simple_player_sprite.atlas", "images/levelOneSpawn.atlas"};
+
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
-                    ServiceLocator.getResourceService()
-                            .getAsset("images/player.atlas", TextureAtlas.class));
-    animator.addAnimation("RunningRightDefault", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("RunningLeftDefault", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("IdleLeftDefault", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("IdleRightDefault", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("FallingRightDefault", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("FallingLeftDefault", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("SlidingRightDefault", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("SlidingLeftDefault", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("JumpingLeftDefault", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("JumpingRightDefault", 0.1f, Animation.PlayMode.LOOP);
+                    ServiceLocator.getResourceService().getAsset("images/simple_player_sprite.atlas", TextureAtlas.class));
+
+    animator.addAnimation("spawn_level1", 0.2f, Animation.PlayMode.LOOP);
+
+
+    String[] movement = {"Running", "Jump", "Sliding", "Falling", "Idle", "Walk"};
+    String[] direction = {"Left", "Right"};
+
+    for(String mov : movement) {
+      for (String dir : direction) {
+        if (mov.equals("Jump") | mov.equals("Sliding") | mov.equals("Falling")) {
+          animator.addAnimation(mov + dir, 0.03f, Animation.PlayMode.NORMAL);
+        } else {
+          animator.addAnimation(mov + dir, 0.08f, Animation.PlayMode.LOOP);
+        }
+      }
+    }
+
+    /**
+
+    animator.addAnimation("spawnOne", 0.1f, Animation.PlayMode.NORMAL);
+    animator.addAnimation("spawnTwo", 0.1f, Animation.PlayMode.NORMAL);
+    animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
+
+    animator.addAnimation("levelOneSpawn", 0.1f, Animation.PlayMode.NORMAL);
+
+     */
+
+
+
 
 
     Entity player =
@@ -68,7 +90,7 @@ public class PlayerFactory {
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
             .addComponent(animator)
-            .addComponent(new PlayerActions())
+            .addComponent(new PlayerActions(levelGameArea.getLevelDefinition()))
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
             .addComponent(new InventoryComponent(stats.gold))
             //.addComponent(new StatusEffectsController()) /** Added a new StatusEffects Component */
@@ -76,14 +98,16 @@ public class PlayerFactory {
             .addComponent(new PlayerStatsDisplay())
             .addComponent(aiComponent)
                                                                                                   // Added in to allow                                          // for collision controlled jumping
-            .addComponent(new PlayerMovementComponent(PhysicsLayer.OBSTACLE, mapInteractables)); // Added in to allow
+            .addComponent(new PlayerMovementComponent(PhysicsLayer.OBSTACLE, mapInteractables, levelGameArea)); // Added in to allow
                                                                                   // for collision controlled jumping
                                                     // Recently added mapInteractables for interactable functionality
+
 
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
     player.getComponent(AnimationRenderComponent.class).scaleEntity();
+    player.setScale(1.7f,1.3f);
     return player;
   }
 

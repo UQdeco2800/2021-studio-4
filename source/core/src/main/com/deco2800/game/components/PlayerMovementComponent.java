@@ -2,21 +2,27 @@ package com.deco2800.game.components;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.deco2800.game.areas.LevelGameArea;
+import com.deco2800.game.components.endgame.LevelEndComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleDefinition;
 import com.deco2800.game.entities.ObstacleEntity;
+import com.deco2800.game.levels.LevelDefinition;
 import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.*;
+import com.deco2800.game.screens.MainGameScreen;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class PlayerMovementComponent extends Component {
     private short targetLayer;
-    private Map<ObstacleEntity, ObstacleEntity> mapInteractables;
+    private Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables;
     private HitboxComponent hitboxComponent;
+    private LevelGameArea levelGameArea;
 
     /**
      * Create a component which interacts with entities on collision.
@@ -26,7 +32,8 @@ public class PlayerMovementComponent extends Component {
         this.targetLayer = targetLayer;
     }
 
-    public PlayerMovementComponent(short targetLayer, Map<ObstacleEntity, ObstacleEntity> mapInteractables) {
+    public PlayerMovementComponent(short targetLayer, Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables, LevelGameArea levelGameArea) {
+        this.levelGameArea = levelGameArea;
         this.targetLayer = targetLayer;
         this.mapInteractables = mapInteractables;
     }
@@ -61,6 +68,7 @@ public class PlayerMovementComponent extends Component {
         // Get the relevant components from the target entity
         PhysicsComponent physicsComponent = target.getComponent(PhysicsComponent.class); // probably don't need this
         JumpableComponent jumpableComponent = target.getComponent(JumpableComponent.class);
+        LevelEndComponent levelEndComponent = target.getComponent(LevelEndComponent.class);
         JumpPadComponent jumpPadComponent = target.getComponent(JumpPadComponent.class);
         InteractableComponent interactableComponent = target.getComponent(InteractableComponent.class);
 
@@ -106,5 +114,11 @@ public class PlayerMovementComponent extends Component {
                 }
             }
         }
+        if (levelEndComponent != null) {
+            MainGameScreen.setLevelComplete();
+        }
+
+        // && physicsComponent.toString()
+        //             .equals("Entity{id=9}.PhysicsComponent") ---> uglier but only allows jumping from floor
     }
 }

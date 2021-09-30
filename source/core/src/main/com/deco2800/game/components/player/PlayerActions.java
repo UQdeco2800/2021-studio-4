@@ -9,6 +9,9 @@ import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
 
+import java.util.Random;
+import java.util.function.DoubleToIntFunction;
+
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
  * and when triggered should call methods within this class.
@@ -17,25 +20,36 @@ import com.deco2800.game.utils.math.Vector2Utils;
 
 public class PlayerActions extends Component {
 
+    private String gameLevel;
+
+    public PlayerActions(String currentLevel) {
+        this.gameLevel = currentLevel;
+    }
+
 //enum consisting of the possible movement of the player
   private enum Movement {
     Running,
     Idle,
     Falling,
     Sliding,
-    Jumping
+    Jump,
+    Walk
   }
   //direction the player is moving
   private enum MovingDirection {
     Left,
     Right
   }
-  private MovingDirection movingDirection = MovingDirection.Right;
-  private String currentPowerUp = "Default";
-  private Movement currentMovement = Movement.Idle;
-  private String previousAnimation;
 
-  private static final Vector2 ACCELERATION = new Vector2(10f, 0f);  // Force of acceleration, in Newtons (kg.m.s^2)
+  private MovingDirection movingDirection;
+  private String currentPowerUp;
+  private Movement currentMovement;
+  private String previousAnimation;
+  private boolean canPlayerMove;
+  private double spawnAnimationToUse;
+  private String spawnAnimation;
+
+  private static Vector2 ACCELERATION = new Vector2(10f, 0f);;  // Force of acceleration, in Newtons (kg.m.s^2)
   private static final float NORMAL_FRICTION = 0.1f;                 // Coefficient of friction for normal movement
 
   private PlayerState playerState = PlayerState.STOPPED;        // Movement state of the player, see PlayerState
@@ -65,27 +79,65 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("setPreviousWalkDirection", this::setPreviousWalkDirection);
     entity.getEvents().addListener("playerIsFalling", this::setIsFalling);
     entity.getEvents().addListener("isJumping", this::setIsJumping);
-    entity.getEvents().addListener("isFallingOrSlidingDone", this::checkIfFallingOrSlidingIsDone);
+    entity.getEvents().addListener("isFallingDone", this::checkIfFallingIsDone);
+    entity.getEvents().addListener("isSlidingDone", this::checkIfSlidingIsDone);
     entity.getEvents().addListener("keyPressed", this::keyWasPressed);
     entity.getEvents().addListener("keyReleased", this::keyWasReleased);
+    entity.getEvents().addListener("setPowerUpAnimation", this::setCurrentPowerUp);
+    entity.getEvents().addListener("playerIsDead", this::playerIsDead);
 
 
+    movingDirection = MovingDirection.Right;
+    currentMovement = Movement.Idle;
+    currentPowerUp = "Default";
+    keysPressed = 0;
 
     this.body = physicsComponent.getBody();
     previousAnimation = getAnimation();
 
-    if (animator != null) {
-      animator.startAnimation(getAnimation());
+
+    animator.startAnimation(getAnimation());
+    canPlayerMove = true;
+    //animator.startAnimation("spawn_level1");
+/*
+    hasSpawnAnimationFinished = false;
+    if(gameLevel == "LEVEL_4") {
+        System.out.println("set animation to slidingRight");
+        spawnAnimation = "levelOneSpawn";
+    } else {
+        spawnAnimationToUse = (Math.random() * (2 - 1)) + 1;
+        if (spawnAnimationToUse == 1) {
+            spawnAnimation = "spawnOne";
+        } else {
+            spawnAnimation = "spawnTwo";
+        }
     }
+
+ */
   }
 
   @Override
   public void update() {
+      /*
+      if(!hasSpawnAnimationFinished && animator.getCurrentAnimation() == null) {
+          animator.startAnimation(spawnAnimation);
+          System.out.println("started" + animator.getCurrentAnimation() + "animation");
+      } else if (animator.isFinished() && !hasSpawnAnimationFinished) {
+          System.out.println("has finished");
+          this.hasSpawnAnimationFinished = true;
+          animator.startAnimation(getAnimation());
+      }
+      */
     if (playerState != PlayerState.STOPPED) {
       updateSpeed();
       ServiceLocator.getCamera().getEntity().setPosition(entity.getCenterPosition());
       applyFriction();
     }
+  }
+
+  private void playerIsDead() {
+      canPlayerMove = false;
+      this.entity.getComponent(PlayerStatsDisplay.class).playerIsDead();
   }
 
   /**
@@ -102,7 +154,7 @@ public class PlayerActions extends Component {
     return ACCELERATION.x;
   }
 
-  public float getJumpBoost() {
+  public float getJumpHeight() {
     return jumpSpeed.y;
   }
 
@@ -112,47 +164,25 @@ public class PlayerActions extends Component {
    * speed limit.
    */
   public int alterSpeed(int newSpeed) {
-    //check if the speed is being set to its default value or if its increasing or decreasing and set
-    //the animation
-
-    //adding speed
-    if(newSpeed > 0) {
-      //increasing from deafult
-      if (getSpeed() == 10) {
-        setPowerUpAnimation("SpeedUp");
-        //setting back to default from either Stuck or speedDown
-      } else {
-        setPowerUpAnimation("Default");
-      }
-      //setting to Stuck
-    } else if (newSpeed == getSpeed()*-1){
-      setPowerUpAnimation("Stuck");
-      //decreasing speed
-    } else {
-      //if decreasing from 10 its SpeedDown
-      if(getSpeed() == 10) {
-        setPowerUpAnimation("SpeedDown");
-        //if decreasing from a higher speed then it is setting to Default
-      } else {
-        setPowerUpAnimation("Default");
-      }
-    }
 
     // increase or decrease the players movement
     ACCELERATION.add(newSpeed, 0);
+    //return (int) ACCELERATION.x;
     return newSpeed;
   }
 
   public int alterJumpHeight(int newJump) {
-    if(newJump > 0) {
-      setPowerUpAnimation("JumpUp");
-    } else {
-      setPowerUpAnimation("Default");
-    }
+
     // increase or decrease the players movement
     jumpSpeed.add(0, newJump);
     return newJump;
   }
+
+  public void setCanPlayerMove(boolean value) {
+      this.canPlayerMove = value;
+  }
+
+
 
   /**
    * Sets the animation of the player to the powerUp entered as the parameter value.
@@ -160,16 +190,19 @@ public class PlayerActions extends Component {
    * case sensitive and should begin with a capital letter. This should be called when
    * a player hits a powerUp and when their powerUp runs out.
    *
-   * @param value the string name of the power up animation, these are the options:
-   *              Default, SpeedUp, SpeedDown, JumpBoost, Stuck, TimeStop, VisionImpaired
+   * @param powerUp the string name of the power up animation, these are the options:
+   *              Default, SpeedUp, SpeedDown, Stuck
    */
   //This is currently commented out since i have not made any placeholder sprites for powerUps
   // so I can't try and load in an animation i havent defined
-  private void setPowerUpAnimation(String value){
-    //System.out.println(value);
-    //currentPowerUp = value;
-    //animator.startAnimation(getAnimation());
-  }
+private void setCurrentPowerUp(String powerUp) {
+  currentPowerUp = powerUp;
+  setMovementAnimation(currentMovement);
+}
+
+public String getCurrentPowerUp() {
+  return currentPowerUp;
+}
 
   /**
    * Sets the movementAnimation of the player to the animation corresponding
@@ -180,6 +213,16 @@ public class PlayerActions extends Component {
    *              Running, Idle, Falling, Jumping, Sliding
    */
   private void setMovementAnimation(Movement value){
+      /**
+    if(value == Movement.Walk && getCurrentPowerUp() == "SpeedUp") {
+      value = Movement.Running;
+    }
+
+    if(currentPowerUp == "Stuck") {
+      value = Movement.Idle;
+    }
+       */
+
     if(!(previousAnimation.equals(getAnimation())) || value != currentMovement){
       //System.out.println(value);
       currentMovement = value;
@@ -205,51 +248,66 @@ public class PlayerActions extends Component {
    * @returns String containing currentMovement + movingDirection + powerUp
    */
   private String getAnimation(){
-    return currentMovement.toString() + movingDirection.toString() + currentPowerUp;
+    return  getCurrentMovement() + getCurrentDirection();
   }
+
+  String getCurrentMovement() {
+    return currentMovement.toString();
+  }
+
+  String getCurrentDirection() {
+    return movingDirection.toString();
+  }
+
 
   /**
    * sets the players animation to falling
    */
-  private void setIsFalling(){
-    canJump = false;
-    setMovementAnimation(Movement.Falling);
+  void setIsFalling(){
+      if (canPlayerMove) {
+          setCanJump(false);
+          setMovementAnimation(Movement.Falling);
+      }
   }
 
-  private void setIsJumping(){
-    setMovementAnimation(Movement.Jumping);
+  void setIsJumping(){
+    setMovementAnimation(Movement.Jump);
+  }
+
+  void setIsSliding() {
+    setMovementAnimation(Movement.Sliding);
   }
 
   /**
    * This checks if the animation of the player is set to falling when it should not
    * be and sets the player to the correct animation
    */
-  private void checkIfFallingOrSlidingIsDone(){
-    if(currentMovement == Movement.Falling | currentMovement == Movement.Jumping){
-      if(canJump){
+  void checkIfFallingIsDone(){
+    if((currentMovement == Movement.Falling | currentMovement == Movement.Jump) & canJump){
         if(body.getLinearVelocity().x == 0 | keysPressed == 0){
           setMovementAnimation(Movement.Idle);
         } else {
-          setMovementAnimation(Movement.Running);
+          setMovementAnimation(Movement.Walk);
         }
-      }
-    } else if (currentMovement == Movement.Sliding) {
-      if(canJump){
-        if(body.getLinearVelocity().x == 0){
+    }
+  }
+
+  void checkIfSlidingIsDone() {
+    if (currentMovement == Movement.Sliding && canJump) {
+        if (body.getLinearVelocity().x == 0) {
           setMovementAnimation(Movement.Idle);
         } else if (keysPressed > 0 && (body.getLinearVelocity().x < 7 && body.getLinearVelocity().x > 0 ||
-                     body.getLinearVelocity().x > -8 && body.getLinearVelocity().x < 8)) {
-            setMovementAnimation(Movement.Running);
+                body.getLinearVelocity().x > -7 && body.getLinearVelocity().x < 7)) {
+          setMovementAnimation(Movement.Walk);
         }
       }
-    }
   }
 
   /**
    * Increments the variable storing number of keys being pressed
    */
-  private void keyWasPressed(){
-    keysPressed++;
+  void keyWasPressed(){
+      keysPressed++;
   }
 
   /**
@@ -294,28 +352,34 @@ public class PlayerActions extends Component {
    * @param direction direction to move in
    */
   void walk(Vector2 direction) {
-    if(direction.x == 1.0){
-      setMovingDirection(MovingDirection.Right);
-    } else {
-      setMovingDirection(MovingDirection.Left);
-    }
+      if (canPlayerMove) {
+          if (direction.x == 1.0) {
+              setMovingDirection(MovingDirection.Right);
+          } else {
+              setMovingDirection(MovingDirection.Left);
+          }
 
-    if(canJump) {
-      setMovementAnimation(Movement.Running);
-    }
+          if (canJump) {
+              setMovementAnimation(Movement.Walk);
+          }
 
-    this.walkDirection = direction;
-    this.playerState = PlayerState.MOVING;
+          this.walkDirection = direction;
+          this.playerState = PlayerState.MOVING;
+      }
   }
 
   /**
    * Stops the player from walking.
    */
   void stopWalking() {
-    this.walkDirection = Vector2.Zero.cpy();
-    setMovementAnimation(Movement.Idle);
-    //currentVelocity = new Vector2(-0.2f, -0.2f);
-    //updateSpeed();
+      if (canPlayerMove) {
+          this.walkDirection = Vector2.Zero.cpy();
+          if (currentMovement != Movement.Falling) {
+              setMovementAnimation(Movement.Idle);
+          }
+          //currentVelocity = new Vector2(-0.2f, -0.2f);
+          //updateSpeed();
+      }
   }
 
   /**
@@ -330,30 +394,34 @@ public class PlayerActions extends Component {
    * Makes the player jump upwards
    */
   void jump() {
-    //System.out.println("trying to jump and " + canJump + "state is " + playerState); // Testing print
-    if (playerState != PlayerState.AIR && canJump) {
-      //System.out.println("in air"); // More testing prints
-      setMovementAnimation(Movement.Jumping);
+      if (canPlayerMove) {
+          //System.out.println("trying to jump and " + canJump + "state is " + playerState); // Testing print
+          if (playerState != PlayerState.AIR && canJump) {
+              //System.out.println("in air"); // More testing prints
+              setIsJumping();
 
-      this.playerState = PlayerState.AIR;
-      body.applyForceToCenter(jumpSpeed, true);
-      canJump = false;
-    }
+              this.playerState = PlayerState.AIR;
+              body.applyForceToCenter(jumpSpeed, true);
+              canJump = false;
+          }
+      }
   }
 
   /**
-   * Makes the player slide if they are touching the ground
+   * Makes the player slide if they are touching the ground and not currently sliding
    */
   void slide() {
-    this.playerState = PlayerState.SLIDING;
-    setMovementAnimation(Movement.Sliding);
-    if(getCanJump()) {
-      if (previousWalkDirection.epsilonEquals(Vector2Utils.LEFT)) {
-        body.applyForceToCenter(new Vector2(-300f, 0f), true);
-      } else {
-        body.applyForceToCenter(new Vector2(300f, 0f), true);
+      if(canPlayerMove && !getCurrentMovement().equals("Sliding")) {
+          this.playerState = PlayerState.SLIDING;
+          if (getCanJump()) {
+              setIsSliding();
+              if (previousWalkDirection.epsilonEquals(Vector2Utils.LEFT)) {
+                  body.applyForceToCenter(new Vector2(-300f, 0f), true);
+              } else {
+                  body.applyForceToCenter(new Vector2(300f, 0f), true);
+              }
+          }
       }
-    }
   }
 
   /**
@@ -375,6 +443,10 @@ public class PlayerActions extends Component {
       this.playerState = PlayerState.MOVING;
   }
 
+  public void setCanJump(Boolean value) {
+    canJump = value;
+  }
+
 
   /**
    * Thrusts the player up at the defined jump pad speed.
@@ -391,6 +463,7 @@ public class PlayerActions extends Component {
   public PlayerState getPlayerState() {
     return this.playerState;
   }
+
 
   /**
    * Get the player's walking direction.
