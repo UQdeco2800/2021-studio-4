@@ -17,13 +17,10 @@ public class CalcScore {
 
         int levelMaxTime = 3 * 60; // The player has to completed the level within 3 minutes
         int levelScore = 100; // The player will be awarded of 100 points per remaining second
-        int score; // The players calculated score
 
         int secondsLeftOver = levelMaxTime - clock;
 
-        // You can't ever get a score of 0. (Since 0 score turns into a '-' when read
-        score = Math.max(1, secondsLeftOver) * levelScore;
-
-        return score;
+        // You can't ever get a score of 0. (Since 0 score turns into a '-' when read from textfile
+        return Math.max(1, secondsLeftOver) * levelScore;
     }
 }
