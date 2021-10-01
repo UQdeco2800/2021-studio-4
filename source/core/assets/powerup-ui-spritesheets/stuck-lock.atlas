@@ -1,0 +1,204 @@
+
+stuck-lock.png
+size: 1024, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+stuck-lock00
+  rotate: false
+  xy: 2, 475
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+stuck-lock23
+  rotate: false
+  xy: 2, 475
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+stuck-lock01
+  rotate: false
+  xy: 2, 2
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+stuck-lock02
+  rotate: false
+  xy: 476, 475
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+stuck-lock03
+  rotate: false
+  xy: 476, 2
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+
+stuck-lock2.png
+size: 1024, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+stuck-lock04
+  rotate: false
+  xy: 2, 475
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+stuck-lock05
+  rotate: false
+  xy: 2, 2
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+stuck-lock06
+  rotate: false
+  xy: 476, 475
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+stuck-lock07
+  rotate: false
+  xy: 476, 2
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+
+stuck-lock3.png
+size: 1024, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+stuck-lock08
+  rotate: false
+  xy: 2, 475
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+stuck-lock09
+  rotate: false
+  xy: 2, 2
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+stuck-lock10
+  rotate: false
+  xy: 476, 475
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+stuck-lock11
+  rotate: false
+  xy: 476, 2
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+
+stuck-lock4.png
+size: 1024, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+stuck-lock12
+  rotate: false
+  xy: 2, 475
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+stuck-lock13
+  rotate: false
+  xy: 2, 2
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+stuck-lock14
+  rotate: false
+  xy: 476, 475
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+stuck-lock15
+  rotate: false
+  xy: 476, 2
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+
+stuck-lock5.png
+size: 1024, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+stuck-lock16
+  rotate: false
+  xy: 2, 475
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+stuck-lock17
+  rotate: false
+  xy: 2, 2
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+stuck-lock18
+  rotate: false
+  xy: 476, 475
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+stuck-lock19
+  rotate: false
+  xy: 476, 2
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+
+stuck-lock6.png
+size: 1024, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+stuck-lock20
+  rotate: false
+  xy: 2, 475
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+stuck-lock21
+  rotate: false
+  xy: 2, 2
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
+stuck-lock22
+  rotate: false
+  xy: 476, 475
+  size: 472, 471
+  orig: 472, 471
+  offset: 0, 0
+  index: -1
