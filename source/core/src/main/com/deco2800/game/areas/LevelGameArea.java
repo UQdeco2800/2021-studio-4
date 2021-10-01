@@ -140,7 +140,7 @@ public class LevelGameArea extends GameArea {
     spawnTheVoid();
 
     //spawnGorgonGear(20,8);
-    spawnTheVoid();
+    //spawnTheVoid();
 
 
 //  spawnStatusEffectDeBuff("Buff_Time_Stop"); //Spawns specified statusEffect for testing purposes
