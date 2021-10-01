@@ -20,7 +20,7 @@ public class CalcScore {
 
         int secondsLeftOver = levelMaxTime - clock;
 
-        // You can't ever get a score of 0. (Since 0 score turns into a '-' when read from textfile
+        // You can't ever get a score of 0. (Since 0 score turns into a '-' when read from textfile)
         return Math.max(1, secondsLeftOver) * levelScore;
     }
 }
