@@ -35,6 +35,7 @@ public class MainGameActions extends Component {
   private void onPause() {
     logger.info("Pause the level");
     game.setScreen(GdxGame.ScreenType.PAUSE);
+    //game.setPauseScreen();
   }
 //
 //  private void death() {
