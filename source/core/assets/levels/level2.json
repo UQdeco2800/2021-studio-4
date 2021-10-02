@@ -1,0 +1,268 @@
+{
+  "terrain": {
+    "mapLayer": [
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 66,
+        "y": 16,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      },
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 76,
+        "y": 6,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      },
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 76,
+        "y": 7,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      },
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 76,
+        "y": 8,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      },
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 76,
+        "y": 9,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      },
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 76,
+        "y": 10,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      },
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 76,
+        "y": 11,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      },
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 88,
+        "y": 12,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      },
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 88,
+        "y": 13,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      },
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 88,
+        "y": 14,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      },
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 88,
+        "y": 15,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      },
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 92,
+        "y": 16,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      },
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 92,
+        "y": 17,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      },
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 92,
+        "y": 18,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      },
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 92,
+        "y": 19,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      },
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 93,
+        "y": 6,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      },
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 93,
+        "y": 7,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      },
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 93,
+        "y": 8,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      },
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 96,
+        "y": 20,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      },
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 96,
+        "y": 21,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      },
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 96,
+        "y": 22,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      },
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 96,
+        "y": 23,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      }
+    ]
+  },
+  "obstacles": {
+    "obstacleEntities": [
+      {
+        "def": "PLATFORM",
+        "size": 1,
+        "x": 31,
+        "y": 6
+      },
+      {
+        "def": "DOOR",
+        "size": 1,
+        "x": 74,
+        "y": 12
+      },
+      {
+        "def": "DOOR",
+        "size": 1,
+        "x": 74,
+        "y": 13
+      },
+      {
+        "def": "DOOR",
+        "size": 1,
+        "x": 74,
+        "y": 14
+      },
+      {
+        "def": "DOOR",
+        "size": 1,
+        "x": 74,
+        "y": 15
+      },
+      {
+        "def": "DOOR",
+        "size": 1,
+        "x": 244,
+        "y": 7
+      },
+      {
+        "def": "DOOR",
+        "size": 1,
+        "x": 244,
+        "y": 8
+      },
+      {
+        "def": "DOOR",
+        "size": 1,
+        "x": 244,
+        "y": 9
+      },
+      {
+        "def": "DOOR",
+        "size": 1,
+        "x": 244,
+        "y": 10
+      },
+      {
+        "def": "BRIDGE",
+        "size": 11,
+        "x": 136,
+        "y": 9
+      }
+    ]
+  }
+}

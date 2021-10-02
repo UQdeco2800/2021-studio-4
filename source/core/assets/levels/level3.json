@@ -1,0 +1,46 @@
+{
+  "terrain": {
+    "mapLayer": [
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 92,
+        "y": 16,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      },
+      {
+        "class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
+        "x": 92,
+        "y": 17,
+        "def": "TILE_FULL_MIDDLE",
+        "rot": 0,
+        "flipX": false,
+        "flipY": false
+      }
+    ]
+  },
+  "obstacles": {
+    "obstacleEntities": [
+      {
+        "def": "PLATFORM",
+        "size": 1,
+        "x": 31,
+        "y": 6
+      },
+      {
+        "def": "DOOR",
+        "size": 1,
+        "x": 74,
+        "y": 12
+      },
+      {
+        "def": "BRIDGE",
+        "size": 11,
+        "x": 136,
+        "y": 9
+      }
+    ]
+  }
+}
