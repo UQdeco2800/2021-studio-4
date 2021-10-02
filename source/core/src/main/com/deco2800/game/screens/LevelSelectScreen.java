@@ -3,8 +3,11 @@ package com.deco2800.game.screens;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.components.endgame.DeathScreenActions;
+import com.deco2800.game.components.endgame.DeathScreenDisplay;
 import com.deco2800.game.components.levelselect.LevelDisplay;
 import com.deco2800.game.components.levelselect.LevelDisplayActions;
+import com.deco2800.game.components.loading.LoadingScreenDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -79,7 +82,7 @@ public class LevelSelectScreen extends ScreenAdapter {
     }
 
     private void loadAssets() {
-
+        logger.debug("This ONE!");
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(levelSelectMenuTextures);
@@ -88,7 +91,14 @@ public class LevelSelectScreen extends ScreenAdapter {
 
         while (!resourceService.loadForMillis(10)) {
             // This could be upgraded to a loading screen
-            logger.info("Loading... {}%", resourceService.getProgress());
+            Stage stage = ServiceLocator.getRenderService().getStage();
+            Entity ui = new Entity();
+            ui.addComponent(new LoadingScreenDisplay());
+            ServiceLocator.getEntityService().register(ui);
+            logger.info("LoadingScreen");
+            logger.info("Loading... {}% MMM", resourceService.getProgress());
+            logger.info("Loading... {}% MMM", resourceService.getProgress());
+            logger.info("Loading... {}% MMM", resourceService.getProgress());
         }
 
     }
