@@ -40,6 +40,7 @@ public class PauseScreenActions extends Component {
   }
 
   private void onPause() {
+    logger.info("Pause the level");
     game.setScreen(GdxGame.ScreenType.PAUSE);
   }
 

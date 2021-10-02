@@ -3,8 +3,8 @@ package com.deco2800.game.screens;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.components.endgame.DeathScreenActions;
-import com.deco2800.game.components.endgame.DeathScreenDisplay;
+import com.deco2800.game.components.pausegame.PauseScreenActions;
+import com.deco2800.game.components.pausegame.PauseScreenDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -98,9 +98,9 @@ public class PauseScreen extends ScreenAdapter {
     logger.debug("Creating ui");
     Stage stage = ServiceLocator.getRenderService().getStage();
     Entity ui = new Entity();
-    ui.addComponent(new DeathScreenDisplay())
+    ui.addComponent(new PauseScreenDisplay())
       .addComponent(new InputDecorator(stage, 10))
-      .addComponent(new DeathScreenActions(game));
+      .addComponent(new PauseScreenActions(game));
     ServiceLocator.getEntityService().register(ui);
   }
 }

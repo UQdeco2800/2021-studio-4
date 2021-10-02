@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
-import com.deco2800.game.components.endgame.DeathScreenDisplay;
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.ui.UIComponent;
@@ -17,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class PauseScreenDisplay extends UIComponent {
-  private static final Logger logger = LoggerFactory.getLogger(DeathScreenDisplay.class);
+  private static final Logger logger = LoggerFactory.getLogger(PauseScreenDisplay.class);
   private static final float Z_INDEX = 2f;
   private Table table;
   private Sprite sprite;
@@ -26,7 +25,7 @@ public class PauseScreenDisplay extends UIComponent {
   public void create() {
     super.create();
     addActors();
-    playTheMusic();
+    //playTheMusic();
   }
 
   /**
@@ -39,7 +38,7 @@ public class PauseScreenDisplay extends UIComponent {
     table.setBackground(new SpriteDrawable(sprite)); // Set background.
 
     // Add exit button to go back to main menu.
-    TextButton exitBtn = new TextButton("lesgo", skin);
+    TextButton exitBtn = new TextButton("Exit", skin);
     exitBtn.setColor(Color.ROYAL);
     exitBtn.setBounds(20, 20, 50, 30);
     TextButton retryBtn = new TextButton("Retry", skin);
@@ -78,11 +77,11 @@ public class PauseScreenDisplay extends UIComponent {
   /**
    * Play death music
    */
-  public void playTheMusic() {
-    MusicServiceDirectory deathSong = new MusicServiceDirectory();
-    MusicService music = new MusicService(deathSong.death_noise_2);
-    music.changeVolume((float)0.8);
-  }
+//  public void playTheMusic() {
+//    MusicServiceDirectory deathSong = new MusicServiceDirectory();
+//    MusicService music = new MusicService(deathSong.death_noise_2);
+//    music.changeVolume((float)0.8);
+//  }
 
   @Override
   protected void draw(SpriteBatch batch) {

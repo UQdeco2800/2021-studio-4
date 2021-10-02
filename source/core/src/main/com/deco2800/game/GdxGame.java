@@ -99,6 +99,8 @@ public class GdxGame extends Game {
         return new DeathScreen(this);
       case SCORE_SCREEN:
         return new ScoreScreen(this, levelDefinition, getCompletionTime());
+      case PAUSE:
+        return new PauseScreen(this);
       default:
         return null;
     }

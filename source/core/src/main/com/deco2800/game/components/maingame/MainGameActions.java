@@ -20,6 +20,7 @@ public class MainGameActions extends Component {
   @Override
   public void create() {
     entity.getEvents().addListener("exit", this::onExit);
+    entity.getEvents().addListener("pause", this::onPause);
 //    entity.getEvents().addListener("death", this::death);
   }
 
@@ -29,6 +30,11 @@ public class MainGameActions extends Component {
   private void onExit() {
     logger.info("Exiting main game screen");
     game.setScreen(GdxGame.ScreenType.MAIN_MENU);
+  }
+
+  private void onPause() {
+    logger.info("Pause the level");
+    game.setScreen(GdxGame.ScreenType.PAUSE);
   }
 //
 //  private void death() {
