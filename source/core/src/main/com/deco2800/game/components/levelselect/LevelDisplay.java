@@ -64,6 +64,20 @@ public class LevelDisplay extends UIComponent {
         int centreHeight = centreWidth1 - buttonDimensionsHeight/2;
         int height105Percent = (int) Math.round(centreHeight*0.98);
 
+        int titleWidth = buttonDimensionsWidth*4;
+        int titleHeight = buttonDimensionsHeight*4;
+        int centreTitleWidth = centreWidth1 - titleWidth/2; // Moves middle of button to Centre
+        int centreTitleHeight = centreWidth1 - titleHeight/2;
+
+        /**
+         * Creates the button texture for the Exit Button.
+         */
+        String titleImage = "images/levels-heading.png";
+        ImageButton titleBtn;
+        titleBtn = insImage.setImage(titleImage, titleImage,
+                centreTitleWidth,centreTitleHeight,
+                titleWidth, titleHeight);
+
         /**
          * Creates the button texture for the Exit Button.
          */
@@ -84,9 +98,6 @@ public class LevelDisplay extends UIComponent {
                         entity.getEvents().trigger("exit");
                     }
                 });
-
-        table.row();
-        table.row();
 
         // List all the files in the levels folder and create a button for each
         for (LevelDefinition level : LevelDefinition.values()) {
@@ -121,6 +132,7 @@ public class LevelDisplay extends UIComponent {
 
         stage.addActor(table);
         stage.addActor(exitBtn);
+        stage.addActor(titleBtn);
     }
 
     @Override
