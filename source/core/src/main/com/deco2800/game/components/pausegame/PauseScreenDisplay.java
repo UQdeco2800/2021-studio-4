@@ -35,19 +35,19 @@ public class PauseScreenDisplay extends UIComponent {
     table = new Table();
     table.setFillParent(true);
     //sprite = new Sprite(new Texture("images/death-screen-background.png"));
-    sprite = new Sprite(new Texture("images/title-screen.png"));
+    sprite = new Sprite(new Texture("images/background_pause.png"));
     table.setBackground(new SpriteDrawable(sprite)); // Set background.
 
     // Add exit button to go back to main menu.
     TextButton exitBtn = new TextButton("Exit", skin);
     exitBtn.setColor(Color.ROYAL);
-    exitBtn.setBounds(20, 20, 50, 30);
+    exitBtn.setBounds(20, 20, 50, 25);
     TextButton retryBtn = new TextButton("Retry", skin);
     retryBtn.setColor(Color.ROYAL);
-    retryBtn.setBounds(20, 20, 50, 30);
+    retryBtn.setBounds(20, 20, 50, 25);
     TextButton resumeBtn = new TextButton("Play", skin);
     resumeBtn.setColor(Color.ROYAL);
-    resumeBtn.setBounds(20,20,50,30);
+    resumeBtn.setBounds(20,20,50,25);
 
     // Exit button event.
     exitBtn.addListener(
@@ -80,11 +80,11 @@ public class PauseScreenDisplay extends UIComponent {
           entity.getEvents().trigger("unpause");
         }
       });
-    table.add(exitBtn).pad(10f);
+    table.add(exitBtn).pad(30f);
     table.row();
-    table.add(retryBtn).pad(10f);
+    table.add(retryBtn).pad(50f);
     table.row();
-    table.add(resumeBtn).pad(10f);
+    table.add(resumeBtn).pad(30f);
     table.row();
 //    table.add(exitBtn).center().padRight(50).padTop(200); // Places the button in the centre.
 //    table.add(retryBtn).center().padLeft(50).padTop(200); // Places the button in the centre.
