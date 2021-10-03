@@ -107,10 +107,10 @@ public class ScoreDisplay extends UIComponent {
         /**
          * Creates the button texture for the Exit Button.
          */
-        String startMainImage = "images/default_buttons/exit-button.png";
-        String startHoverImage = "images/hovered-buttons/exit-button-hovered.png";
+        String exitMainImage = "images/default_buttons/exit-button.png";
+        String exitHoverImage = "images/hovered-buttons/exit-button-hovered.png";
         ImageButton exitBtn;
-        exitBtn = insImage.setImage(startMainImage, startHoverImage,
+        exitBtn = insImage.setImage(exitMainImage, exitHoverImage,
                 centreWidth,centreHeight-height105Percent,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
