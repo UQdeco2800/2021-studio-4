@@ -34,8 +34,8 @@ public class PauseScreenDisplay extends UIComponent {
   private void addActors() {
     table = new Table();
     table.setFillParent(true);
-    sprite = new Sprite(new Texture("images/death-screen-background.png"));
-    //sprite = new Sprite(new Texture("images/pause_screen_without_text.png"));
+    //sprite = new Sprite(new Texture("images/death-screen-background.png"));
+    sprite = new Sprite(new Texture("images/title-screen.png"));
     table.setBackground(new SpriteDrawable(sprite)); // Set background.
 
     // Add exit button to go back to main menu.
@@ -45,6 +45,9 @@ public class PauseScreenDisplay extends UIComponent {
     TextButton retryBtn = new TextButton("Retry", skin);
     retryBtn.setColor(Color.ROYAL);
     retryBtn.setBounds(20, 20, 50, 30);
+    TextButton resumeBtn = new TextButton("Play", skin);
+    resumeBtn.setColor(Color.ROYAL);
+    resumeBtn.setBounds(20,20,50,30);
 
     // Exit button event.
     exitBtn.addListener(
@@ -67,10 +70,25 @@ public class PauseScreenDisplay extends UIComponent {
           entity.getEvents().trigger("retry");
         }
       });
+    // Unpause button event
+    resumeBtn.addListener(
+      new ChangeListener() {
+        @Override
+        public void changed(ChangeEvent changeEvent, Actor actor) {
 
+          logger.debug("Unpause button clicked");
+          entity.getEvents().trigger("unpause");
+        }
+      });
+    table.add(exitBtn).pad(10f);
     table.row();
-    table.add(exitBtn).center().padRight(50).padTop(50); // Places the button in the centre.
-    table.add(retryBtn).center().padLeft(50).padTop(50); // Places the button in the centre.
+    table.add(retryBtn).pad(10f);
+    table.row();
+    table.add(resumeBtn).pad(10f);
+    table.row();
+//    table.add(exitBtn).center().padRight(50).padTop(200); // Places the button in the centre.
+//    table.add(retryBtn).center().padLeft(50).padTop(200); // Places the button in the centre.
+//    table.add(resumeBtn).center().padRight(50).padBottom(200);
     stage.addActor(table);
     //stage.
   }

@@ -18,9 +18,10 @@ public class PauseScreenActions extends Component {
 
   @Override
   public void create() {
+    entity.getEvents().trigger("StopVoidIfPlayerDead");
     entity.getEvents().addListener("exit", this::onExit);
     entity.getEvents().addListener("retry", this::onRestart);
-    entity.getEvents().addListener("pause", this::onPause);
+    entity.getEvents().addListener("unpause", this::onUnpause);
   }
 
   /**
@@ -39,9 +40,12 @@ public class PauseScreenActions extends Component {
     game.setLevel(GdxGame.ScreenType.MAIN_GAME, previousLevel.getPreviousLevel());
   }
 
-  private void onPause() {
-    logger.info("Pause the level");
-    game.setScreen(GdxGame.ScreenType.PAUSE);
+  /**
+   * Unpauses the level
+   */
+  private void onUnpause() {
+    logger.info("Unpause the level");
+    game.dispose();
   }
 
 }
