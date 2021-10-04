@@ -101,77 +101,35 @@ public class PlayerActions extends Component {
     previousAnimation = "";
 
 
-      canPlayerMove = false;
-      hasSpawnAnimationFinished = false;
-
-   // if(gameLevel == "LEVEL_4") {
-   //     spawnAnimation = "spawn_level1";
-   // } else {
-      double num = Math.round(Math.random() + 1);
-      double spawnAnimationToUse;
-      spawnAnimationToUse = num;
-        if (spawnAnimationToUse == 1.0) {
-            spawnAnimation = "portal_flip";
-        } else {
-            spawnAnimation = "spawn_level1";
-
-        }
-  //  }
-
-
-
-
+    canPlayerMove = false;
+    hasSpawnAnimationFinished = false;
+    setSpawnAnimation();
   }
 
   @Override
   public void update() {
       iterator++;
-
-
-      if(isDeathAnimationCompleted()) {
-          this.entity.getComponent(PlayerStatsDisplay.class).playerIsDead();
-      }
+      isDeathAnimationCompleted();
 
 
       if(iterator == 3) {
-          if(spawnAnimation.equals("spawn_level1")) {
-              entity.setScale(4f, 4f);
-          } else if (spawnAnimation.equals("portal_flip")){
-              entity.setScale(2.7f,2.7f);
-          }
-          animator.startAnimation(spawnAnimation);
+          startSpawnAnimation();
       } else if (animator.isFinished() && !hasSpawnAnimationFinished) {
-          if(animator.getCurrentAnimation().equals("spawn_level1")) {
-              this.entity.setScale(1.5f,1f);
-              this.entity.setPosition(entity.getPosition().add(2f, 0f));
-          } else if (animator.getCurrentAnimation().equals("portal_flip")){
-              this.entity.setScale(1.5f,1f);
-              this.entity.setPosition(entity.getPosition().add(1f,0f));
-          }
-
-          animator.startAnimation(getAnimation());
-          setCanPlayerMove(true);
-          hasSpawnAnimationFinished = true;
-
-
+          setStartPositionAndScale();
+          beginBasicAnimations();
       }
-        if(hasSpawnAnimationFinished & !cameraIsSet) {
-            cameraDelay++;
-            if(cameraDelay == 25) {
-                cameraIsSet = true;
-            }
-        }
 
+      setCameraPosAfterDelay();
 
-    if (playerState != PlayerState.STOPPED) {
+      if (playerState != PlayerState.STOPPED) {
           updateSpeed();
           applyFriction();
-        if(!playerHasDied && cameraIsSet) {
-          ServiceLocator.getCamera().getEntity().setPosition(entity.getCenterPosition());
-
+          if(!playerHasDied && cameraIsSet) {
+              ServiceLocator.getCamera().getEntity().setPosition(entity.getCenterPosition());
       }
     }
   }
+
 /*
   private void slowlyMoveCameraToPos(Vector2 pos){
 
@@ -202,25 +160,97 @@ public class PlayerActions extends Component {
               cameraIsSet = true;
           }
   }
-
-
  */
-  private void playerIsDead() {
-      if(!playerHasDied) {
-          playerHasDied = true;
 
-          canPlayerMove = false;
-          entity.setScale(2.5f, 2.3f);
-
-          animator.startAnimation("death");
+    /**
+     * After this function is called a certain number of times it centers the camera on the player, this is done so
+     * the camera does not jump directly after the spawn animation is finished to make it look smoother
+     */
+  private void setCameraPosAfterDelay() {
+      if (hasSpawnAnimationFinished & !cameraIsSet) {
+          cameraDelay++;
+          if (cameraDelay == 25) {
+              cameraIsSet = true;
+              setCanPlayerMove(true);
+          }
       }
   }
 
-  private boolean isDeathAnimationCompleted(){
-      if(animator.getCurrentAnimation() == "death" && animator.isFinished()) {
-          return true;
+    /**
+     * begins the basic animations of the playable character and sets the variable canPlayerMove to true so the
+     * user can control the player. Also sets the variable hasSpanAnimationFinished to true
+     */
+  private void beginBasicAnimations(){
+      animator.startAnimation(getAnimation());
+      hasSpawnAnimationFinished = true;
+  }
+
+    /**
+     * sets the player's scaled back to normal for the playable character, and sets the player's position
+     * so that the animations transition well from spawn to a playable character.
+     */
+  private void setStartPositionAndScale(){
+      this.entity.setScale(1.5f,1f);
+      if(animator.getCurrentAnimation().equals("spawn_level1")) {
+          this.entity.setPosition(entity.getPosition().add(2f, 0f));
+      } else if (animator.getCurrentAnimation().equals("portal_flip")){
+          this.entity.setPosition(entity.getPosition().add(1f,0f));
+      }
+  }
+
+    /**
+     * start the spawn animation stored in spawnAnimation and changes the player's scale depending
+     * on the animation so that the player's size stay's consistent over the animations
+     */
+  private void startSpawnAnimation(){
+      if(spawnAnimation.equals("spawn_level1")) {
+          entity.setScale(4f, 4f);
+      } else if (spawnAnimation.equals("portal_flip")){
+          entity.setScale(2.7f,2.7f);
+      }
+      animator.startAnimation(spawnAnimation);
+  }
+
+    /**
+     * sets the value of spawnAnimation to one of the existing spawn animation, this is done randomly using
+     * math.random()
+     */
+   private void setSpawnAnimation(){
+       //if(gameLevel == "LEVEL_4") {
+        //   spawnAnimation = "spawn_level1";
+      // } else {
+      double num = Math.round(Math.random() + 1);
+      double spawnAnimationToUse;
+      spawnAnimationToUse = num;
+      if (spawnAnimationToUse == 1.0) {
+          spawnAnimation = "portal_flip";
       } else {
-          return false;
+          spawnAnimation = "spawn_level1";
+      }
+      //  }
+  }
+
+   /**
+    * makes it so the player can no longer be controlled by the user and increases the player's scale
+    * so that the death animation appears to be the same size as the playable character. It then also starts
+    * the player's death animation
+    */
+  private void playerIsDead() {
+      if(!playerHasDied) {
+          playerHasDied = true;
+          canPlayerMove = false;
+          entity.setScale(2.5f, 2.3f);
+          animator.startAnimation("death");
+      }
+  }
+  /**
+   * Called repeatedly in update() and checks if the death animation has finished playing
+   * and if it is then it triggers the event in playerStats to tell the system that
+   * the game is ove.
+   */
+  private void isDeathAnimationCompleted(){
+      if(animator.getCurrentAnimation() == "death" && animator.isFinished()) {
+          this.entity.getComponent(PlayerStatsDisplay.class).playerIsDead();
       }
   }
 
@@ -293,7 +323,8 @@ public String getCurrentPowerUp() {
   /**
    * Sets the movementAnimation of the player to the animation corresponding
    * to the parameter value. The String value is case sensitive and should begin
-   * with a capital letter.
+   * with a capital letter. If a powerUp is enabled then the player's animation
+   * is adjusted accordingly.
    *
    * @param value the movement the player is doing one of the following:
    *              Running, Idle, Falling, Jumping, Sliding
