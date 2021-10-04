@@ -1,6 +1,7 @@
 package com.deco2800.game.components.levelselect;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
@@ -99,19 +100,19 @@ public class LevelDisplay extends UIComponent {
                     }
                 });
 
+        ArrayList<ImageButton> imageButtons = new ArrayList<>();
+
         // List all the files in the levels folder and create a button for each
         for (LevelDefinition level : LevelDefinition.values()) {
 
             TextButton startBtn = new TextButton(level.getName(), skin);
 
-            ImageButton buttonImages;
-
             String pathName = "images/levels-screen-buttons/";
             String hoverPathName = "images/levels-screen-buttons/";
             int posX = centreWidth1;
             int posY = centreHeight1;
-            int widthX = centreWidth1/8; // Sets buttons dimensions
-            int widthY = centreHeight1/8;
+            int widthX = centreWidth1/3; // Sets buttons dimensions
+            int widthY = centreHeight1/3;
 
             switch (level.getName()) {
                 case ("Level 1"):
@@ -140,7 +141,7 @@ public class LevelDisplay extends UIComponent {
                     break;
             }
 
-            buttonImages = insImage.setImage(pathName, hoverPathName, posX, posY, widthX, widthY);
+            imageButtons.add(insImage.setImage(pathName, hoverPathName, posX, posY, widthX, widthY));
 
             startBtn.addListener(
                 new ChangeListener() {
@@ -165,13 +166,15 @@ public class LevelDisplay extends UIComponent {
             );
             editorBtn.setColor(Color.ROYAL);
 
-            stage.addActor(buttonImages);
     //        table.add(startBtn).pad(10f);
             table.add(editorBtn).pad(1f);
             table.row();
         }
 
         stage.addActor(table);
+        for (ImageButton image : imageButtons) {
+            stage.addActor(image);
+        }
         stage.addActor(exitBtn);
         stage.addActor(titleBtn);
     }
