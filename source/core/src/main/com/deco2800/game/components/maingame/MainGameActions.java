@@ -35,6 +35,8 @@ public class MainGameActions extends Component {
   private void onExit() {
     logger.info("Exiting main game screen");
     game.setScreen(GdxGame.ScreenType.MAIN_MENU);
+    TheVoidTasks.paused = false;
+    KeyboardPlayerInputComponent.paused = false;
   }
 
   private void onPause() {
@@ -51,6 +53,7 @@ public class MainGameActions extends Component {
     logger.info("Restart the level");
     game.setLevel(GdxGame.ScreenType.MAIN_GAME, previousLevel.getPreviousLevel());
     TheVoidTasks.paused = false;
+    KeyboardPlayerInputComponent.paused = false;
   }
 //
 //  private void death() {

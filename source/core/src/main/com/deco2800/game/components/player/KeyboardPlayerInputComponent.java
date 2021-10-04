@@ -27,6 +27,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   @Override
   public boolean keyDown(int keycode) {
     if (paused) {
+      walkDirection.set(Vector2.Zero.cpy());
+      triggerWalkEvent();
       return false;
     }
     switch (keycode) {
@@ -67,6 +69,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   @Override
   public boolean keyUp(int keycode) {
     if (paused) {
+      walkDirection.set(Vector2.Zero.cpy());
+      triggerWalkEvent();
       return false;
     }
     switch (keycode) {
