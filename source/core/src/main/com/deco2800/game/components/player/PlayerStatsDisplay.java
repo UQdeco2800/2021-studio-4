@@ -129,6 +129,7 @@ public class PlayerStatsDisplay extends UIComponent {
     gameOver = true;
   }
 
+
   /**
    * Updates the player's score on the ui.
    */
@@ -139,7 +140,6 @@ public class PlayerStatsDisplay extends UIComponent {
       //initialValue = 0;
       iterator++;
     }
-
     int seconds;
 
     seconds = Math.round(timeScore / 1000) - initialValue;
