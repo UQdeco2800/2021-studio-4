@@ -126,6 +126,7 @@ public class LevelSelectScreen extends ScreenAdapter {
         Entity ui = new Entity();
         long start = System.currentTimeMillis();
         float sec = 0;
+        /* global update button event listner passing into a different class */
         if (LevelDisplay.selected == true) {
             boolean displayedLoading = false;
             ui.addComponent(new LoadingScreenDisplay());
