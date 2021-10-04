@@ -91,7 +91,7 @@ public class ScoreDisplay extends UIComponent {
     private void addActors() {
         table = new Table();
         table.setFillParent(true);
-        sprite = new Sprite(new Texture("images/title_screen_clean.png"));
+        sprite = new Sprite(new Texture("images/score_screen_guide.png"));
         table.setBackground(new SpriteDrawable(sprite)); // Set background
 
         InsertImageButton insImage = new InsertImageButton();
