@@ -1,476 +1,340 @@
 
-jump-boost.png
+speed_decrease.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-jump-boost00
+speed-decrease
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost55
+  index: 0
+speed-decrease
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost01
+  index: 39
+speed-decrease
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost02
+  index: 1
+speed-decrease
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost03
+  index: 2
+speed-decrease
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 3
 
-jump-boost2.png
+speed_decrease2.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-jump-boost04
+speed-decrease
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost05
+  index: 4
+speed-decrease
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost06
+  index: 5
+speed-decrease
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost07
+  index: 6
+speed-decrease
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 7
 
-jump-boost3.png
+speed_decrease3.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-jump-boost08
+speed-decrease
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost09
+  index: 8
+speed-decrease
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost10
+  index: 9
+speed-decrease
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost11
+  index: 10
+speed-decrease
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 11
 
-jump-boost4.png
+speed_decrease4.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-jump-boost12
+speed-decrease
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost13
+  index: 12
+speed-decrease
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost14
+  index: 13
+speed-decrease
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost15
+  index: 14
+speed-decrease
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 15
 
-jump-boost5.png
+speed_decrease5.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-jump-boost16
+speed-decrease
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost17
+  index: 16
+speed-decrease
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost18
+  index: 17
+speed-decrease
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost19
+  index: 18
+speed-decrease
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 19
 
-jump-boost6.png
+speed_decrease6.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-jump-boost20
+speed-decrease
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost21
+  index: 20
+speed-decrease
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost22
+  index: 21
+speed-decrease
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost23
+  index: 22
+speed-decrease
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 23
 
-jump-boost7.png
+speed_decrease7.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-jump-boost24
+speed-decrease
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost25
+  index: 24
+speed-decrease
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost26
+  index: 25
+speed-decrease
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost27
+  index: 26
+speed-decrease
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 27
 
-jump-boost8.png
+speed_decrease8.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-jump-boost28
+speed-decrease
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost29
+  index: 28
+speed-decrease
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost30
+  index: 29
+speed-decrease
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost31
+  index: 30
+speed-decrease
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 31
 
-jump-boost9.png
+speed_decrease9.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-jump-boost32
+speed-decrease
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost33
+  index: 32
+speed-decrease
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost34
+  index: 33
+speed-decrease
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost35
+  index: 34
+speed-decrease
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 35
 
-jump-boost10.png
+speed_decrease10.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-jump-boost36
+speed-decrease
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost37
+  index: 36
+speed-decrease
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost38
+  index: 37
+speed-decrease
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-jump-boost39
-  rotate: false
-  xy: 476, 2
-  size: 472, 471
-  orig: 472, 471
-  offset: 0, 0
-  index: -1
-
-jump-boost11.png
-size: 1024, 1024
-format: RGBA8888
-filter: Nearest, Nearest
-repeat: none
-jump-boost40
-  rotate: false
-  xy: 2, 475
-  size: 472, 471
-  orig: 472, 471
-  offset: 0, 0
-  index: -1
-jump-boost41
-  rotate: false
-  xy: 2, 2
-  size: 472, 471
-  orig: 472, 471
-  offset: 0, 0
-  index: -1
-jump-boost42
-  rotate: false
-  xy: 476, 475
-  size: 472, 471
-  orig: 472, 471
-  offset: 0, 0
-  index: -1
-jump-boost43
-  rotate: false
-  xy: 476, 2
-  size: 472, 471
-  orig: 472, 471
-  offset: 0, 0
-  index: -1
-
-jump-boost12.png
-size: 1024, 1024
-format: RGBA8888
-filter: Nearest, Nearest
-repeat: none
-jump-boost44
-  rotate: false
-  xy: 2, 475
-  size: 472, 471
-  orig: 472, 471
-  offset: 0, 0
-  index: -1
-jump-boost45
-  rotate: false
-  xy: 2, 2
-  size: 472, 471
-  orig: 472, 471
-  offset: 0, 0
-  index: -1
-jump-boost46
-  rotate: false
-  xy: 476, 475
-  size: 472, 471
-  orig: 472, 471
-  offset: 0, 0
-  index: -1
-jump-boost47
-  rotate: false
-  xy: 476, 2
-  size: 472, 471
-  orig: 472, 471
-  offset: 0, 0
-  index: -1
-
-jump-boost13.png
-size: 1024, 1024
-format: RGBA8888
-filter: Nearest, Nearest
-repeat: none
-jump-boost48
-  rotate: false
-  xy: 2, 475
-  size: 472, 471
-  orig: 472, 471
-  offset: 0, 0
-  index: -1
-jump-boost49
-  rotate: false
-  xy: 2, 2
-  size: 472, 471
-  orig: 472, 471
-  offset: 0, 0
-  index: -1
-jump-boost50
-  rotate: false
-  xy: 476, 475
-  size: 472, 471
-  orig: 472, 471
-  offset: 0, 0
-  index: -1
-jump-boost51
-  rotate: false
-  xy: 476, 2
-  size: 472, 471
-  orig: 472, 471
-  offset: 0, 0
-  index: -1
-
-jump-boost14.png
-size: 1024, 1024
-format: RGBA8888
-filter: Nearest, Nearest
-repeat: none
-jump-boost52
-  rotate: false
-  xy: 2, 475
-  size: 472, 471
-  orig: 472, 471
-  offset: 0, 0
-  index: -1
-jump-boost53
-  rotate: false
-  xy: 2, 2
-  size: 472, 471
-  orig: 472, 471
-  offset: 0, 0
-  index: -1
-jump-boost54
-  rotate: false
-  xy: 476, 475
-  size: 472, 471
-  orig: 472, 471
-  offset: 0, 0
-  index: -1
+  index: 38
