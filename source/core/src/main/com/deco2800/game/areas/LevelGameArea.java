@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.JsonWriter;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.areas.terrain.TerrainTileDefinition;
+import com.deco2800.game.concurrency.JobSystem;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleDefinition;
 import com.deco2800.game.entities.ObstacleEntity;
@@ -32,6 +33,7 @@ import com.deco2800.game.leveleditor.ObstacleToolComponent;
 import java.io.*;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
@@ -148,14 +150,19 @@ public class LevelGameArea extends GameArea {
   public void init() {
     loadAssets();
     mapInteractables();
-    String level = levelDefinition.getLevelFileName();
-    if (level.equals("levels/level1.json")) {
-      displayBackground("images/background_level1.jpg");
-    } else if (level.equals("levels/level4.json")) {
-      displayBackground("images/background_level4.png");
-    }
-    spawnTerrain();
-    spawnLevelFromFile();
+
+      String level = levelDefinition.getLevelFileName();
+      if (level.equals("levels/level1.json")) {
+        displayBackground("images/background_level1.jpg");
+      } else if (level.equals("levels/level4.json")) {
+        displayBackground("images/background_level4.png");
+      }
+      spawnTerrain();
+      spawnLevelFromFile();
+
+
+  }
+
 
      /*while (loading == true){
         logger.info("Loading Screen is loading in!");
@@ -163,7 +170,7 @@ public class LevelGameArea extends GameArea {
      // displayBackground("images/background_level4.png");
         // add code to show the loading screen
     }*/
-  }
+
 
   /**
    * Create the game area, including terrain, static entities (trees), dynamic entities (player)
@@ -235,8 +242,19 @@ public class LevelGameArea extends GameArea {
     background.addComponent(new BackgroundRenderComponent(image));
     spawnEntity(background);
   }
-  private void displayLoadingScreen() {
-    Entity background = new Entity();
+  private boolean displayLoadingScreen() {
+    //Entity background = new Entity();
+    ResourceService resourceService = ServiceLocator.getResourceService();
+    String[] loadingTexture = { "images/game_background.png"};
+    resourceService.loadTextures(loadingTexture );
+    while (!resourceService.loadForMillis(10)) {
+      // This could be upgraded to a loading screen
+      logger.info("Loading loading texture... {}%", resourceService.getProgress());
+    }
+    Entity loadingScreen = new Entity();
+    loadingScreen.addComponent(new BackgroundRenderComponent("images/game_background.png"));
+    spawnEntity(loadingScreen);
+    return true;
   }
 
   private void spawnTerrain() {
@@ -722,7 +740,7 @@ public class LevelGameArea extends GameArea {
 
   }
 
-  private void loadAssets() {
+  private int loadAssets() {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(gameTextures);
@@ -738,7 +756,7 @@ public class LevelGameArea extends GameArea {
       }
     }
     //
-
+    return 0;
   }
 
   private void unloadAssets() {

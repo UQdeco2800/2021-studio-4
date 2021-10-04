@@ -3,6 +3,7 @@ package com.deco2800.game.screens;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
+import javax.swing.Timer;
 import com.deco2800.game.components.endgame.DeathScreenActions;
 import com.deco2800.game.components.endgame.DeathScreenDisplay;
 import com.deco2800.game.components.levelselect.LevelDisplay;
@@ -20,6 +21,9 @@ import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 /**
@@ -99,6 +103,8 @@ public class LevelSelectScreen extends ScreenAdapter {
             logger.info("Loading... {}% MMM", resourceService.getProgress());
             logger.info("Loading... {}% MMM", resourceService.getProgress());
             logger.info("Loading... {}% MMM", resourceService.getProgress());
+
+            logger.info(String.valueOf(LevelDisplay.selected));
         }
 
     }
@@ -118,10 +124,27 @@ public class LevelSelectScreen extends ScreenAdapter {
         logger.debug("Creating ui");
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
-        ui.addComponent(new LevelDisplay())
-                .addComponent(new InputDecorator(stage, 10))
-                .addComponent(new LevelDisplayActions(game));
+        long start = System.currentTimeMillis();
+        float sec = 0;
+        if (LevelDisplay.selected == true) {
+            boolean displayedLoading = false;
+            ui.addComponent(new LoadingScreenDisplay());
+            logger.info("display loading screen");
+            //while (sec < 5) {
+            //    long end = System.currentTimeMillis();
+           //     sec = (end - start) / 1000F;
+           // }
+           // game.setLevel(GdxGame.ScreenType.MAIN_GAME, levelDefinition);
+        }
+        ui.addComponent(new LevelDisplay()).
+                addComponent(new InputDecorator(stage, 10)).
+                addComponent(new LevelDisplayActions(game));
         ServiceLocator.getEntityService().register(ui);
+
     }
 
-}
+
+
+    }
+
+
