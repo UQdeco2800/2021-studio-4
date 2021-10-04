@@ -104,6 +104,44 @@ public class LevelDisplay extends UIComponent {
 
             TextButton startBtn = new TextButton(level.getName(), skin);
 
+            ImageButton buttonImages;
+
+            String pathName = "images/levels-screen-buttons/";
+            String hoverPathName = "images/levels-screen-buttons/";
+            int posX = centreWidth1;
+            int posY = centreHeight1;
+            int widthX = centreWidth1/8; // Sets buttons dimensions
+            int widthY = centreHeight1/8;
+
+            switch (level.getName()) {
+                case ("Level 1"):
+                    pathName = pathName + "level-1.png";
+                    hoverPathName = hoverPathName + "level-1-hovered.png";
+                    posX = posX - 100;
+                    posY = posY - 100;
+                    break;
+                case ("Level 2"):
+                    pathName = pathName + "level-2.png";
+                    hoverPathName = hoverPathName + "level-2-hovered.png";
+                    posX = posX - 100;
+                    posY = posY - 100;
+                    break;
+                case ("Level 3"):
+                    pathName = pathName + "level-3.png";
+                    hoverPathName = hoverPathName + "level-3-hovered.png";
+                    posX = posX - 100;
+                    posY = posY - 100;
+                    break;
+                case ("Level 4"):
+                    pathName = pathName + "level-4.png";
+                    hoverPathName = hoverPathName + "level-4-hovered.png";
+                    posX = posX - 100;
+                    posY = posY - 100;
+                    break;
+            }
+
+            buttonImages = insImage.setImage(pathName, hoverPathName, posX, posY, widthX, widthY);
+
             startBtn.addListener(
                 new ChangeListener() {
                     @Override
@@ -127,8 +165,8 @@ public class LevelDisplay extends UIComponent {
             );
             editorBtn.setColor(Color.ROYAL);
 
-//            stage.addActor(buttonImages);
-            table.add(startBtn).pad(10f);
+            stage.addActor(buttonImages);
+    //        table.add(startBtn).pad(10f);
             table.add(editorBtn).pad(1f);
             table.row();
         }
