@@ -190,14 +190,15 @@ public class ScoreDisplay extends UIComponent {
         congratsLabel.setBounds(CenterLevelTextWidth - 100, 560,
                 textDimenstionWidth, textDimenstionHeight);
 
+        int imageWidth = Gdx.graphics.getWidth()/2;
         /**
          * Creates the 'SCOREDISPLAY' title texture.
          */
-        Texture scoreDisplay = new Texture(Gdx.files.internal("images/ScoreTitlePlaceHolder.png"));
+        Texture scoreDisplay = new Texture(Gdx.files.internal("images/scores-title.png"));
         Drawable scoreDisplayDrawable = new TextureRegionDrawable(new TextureRegion(scoreDisplay));
         Image scoreDisplayTitle = new Image(scoreDisplayDrawable);
-        scoreDisplayTitle.setBounds(0,Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/5,
-                Gdx.graphics.getWidth(),Gdx.graphics.getHeight()/6);
+        scoreDisplayTitle.setBounds(Gdx.graphics.getWidth()/2 - imageWidth/2,Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/5,
+                imageWidth,Gdx.graphics.getHeight()/6);
 //        Image image1 = new Image(new Texture("images/ScoreTitlePlaceHolder.png"));
         //image1.setBounds(200, 80, 70, 40);
 //        image1.setBounds(400, 200, 700, 200);
