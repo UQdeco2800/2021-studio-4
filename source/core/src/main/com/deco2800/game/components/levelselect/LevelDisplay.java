@@ -113,31 +113,32 @@ public class LevelDisplay extends UIComponent {
             int posY = centreHeight1;
             int widthX = centreWidth1/3; // Sets buttons dimensions
             int widthY = centreHeight1/3;
+            int middleX = posX - widthX/2;
 
             switch (level.getName()) {
                 case ("Level 1"):
                     pathName = pathName + "level-1.png";
                     hoverPathName = hoverPathName + "level-1-hovered.png";
-                    posX = posX - 100;
-                    posY = posY - 100;
+                    posX = middleX;
+                    posY = posY;
                     break;
                 case ("Level 2"):
                     pathName = pathName + "level-2.png";
                     hoverPathName = hoverPathName + "level-2-hovered.png";
-                    posX = posX - 100;
-                    posY = posY - 100;
+                    posX = middleX - widthX/2;
+                    posY = posY - widthY/2;
                     break;
                 case ("Level 3"):
                     pathName = pathName + "level-3.png";
                     hoverPathName = hoverPathName + "level-3-hovered.png";
-                    posX = posX - 100;
-                    posY = posY - 100;
+                    posX = middleX;
+                    posY = posY - widthY;
                     break;
                 case ("Level 4"):
                     pathName = pathName + "level-4.png";
                     hoverPathName = hoverPathName + "level-4-hovered.png";
-                    posX = posX - 100;
-                    posY = posY - 100;
+                    posX = middleX + widthX/2;
+                    posY = posY - widthY/2;
                     break;
             }
 
@@ -167,7 +168,7 @@ public class LevelDisplay extends UIComponent {
             editorBtn.setColor(Color.ROYAL);
 
     //        table.add(startBtn).pad(10f);
-            table.add(editorBtn).pad(1f);
+            table.add(editorBtn).padLeft(centreWidth * 1.5f);
             table.row();
         }
 
