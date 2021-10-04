@@ -432,25 +432,25 @@ public class LevelGameArea extends GameArea {
     assert file != null;
 
     LevelFile levelFile = json.fromJson(LevelFile.class, file);
-  try {
-    for (ObstacleEntity obstacleEntity : levelFile.obstacles.obstacleEntities) {
-      ObstacleEntity newObstacle = spawnObstacle(obstacleEntity.getDefinition(), (int) obstacleEntity.getPosition().x,
-              (int) obstacleEntity.getPosition().y, obstacleEntity.size);
+    try {
+      for (ObstacleEntity obstacleEntity : levelFile.obstacles.obstacleEntities) {
+        ObstacleEntity newObstacle = spawnObstacle(obstacleEntity.getDefinition(), (int) obstacleEntity.getPosition().x,
+                (int) obstacleEntity.getPosition().y, obstacleEntity.size);
 
-      newObstacle.interactableID = obstacleEntity.interactableID;
-    }
-  }catch (NullPointerException e) {
-    e.printStackTrace();
+        newObstacle.interactableID = obstacleEntity.interactableID;
+      }
+    } catch (NullPointerException e) {
+      e.printStackTrace();
     }
 
     // Add entities to subInteractables list
     for (ObstacleEntity obstacleEntity : obstacleEntities) {
       if (obstacleEntity.interactableID != null) {
-//        System.out.println(obstacleEntity.interactableID);
-//        System.out.println(levelFile.obstacles.interactablesMap);
-//        System.out.println(levelFile.obstacles.interactablesMap.keySet());
-//        System.out.println(levelFile.obstacles.interactablesMap.get(obstacleEntity.interactableID);
-//        System.out.println(levelFile.obstacles.interactablesMap.containsKey(obstacleEntity.interactableID));
+  //        System.out.println(obstacleEntity.interactableID);
+  //        System.out.println(levelFile.obstacles.interactablesMap);
+  //        System.out.println(levelFile.obstacles.interactablesMap.keySet());
+  //        System.out.println(levelFile.obstacles.interactablesMap.get(obstacleEntity.interactableID);
+  //        System.out.println(levelFile.obstacles.interactablesMap.containsKey(obstacleEntity.interactableID));
         if (levelFile.obstacles.interactablesMap.containsKey(obstacleEntity.interactableID)) {
           List<Integer> subInteractableIds = levelFile.obstacles.interactablesMap.get(obstacleEntity.interactableID);
           List<ObstacleEntity> subInteractables = new ArrayList<>();
