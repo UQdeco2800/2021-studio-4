@@ -164,9 +164,6 @@ public class LevelGameArea extends GameArea {
     spawnLevelFromFile();
     spawnTheVoid();
 
-    //spawnGorgonGear(20,8);
-    spawnTheVoid();
-
 
 //  spawnStatusEffectDeBuff("Buff_Time_Stop"); //Spawns specified statusEffect for testing purposes
 //  spawnStatusEffectBuff("Buff_Jump");
