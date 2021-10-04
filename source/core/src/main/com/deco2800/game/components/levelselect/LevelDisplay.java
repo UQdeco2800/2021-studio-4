@@ -101,7 +101,9 @@ public class LevelDisplay extends UIComponent {
 
         // List all the files in the levels folder and create a button for each
         for (LevelDefinition level : LevelDefinition.values()) {
+
             TextButton startBtn = new TextButton(level.getName(), skin);
+
             startBtn.addListener(
                 new ChangeListener() {
                     @Override
@@ -125,6 +127,7 @@ public class LevelDisplay extends UIComponent {
             );
             editorBtn.setColor(Color.ROYAL);
 
+//            stage.addActor(buttonImages);
             table.add(startBtn).pad(10f);
             table.add(editorBtn).pad(1f);
             table.row();
