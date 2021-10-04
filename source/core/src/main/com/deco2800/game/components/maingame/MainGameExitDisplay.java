@@ -1,5 +1,6 @@
 package com.deco2800.game.components.maingame;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -28,10 +29,19 @@ public class MainGameExitDisplay extends UIComponent {
     table.top().right();
     table.setFillParent(true);
 
-    TextButton mainMenuBtn = new TextButton("Pause", skin);
+    // Add pause button to pause game
+    TextButton pauseBtn = new TextButton("Pause", skin);
+    //pauseBtn.setColor(Color.ROYAL);
+    // Add exit button to go back to main menu.
+    TextButton exitBtn = new TextButton("Exit", skin);
+    //exitBtn.setColor(Color.ROYAL);
+    // Add retry button to restart level
+    TextButton retryBtn = new TextButton("Retry", skin);
+    //retryBtn.setColor(Color.ROYAL);
 
-    // Triggers an event when the button is pressed.
-    mainMenuBtn.addListener(
+
+    // Pause button event
+    pauseBtn.addListener(
       new ChangeListener() {
         @Override
         public void changed(ChangeEvent changeEvent, Actor actor) {
@@ -39,8 +49,39 @@ public class MainGameExitDisplay extends UIComponent {
           entity.getEvents().trigger("pause");
         }
       });
-    table.add(mainMenuBtn).padTop(10f).padRight(10f);
+    table.add(pauseBtn).padTop(10f).padRight(10f);
+    table.row();
+    table.add(exitBtn).padTop(10f).padRight(10f);
+    table.row();
+    table.add(retryBtn).padTop(10f).padRight(10f);
     stage.addActor(table);
+
+    // Exit button event.
+    exitBtn.addListener(
+      new ChangeListener() {
+        @Override
+        public void changed(ChangeEvent changeEvent, Actor actor) {
+
+          logger.debug("Exit button from death screen is clicked");
+          entity.getEvents().trigger("exit");
+        }
+      });
+
+    // Retry button event.
+    retryBtn.addListener(
+      new ChangeListener() {
+        @Override
+        public void changed(ChangeEvent changeEvent, Actor actor) {
+
+          logger.debug("Retry button clicked");
+          entity.getEvents().trigger("retry");
+        }
+      });
+  }
+
+  public void addRetryExitOnPause() {
+    TextButton exitBtn = new TextButton("Exit", skin);
+
   }
 
   @Override

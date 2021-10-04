@@ -12,6 +12,7 @@ import com.deco2800.game.utils.math.Vector2Utils;
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
+  public static boolean paused = false;
 
   public KeyboardPlayerInputComponent() {
     super(5);
@@ -25,6 +26,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
    */
   @Override
   public boolean keyDown(int keycode) {
+    if (paused) {
+      return false;
+    }
     switch (keycode) {
       case Keys.W:
       case Keys.SPACE:
@@ -62,6 +66,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
    */
   @Override
   public boolean keyUp(int keycode) {
+    if (paused) {
+      return false;
+    }
     switch (keycode) {
       case Keys.A:
         entity.getEvents().trigger("keyReleased");
