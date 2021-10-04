@@ -119,70 +119,70 @@ IdleLeft
   rotate: false
   xy: 3633, 1958
   size: 400, 551
-  orig: 400, 551
+  orig: 100, 275
   offset: 0, 0
   index: 1
 IdleLeft
   rotate: false
   xy: 3631, 3060
   size: 400, 551
-  orig: 400, 551
+  orig: 100, 275
   offset: 0, 0
   index: 2
 IdleLeft
   rotate: false
   xy: 7777, 7555
   size: 400, 551
-  orig: 400, 551
+  orig: 100, 275
   offset: 0, 0
   index: 3
 IdleLeft
   rotate: false
   xy: 3633, 2509
   size: 400, 551
-  orig: 400, 551
+  orig: 100, 275
   offset: 0, 0
   index: 4
 IdleLeft
   rotate: false
   xy: 6331, 3896
   size: 400, 551
-  orig: 400, 551
+  orig: 100, 275
   offset: 0, 0
   index: 5
 IdleRight
   rotate: false
   xy: 3234, 1880
   size: 399, 551
-  orig: 399, 551
+  orig: 200, 275
   offset: 0, 0
   index: 1
 IdleRight
   rotate: false
   xy: 7568, 4411
   size: 399, 551
-  orig: 399, 551
+  orig: 200, 275
   offset: 0, 0
   index: 2
 IdleRight
   rotate: false
   xy: 4645, 3384
   size: 399, 551
-  orig: 399, 551
+  orig: 200, 275
   offset: 0, 0
   index: 3
 IdleRight
   rotate: false
   xy: 3234, 2431
   size: 399, 551
-  orig: 399, 551
+  orig: 200, 275
   offset: 0, 0
   index: 4
 IdleRight
   rotate: false
   xy: 3797, 5246
   size: 399, 551
-  orig: 399, 551
+  orig: 200, 275
   offset: 0, 0
   index: 5
 JumpLeft
@@ -206,14 +206,14 @@ JumpLeft
   orig: 400, 629
   offset: 0, 0
   index: 3
-JumpLeft0004
+JumpLeft
   rotate: false
   xy: 2834, 2353
   size: 400, 629
   orig: 400, 629
   offset: 0, 0
   index: 4
-JumpLeft0005
+JumpLeft
   rotate: false
   xy: 7131, 3788
   size: 400, 629
@@ -809,6 +809,160 @@ WalkRight
   offset: 0, 0
   index: 10
 WalkRight
+  rotate: false
+  xy: 2236, 7546
+  size: 600, 560
+  orig: 600, 560
+  offset: 0, 0
+  index: 11
+SlowLeft
+  rotate: false
+  xy: 3404, 6986
+  size: 595, 560
+  orig: 595, 560
+  offset: 0, 0
+  index: 1
+SlowLeft
+  rotate: false
+  xy: 2071, 6426
+  size: 595, 560
+  orig: 595, 560
+  offset: 0, 0
+  index: 2
+SlowLeft
+  rotate: false
+  xy: 3999, 6986
+  size: 595, 560
+  orig: 595, 560
+  offset: 0, 0
+  index: 3
+SlowLeft
+  rotate: false
+  xy: 3547, 7546
+  size: 595, 560
+  orig: 595, 560
+  offset: 0, 0
+  index: 4
+SlowLeft
+  rotate: false
+  xy: 2214, 6986
+  size: 595, 560
+  orig: 595, 560
+  offset: 0, 0
+  index: 5
+SlowLeft
+  rotate: false
+  xy: 4142, 7546
+  size: 595, 560
+  orig: 595, 560
+  offset: 0, 0
+  index: 6
+SlowLeft
+  rotate: false
+  xy: 2809, 6986
+  size: 595, 560
+  orig: 595, 560
+  offset: 0, 0
+  index: 7
+SlowLeft
+  rotate: false
+  xy: 1476, 6426
+  size: 595, 560
+  orig: 595, 560
+  offset: 0, 0
+  index: 8
+SlowLeft
+  rotate: false
+  xy: 2666, 6426
+  size: 595, 560
+  orig: 595, 560
+  offset: 0, 0
+  index: 9
+SlowLeft
+  rotate: false
+  xy: 2952, 7546
+  size: 595, 560
+  orig: 595, 560
+  offset: 0, 0
+  index: 10
+SlowLeft
+  rotate: false
+  xy: 3261, 6426
+  size: 595, 560
+  orig: 595, 560
+  offset: 0, 0
+  index: 11
+SlowRight
+  rotate: false
+  xy: 773, 6426
+  size: 600, 560
+  orig: 600, 560
+  offset: 0, 0
+  index: 1
+SlowRight
+  rotate: false
+  xy: 42, 6426
+  size: 600, 560
+  orig: 600, 560
+  offset: 0, 0
+  index: 2
+SlowRight
+  rotate: false
+  xy: 55, 5306
+  size: 600, 560
+  orig: 600, 560
+  offset: 0, 0
+  index: 3
+SlowRight
+  rotate: false
+  xy: 1510, 7546
+  size: 600, 560
+  orig: 600, 560
+  offset: 0, 0
+  index: 4
+SlowRight
+  rotate: false
+  xy: 35, 6986
+  size: 600, 560
+  orig: 600, 560
+  offset: 0, 0
+  index: 5
+SlowRight
+  rotate: false
+  xy: 1517, 6986
+  size: 600, 560
+  orig: 600, 560
+  offset: 0, 0
+  index: 6
+SlowRight
+  rotate: false
+  xy: 708, 6986
+  size: 600, 560
+  orig: 600, 560
+  offset: 0, 0
+  index: 7
+SlowRight
+  rotate: false
+  xy: 13, 7546
+  size: 600, 560
+  orig: 600, 560
+  offset: 0, 0
+  index: 8
+SlowRight
+  rotate: false
+  xy: 0, 5866
+  size: 600, 560
+  orig: 600, 560
+  offset: 0, 0
+  index: 9
+SlowRight
+  rotate: false
+  xy: 730, 7546
+  size: 600, 560
+  orig: 600, 560
+  offset: 0, 0
+  index: 10
+SlowRight
   rotate: false
   xy: 2236, 7546
   size: 600, 560

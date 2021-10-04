@@ -33,7 +33,8 @@ public class PlayerActions extends Component {
     Falling,
     Sliding,
     Jump,
-    Walk
+    Walk,
+    Slow
   }
   //direction the player is moving
   private enum MovingDirection {
@@ -46,10 +47,12 @@ public class PlayerActions extends Component {
   private Movement currentMovement;
   private String previousAnimation;
   private boolean canPlayerMove;
-  private double spawnAnimationToUse;
+  private boolean playerHasDied = false;
   private String spawnAnimation;
   private boolean hasSpawnAnimationFinished;
+  private boolean cameraIsSet = false;
   private int iterator = 0;
+  private int cameraDelay = 0;
 
   private static Vector2 ACCELERATION = new Vector2(10f, 0f);;  // Force of acceleration, in Newtons (kg.m.s^2)
   private static final float NORMAL_FRICTION = 0.1f;                 // Coefficient of friction for normal movement
@@ -85,8 +88,8 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("isSlidingDone", this::checkIfSlidingIsDone);
     entity.getEvents().addListener("keyPressed", this::keyWasPressed);
     entity.getEvents().addListener("keyReleased", this::keyWasReleased);
-    entity.getEvents().addListener("setPowerUpAnimation", this::setCurrentPowerUp);
     entity.getEvents().addListener("playerIsDead", this::playerIsDead);
+    entity.getEvents().addListener("setCurrentPowerUp", this::setCurrentPowerUp);
 
 
     movingDirection = MovingDirection.Right;
@@ -95,26 +98,27 @@ public class PlayerActions extends Component {
     keysPressed = 0;
 
     this.body = physicsComponent.getBody();
-    previousAnimation = getAnimation();
+    previousAnimation = "";
 
-
-    //animator.startAnimation("spawn_level1");
 
       canPlayerMove = false;
-    hasSpawnAnimationFinished = false;
+      hasSpawnAnimationFinished = false;
+
    // if(gameLevel == "LEVEL_4") {
    //     spawnAnimation = "spawn_level1";
-   //     entity.setScale(5.5f, 5.5f);
    // } else {
       double num = Math.round(Math.random() + 1);
-        spawnAnimationToUse = num;
+      double spawnAnimationToUse;
+      spawnAnimationToUse = num;
         if (spawnAnimationToUse == 1.0) {
             spawnAnimation = "portal_flip";
         } else {
             spawnAnimation = "spawn_level1";
-            entity.setScale(6f, 6f);
+
         }
   //  }
+
+
 
 
   }
@@ -123,41 +127,93 @@ public class PlayerActions extends Component {
   public void update() {
       iterator++;
 
+
       if(isDeathAnimationCompleted()) {
           this.entity.getComponent(PlayerStatsDisplay.class).playerIsDead();
       }
 
 
       if(iterator == 3) {
+          if(spawnAnimation.equals("spawn_level1")) {
+              entity.setScale(4f, 4f);
+          } else if (spawnAnimation.equals("portal_flip")){
+              entity.setScale(2.7f,2.7f);
+          }
           animator.startAnimation(spawnAnimation);
       } else if (animator.isFinished() && !hasSpawnAnimationFinished) {
-          if(animator.getCurrentAnimation() == "spawn_level1") {
-              Vector2 playerPos = new Vector2(this.entity.getPosition().add(1f, 0f));
-              this.entity.setPosition(playerPos.add(2.5f, 0));
-          } else if (animator.getCurrentAnimation() == "portal_flip"){
-              Vector2 playerPos = new Vector2(this.entity.getCenterPosition().x, this.entity.getPosition().y);
-              this.entity.setPosition(playerPos);
+          if(animator.getCurrentAnimation().equals("spawn_level1")) {
+              this.entity.setScale(1.5f,1f);
+              this.entity.setPosition(entity.getPosition().add(2f, 0f));
+          } else if (animator.getCurrentAnimation().equals("portal_flip")){
+              this.entity.setScale(1.5f,1f);
+              this.entity.setPosition(entity.getPosition().add(1f,0f));
           }
-          this.entity.setScale(2f, 2f);
 
-          this.hasSpawnAnimationFinished = true;
-          setCanPlayerMove(true);
           animator.startAnimation(getAnimation());
+          setCanPlayerMove(true);
+          hasSpawnAnimationFinished = true;
+
+
       }
+        if(hasSpawnAnimationFinished & !cameraIsSet) {
+            cameraDelay++;
+            if(cameraDelay == 25) {
+                cameraIsSet = true;
+            }
+        }
+
 
     if (playerState != PlayerState.STOPPED) {
-      updateSpeed();
-      ServiceLocator.getCamera().getEntity().setPosition(entity.getCenterPosition());
-      applyFriction();
+          updateSpeed();
+          applyFriction();
+        if(!playerHasDied && cameraIsSet) {
+          ServiceLocator.getCamera().getEntity().setPosition(entity.getCenterPosition());
+
+      }
     }
   }
+/*
+  private void slowlyMoveCameraToPos(Vector2 pos){
 
+          float cameraPosX = ServiceLocator.getCamera().getEntity().getPosition().x;
+          float cameraPosY = ServiceLocator.getCamera().getEntity().getPosition().y;
+          float destPosX = pos.x;
+          float destPosY = pos.y;
+          float movementX;
+          float movementY;
+
+          if((Math.floor(cameraPosX * 10) != Math.floor(destPosX * 10)) && (Math.floor(cameraPosY * 10) != Math.floor(destPosY * 10))) {
+
+              if (cameraPosX > destPosX) {
+                  movementX = -0.01f;
+              } else {
+                  movementX = 0.01f;
+              }
+              if (cameraPosY > destPosY) {
+                  movementY = -0.01f;
+              } else {
+                  movementY = 0.01f;
+              }
+
+              Vector2 movementVector = new Vector2(movementX, movementY);
+              ServiceLocator.getCamera().getEntity().setPosition(ServiceLocator.getCamera().getEntity().getPosition().add(movementVector));
+          } else {
+              //System.out.println("camer was set");
+              cameraIsSet = true;
+          }
+  }
+
+
+ */
   private void playerIsDead() {
+      if(!playerHasDied) {
+          playerHasDied = true;
 
-      canPlayerMove = false;
-      entity.setScale(4, 4);
+          canPlayerMove = false;
+          entity.setScale(2.5f, 2.3f);
 
-      animator.startAnimation("death");
+          animator.startAnimation("death");
+      }
   }
 
   private boolean isDeathAnimationCompleted(){
@@ -175,7 +231,9 @@ public class PlayerActions extends Component {
    */
   private void updateSpeed() {
     // Scale the walk direction by the acceleration, and apply that as a force
-    this.body.applyForceToCenter(walkDirection.cpy().scl(ACCELERATION), true);
+      if(canPlayerMove) {
+          this.body.applyForceToCenter(walkDirection.cpy().scl(ACCELERATION), true);
+      }
   }
 
   public float getSpeed() {
@@ -225,7 +283,7 @@ public class PlayerActions extends Component {
   // so I can't try and load in an animation i havent defined
 private void setCurrentPowerUp(String powerUp) {
   currentPowerUp = powerUp;
-  setMovementAnimation(currentMovement);
+  //setMovementAnimation(currentMovement);
 }
 
 public String getCurrentPowerUp() {
@@ -241,15 +299,13 @@ public String getCurrentPowerUp() {
    *              Running, Idle, Falling, Jumping, Sliding
    */
   private void setMovementAnimation(Movement value){
-      /*
-    if(value == Movement.Walk && getCurrentPowerUp() == "SpeedUp") {
-      value = Movement.Running;
-    }
-    */
 
-
-    if(currentPowerUp == "Stuck") {
+    if(currentPowerUp.equals("stuck")) {
       value = Movement.Idle;
+    } else if(currentPowerUp.equals("speed") && value == Movement.Walk){
+        value = Movement.Running;
+    } else if (currentPowerUp.equals("slow") && value == Movement.Walk) {
+        value = Movement.Slow;
     }
 
 
@@ -258,7 +314,11 @@ public String getCurrentPowerUp() {
       currentMovement = value;
       previousAnimation = getAnimation();
       animator.startAnimation(getAnimation());
+
+       // System.out.println(getCurrentMovement());
     }
+
+
   }
 
   /**
@@ -313,7 +373,7 @@ public String getCurrentPowerUp() {
    * be and sets the player to the correct animation
    */
   void checkIfFallingIsDone(){
-    if((currentMovement == Movement.Falling | currentMovement == Movement.Jump) & canJump){
+    if((currentMovement == Movement.Falling | currentMovement == Movement.Jump) && canJump && canPlayerMove){
         if(body.getLinearVelocity().x == 0 | keysPressed == 0){
           setMovementAnimation(Movement.Idle);
         } else {
@@ -424,7 +484,7 @@ public String getCurrentPowerUp() {
    * Makes the player jump upwards
    */
   void jump() {
-      if (canPlayerMove) {
+      if (canPlayerMove && !getCurrentPowerUp().equals("stuck")) {
           //System.out.println("trying to jump and " + canJump + "state is " + playerState); // Testing print
           if (playerState != PlayerState.AIR && canJump) {
               //System.out.println("in air"); // More testing prints
@@ -441,7 +501,7 @@ public String getCurrentPowerUp() {
    * Makes the player slide if they are touching the ground and not currently sliding
    */
   void slide() {
-      if(canPlayerMove && !getCurrentMovement().equals("Sliding")) {
+      if(canPlayerMove && !getCurrentMovement().equals("Sliding") && !getCurrentPowerUp().equals("stuck")) {
           this.playerState = PlayerState.SLIDING;
           if (getCanJump()) {
               setIsSliding();

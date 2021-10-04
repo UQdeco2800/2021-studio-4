@@ -59,13 +59,15 @@ public class PlayerFactory {
 
 
 
-    String[] movement = {"Running", "Jump", "Sliding", "Falling", "Idle", "Walk"};
+    String[] movement = {"Running", "Jump", "Sliding", "Falling", "Idle", "Walk", "Slow"};
     String[] direction = {"Left", "Right"};
 
     for(String mov : movement) {
       for (String dir : direction) {
         if (mov.equals("Jump") | mov.equals("Sliding") | mov.equals("Falling")) {
           animator.addAnimation(mov + dir, 0.03f, Animation.PlayMode.NORMAL);
+        } else if (mov.equals("Slow")){
+          animator.addAnimation(mov + dir, 0.16f, Animation.PlayMode.LOOP);
         } else {
           animator.addAnimation(mov + dir, 0.08f, Animation.PlayMode.LOOP);
         }
@@ -97,11 +99,13 @@ public class PlayerFactory {
 
 
 
-    PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
-    player.getComponent(ColliderComponent.class).setDensity(1.5f);
+    PhysicsUtils.setScaledCollider(player, 0.8f, 0.7f);
+    player.getComponent(ColliderComponent.class).setDensity(0.4f);
     //player.getComponent(AnimationRenderComponent.class).scaleEntity();
-    player.setScale(4f,4f);
+    player.setScale(1.5f,1f);
     return player;
+
+
   }
 
   private PlayerFactory() {
