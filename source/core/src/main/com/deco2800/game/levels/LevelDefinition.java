@@ -2,6 +2,8 @@ package com.deco2800.game.levels;
 
 public enum LevelDefinition {
   LEVEL_1("Level 1","levels/level1.json", "map-spritesheets/level1Textures.atlas"),
+  LEVEL_2("Level 2","levels/level2.json", "map-spritesheets/level4Textures.atlas"),
+  LEVEL_3("Level 3","levels/level3.json", "map-spritesheets/level4Textures.atlas"),
   LEVEL_4("Level 4","levels/level4.json", "map-spritesheets/level4Textures.atlas");
 
   private final String name;
@@ -25,4 +27,5 @@ public enum LevelDefinition {
   public String getLevelFileName() {
     return levelFileName;
   }
+
 }
