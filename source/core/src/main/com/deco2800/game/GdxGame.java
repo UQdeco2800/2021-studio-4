@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static com.badlogic.gdx.Gdx.app;
+import static com.deco2800.game.screens.MainGameScreen.timeScore;
 
 /**
  * Entry point of the non-platform-specific game logic. Controls which screen is currently running.
@@ -18,6 +19,7 @@ import static com.badlogic.gdx.Gdx.app;
  */
 public class GdxGame extends Game {
   private static final Logger logger = LoggerFactory.getLogger(GdxGame.class);
+  private LevelDefinition levelDefinition;
 
   @Override
   public void create() {
@@ -40,6 +42,7 @@ public class GdxGame extends Game {
   }
 
   public void setLevel(ScreenType screenType, LevelDefinition levelDefinition) {
+    this.levelDefinition = levelDefinition;
     logger.info("Setting game screen to {}", screenType);
     Screen currentScreen = getScreen();
     if (currentScreen != null) {
@@ -66,11 +69,15 @@ public class GdxGame extends Game {
     if (currentScreen != null) {
       currentScreen.dispose();
     }
-
     System.gc();
     System.runFinalization();
 
     setScreen(newScreen(screenType));
+  }
+
+  public void setPauseScreen() {
+    logger.info("Setting up pause screen");
+    setScreen(newScreen(ScreenType.PAUSE));
   }
 
   @Override
@@ -95,14 +102,19 @@ public class GdxGame extends Game {
       case DEATH_SCREEN:
         return new DeathScreen(this);
       case SCORE_SCREEN:
-        return new ScoreScreen(this);
+        return new ScoreScreen(this, levelDefinition, getCompletionTime());
+      case PAUSE:
+        return new PauseScreen(this);
       default:
         return null;
     }
   }
 
+  private int getCompletionTime() {
+    return Math.round(timeScore/1000);
+  }
+
   public enum ScreenType {
-    // PAUSE is an unused enum. Plans to implement this with the pause functionality.
     MAIN_MENU, MAIN_GAME, SETTINGS, LOAD_LEVELS, PAUSE, DEATH_SCREEN, SCORE_SCREEN, LEVEL_EDITOR
   }
 

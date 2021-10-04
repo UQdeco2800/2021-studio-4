@@ -27,8 +27,6 @@ public class LevelSelectScreen extends ScreenAdapter {
     private final GdxGame game;
     private final Renderer renderer;
     private static final String[] levelSelectMenuTextures = {"images/LevelSelectScreenPlaceholder.png"};
-    //private static final String backgroundMusic = "sounds/MainMenuMusic.mp3";
-    //private static final String[] MainMenuMusic = {backgroundMusic};
     private static final MusicServiceDirectory mainMenuSong = new MusicServiceDirectory();
     private static final String[] MainMenuMusic = {mainMenuSong.main_menu};
 

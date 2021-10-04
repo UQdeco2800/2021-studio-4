@@ -14,8 +14,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
+
+import java.time.Duration;
 import java.util.*;
 
+import static org.awaitility.Awaitility.await;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,7 +42,7 @@ public class StatusEffectTest {
 
     @BeforeEach
     public void initialiseClasses() {
-        playerActions = new PlayerActions();
+        playerActions = new PlayerActions("some level string");
         /* The health determines whether the unit is dead. 1 = alive, 0 = dead */
         combatStatsComponentIsDead = new CombatStatsComponent(0,0);
         combatStatsComponentNotDead = new CombatStatsComponent(1,0);
@@ -318,6 +321,13 @@ public class StatusEffectTest {
         assertNotEquals(expected + 1, result);
         assertTrue(expected == result);
         assertFalse(expected != result);
+    }
+
+    @Test
+    public void testSpeedDebuffDelay() {
+//        Duration buffDuration = new Duration();
+//
+//        await().atMost();
     }
 
     /* Uncomment if you want to see how the null works */

@@ -95,5 +95,7 @@ project(":core") {
         testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
         testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         testImplementation "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
+        testImplementation 'org.awaitility:awaitility:4.1.0'// For testing
+        // testImplementation 'org.awaitility:awaitility-kotlin\\:4.1.0'
     }
 }

@@ -22,11 +22,13 @@ import static java.lang.Math.abs;
  * when an event is triggered
  */
 public class TheVoidController extends Component {
+
     // private static final Vector2 SPEED = new Vector2(8f, 0f);
     // Changed so that the speed of void can be changed
     private static Vector2 normalSpeed = new Vector2(8f, 0f);
     private static Vector2 pausedSpeed = new Vector2(0f, 0f);
     private static Vector2 SPEED = normalSpeed;
+
 
     private PhysicsComponent physicsComponent;
     private AnimationRenderComponent animator;
@@ -55,6 +57,8 @@ public class TheVoidController extends Component {
         entity.getEvents().addListener("TheVoidAnimate", this::theVoidAnimate);
         entity.getEvents().addListener("TheVoidMove", this::theVoidMove);
         entity.getEvents().addListener("UpdateSound", this::updateSound);
+        entity.getEvents().addListener("StopVoidIfPlayerDead", this:: stopVoidIfPlayerDead);
+        entity.getEvents().addListener("RestartVoidOnRestart", this:: restartVoidOnRestart);
 
         this.body = physicsComponent.getBody();
     }
@@ -64,6 +68,20 @@ public class TheVoidController extends Component {
      */
      void theVoidAnimate(){
         animator.startAnimation("void");
+    }
+
+    void stopVoidIfPlayerDead() {
+         if (getPlayerDistance() < 0.06) {
+             SPEED = new Vector2(0f, 0f);
+             System.out.println("stopping the void worked");
+         }
+    }
+
+    void restartVoidOnRestart() {
+        if (getPlayerDistance() < 0.06) {
+            SPEED = new Vector2(8f,0f);
+            System.out.println("restarting the void worked");
+        }
     }
 
     /**

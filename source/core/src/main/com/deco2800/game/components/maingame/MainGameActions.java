@@ -2,6 +2,9 @@ package com.deco2800.game.components.maingame;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.levelselect.PreviousLevel;
+import com.deco2800.game.components.player.KeyboardPlayerInputComponent;
+import com.deco2800.game.components.tasks.TheVoidTasks;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +15,7 @@ import org.slf4j.LoggerFactory;
 public class MainGameActions extends Component {
   private static final Logger logger = LoggerFactory.getLogger(MainGameActions.class);
   private GdxGame game;
+  private PreviousLevel previousLevel = new PreviousLevel();
 
   public MainGameActions(GdxGame game) {
     this.game = game;
@@ -20,6 +24,8 @@ public class MainGameActions extends Component {
   @Override
   public void create() {
     entity.getEvents().addListener("exit", this::onExit);
+    entity.getEvents().addListener("pause", this::onPause);
+    entity.getEvents().addListener("retry", this::onRestart);
 //    entity.getEvents().addListener("death", this::death);
   }
 
@@ -29,6 +35,25 @@ public class MainGameActions extends Component {
   private void onExit() {
     logger.info("Exiting main game screen");
     game.setScreen(GdxGame.ScreenType.MAIN_MENU);
+    TheVoidTasks.paused = false;
+    KeyboardPlayerInputComponent.paused = false;
+  }
+
+  private void onPause() {
+    logger.info("Pause the level");
+    TheVoidTasks.paused = !TheVoidTasks.paused;
+    KeyboardPlayerInputComponent.paused = !KeyboardPlayerInputComponent.paused;
+
+
+    //game.setScreen(GdxGame.ScreenType.PAUSE);
+    //game.setPauseScreen();
+  }
+
+  private void onRestart() {
+    logger.info("Restart the level");
+    game.setLevel(GdxGame.ScreenType.MAIN_GAME, previousLevel.getPreviousLevel());
+    TheVoidTasks.paused = false;
+    KeyboardPlayerInputComponent.paused = false;
   }
 //
 //  private void death() {

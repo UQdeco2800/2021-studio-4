@@ -3,11 +3,14 @@ package com.deco2800.game.components.settingsmenu;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics.DisplayMode;
 import com.badlogic.gdx.Graphics.Monitor;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.GdxGame.ScreenType;
@@ -63,6 +66,8 @@ public class SettingsMenuDisplay extends UIComponent {
 
     rootTable = new Table();
     rootTable.setFillParent(true);
+    Sprite sprite = new Sprite(new Texture("images/title_screen_clean.png"));
+    rootTable.setBackground(new SpriteDrawable(sprite)); // Set background
 
     rootTable.add(title).expandX().top().padTop(20f);
 
