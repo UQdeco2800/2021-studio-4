@@ -291,6 +291,32 @@ public class LevelGameArea extends GameArea {
   }
 
   /**
+   * Spawn a new jump pad.
+   * @param posX X-position
+   * @param posY Y-position
+   */
+  public void spawnJumppad(int posX, int posY) {
+    spawnButton(posX, posY, false, true);
+  }
+
+  /**
+   * Spawn a new jump pad.
+   * @param posX X-position
+   * @param posY Y-position
+   * @param centerX boolean center X value
+   * @param centerY boolean center Y value
+   * @return jump pad
+   */
+  public ObstacleEntity spawnJumppad(int posX, int posY, boolean centerX, boolean centerY) {
+    ObstacleEntity jumppad = (ObstacleEntity) ObstacleFactory.createJumpPad();
+    GridPoint2 position = new GridPoint2(posX,posY);
+    spawnEntityAt(jumppad, position, centerX, centerY);
+    obstacleEntities.add(jumppad);
+    jumppad.setTilePosition(position);
+    return jumppad;
+  }
+
+  /**
    * Maps the sub-interactables (i.e. bridges and doors) to the closest
    * spawned interactable (i.e. button).
    */
@@ -563,7 +589,7 @@ public class LevelGameArea extends GameArea {
       case LEVEL_END_PORTAL:
         return spawnLevelEndPortal(x,y,size,false,false);
       case JUMPPAD:
-//        return spawnJumpPad ??? why this missing
+        return spawnJumppad(x, y, false, false);
     }
 
     return null;
