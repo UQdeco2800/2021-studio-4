@@ -188,6 +188,10 @@ public class ObstacleFactory {
 
     bridge.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     bridge.getComponent(TextureRenderComponent.class).scaleEntity();
+
+    bridge.getComponent(ColliderComponent.class).setSensor(true);
+    bridge.getComponent(HitboxComponent.class).setSensor(true);
+
     bridge.scaleHeight(0.5f);
     PhysicsUtils.setScaledCollider(bridge, 1f, 1f);
     return bridge;

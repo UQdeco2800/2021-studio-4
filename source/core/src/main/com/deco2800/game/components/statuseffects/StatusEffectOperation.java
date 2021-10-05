@@ -109,6 +109,12 @@ public class StatusEffectOperation {
             statOriginal = originalValues.get(0);
         }
 
+        if(type == 1){
+            player.getEvents().trigger("setCurrentPowerUp", "speed");
+        } else {
+            player.getEvents().trigger("setCurrentPowerUp", "slow");
+        }
+
         int newSpeed = StatusEffectEnum.SPEED.statChange(type, speedBoost, statOriginal);
 
         originalValues.add(0, statOriginal);
@@ -126,7 +132,7 @@ public class StatusEffectOperation {
                         player.getComponent(PlayerActions.class).alterSpeed(-changedSpeed);
 
 
-                        player.getEvents().trigger("setPowerUpAnimation", "Default");
+                        player.getEvents().trigger("setCurrentPowerUp", "Default");
 
                         // close the thread
                         t.cancel();
@@ -160,6 +166,7 @@ public class StatusEffectOperation {
                     public void run() {
                         // your code here
                         player.getComponent(PlayerActions.class).alterJumpHeight(-changedJumpHeight);
+
                         // close the thread
                         t.cancel();
                     }
@@ -184,6 +191,7 @@ public class StatusEffectOperation {
         int newSpeed = currentSpeed * -1;
        // System.out.println(gameTime.getTime());
         player.getComponent(PlayerActions.class).alterSpeed(newSpeed);
+        player.getEvents().trigger("setCurrentPowerUp", "stuck");
 
         // Sets delay of 3 seconds before restoring the previous player speed.
         Timer t = new java.util.Timer();
@@ -193,6 +201,7 @@ public class StatusEffectOperation {
                     public void run() {
                         // your code here
                         player.getComponent(PlayerActions.class).alterSpeed(currentSpeed);
+                        player.getEvents().trigger("setCurrentPowerUp", "default");
                         // close the thread
                         t.cancel();
                     }
