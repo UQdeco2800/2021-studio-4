@@ -1,7 +1,6 @@
 package com.deco2800.game.areas;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
@@ -12,7 +11,7 @@ import com.badlogic.gdx.utils.JsonWriter;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.areas.terrain.TerrainTileDefinition;
-import com.deco2800.game.concurrency.JobSystem;
+import com.deco2800.game.effects.StatusEffect;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleDefinition;
 import com.deco2800.game.entities.ObstacleEntity;
@@ -31,27 +30,19 @@ import org.slf4j.LoggerFactory;
 import com.deco2800.game.leveleditor.ObstacleToolComponent;
 
 import java.io.*;
-import java.time.LocalTime;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class LevelGameArea extends GameArea {
-  public static boolean loadingScreen = false;
   private static final Logger logger = LoggerFactory.getLogger(LevelGameArea.class);
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 15);
-  private static final GridPoint2 STATUSEFFECT_SPAWN1 = new GridPoint2(60, 25);
-  private static final GridPoint2 STATUSEFFECT_SPAWN2 = new GridPoint2(40, 25);
+  private static final GridPoint2 STATUSEFFECT_SPAWN = new GridPoint2(15, 15);
   public List<ObstacleEntity> obstacleEntities = new ArrayList<>();
   public static ArrayList<TerrainTile> terrainTiles = new ArrayList<>();
   public static ArrayList<String> buffers = new ArrayList<>();
   public static ArrayList<String> deBuffers = new ArrayList<>();
   private Random random = new Random();
-  //private static boolean loading = true;
-  private boolean loading = true;
-  //private static boolean assetLoading = true;//final?static?
-  //private static boolean UILoading = true;
 
   public Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables = new HashMap<>();
   public List<ObstacleEntity> interactableEntities = new ArrayList<>();
@@ -70,10 +61,7 @@ public class LevelGameArea extends GameArea {
     "images/level1_background.jpg",
     "images/simple_player_animation.png",
     "images/testingrunningsprite.png",
-    "images/background_level1.jpg",
-     "images/background_level2.jpg",
-     "images/background_level3.jpg",
-      "images/background_level4.png"
+    "images/background_level1.jpg"
   };
 
   private static final String[] gameTextureAtlases = {
@@ -86,6 +74,12 @@ public class LevelGameArea extends GameArea {
     "images/walking_sprite.atlas",
     "images/testingrunning.atlas",
     "images/simple_player_sprite.atlas",
+    "powerup-ui-spritesheets/bomb-item.atlas",
+    "powerup-ui-spritesheets/jump_boost.atlas",
+    "powerup-ui-spritesheets/lightning.atlas",
+    "powerup-ui-spritesheets/speed_decrease.atlas",
+    "powerup-ui-spritesheets/stuck_lock.atlas",
+    "powerup-ui-spritesheets/time_stop.atlas",
   };
 
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
@@ -95,10 +89,18 @@ public class LevelGameArea extends GameArea {
   gameSong.ending_menu, gameSong.game_level_2, gameSong.main_menu, gameSong.death_noise_2,
           gameSong.game_level_3};
 
+  /*private static final String backgroundMusic = "sounds/BackingMusicWithDrums.mp3";
+  private static final String[] gameMusic = {"sounds/BackingMusicWithDrums.mp3",
+          "sounds/CLICK_Click.mp3", "sounds/End credits.mp3", "sounds/ENEMY_Collision.mp3",
+          "sounds/Enemy_Little enemy wobble sound.mp3", "sounds/OBSTACLE_Button.mp3",
+          "sounds/OBSTACLE_Player Jumping", "sounds/PLAYER_Player Getting Power.mp3",
+          "sounds/PLAYER_Running Into.mp3", "sounds/VOID_LoseGame_VirusHit.mp3",
+          "sounds/VOID_void sound.mp3", "sounds/MainMenuMusic.mp3"};*/
+
 
   private final TerrainFactory terrainFactory;
   private final LevelDefinition levelDefinition;
-
+  private static boolean loading = true;
   private Entity player;
 
   public LevelGameArea(TerrainFactory terrainFactory, LevelDefinition levelDefinition) {
@@ -118,25 +120,18 @@ public class LevelGameArea extends GameArea {
    * Initializes basic components such as loading assets, background and terrain
    */
   public void init() {
+
     loadAssets();
+    displayBackground();
     spawnTerrain();
     spawnLevelFromFile();
     mapInteractables();
-    String level = levelDefinition.getLevelFileName();
-    if (level.equals("levels/level1.json")) {
-      displayBackground("images/background_level1.jpg");
-    } else if (level.equals("levels/level2.json")) {
-      displayBackground("images/background_level2.jpg");
-    } else if (level.equals("levels/level3.json")) {
-      displayBackground("images/background_level3.jpg");
-    } else if (level.equals("levels/level4.json")) {
-      displayBackground("images/background_level4.png");
-    }
-
-
-
-    }
-
+    //while (loading == true){
+    //  logger.info("Loading Screen is loading in!");
+     // displayLoadingScreen();
+        // add code to show the loading screen
+    //}
+  }
 
   /**
    * Create the game area, including terrain, static entities (trees), dynamic entities (player)
@@ -144,30 +139,25 @@ public class LevelGameArea extends GameArea {
   @Override
   public void create() {
     init();
-
     displayUI();
     player = spawnPlayer();
     //spawnLevelFromFile();
     spawnTheVoid();
 
-//  spawnStatusEffectDeBuff("Buff_Time_Stop"); //Spawns specified statusEffect for testing purposes
-//  spawnStatusEffectBuff("Buff_Jump");
-    spawnStatusEffectBuff(getBuff()); // Selected randomly from a list of the effects
-    spawnStatusEffectDeBuff(getDeBuff()); // Selected randomly from a list of the effects
-    // Spawns two more power ups further down in the map later on
-    spawnStatusEffectBuff2(getBuff());
-    spawnStatusEffectDeBuff2(getDeBuff());
+    int statusPosX = STATUSEFFECT_SPAWN.x;
+    int statusPosY = STATUSEFFECT_SPAWN.y;
+    spawnStatusEffect(StatusEffect.FAST, statusPosX, statusPosY);
+    spawnStatusEffect(StatusEffect.JUMP, statusPosX+10, statusPosY);
+    spawnStatusEffect(StatusEffect.TIME_STOP, statusPosX+20, statusPosY);
+    spawnStatusEffect(StatusEffect.SLOW, statusPosX+30, statusPosY);
+    spawnStatusEffect(StatusEffect.STUCK, statusPosX+40, statusPosY);
 
 
     String level = levelDefinition.getLevelFileName();
     if (level.equals("levels/level1.json")) {
       playTheMusic("game_level_1");
-    } else if (level.equals("levels/level2.json")) {
-      playTheMusic("game_level_2");
-    } else if (level.equals("levels/level3.json")) {
-      playTheMusic("game_level_3");
     } else if (level.equals("levels/level4.json")) {
-      playTheMusic("level_1_2");//replace with level 4 music when it's created
+      playTheMusic("level_1_2"); //replace with level 4 music when it's created
     }
 
 
@@ -182,49 +172,20 @@ public class LevelGameArea extends GameArea {
     return this.player;
   }
 
-  /**
-   * Get a random buff to spawn in game
-   * @return Buff name
-   */
-  private String getBuff() {
-    int indexNum = random.nextInt(3);
-    return buffers.get(indexNum);
-  }
-
-  /**
-   * Get a random debuff to spawn in game
-   * @return Debuff name
-   */
-  private String getDeBuff() {
-    int indexNum = random.nextInt(3);
-    return deBuffers.get(indexNum);
-  }
-
   private void displayUI() {
     Entity ui = new Entity();
     ui.addComponent(new GameAreaDisplay("Box Forest"));
     spawnEntity(ui);
-    //loading = false;
+    loading = false;
   }
 
-  private void displayBackground(String image) {
+  private void displayBackground() {
     Entity background = new Entity();
-    background.addComponent(new BackgroundRenderComponent(image));
+    background.addComponent(new BackgroundRenderComponent("images/background_level1.jpg"));
     spawnEntity(background);
   }
-  private boolean displayLoadingScreen() {
-    //Entity background = new Entity();
-    ResourceService resourceService = ServiceLocator.getResourceService();
-    String[] loadingTexture = { "images/game_background.png"};
-    resourceService.loadTextures(loadingTexture );
-    while (!resourceService.loadForMillis(10)) {
-      // This could be upgraded to a loading screen
-      logger.info("Loading loading texture... {}%", resourceService.getProgress());
-    }
-    Entity loadingScreen = new Entity();
-    loadingScreen.addComponent(new BackgroundRenderComponent("images/game_background.png"));
-    spawnEntity(loadingScreen);
-    return true;
+  private void displayLoadingScreen() {
+    Entity background = new Entity();
   }
 
   private void spawnTerrain() {
@@ -645,41 +606,15 @@ public class LevelGameArea extends GameArea {
   }
 
   /**
-   * Spawns the Buff StatusEffect on the map by calling the createStatusEffect() method in NPCFactory
-   * with player as its parameter.
+   * Spawns a status effect as the given location
    */
-  private void spawnStatusEffectBuff(String statusEffectType) {
-    Entity statusEffect = NPCFactory.createStatusEffect(player, statusEffectType);
-    spawnEntityAt(statusEffect, STATUSEFFECT_SPAWN1, true, true);
-  }
-
-  /**
-   * Spawns the second Buff StatusEffect on the map by calling the createStatusEffect() method in NPCFactory
-   * with player as its parameter.
-   */
-  private void spawnStatusEffectBuff2(String statusEffectType) {
-    Entity statusEffect = NPCFactory.createStatusEffect(player, statusEffectType);
-    GridPoint2 StatusEffectSpawn2 = STATUSEFFECT_SPAWN1.add(100, 0);
-    spawnEntityAt(statusEffect, StatusEffectSpawn2, true, true);
-  }
-
-  /**
-   * Spawns the DeBuff StatusEffect on the map by calling the createStatusEffect() method in NPCFactory
-   * with player as its parameter.
-   */
-  private void spawnStatusEffectDeBuff(String statusEffectType) {
-    Entity statusEffect = NPCFactory.createStatusEffect(player, statusEffectType);
-    spawnEntityAt(statusEffect, STATUSEFFECT_SPAWN2, true, true);
-  }
-
-  /**
-   * Spawns the second DeBuff StatusEffect on the map by calling the createStatusEffect() method in NPCFactory
-   * with player as its parameter.
-   */
-  private void spawnStatusEffectDeBuff2(String statusEffectType) {
-    Entity statusEffect = NPCFactory.createStatusEffect(player, statusEffectType);
-    GridPoint2 StatusEffectSpawn2 = STATUSEFFECT_SPAWN2.add(100, 0);
-    spawnEntityAt(statusEffect, STATUSEFFECT_SPAWN2, true, true);
+  private void spawnStatusEffect(StatusEffect statusEffect, int posX, int posY) {
+    System.out.println(statusEffect);
+    System.out.println(posX);
+    System.out.println(posY);
+    Entity statusEffectEntity = NPCFactory.createStatusEffect(statusEffect);
+    GridPoint2 position = new GridPoint2(posX, posY);
+    spawnEntityAt(statusEffectEntity, position, true, true);
   }
 
   /**
@@ -746,7 +681,15 @@ public class LevelGameArea extends GameArea {
 
   }
 
-  private int loadAssets() {
+  /*private void playMusic() {
+    //MusicServiceDirectory mainMenuSong = new MusicServiceDirectory();
+    //MusicService musicScreen = new MusicService(mainMenuSong.main_menu);
+    //musicScreen.playMusic();
+    MusicSingleton s = MusicSingleton.getInstance();
+    s.playMusicSingleton("sounds/BackingMusicWithDrums.mp3");
+  }*/
+
+  private void loadAssets() {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(gameTextures);
@@ -755,15 +698,9 @@ public class LevelGameArea extends GameArea {
 
 
     while (!resourceService.loadForMillis(10)) {
-      loadingScreen = true;
       // This could be upgraded to a loading screen
       logger.info("Loading... {}%", resourceService.getProgress());
-      if (resourceService.getProgress() > 90) { //better calculation??
-        loading = false;
-      }
     }
-    //
-    return 0;
   }
 
   private void unloadAssets() {
@@ -773,19 +710,6 @@ public class LevelGameArea extends GameArea {
     resourceService.unloadAssets(gameTextureAtlases);
     resourceService.unloadAssets(gameMusic);
   }
-
-  /*public boolean getLoading() {
-    return loading;
-  }
-  public void setLoading(boolean loadingValue) {
-    loading = loadingValue;
-  }
-  public boolean isAllLoadingFinished() {
-    if (assetLoading == false && UILoading == false) {
-      return true;
-    }
-    return false;
-  }*/
 
   @Override
   public void dispose() {

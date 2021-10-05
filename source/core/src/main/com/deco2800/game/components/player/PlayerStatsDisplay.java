@@ -120,7 +120,7 @@ public class PlayerStatsDisplay extends UIComponent {
     CharSequence text = String.format("Health: %d", health);
     healthLabel.setText(text);
     if (health == 0) {
-     this.getEntity().getEvents().trigger("playerIsDead");
+      this.getEntity().getEvents().trigger("playerIsDead");
     }
   }
 
@@ -136,8 +136,7 @@ public class PlayerStatsDisplay extends UIComponent {
   public void updatePlayerScore() {
     // Seems to be the perfect time to start on
     if (iterator < 3) {
-      initialValue = (int) Math.round(timeScore/1000);
-      //initialValue = 0;
+      initialValue = Math.round(timeScore/1000);
       iterator++;
     }
     int seconds;

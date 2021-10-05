@@ -3,7 +3,10 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.deco2800.game.ai.tasks.Task;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.statuseffects.StatusEffectTargetComponent;
+import com.deco2800.game.effects.StatusEffect;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
@@ -46,7 +49,6 @@ public class PlayerActions extends Component {
   }
 
   private MovingDirection movingDirection;
-  private String currentPowerUp;
   private Movement currentMovement;
   private String previousAnimation;
   private boolean canPlayerMove;
@@ -57,7 +59,7 @@ public class PlayerActions extends Component {
   private int iterator = 0;
   private int cameraDelay = 0;
 
-  private static Vector2 ACCELERATION = new Vector2(10f, 0f);;  // Force of acceleration, in Newtons (kg.m.s^2)
+  private static Vector2 ACCELERATION = new Vector2(10f, 0f);  // Force of acceleration, in Newtons (kg.m.s^2)
   private static final float NORMAL_FRICTION = 0.1f;                 // Coefficient of friction for normal movement
 
   private PlayerState playerState = PlayerState.STOPPED;        // Movement state of the player, see PlayerState
@@ -92,12 +94,10 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("keyPressed", this::keyWasPressed);
     entity.getEvents().addListener("keyReleased", this::keyWasReleased);
     entity.getEvents().addListener("playerIsDead", this::playerIsDead);
-    entity.getEvents().addListener("setCurrentPowerUp", this::setCurrentPowerUp);
 
 
     movingDirection = MovingDirection.Right;
     currentMovement = Movement.Idle;
-    currentPowerUp = "Default";
     keysPressed = 0;
 
     this.body = physicsComponent.getBody();
@@ -205,6 +205,8 @@ public class PlayerActions extends Component {
           this.entity.setPosition(entity.getPosition().add(2f, 0f));
       } else if (animator.getCurrentAnimation().equals("portal_flip")){
           this.entity.setPosition(entity.getPosition().add(1f,0f));
+      } else if (animator.getCurrentAnimation().equals("spawn_portal")) {
+          this.entity.setPosition(entity.getPosition().add(2.5f,0f));
       }
   }
 
@@ -217,6 +219,8 @@ public class PlayerActions extends Component {
           entity.setScale(4f, 4f);
       } else if (spawnAnimation.equals("portal_flip")){
           entity.setScale(2.7f,2.7f);
+      } else if (spawnAnimation.equals("spawn_portal")) {
+          entity.setScale(6f,1.5f);
       }
       animator.startAnimation(spawnAnimation);
   }
@@ -229,18 +233,17 @@ public class PlayerActions extends Component {
        //if(gameLevel == "LEVEL_4") {
         //   spawnAnimation = "spawn_level1";
       // } else {
-      double num = Math.round(Math.random() + 1);
-      double spawnAnimationToUse;
-      spawnAnimationToUse = num;
-      if (spawnAnimationToUse == 1.0) {
+      int spawnAnimationToUse = 1 + (int) (Math.random() * 3);
+      if (spawnAnimationToUse == 1) {
           spawnAnimation = "portal_flip";
-
-      } else {
+      } else if (spawnAnimationToUse == 2){
           spawnAnimation = "spawn_level1";
+      } else {
+          spawnAnimation = "spawn_portal";
       }
       //  }
 
-       return (int) spawnAnimationToUse;
+       return spawnAnimationToUse;
   }
 
     /**
@@ -328,27 +331,6 @@ public class PlayerActions extends Component {
   }
 
 
-
-  /**
-   * Sets the animation of the player to the powerUp entered as the parameter value.
-   * Default will set the player back to its original animation. The String value is
-   * case sensitive and should begin with a capital letter. This should be called when
-   * a player hits a powerUp and when their powerUp runs out.
-   *
-   * @param powerUp the string name of the power up animation, these are the options:
-   *              Default, SpeedUp, SpeedDown, Stuck
-   */
-  //This is currently commented out since i have not made any placeholder sprites for powerUps
-  // so I can't try and load in an animation i havent defined
-private void setCurrentPowerUp(String powerUp) {
-  currentPowerUp = powerUp;
-  //setMovementAnimation(currentMovement);
-}
-
-public String getCurrentPowerUp() {
-  return currentPowerUp;
-}
-
   /**
    * Sets the movementAnimation of the player to the animation corresponding
    * to the parameter value. The String value is case sensitive and should begin
@@ -359,23 +341,22 @@ public String getCurrentPowerUp() {
    *              Running, Idle, Falling, Jumping, Sliding
    */
   private void setMovementAnimation(Movement value){
+    StatusEffect statusEffect = entity.getComponent(StatusEffectTargetComponent.class).getCurrentStatusEffect();
 
-    if(currentPowerUp.equals("stuck")) {
+    if(statusEffect == StatusEffect.STUCK) {
       value = Movement.Idle;
-    } else if(currentPowerUp.equals("speed") && value == Movement.Walk){
+    } else if(statusEffect == StatusEffect.FAST && value == Movement.Walk){
         value = Movement.Running;
-    } else if (currentPowerUp.equals("slow") && value == Movement.Walk) {
+    } else if (statusEffect == StatusEffect.SLOW && value == Movement.Walk) {
         value = Movement.Slow;
     }
 
 
     if(!(previousAnimation.equals(getAnimation())) || value != currentMovement){
-      //System.out.println(value);
       currentMovement = value;
       previousAnimation = getAnimation();
       animator.startAnimation(getAnimation());
 
-       // System.out.println(getCurrentMovement());
     }
 
 
@@ -395,7 +376,7 @@ public String getCurrentPowerUp() {
    * includes the movement they are doing, the direction they are moving/looking
    * and the current power up they have
    *
-   * @return String containing currentMovement + movingDirection + powerUp
+   * @return String containing currentMovement + movingDirection
    */
   public String getAnimation(){
     return  getCurrentMovement() + getCurrentDirection();
@@ -409,13 +390,12 @@ public String getCurrentPowerUp() {
     return movingDirection.toString();
   }
 
-
   /**
    * sets the players animation to falling
    */
   void setIsFalling(){
       if (canPlayerMove) {
-          setCanJump(false);
+          playerState = PlayerState.AIR;
           setMovementAnimation(Movement.Falling);
       }
   }
@@ -544,38 +524,36 @@ public String getCurrentPowerUp() {
    * Makes the player jump upwards
    */
   void jump() {
-      if (canPlayerMove && !getCurrentPowerUp().equals("stuck")) {
-          //System.out.println("trying to jump and " + canJump + "state is " + playerState); // Testing print
-          if (playerState != PlayerState.AIR && canJump) {
-              //System.out.println("in air"); // More testing prints
-              setIsJumping();
+    StatusEffect statusEffect = entity.getComponent(StatusEffectTargetComponent.class).getCurrentStatusEffect();
+    if (canPlayerMove && statusEffect != StatusEffect.STUCK) {
+        //System.out.println("trying to jump and " + canJump + "state is " + playerState); // Testing print
+        if (playerState != PlayerState.AIR && canJump) {
+            //System.out.println("in air"); // More testing prints
+            setIsJumping();
 
-              this.playerState = PlayerState.AIR;
-              body.applyForceToCenter(jumpSpeed, true);
-              canJump = false;
-
-              MusicServiceDirectory directory = new MusicServiceDirectory();
-              MusicService jumpMusic = new MusicService(directory.click);
-              jumpMusic.changeVolume(0.7f);
-          }
-      }
+            this.playerState = PlayerState.AIR;
+            body.applyForceToCenter(jumpSpeed, true);
+            canJump = false;
+        }
+    }
   }
 
   /**
    * Makes the player slide if they are touching the ground and not currently sliding
    */
   void slide() {
-      if(canPlayerMove && !getCurrentMovement().equals("Sliding") && !getCurrentPowerUp().equals("stuck")) {
-          this.playerState = PlayerState.SLIDING;
-          if (getCanJump()) {
-              setIsSliding();
-              if (previousWalkDirection.epsilonEquals(Vector2Utils.LEFT)) {
-                  body.applyForceToCenter(new Vector2(-300f, 0f), true);
-              } else {
-                  body.applyForceToCenter(new Vector2(300f, 0f), true);
-              }
-          }
-      }
+    StatusEffect statusEffect = entity.getComponent(StatusEffectTargetComponent.class).getCurrentStatusEffect();
+    if(canPlayerMove && !getCurrentMovement().equals("Sliding") && statusEffect != StatusEffect.STUCK) {
+        this.playerState = PlayerState.SLIDING;
+        if (getCanJump()) {
+            setIsSliding();
+            if (previousWalkDirection.epsilonEquals(Vector2Utils.LEFT)) {
+                body.applyForceToCenter(new Vector2(-300f, 0f), true);
+            } else {
+                body.applyForceToCenter(new Vector2(300f, 0f), true);
+            }
+        }
+    }
   }
 
   /**
