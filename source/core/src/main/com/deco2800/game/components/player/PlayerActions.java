@@ -553,6 +553,10 @@ public String getCurrentPowerUp() {
               this.playerState = PlayerState.AIR;
               body.applyForceToCenter(jumpSpeed, true);
               canJump = false;
+
+              MusicServiceDirectory directory = new MusicServiceDirectory();
+              MusicService jumpMusic = new MusicService(directory.click);
+              jumpMusic.changeVolume(0.7f);
           }
       }
   }
