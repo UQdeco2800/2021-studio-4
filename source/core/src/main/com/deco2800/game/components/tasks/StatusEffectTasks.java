@@ -37,11 +37,4 @@ public class StatusEffectTasks extends DefaultTask implements PriorityTask {
         super.start();
         this.owner.getEntity().getEvents().trigger("StatusEffectAnimate");
     }
-
-    /**
-     * Called to remove the StatusEffect
-     */
-    public void remove() {
-        entity.getEvents().trigger("StatusEffectRemove");
-    }
 }
