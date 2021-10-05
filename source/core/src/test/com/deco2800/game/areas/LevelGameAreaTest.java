@@ -77,6 +77,7 @@ public class LevelGameAreaTest {
 
         assertEquals(newObstacleEntities.toString(), obstacleEntities.toString());
         assertEquals(buttonEntities.toString(), this.interactableEntities.toString());
+
         assertEquals(buttonOneMapped.toString(), buttonOne.getComponent(InteractableComponent.class).getMapped().toString());
         assertEquals(buttonTwoMapped.toString(), buttonTwo.getComponent(InteractableComponent.class).getMapped().toString());
         assertEquals(buttonThreeMapped.toString(), buttonThree.getComponent(InteractableComponent.class).getMapped().toString());
@@ -129,6 +130,7 @@ public class LevelGameAreaTest {
         buttonThreeMapped.add(bridgeOne);
 
         assertEquals(buttonEntities.toString(), this.interactableEntities.toString());
+
         assertEquals(buttonOneMapped.toString(), buttonOne.getComponent(InteractableComponent.class).getMapped().toString());
         assertEquals(buttonTwoMapped.toString(), buttonTwo.getComponent(InteractableComponent.class).getMapped().toString());
         assertEquals(buttonThreeMapped.toString(), buttonThree.getComponent(InteractableComponent.class).getMapped().toString());
@@ -187,7 +189,7 @@ public class LevelGameAreaTest {
         return platform;
     }
 
-    void mapInteractables() {
+    public void mapInteractables() {
         // list of all buttons in order of creation
         ArrayList<ObstacleEntity> buttons = new ArrayList<>();
 

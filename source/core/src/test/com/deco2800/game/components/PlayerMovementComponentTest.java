@@ -64,7 +64,6 @@ public class PlayerMovementComponentTest {
         assertEquals(false, entity.getComponent(PlayerActions.class).getCanJump());
     }
 
-    /*
     @Test
     void opensDoor() {
         short playerLayer = (1 << 1);
@@ -72,7 +71,7 @@ public class PlayerMovementComponentTest {
         ObstacleEntity button = (ObstacleEntity) createButton();
         ObstacleEntity door = (ObstacleEntity) createDoor(1);
 
-        mapInteractables.put(button, door);
+        button.getComponent(InteractableComponent.class).addSubInteractable(door);
 
         Entity entity = createPlayer(playerLayer, obstacleLayer);
 
@@ -80,8 +79,7 @@ public class PlayerMovementComponentTest {
         Fixture targetFixture = button.getComponent(HitboxComponent.class).getFixture();
         entity.getEvents().trigger("collisionStart", entityFixture, targetFixture);
 
-        assertEquals(null, door.getComponent(HitboxComponent.class));
-        assertEquals(null, door.getComponent(ColliderComponent.class));
+        assertEquals(true, targetFixture.isSensor());
     }
 
     @Test
@@ -91,7 +89,7 @@ public class PlayerMovementComponentTest {
         ObstacleEntity button = (ObstacleEntity) createButton();
         ObstacleEntity bridge = (ObstacleEntity) createBridge(1);
 
-        mapInteractables.put(button, bridge);
+        button.getComponent(InteractableComponent.class).addSubInteractable(bridge);
 
         Entity entity = createPlayer(playerLayer, obstacleLayer);
 
@@ -99,16 +97,8 @@ public class PlayerMovementComponentTest {
         Fixture targetFixture = button.getComponent(HitboxComponent.class).getFixture();
         entity.getEvents().trigger("collisionStart", entityFixture, targetFixture);
 
-        boolean created = false;
-
-        if (bridge.getComponent(ColliderComponent.class).getFixture() != null
-                && bridge.getComponent(ColliderComponent.class).getFixture() != null) {
-            created = true;
-        }
-
-        assertEquals(true, created);
+        assertEquals(true, targetFixture.isSensor());
     }
-     */
 
     Entity createPlayer(short playerLayer, short layer) {
 
@@ -157,8 +147,13 @@ public class PlayerMovementComponentTest {
         ObstacleEntity bridge =
                 new ObstacleEntity(ObstacleDefinition.BRIDGE,width)
                         .addComponent(new PhysicsComponent())
+                        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+                        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
                         .addComponent(new JumpableComponent()) //Added for jump functionality
                         .addComponent(new SubInteractableComponent());
+
+        bridge.getComponent(ColliderComponent.class).setSensor(true);
+        bridge.getComponent(HitboxComponent.class).setSensor(true);
 
         bridge.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
         bridge.create();
