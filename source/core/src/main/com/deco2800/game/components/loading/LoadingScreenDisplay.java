@@ -67,12 +67,12 @@ public class LoadingScreenDisplay extends UIComponent {
     public void create() {
         super.create();
         addActors();
-        playTheMusic();
+       // playTheMusic();
     }
-    public void playTheMusic() {
+  /*  public void playTheMusic() {
         MusicSingleton music = MusicSingleton.getInstance();
         music.playMusicSingleton("sounds/MainMenuMusic.mp3");
-    }
+    }*/
     public String randomMessage() {
         Random rand = new Random();
         int max = 20;

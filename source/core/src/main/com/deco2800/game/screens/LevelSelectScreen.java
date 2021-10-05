@@ -130,7 +130,7 @@ public class LevelSelectScreen extends ScreenAdapter {
         //long start = System.currentTimeMillis();
         //float sec = 0;
         /* global update button event listner passing into a different class */
-        if (levelDisplay.loadingScreen == false) {
+        if (levelDisplay.loadingScreen == true) {
             ui.addComponent(new LoadingScreenDisplay());
             logger.info("display loading screen");
             //while (sec < 5) {
