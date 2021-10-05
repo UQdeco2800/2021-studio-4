@@ -9,6 +9,8 @@ import com.deco2800.game.components.PlayerMovementComponent;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
+import com.deco2800.game.components.statuseffects.StatusEffectTargetComponent;
+import com.deco2800.game.components.statuseffects.StatusEffectUIComponent;
 import com.deco2800.game.components.tasks.PlayerChangeAnimationHelper;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleEntity;
@@ -88,14 +90,12 @@ public class PlayerFactory {
             .addComponent(new PlayerActions(levelGameArea.getLevelDefinition()))
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
             .addComponent(new InventoryComponent(stats.gold))
-            //.addComponent(new StatusEffectsController()) /** Added a new StatusEffects Component */
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(aiComponent)
-                                                                                                  // Added in to allow                                          // for collision controlled jumping
-            .addComponent(new PlayerMovementComponent(PhysicsLayer.OBSTACLE, mapInteractables, levelGameArea)); // Added in to allow
-                                                                                  // for collision controlled jumping
-                                                    // Recently added mapInteractables for interactable functionality
+            .addComponent(new PlayerMovementComponent(PhysicsLayer.OBSTACLE, mapInteractables, levelGameArea))
+            .addComponent(new StatusEffectTargetComponent())
+            .addComponent(new StatusEffectUIComponent());
 
 
 

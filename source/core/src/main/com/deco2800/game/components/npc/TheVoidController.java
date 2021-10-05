@@ -4,7 +4,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.player.PlayerActions;
-import com.deco2800.game.components.statuseffects.StatusEffectEnum;
+import com.deco2800.game.components.statuseffects.StatusEffectTargetComponent;
+import com.deco2800.game.effects.StatusEffect;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.ColliderComponent;
@@ -142,20 +143,14 @@ public class TheVoidController extends Component {
      * Reduces the void's speed to 0 for 3 seconds
      * Afterward, reverts the speed back to normal
      */
-    public static void pauseVoid() {
+    public static StatusEffectTargetComponent.StatusEffectResetTask pauseVoid() {
         SPEED = pausedSpeed;
-        Timer t = new java.util.Timer();
-        t.schedule(
-                new java.util.TimerTask() {
-                    @Override
-                    public void run() {
-                        // your code here
-                        SPEED = normalSpeed;
-                        // close the thread
-                        t.cancel();
-                    }
-                },
-                StatusEffectEnum.VOIDFREEZE.getStatDuration()
-        );
+
+        return new StatusEffectTargetComponent.StatusEffectResetTask() {
+          @Override
+          public void run() {
+            SPEED = normalSpeed;
+          }
+        };
     }
 }

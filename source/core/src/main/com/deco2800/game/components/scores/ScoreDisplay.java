@@ -40,7 +40,7 @@ public class ScoreDisplay extends UIComponent {
     private int completionTime; // Will need to be set using GameTime
     private int highScore;
     private boolean isSuccessful;
-    private ArrayList<Integer> levels = new ArrayList<>();; // The current Level
+    private ArrayList<Integer> levels = new ArrayList<>(); // The current Level
     private ArrayList<Integer> highScores = new ArrayList<>();
 
     public ScoreDisplay(LevelDefinition levelDefinition, int completionTime) {

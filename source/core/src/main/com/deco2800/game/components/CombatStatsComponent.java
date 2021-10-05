@@ -85,8 +85,5 @@ public class CombatStatsComponent extends Component {
 
     int newHealth = getHealth() - attacker.getBaseAttack();
     setHealth(newHealth);
-
-    StatusEffectTasks statusEffectTasks = new StatusEffectTasks(attacker.entity);
-    statusEffectTasks.remove();
   }
 }

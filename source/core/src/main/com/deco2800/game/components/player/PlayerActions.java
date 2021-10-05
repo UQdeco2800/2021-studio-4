@@ -55,7 +55,7 @@ public class PlayerActions extends Component {
   private int iterator = 0;
   private int cameraDelay = 0;
 
-  private static Vector2 ACCELERATION = new Vector2(10f, 0f);;  // Force of acceleration, in Newtons (kg.m.s^2)
+  private static Vector2 ACCELERATION = new Vector2(10f, 0f);  // Force of acceleration, in Newtons (kg.m.s^2)
   private static final float NORMAL_FRICTION = 0.1f;                 // Coefficient of friction for normal movement
 
   private PlayerState playerState = PlayerState.STOPPED;        // Movement state of the player, see PlayerState
@@ -90,7 +90,6 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("keyPressed", this::keyWasPressed);
     entity.getEvents().addListener("keyReleased", this::keyWasReleased);
     entity.getEvents().addListener("playerIsDead", this::playerIsDead);
-    entity.getEvents().addListener("setCurrentPowerUp", this::setCurrentPowerUp);
 
 
     movingDirection = MovingDirection.Right;
@@ -324,24 +323,6 @@ public class PlayerActions extends Component {
   public void setCanPlayerMove(boolean value) {
       this.canPlayerMove = value;
   }
-
-
-
-  /**
-   * Sets the animation of the player to the powerUp entered as the parameter value.
-   * Default will set the player back to its original animation. The String value is
-   * case sensitive and should begin with a capital letter. This should be called when
-   * a player hits a powerUp and when their powerUp runs out.
-   *
-   * @param powerUp the string name of the power up animation, these are the options:
-   *              Default, SpeedUp, SpeedDown, Stuck
-   */
-  //This is currently commented out since i have not made any placeholder sprites for powerUps
-  // so I can't try and load in an animation i havent defined
-private void setCurrentPowerUp(String powerUp) {
-  currentPowerUp = powerUp;
-  //setMovementAnimation(currentMovement);
-}
 
 public String getCurrentPowerUp() {
   return currentPowerUp;
