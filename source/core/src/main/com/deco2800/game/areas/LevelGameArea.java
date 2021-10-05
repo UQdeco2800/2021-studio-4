@@ -138,7 +138,6 @@ public class LevelGameArea extends GameArea {
     //spawnLevelFromFile();
     spawnTheVoid();
 
-
 //  spawnStatusEffectDeBuff("Buff_Time_Stop"); //Spawns specified statusEffect for testing purposes
 //  spawnStatusEffectBuff("Buff_Jump");
     spawnStatusEffectBuff(getBuff()); // Selected randomly from a list of the effects
