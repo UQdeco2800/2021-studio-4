@@ -130,6 +130,10 @@ public class PlayerActions extends Component {
     }
   }
 
+    /**
+     * This function was so the camera would slowly translate over to the playable character after
+     * the spawn animation has player to stop the camera from jumping
+     */
 /*
   private void slowlyMoveCameraToPos(Vector2 pos){
 
@@ -215,7 +219,7 @@ public class PlayerActions extends Component {
      * sets the value of spawnAnimation to one of the existing spawn animation, this is done randomly using
      * math.random()
      */
-   private void setSpawnAnimation(){
+   public int setSpawnAnimation(){
        //if(gameLevel == "LEVEL_4") {
         //   spawnAnimation = "spawn_level1";
       // } else {
@@ -224,10 +228,29 @@ public class PlayerActions extends Component {
       spawnAnimationToUse = num;
       if (spawnAnimationToUse == 1.0) {
           spawnAnimation = "portal_flip";
+
       } else {
           spawnAnimation = "spawn_level1";
       }
       //  }
+
+       return (int) spawnAnimationToUse;
+  }
+
+    /**
+     *
+     * @return the spawn animation
+     */
+  public String getSpawnAnimation() {
+       return spawnAnimation;
+  }
+
+    /**
+     *
+     * @return if the player has died
+     */
+  public Boolean getPlayerHasDied(){
+      return playerHasDied;
   }
 
    /**
@@ -235,7 +258,7 @@ public class PlayerActions extends Component {
     * so that the death animation appears to be the same size as the playable character. It then also starts
     * the player's death animation
     */
-  private void playerIsDead() {
+  public void playerIsDead() {
       if(!playerHasDied) {
           playerHasDied = true;
           canPlayerMove = false;
@@ -368,7 +391,7 @@ public String getCurrentPowerUp() {
    *
    * @returns String containing currentMovement + movingDirection + powerUp
    */
-  private String getAnimation(){
+  public String getAnimation(){
     return  getCurrentMovement() + getCurrentDirection();
   }
 
