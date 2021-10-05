@@ -2,18 +2,19 @@ package com.deco2800.game.components.loading;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.deco2800.game.components.InsertImageButton;
 import com.deco2800.game.services.*;
 import com.deco2800.game.ui.UIComponent;
@@ -86,9 +87,27 @@ public class LoadingScreenDisplay extends UIComponent {
         Texture runtimeTitleTexture = new Texture(Gdx.files.internal("images/runtime-title.png"));
         Drawable runtimeTitleDrawable = new TextureRegionDrawable(new TextureRegion(runtimeTitleTexture));
         ImageButton runtimeTitle = new ImageButton(runtimeTitleDrawable);
-        loadingText = "Game is loading! Enjoy";
         String loadingText2 = randomMessage();
-        stage.addActor(runtimeTitle);
+        Label label;
+        Table table = new Table();
+        table.setFillParent(true);
+        label = new Label(loadingText2, skin);
+        label.setFontScale(2f);
+        BitmapFont font = new BitmapFont();
+        Label.LabelStyle labelStyle = new Label.LabelStyle(font, Color.WHITE);
+        label.setStyle(labelStyle);
+        label.setAlignment(Align.center);
+
+       // TextureRegionDrawable textureRegionDrawable = new TextureRegionDrawable(new TextureRegion(bground));
+        Sprite sprite = new Sprite(new Texture("images/loading_screen_background.png"));
+        table.setBackground(new SpriteDrawable(sprite));
+        loadingText = "Game is loading! Enjoy";
+        table.add(label).center().width(100).height(100);;
+       // table.addActor(runtimeTitle);
+        stage.addActor(table);
+        //stage.addActor(label);
+      //  stage.addActor(textureRegionDrawable);
+       // stage.addActor(runtimeTitle);
     }
 
 

@@ -4,6 +4,8 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import javax.swing.Timer;
+
+import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.components.endgame.DeathScreenActions;
 import com.deco2800.game.components.endgame.DeathScreenDisplay;
 import com.deco2800.game.components.levelselect.LevelDisplay;
@@ -124,20 +126,20 @@ public class LevelSelectScreen extends ScreenAdapter {
         logger.debug("Creating ui");
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
+        LevelDisplay levelDisplay = new LevelDisplay();
         //long start = System.currentTimeMillis();
         //float sec = 0;
         /* global update button event listner passing into a different class */
-        /*if (LevelDisplay.selected == true) {
-            boolean displayedLoading = false;
+        if (levelDisplay.loadingScreen == false) {
             ui.addComponent(new LoadingScreenDisplay());
-            logger.info("display loading screen");*/
+            logger.info("display loading screen");
             //while (sec < 5) {
             //    long end = System.currentTimeMillis();
            //     sec = (end - start) / 1000F;
            // }
            // game.setLevel(GdxGame.ScreenType.MAIN_GAME, levelDefinition);
-       // }
-        ui.addComponent(new LevelDisplay()).
+       }
+        ui.addComponent(levelDisplay).
                 addComponent(new InputDecorator(stage, 10)).
                 addComponent(new LevelDisplayActions(game));
         ServiceLocator.getEntityService().register(ui);

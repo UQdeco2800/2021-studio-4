@@ -31,6 +31,7 @@ public class LevelDisplay extends UIComponent {
     private static final float Z_INDEX = 2f;
     private Table table;
     private Sprite sprite;
+    public static boolean loadingScreen = false;
     //public static boolean selected;
 
     @Override
@@ -150,6 +151,7 @@ public class LevelDisplay extends UIComponent {
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.debug(level + " button clicked");
                         entity.getEvents().trigger("start", level);
+                        loadingScreen = true;
                     }
                 }
             );

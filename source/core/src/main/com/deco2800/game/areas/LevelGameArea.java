@@ -38,6 +38,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class LevelGameArea extends GameArea {
+  public static boolean loadingScreen = false;
   private static final Logger logger = LoggerFactory.getLogger(LevelGameArea.class);
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 15);
   private static final GridPoint2 STATUSEFFECT_SPAWN1 = new GridPoint2(60, 25);
@@ -754,6 +755,7 @@ public class LevelGameArea extends GameArea {
 
 
     while (!resourceService.loadForMillis(10)) {
+      loadingScreen = true;
       // This could be upgraded to a loading screen
       logger.info("Loading... {}%", resourceService.getProgress());
       if (resourceService.getProgress() > 90) { //better calculation??
