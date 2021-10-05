@@ -416,7 +416,7 @@ public String getCurrentPowerUp() {
    */
   void setIsFalling(){
       if (canPlayerMove) {
-          setCanJump(false);
+          playerState = PlayerState.AIR;
           setMovementAnimation(Movement.Falling);
       }
   }
