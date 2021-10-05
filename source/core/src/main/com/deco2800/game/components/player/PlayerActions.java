@@ -4,6 +4,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.MusicService;
@@ -35,7 +36,8 @@ public class PlayerActions extends Component {
     Falling,
     Sliding,
     Jump,
-    Walk
+    Walk,
+    Slow
   }
   //direction the player is moving
   private enum MovingDirection {
@@ -48,8 +50,12 @@ public class PlayerActions extends Component {
   private Movement currentMovement;
   private String previousAnimation;
   private boolean canPlayerMove;
-  private double spawnAnimationToUse;
+  private boolean playerHasDied = false;
   private String spawnAnimation;
+  private boolean hasSpawnAnimationFinished;
+  private boolean cameraIsSet = false;
+  private int iterator = 0;
+  private int cameraDelay = 0;
 
   private static Vector2 ACCELERATION = new Vector2(10f, 0f);;  // Force of acceleration, in Newtons (kg.m.s^2)
   private static final float NORMAL_FRICTION = 0.1f;                 // Coefficient of friction for normal movement
@@ -63,7 +69,7 @@ public class PlayerActions extends Component {
   private int keysPressed; //stores number of keys being pressed that affect the plaer
   AnimationRenderComponent animator;
 
-  private Vector2 jumpSpeed = new Vector2(0f, 300f);
+  private Vector2 jumpSpeed = new Vector2(0f, 500f);
   private Vector2 jumpPadSpeed = new Vector2(0f, 600f);
   private boolean canJump = false; // Whether the player can jump
 
@@ -85,8 +91,8 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("isSlidingDone", this::checkIfSlidingIsDone);
     entity.getEvents().addListener("keyPressed", this::keyWasPressed);
     entity.getEvents().addListener("keyReleased", this::keyWasReleased);
-    entity.getEvents().addListener("setPowerUpAnimation", this::setCurrentPowerUp);
     entity.getEvents().addListener("playerIsDead", this::playerIsDead);
+    entity.getEvents().addListener("setCurrentPowerUp", this::setCurrentPowerUp);
 
 
     movingDirection = MovingDirection.Right;
@@ -95,51 +101,186 @@ public class PlayerActions extends Component {
     keysPressed = 0;
 
     this.body = physicsComponent.getBody();
-    previousAnimation = getAnimation();
+    previousAnimation = "";
 
 
-    animator.startAnimation(getAnimation());
-    canPlayerMove = true;
-    //animator.startAnimation("spawn_level1");
-/*
+    canPlayerMove = false;
     hasSpawnAnimationFinished = false;
-    if(gameLevel == "LEVEL_4") {
-        System.out.println("set animation to slidingRight");
-        spawnAnimation = "levelOneSpawn";
-    } else {
-        spawnAnimationToUse = (Math.random() * (2 - 1)) + 1;
-        if (spawnAnimationToUse == 1) {
-            spawnAnimation = "spawnOne";
-        } else {
-            spawnAnimation = "spawnTwo";
-        }
-    }
-
- */
+    setSpawnAnimation();
   }
 
   @Override
   public void update() {
-      /*
-      if(!hasSpawnAnimationFinished && animator.getCurrentAnimation() == null) {
-          animator.startAnimation(spawnAnimation);
-          System.out.println("started" + animator.getCurrentAnimation() + "animation");
+      iterator++;
+      isDeathAnimationCompleted();
+
+
+      if(iterator == 3) {
+          startSpawnAnimation();
       } else if (animator.isFinished() && !hasSpawnAnimationFinished) {
-          System.out.println("has finished");
-          this.hasSpawnAnimationFinished = true;
-          animator.startAnimation(getAnimation());
+          setStartPositionAndScale();
+          beginBasicAnimations();
       }
-      */
-    if (playerState != PlayerState.STOPPED) {
-      updateSpeed();
-      ServiceLocator.getCamera().getEntity().setPosition(entity.getCenterPosition());
-      applyFriction();
+
+      setCameraPosAfterDelay();
+
+      if (playerState != PlayerState.STOPPED) {
+          updateSpeed();
+          applyFriction();
+          if(!playerHasDied && cameraIsSet) {
+              ServiceLocator.getCamera().getEntity().setPosition(entity.getCenterPosition());
+      }
+    }
+    if (this.body.getPosition().y < -5) {
+      playerIsDead();
     }
   }
 
-  private void playerIsDead() {
-      canPlayerMove = false;
-      this.entity.getComponent(PlayerStatsDisplay.class).playerIsDead();
+    /**
+     * This function was so the camera would slowly translate over to the playable character after
+     * the spawn animation has player to stop the camera from jumping
+     */
+/*
+  private void slowlyMoveCameraToPos(Vector2 pos){
+
+          float cameraPosX = ServiceLocator.getCamera().getEntity().getPosition().x;
+          float cameraPosY = ServiceLocator.getCamera().getEntity().getPosition().y;
+          float destPosX = pos.x;
+          float destPosY = pos.y;
+          float movementX;
+          float movementY;
+
+          if((Math.floor(cameraPosX * 10) != Math.floor(destPosX * 10)) && (Math.floor(cameraPosY * 10) != Math.floor(destPosY * 10))) {
+
+              if (cameraPosX > destPosX) {
+                  movementX = -0.01f;
+              } else {
+                  movementX = 0.01f;
+              }
+              if (cameraPosY > destPosY) {
+                  movementY = -0.01f;
+              } else {
+                  movementY = 0.01f;
+              }
+
+              Vector2 movementVector = new Vector2(movementX, movementY);
+              ServiceLocator.getCamera().getEntity().setPosition(ServiceLocator.getCamera().getEntity().getPosition().add(movementVector));
+          } else {
+              //System.out.println("camer was set");
+              cameraIsSet = true;
+          }
+  }
+ */
+
+    /**
+     * After this function is called a certain number of times it centers the camera on the player, this is done so
+     * the camera does not jump directly after the spawn animation is finished to make it look smoother
+     */
+  private void setCameraPosAfterDelay() {
+      if (hasSpawnAnimationFinished & !cameraIsSet) {
+          cameraDelay++;
+          if (cameraDelay == 25) {
+              cameraIsSet = true;
+              setCanPlayerMove(true);
+          }
+      }
+  }
+
+    /**
+     * begins the basic animations of the playable character and sets the variable canPlayerMove to true so the
+     * user can control the player. Also sets the variable hasSpanAnimationFinished to true
+     */
+  private void beginBasicAnimations(){
+      animator.startAnimation(getAnimation());
+      hasSpawnAnimationFinished = true;
+  }
+
+    /**
+     * sets the player's scaled back to normal for the playable character, and sets the player's position
+     * so that the animations transition well from spawn to a playable character.
+     */
+  private void setStartPositionAndScale(){
+      this.entity.setScale(1.5f,1f);
+      if(animator.getCurrentAnimation().equals("spawn_level1")) {
+          this.entity.setPosition(entity.getPosition().add(2f, 0f));
+      } else if (animator.getCurrentAnimation().equals("portal_flip")){
+          this.entity.setPosition(entity.getPosition().add(1f,0f));
+      }
+  }
+
+    /**
+     * start the spawn animation stored in spawnAnimation and changes the player's scale depending
+     * on the animation so that the player's size stay's consistent over the animations
+     */
+  private void startSpawnAnimation(){
+      if(spawnAnimation.equals("spawn_level1")) {
+          entity.setScale(4f, 4f);
+      } else if (spawnAnimation.equals("portal_flip")){
+          entity.setScale(2.7f,2.7f);
+      }
+      animator.startAnimation(spawnAnimation);
+  }
+
+    /**
+     * sets the value of spawnAnimation to one of the existing spawn animation, this is done randomly using
+     * math.random()
+     */
+   public int setSpawnAnimation(){
+       //if(gameLevel == "LEVEL_4") {
+        //   spawnAnimation = "spawn_level1";
+      // } else {
+      double num = Math.round(Math.random() + 1);
+      double spawnAnimationToUse;
+      spawnAnimationToUse = num;
+      if (spawnAnimationToUse == 1.0) {
+          spawnAnimation = "portal_flip";
+
+      } else {
+          spawnAnimation = "spawn_level1";
+      }
+      //  }
+
+       return (int) spawnAnimationToUse;
+  }
+
+    /**
+     *
+     * @return the spawn animation
+     */
+  public String getSpawnAnimation() {
+       return spawnAnimation;
+  }
+
+    /**
+     *
+     * @return if the player has died
+     */
+  public Boolean getPlayerHasDied(){
+      return playerHasDied;
+  }
+
+   /**
+    * makes it so the player can no longer be controlled by the user and increases the player's scale
+    * so that the death animation appears to be the same size as the playable character. It then also starts
+    * the player's death animation
+    */
+  public void playerIsDead() {
+      if(!playerHasDied) {
+          playerHasDied = true;
+          canPlayerMove = false;
+          entity.setScale(2.5f, 2.3f);
+          animator.startAnimation("death");
+      }
+  }
+  /**
+   * Called repeatedly in update() and checks if the death animation has finished playing
+   * and if it is then it triggers the event in playerStats to tell the system that
+   * the game is ove.
+   */
+  private void isDeathAnimationCompleted(){
+      if(animator.getCurrentAnimation() == "death" && animator.isFinished()) {
+          this.entity.getComponent(PlayerStatsDisplay.class).playerIsDead();
+      }
   }
 
   /**
@@ -149,7 +290,9 @@ public class PlayerActions extends Component {
    */
   private void updateSpeed() {
     // Scale the walk direction by the acceleration, and apply that as a force
-    this.body.applyForceToCenter(walkDirection.cpy().scl(ACCELERATION), true);
+      if(canPlayerMove) {
+          this.body.applyForceToCenter(walkDirection.cpy().scl(ACCELERATION), true);
+      }
   }
 
   public float getSpeed() {
@@ -199,7 +342,7 @@ public class PlayerActions extends Component {
   // so I can't try and load in an animation i havent defined
 private void setCurrentPowerUp(String powerUp) {
   currentPowerUp = powerUp;
-  setMovementAnimation(currentMovement);
+  //setMovementAnimation(currentMovement);
 }
 
 public String getCurrentPowerUp() {
@@ -209,28 +352,33 @@ public String getCurrentPowerUp() {
   /**
    * Sets the movementAnimation of the player to the animation corresponding
    * to the parameter value. The String value is case sensitive and should begin
-   * with a capital letter.
+   * with a capital letter. If a powerUp is enabled then the player's animation
+   * is adjusted accordingly.
    *
    * @param value the movement the player is doing one of the following:
    *              Running, Idle, Falling, Jumping, Sliding
    */
   private void setMovementAnimation(Movement value){
-      /**
-    if(value == Movement.Walk && getCurrentPowerUp() == "SpeedUp") {
-      value = Movement.Running;
+
+    if(currentPowerUp.equals("stuck")) {
+      value = Movement.Idle;
+    } else if(currentPowerUp.equals("speed") && value == Movement.Walk){
+        value = Movement.Running;
+    } else if (currentPowerUp.equals("slow") && value == Movement.Walk) {
+        value = Movement.Slow;
     }
 
-    if(currentPowerUp == "Stuck") {
-      value = Movement.Idle;
-    }
-       */
 
     if(!(previousAnimation.equals(getAnimation())) || value != currentMovement){
       //System.out.println(value);
       currentMovement = value;
       previousAnimation = getAnimation();
       animator.startAnimation(getAnimation());
+
+       // System.out.println(getCurrentMovement());
     }
+
+
   }
 
   /**
@@ -247,9 +395,9 @@ public String getCurrentPowerUp() {
    * includes the movement they are doing, the direction they are moving/looking
    * and the current power up they have
    *
-   * @returns String containing currentMovement + movingDirection + powerUp
+   * @return String containing currentMovement + movingDirection + powerUp
    */
-  private String getAnimation(){
+  public String getAnimation(){
     return  getCurrentMovement() + getCurrentDirection();
   }
 
@@ -285,7 +433,7 @@ public String getCurrentPowerUp() {
    * be and sets the player to the correct animation
    */
   void checkIfFallingIsDone(){
-    if((currentMovement == Movement.Falling | currentMovement == Movement.Jump) & canJump){
+    if((currentMovement == Movement.Falling | currentMovement == Movement.Jump) && canJump && canPlayerMove){
         if(body.getLinearVelocity().x == 0 | keysPressed == 0){
           setMovementAnimation(Movement.Idle);
         } else {
@@ -396,7 +544,7 @@ public String getCurrentPowerUp() {
    * Makes the player jump upwards
    */
   void jump() {
-      if (canPlayerMove) {
+      if (canPlayerMove && !getCurrentPowerUp().equals("stuck")) {
           //System.out.println("trying to jump and " + canJump + "state is " + playerState); // Testing print
           if (playerState != PlayerState.AIR && canJump) {
               //System.out.println("in air"); // More testing prints
@@ -413,7 +561,7 @@ public String getCurrentPowerUp() {
    * Makes the player slide if they are touching the ground and not currently sliding
    */
   void slide() {
-      if(canPlayerMove && !getCurrentMovement().equals("Sliding")) {
+      if(canPlayerMove && !getCurrentMovement().equals("Sliding") && !getCurrentPowerUp().equals("stuck")) {
           this.playerState = PlayerState.SLIDING;
           if (getCanJump()) {
               setIsSliding();

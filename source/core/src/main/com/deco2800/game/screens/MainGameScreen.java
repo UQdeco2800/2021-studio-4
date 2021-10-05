@@ -7,6 +7,7 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.MainGameActions;
+import com.deco2800.game.components.player.KeyboardPlayerInputComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -45,6 +46,7 @@ public class MainGameScreen extends ScreenAdapter {
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
 //  private final LevelDefinition levelDefinition;
+  private LevelGameArea levelGameArea;
 
   //private final long timeStarted = System.currentTimeMillis();
   public static long timeScore;
@@ -80,7 +82,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     logger.debug("Initialising main game screen entities");
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
-    LevelGameArea levelGameArea = new LevelGameArea(terrainFactory, levelDefinition);
+    levelGameArea = new LevelGameArea(terrainFactory, levelDefinition);
     levelGameArea.create();
   }
 
@@ -127,11 +129,13 @@ public class MainGameScreen extends ScreenAdapter {
   @Override
   public void pause() {
     logger.info("Game paused");
+    levelGameArea.getPlayer().getComponent(KeyboardPlayerInputComponent.class).pause();
   }
 
   @Override
   public void resume() {
     logger.info("Game resumed");
+    levelGameArea.getPlayer().getComponent(KeyboardPlayerInputComponent.class).resume();
   }
 
   @Override

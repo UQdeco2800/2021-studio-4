@@ -1,6 +1,7 @@
 package com.deco2800.game.components;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.components.endgame.LevelEndComponent;
 import com.deco2800.game.components.player.PlayerActions;
@@ -13,6 +14,7 @@ import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.*;
 import com.deco2800.game.screens.MainGameScreen;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +32,12 @@ public class PlayerMovementComponent extends Component {
         this.targetLayer = targetLayer;
     }
 
+    /**
+     * Create a component which interacts with entities on collision.
+     * @param targetLayer The physics layer of the target's collider.
+     * @param mapInteractables The list of sub-interactable and interactable mappings.
+     * @param levelGameArea The level game area.
+     */
     public PlayerMovementComponent(short targetLayer, Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables, LevelGameArea levelGameArea) {
         this.levelGameArea = levelGameArea;
         this.targetLayer = targetLayer;
@@ -72,7 +80,6 @@ public class PlayerMovementComponent extends Component {
 
         // Can control user behaviour with component
         PlayerActions playerActions = player.getComponent(PlayerActions.class);
-        // System.out.println("player actions");
 
         if (physicsComponent != null) {
             if (jumpableComponent != null) {
@@ -85,32 +92,37 @@ public class PlayerMovementComponent extends Component {
                 playerActions.jumpPad();
             }
 
-            if (interactableComponent != null && mapInteractables.containsKey(levelGameArea.getObstacle(target))) {
-                List<ObstacleEntity> subInteractables = mapInteractables.get(levelGameArea.getObstacle(target));
-                for (ObstacleEntity subInteractable : subInteractables) {
-                    ColliderComponent colliderComponent = subInteractable.getComponent(ColliderComponent.class);
-                    HitboxComponent mappedHitboxComponent = subInteractable.getComponent(HitboxComponent.class);
-                    ObstacleDefinition mappedType = subInteractable.getDefinition();
+            if (interactableComponent != null) {
+                // Colliding with button
+                // Get the list of mapped sub-interactables
+                ArrayList<ObstacleEntity> mappedSubInts = interactableComponent.getMapped();
+                System.out.println(target.toString() + " mapped to " + mappedSubInts.toString());
 
-                    if (mappedType == ObstacleDefinition.DOOR) {
-                        // Desired affect on mapped door - disappears
-                        // System.out.println("dispose");
-                        mappedHitboxComponent.dispose();
-                        colliderComponent.dispose();
-                    } else if (mappedType == ObstacleDefinition.BRIDGE) {
-                        // Desired affect on mapped bridge - appears
-                        // System.out.println("created");
-                        mappedHitboxComponent.create();
-                        colliderComponent.create();
+                for (int i = 0; i < mappedSubInts.size(); i++) {
+                    ObstacleEntity mapped = mappedSubInts.get(i); // Get current mapped interactable
+
+                    if (mapped != null) {
+                        ColliderComponent colliderComponent = mapped.getComponent(ColliderComponent.class);
+                        HitboxComponent mappedHitboxComponent = mapped.getComponent(HitboxComponent.class);
+                        ObstacleDefinition mappedType = mapped.getDefinition();
+
+                        if (mappedType == ObstacleDefinition.DOOR) {
+                            // Desired affect on mapped door - disappears
+                            mappedHitboxComponent.setSensor(true);
+                            colliderComponent.setSensor(true);
+                        } else if (mappedType == ObstacleDefinition.BRIDGE) {
+                            // Desired affect on mapped bridge - appears
+                            mappedHitboxComponent.setSensor(false);
+                            colliderComponent.setSensor(false);
+                        }
                     }
                 }
             }
+
+
         }
         if (levelEndComponent != null) {
             MainGameScreen.setLevelComplete();
         }
-
-        // && physicsComponent.toString()
-        //             .equals("Entity{id=9}.PhysicsComponent") ---> uglier but only allows jumping from floor
     }
 }

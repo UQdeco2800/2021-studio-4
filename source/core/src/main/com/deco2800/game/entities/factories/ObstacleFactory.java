@@ -155,12 +155,16 @@ public class ObstacleFactory {
    * @return jump pad
    */
   public static Entity createJumpPad() {
+    TextureAtlas atlas = ServiceLocator.getResourceService()
+            .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
+
+    Texture jumpPadTexture = expandTexture(atlas.findRegion("mapTextures_Jumppad-idle"), 1, 1);
+
     ObstacleEntity jumpPad =
             new ObstacleEntity(ObstacleDefinition.JUMPPAD,1)
-                    .addComponent(new TextureRenderComponent("map-textures/mapTextures_Jumppad-idle.png"))
+                    .addComponent(new TextureRenderComponent(jumpPadTexture))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
-                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
                     .addComponent(new InteractableComponent())
                     .addComponent(new JumpPadComponent());
 
@@ -188,6 +192,10 @@ public class ObstacleFactory {
 
     bridge.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     bridge.getComponent(TextureRenderComponent.class).scaleEntity();
+
+    bridge.getComponent(ColliderComponent.class).setSensor(true);
+    bridge.getComponent(HitboxComponent.class).setSensor(true); // starts with collisions
+
     bridge.scaleHeight(0.5f);
     PhysicsUtils.setScaledCollider(bridge, 1f, 1f);
     return bridge;
@@ -204,6 +212,7 @@ public class ObstacleFactory {
         .addComponent(new TextureRenderComponent(platformTexture))
         .addComponent(new PhysicsComponent())
         .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
         .addComponent(new SubInteractableComponent());
 
     door.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);

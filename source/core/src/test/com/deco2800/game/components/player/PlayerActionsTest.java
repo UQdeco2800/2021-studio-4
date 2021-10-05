@@ -11,6 +11,7 @@ import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
+import com.deco2800.game.components.player.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -62,6 +63,7 @@ public class PlayerActionsTest {
         Entity entity = createPlayer(playerLayer);
 
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
         playerActions.togglePlayerJumping();
         playerActions.jump();
 
@@ -73,8 +75,9 @@ public class PlayerActionsTest {
     void shouldSlide() {
         short playerLayer = (1 << 1);
         Entity entity = createPlayer(playerLayer);
-
-        PlayerActions playerActions = entity.getComponent(PlayerActions.class);playerActions.slide();
+        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
+        playerActions.slide();
         assertEquals(PlayerState.SLIDING, playerActions.getPlayerState());
     }
 //__________________________________________________________________________________
@@ -86,6 +89,7 @@ public class PlayerActionsTest {
         Entity entity = createPlayer(playerLayer);
 
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
         playerActions.setCanJump(true);
         assertEquals(true , playerActions.getCanJump());
     }
@@ -98,6 +102,7 @@ public class PlayerActionsTest {
        Entity entity = createPlayer(playerLayer);
 
        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+       playerActions.setCanPlayerMove(true);
        playerActions.setIsJumping();
        assertEquals("Jump" , playerActions.getCurrentMovement());
    }
@@ -109,6 +114,7 @@ public class PlayerActionsTest {
         Entity entity = createPlayer(playerLayer);
 
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
         playerActions.setIsSliding();
         assertEquals("Sliding" , playerActions.getCurrentMovement());
     }
@@ -121,6 +127,7 @@ public class PlayerActionsTest {
        Entity entity = createPlayer(playerLayer);
 
        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+       playerActions.setCanPlayerMove(true);
        playerActions.setIsFalling();
        assertEquals("Falling" , playerActions.getCurrentMovement());
    }
@@ -132,6 +139,7 @@ public class PlayerActionsTest {
         Entity entity = createPlayer(playerLayer);
 
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
         playerActions.setIsFalling();
         assertEquals(false , playerActions.getCanJump());
     }
@@ -145,6 +153,7 @@ public class PlayerActionsTest {
         Entity entity = createPlayer(playerLayer);
 
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
         playerActions.setCanJump(true);
         //set player state to something other than AIR
         playerActions.walk(Vector2Utils.RIGHT);
@@ -160,6 +169,7 @@ public class PlayerActionsTest {
         Entity entity = createPlayer(playerLayer);
 
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
         playerActions.setCanJump(false);
         playerActions.jump();
         assertNotEquals("Jump" , playerActions.getCurrentMovement());
@@ -174,6 +184,7 @@ public class PlayerActionsTest {
         Entity entity = createPlayer(playerLayer);
 
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
         playerActions.setCanJump(true);
         playerActions.slide();
         assertEquals("Sliding" , playerActions.getCurrentMovement());
@@ -187,6 +198,7 @@ public class PlayerActionsTest {
         Entity entity = createPlayer(playerLayer);
 
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
         playerActions.setCanJump(false);
         playerActions.slide();
         assertNotEquals("Sliding" , playerActions.getCurrentMovement());
@@ -201,6 +213,7 @@ public class PlayerActionsTest {
         Entity entity = createPlayer(playerLayer);
 
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
         playerActions.setCanJump(true);
         //Any direction will do
         playerActions.walk(Vector2Utils.RIGHT);
@@ -216,6 +229,7 @@ public class PlayerActionsTest {
         Entity entity = createPlayer(playerLayer);
 
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
         playerActions.setCanJump(false);
         playerActions.walk(Vector2Utils.RIGHT);
         assertNotEquals("Running" , playerActions.getCurrentMovement());
@@ -229,6 +243,7 @@ public class PlayerActionsTest {
         Entity entity = createPlayer(playerLayer);
 
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
         playerActions.walk(Vector2Utils.RIGHT);
         assertEquals("Right" , playerActions.getCurrentDirection());
     }
@@ -241,6 +256,7 @@ public class PlayerActionsTest {
         Entity entity = createPlayer(playerLayer);
 
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
         playerActions.walk(Vector2Utils.LEFT);
         assertEquals("Left" , playerActions.getCurrentDirection());
     }
@@ -256,6 +272,7 @@ public class PlayerActionsTest {
         Entity entity = createPlayer(playerLayer);
 
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
         //they are falling
         playerActions.setIsFalling();
         //they can not jump
@@ -274,6 +291,7 @@ public class PlayerActionsTest {
         Entity entity = createPlayer(playerLayer);
 
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
         //they are falling
         playerActions.setIsFalling();
         //they can jump
@@ -294,6 +312,7 @@ public class PlayerActionsTest {
         Entity entity = createPlayer(playerLayer);
 
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
         //they are falling
         playerActions.setIsFalling();
         //they can jump
@@ -315,6 +334,7 @@ public class PlayerActionsTest {
         Entity entity = createPlayer(playerLayer);
 
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
         //they are falling
         playerActions.setIsFalling();
         //they can jump
@@ -335,6 +355,7 @@ public class PlayerActionsTest {
         Entity entity = createPlayer(playerLayer);
 
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
         //they are sliding
         playerActions.setIsSliding();
         //they can not jump
@@ -352,6 +373,7 @@ public class PlayerActionsTest {
         Entity entity = createPlayer(playerLayer);
 
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
         //they are sliding
         playerActions.setIsSliding();
         //they can jump
@@ -371,6 +393,7 @@ public class PlayerActionsTest {
         Entity entity = createPlayer(playerLayer);
 
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
         //they are sliding
         playerActions.setIsSliding();
         //they can jump
@@ -392,6 +415,7 @@ public class PlayerActionsTest {
         Entity entity = createPlayer(playerLayer);
 
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
         //they are sliding
         playerActions.setIsSliding();
         //they can jump
@@ -402,13 +426,92 @@ public class PlayerActionsTest {
         assertEquals("Sliding" , playerActions.getCurrentMovement());
     }
 
+    /* Test that player can fall out of bounds */
+    @Test
+    void playerOutOfBoundsTest() {
+        short playerLayer = (1 << 1);
+        Entity entity = createPlayer(playerLayer);
+        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
 
+        entity.getComponent(PhysicsComponent.class).getBody().setTransform(10, -6, 0);
+        entity.update();
+        assertEquals(true, playerActions.getPlayerHasDied());
+    }
 
+    /* Test that player is alive on spawn */
+    @Test
+    void playerAliveOnSpawn() {
+        short playerLayer = (1 << 1);
+        Entity entity = createPlayer(playerLayer);
+        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
 
+        entity.getComponent(PhysicsComponent.class).getBody().setTransform(10, 0, 0);
+        entity.update();
+        assertEquals(false, playerActions.getPlayerHasDied());
+    }
 
+    //------------------------------------------------------------------------------------------
 
+    @Test
+    void checkSpawnAnimationWhenSetAnimationReturns1() {
+        short playerLayer = (1 << 1);
+        Entity entity = createPlayer(playerLayer);
 
+        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        int number = playerActions.setSpawnAnimation();
 
+        if (number == 1) {
+            assertEquals("portal_flip", playerActions.getSpawnAnimation());
+        }
+    }
+
+    @Test
+    void checkSpawnAnimationWhenSetAnimationReturns2() {
+        short playerLayer = (1 << 1);
+        Entity entity = createPlayer(playerLayer);
+
+        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        int number = playerActions.setSpawnAnimation();
+
+        if (number == 2) {
+            assertEquals("spawn_level1", playerActions.getSpawnAnimation());
+        }
+    }
+
+    @Test
+    void checkPlayerDeathAnimation() {
+        short playerLayer = (1 << 1);
+        Entity entity = createPlayer(playerLayer);
+
+        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.playerIsDead();
+
+        assertEquals(true, playerActions.getPlayerHasDied());
+    }
+
+    @Test
+    void checkPlayerCantMoveWhenPlayerCanMoveIsFalse() {
+        short playerLayer = (1 << 1);
+        Entity entity = createPlayer(playerLayer);
+
+        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(false);
+        playerActions.jump();
+        assertEquals("IdleRight", playerActions.getAnimation());
+    }
+
+    @Test
+    void checkPlayerCanMoveWhenPlayerCanMoveIsTrue() {
+        short playerLayer = (1 << 1);
+        Entity entity = createPlayer(playerLayer);
+
+        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
+        //This sets canJump to true to allow jumping
+        playerActions.togglePlayerJumping();
+        playerActions.jump();
+        assertEquals("JumpRight", playerActions.getAnimation());
+    }
 
 
 

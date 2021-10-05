@@ -1,10 +1,12 @@
 package com.deco2800.game.areas;
 
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleDefinition;
 import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.extensions.GameExtension;
+import com.deco2800.game.levels.LevelDefinition;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.physics.components.*;
@@ -13,23 +15,27 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import java.lang.System.Logger.Level;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(GameExtension.class)
 public class LevelGameAreaTest {
     List<ObstacleEntity> obstacleEntities = new ArrayList<>();
-    Map<Integer, Integer> mapInteractables = new HashMap<>();
+    List<ObstacleEntity> interactableEntities = new ArrayList<>();
+
 
     @BeforeEach
     void beforeEach() {
         ServiceLocator.registerPhysicsService(new PhysicsService());
         obstacleEntities.clear();
-        mapInteractables.clear();
+        interactableEntities.clear();
     }
 
     @Test
@@ -60,13 +66,26 @@ public class LevelGameAreaTest {
 
         mapInteractables();
 
-        Map<Integer, Integer> newMapInteractables = new HashMap<>();
-        newMapInteractables.put(buttonOne.getId(), doorOne.getId());
-        newMapInteractables.put(buttonTwo.getId(), doorTwo.getId());
-        newMapInteractables.put(buttonThree.getId(), bridgeOne.getId());
+        ArrayList<ObstacleEntity> buttonEntities = new ArrayList<>();
+        buttonEntities.add(buttonOne);
+        buttonEntities.add(buttonTwo);
+        buttonEntities.add(buttonThree);
+
+        ArrayList<ObstacleEntity> buttonOneMapped = new ArrayList<>();
+        buttonOneMapped.add(doorOne);
+
+        ArrayList<ObstacleEntity> buttonTwoMapped = new ArrayList<>();
+        buttonTwoMapped.add(doorTwo);
+
+        ArrayList<ObstacleEntity> buttonThreeMapped = new ArrayList<>();
+        buttonThreeMapped.add(bridgeOne);
 
         assertEquals(newObstacleEntities.toString(), obstacleEntities.toString());
-        assertEquals(newMapInteractables.toString(), this.mapInteractables.toString());
+        assertEquals(buttonEntities.toString(), this.interactableEntities.toString());
+
+        assertEquals(buttonOneMapped.toString(), buttonOne.getComponent(InteractableComponent.class).getMapped().toString());
+        assertEquals(buttonTwoMapped.toString(), buttonTwo.getComponent(InteractableComponent.class).getMapped().toString());
+        assertEquals(buttonThreeMapped.toString(), buttonThree.getComponent(InteractableComponent.class).getMapped().toString());
     }
 
     @Test
@@ -101,13 +120,40 @@ public class LevelGameAreaTest {
 
         mapInteractables();
 
-        Map<Integer, Integer> newMapInteractables = new HashMap<>();
-        newMapInteractables.put(buttonOne.getId(), doorOne.getId());
-        newMapInteractables.put(buttonTwo.getId(), doorTwo.getId());
-        newMapInteractables.put(buttonThree.getId(), bridgeOne.getId());
+        ArrayList<ObstacleEntity> buttonEntities = new ArrayList<>();
+        buttonEntities.add(buttonOne);
+        buttonEntities.add(buttonTwo);
+        buttonEntities.add(buttonThree);
 
-        assertEquals(newMapInteractables.toString(), this.mapInteractables.toString());
+        ArrayList<ObstacleEntity> buttonOneMapped = new ArrayList<>();
+        buttonOneMapped.add(doorOne);
+
+        ArrayList<ObstacleEntity> buttonTwoMapped = new ArrayList<>();
+        buttonTwoMapped.add(doorTwo);
+
+        ArrayList<ObstacleEntity> buttonThreeMapped = new ArrayList<>();
+        buttonThreeMapped.add(bridgeOne);
+
+        assertEquals(buttonEntities.toString(), this.interactableEntities.toString());
+
+        assertEquals(buttonOneMapped.toString(), buttonOne.getComponent(InteractableComponent.class).getMapped().toString());
+        assertEquals(buttonTwoMapped.toString(), buttonTwo.getComponent(InteractableComponent.class).getMapped().toString());
+        assertEquals(buttonThreeMapped.toString(), buttonThree.getComponent(InteractableComponent.class).getMapped().toString());
     }
+
+    // @Test
+    // void saveToFile() {
+    //     TerrainFactory terrainFactory = mock(TerrainFactory.class);
+    //     LevelDefinition levelDefinition = mock(LevelDefinition.class);
+    //     LevelGameArea area = new LevelGameArea(terrainFactory, levelDefinition);
+
+    //     when(levelDefinition.getLevelFileName()).thenReturn("TEST");
+        
+    //     area.spawnPlatform(1, 12, 2);
+    //     area.writeAll();
+
+
+    // }
 
     Entity createButton() {
         ObstacleEntity button =
@@ -162,27 +208,32 @@ public class LevelGameAreaTest {
         return platform;
     }
 
-    void mapInteractables() {
+    public void mapInteractables() {
+        // list of all buttons in order of creation
         ArrayList<ObstacleEntity> buttons = new ArrayList<>();
 
+        //list of all doors and bridges in order of creation
         ArrayList<ObstacleEntity> subInteractables = new ArrayList<>();
 
         for (int i = 0; i < obstacleEntities.size(); i++) {
             ObstacleEntity obstacle = obstacleEntities.get(i);
-            InteractableComponent interactable = obstacle.getComponent(InteractableComponent.class);
-            SubInteractableComponent subInteractable = obstacle.getComponent(SubInteractableComponent.class);
+            InteractableComponent interactable = obstacle.getComponent(InteractableComponent.class); // button
+            SubInteractableComponent subInteractable = obstacle.getComponent(SubInteractableComponent.class); //door or bridge
 
-            if (subInteractable != null) {
+            if (subInteractable != null) { // if bridge or door
                 subInteractables.add(obstacle);
-            } else if (interactable != null) {
+            } else if (interactable != null) { //if button
                 buttons.add(obstacle);
             }
         }
 
         if (buttons.size() > 0 && subInteractables.size() > 0) {
             for (int j = 0; j < buttons.size(); j++) {
-                mapInteractables.put(buttons.get(j).getId(), subInteractables.get(j).getId());
+                InteractableComponent interactable = buttons.get(j).getComponent(InteractableComponent.class);
+                interactable.addSubInteractable(subInteractables.get(j));
+                interactableEntities.add(buttons.get(j));
             }
         }
     }
+
 }

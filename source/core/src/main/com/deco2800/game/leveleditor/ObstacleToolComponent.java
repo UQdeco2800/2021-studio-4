@@ -52,6 +52,8 @@ public class ObstacleToolComponent extends BaseToolComponent {
         return ObstacleFactory.createButton();
       case LEVEL_END_PORTAL:
         return ObstacleFactory.createLevelEndPortal(size);
+      case JUMPPAD:
+        return ObstacleFactory.createJumpPad();
     }
     return null;
   }
@@ -100,6 +102,8 @@ public class ObstacleToolComponent extends BaseToolComponent {
       case LEVEL_END_PORTAL:
         levelGameArea.spawnLevelEndPortal(x, y, size,false, true);
         break;
+      case JUMPPAD:
+        levelGameArea.spawnJumppad(x, y, false, true);
     }
   }
 
@@ -222,6 +226,9 @@ public class ObstacleToolComponent extends BaseToolComponent {
         selectedObstacle = Obstacle.LEVEL_END_PORTAL;
         refreshHeldEntity();
         break;
+      case (Input.Keys.M):
+        selectedObstacle = Obstacle.JUMPPAD;
+        refreshHeldEntity();
     }
 
     if (keycode == Input.Keys.TAB) {
@@ -236,6 +243,6 @@ public class ObstacleToolComponent extends BaseToolComponent {
   }
 
   public enum Obstacle {
-    PLATFORM, MIDDLE_PLATFORM, BUTTON, DOOR, BRIDGE, LEVEL_END_PORTAL
+    PLATFORM, MIDDLE_PLATFORM, BUTTON, DOOR, BRIDGE, LEVEL_END_PORTAL, JUMPPAD
   }
 }
