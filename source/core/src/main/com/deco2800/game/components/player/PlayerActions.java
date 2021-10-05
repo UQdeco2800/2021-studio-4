@@ -3,7 +3,10 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.deco2800.game.ai.tasks.Task;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.statuseffects.StatusEffectTargetComponent;
+import com.deco2800.game.effects.StatusEffect;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
@@ -44,7 +47,6 @@ public class PlayerActions extends Component {
   }
 
   private MovingDirection movingDirection;
-  private String currentPowerUp;
   private Movement currentMovement;
   private String previousAnimation;
   private boolean canPlayerMove;
@@ -94,7 +96,6 @@ public class PlayerActions extends Component {
 
     movingDirection = MovingDirection.Right;
     currentMovement = Movement.Idle;
-    currentPowerUp = "Default";
     keysPressed = 0;
 
     this.body = physicsComponent.getBody();
@@ -324,9 +325,6 @@ public class PlayerActions extends Component {
       this.canPlayerMove = value;
   }
 
-public String getCurrentPowerUp() {
-  return currentPowerUp;
-}
 
   /**
    * Sets the movementAnimation of the player to the animation corresponding
@@ -338,12 +336,13 @@ public String getCurrentPowerUp() {
    *              Running, Idle, Falling, Jumping, Sliding
    */
   private void setMovementAnimation(Movement value){
+    StatusEffect statusEffect = entity.getComponent(StatusEffectTargetComponent.class).getCurrentStatusEffect();
 
-    if(currentPowerUp.equals("stuck")) {
+    if(statusEffect == StatusEffect.STUCK) {
       value = Movement.Idle;
-    } else if(currentPowerUp.equals("speed") && value == Movement.Walk){
+    } else if(statusEffect == StatusEffect.FAST && value == Movement.Walk){
         value = Movement.Running;
-    } else if (currentPowerUp.equals("slow") && value == Movement.Walk) {
+    } else if (statusEffect == StatusEffect.SLOW && value == Movement.Walk) {
         value = Movement.Slow;
     }
 
@@ -374,7 +373,7 @@ public String getCurrentPowerUp() {
    * includes the movement they are doing, the direction they are moving/looking
    * and the current power up they have
    *
-   * @return String containing currentMovement + movingDirection + powerUp
+   * @return String containing currentMovement + movingDirection
    */
   public String getAnimation(){
     return  getCurrentMovement() + getCurrentDirection();
@@ -387,7 +386,6 @@ public String getCurrentPowerUp() {
   String getCurrentDirection() {
     return movingDirection.toString();
   }
-
 
   /**
    * sets the players animation to falling
@@ -523,34 +521,36 @@ public String getCurrentPowerUp() {
    * Makes the player jump upwards
    */
   void jump() {
-      if (canPlayerMove && !getCurrentPowerUp().equals("stuck")) {
-          //System.out.println("trying to jump and " + canJump + "state is " + playerState); // Testing print
-          if (playerState != PlayerState.AIR && canJump) {
-              //System.out.println("in air"); // More testing prints
-              setIsJumping();
+    StatusEffect statusEffect = entity.getComponent(StatusEffectTargetComponent.class).getCurrentStatusEffect();
+    if (canPlayerMove && statusEffect != StatusEffect.STUCK) {
+        //System.out.println("trying to jump and " + canJump + "state is " + playerState); // Testing print
+        if (playerState != PlayerState.AIR && canJump) {
+            //System.out.println("in air"); // More testing prints
+            setIsJumping();
 
-              this.playerState = PlayerState.AIR;
-              body.applyForceToCenter(jumpSpeed, true);
-              canJump = false;
-          }
-      }
+            this.playerState = PlayerState.AIR;
+            body.applyForceToCenter(jumpSpeed, true);
+            canJump = false;
+        }
+    }
   }
 
   /**
    * Makes the player slide if they are touching the ground and not currently sliding
    */
   void slide() {
-      if(canPlayerMove && !getCurrentMovement().equals("Sliding") && !getCurrentPowerUp().equals("stuck")) {
-          this.playerState = PlayerState.SLIDING;
-          if (getCanJump()) {
-              setIsSliding();
-              if (previousWalkDirection.epsilonEquals(Vector2Utils.LEFT)) {
-                  body.applyForceToCenter(new Vector2(-300f, 0f), true);
-              } else {
-                  body.applyForceToCenter(new Vector2(300f, 0f), true);
-              }
-          }
-      }
+    StatusEffect statusEffect = entity.getComponent(StatusEffectTargetComponent.class).getCurrentStatusEffect();
+    if(canPlayerMove && !getCurrentMovement().equals("Sliding") && statusEffect != StatusEffect.STUCK) {
+        this.playerState = PlayerState.SLIDING;
+        if (getCanJump()) {
+            setIsSliding();
+            if (previousWalkDirection.epsilonEquals(Vector2Utils.LEFT)) {
+                body.applyForceToCenter(new Vector2(-300f, 0f), true);
+            } else {
+                body.applyForceToCenter(new Vector2(300f, 0f), true);
+            }
+        }
+    }
   }
 
   /**

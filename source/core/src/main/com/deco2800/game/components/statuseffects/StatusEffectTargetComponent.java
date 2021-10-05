@@ -29,6 +29,10 @@ public class StatusEffectTargetComponent extends Component {
     }
   }
 
+  public StatusEffect getCurrentStatusEffect() {
+    return currentStatusEffect;
+  }
+
   /**
    * Applies the given status effect to the target. Note: only one status effect will be present at one time.
    * @param statusEffect The effect to apply
