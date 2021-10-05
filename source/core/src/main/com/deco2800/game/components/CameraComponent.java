@@ -16,11 +16,13 @@ public class CameraComponent extends Component {
   public CameraComponent(Camera camera) {
     this.camera = camera;
     lastPosition = Vector2.Zero.cpy();
+
   }
 
   @Override
   public void update() {
     Vector2 position = entity.getPosition();
+
     if (!lastPosition.epsilonEquals(entity.getPosition())) {
       camera.position.set(position.x, position.y, 0f);
       lastPosition = position;
