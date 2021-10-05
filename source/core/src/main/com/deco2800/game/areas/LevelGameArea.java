@@ -142,10 +142,10 @@ public class LevelGameArea extends GameArea {
   public void init() {
 
     loadAssets();
-    mapInteractables();
     displayBackground();
     spawnTerrain();
     spawnLevelFromFile();
+    mapInteractables();
     //while (loading == true){
     //  logger.info("Loading Screen is loading in!");
      // displayLoadingScreen();
@@ -161,7 +161,7 @@ public class LevelGameArea extends GameArea {
     init();
     displayUI();
     player = spawnPlayer();
-    spawnLevelFromFile();
+    //spawnLevelFromFile();
     spawnTheVoid();
 
 
@@ -184,8 +184,8 @@ public class LevelGameArea extends GameArea {
 
 
 
-    spawnPlatform(8, 21, 5);
-    spawnDoor(9, 23, 5);
+    //spawnPlatform(8, 21, 5);
+    //spawnDoor(9, 23, 5);
 
   }
 
@@ -342,6 +342,9 @@ public class LevelGameArea extends GameArea {
           interactableEntities.add(buttons.get(j));
         }
       }
+
+    System.out.println(buttons.toString());
+    System.out.println(subInteractables.toString());
   }
 
   public ObstacleEntity getObstacle(Entity entity) {
@@ -356,6 +359,7 @@ public class LevelGameArea extends GameArea {
    * This is not a very clean solution (this data needs to be moved to be stored on the actual InteractableComponent)
    * but it's the simplest way to do it with the existing implementation.
    */
+  /*
   private void generateInteractableIDs() {
     int id = 0;
     for (ObstacleEntity obstacleEntity : obstacleEntities) {
@@ -366,9 +370,12 @@ public class LevelGameArea extends GameArea {
     }
   }
 
+   */
+
   /**
    * Generates a map of interactableIDs to be saved/loaded from file
    */
+  /*
   private Map<Integer, List<Integer>> generateInteractablesMap() {
     Map<Integer, List<Integer>> interactableIds = new HashMap<>();
     for (Map.Entry<ObstacleEntity, List<ObstacleEntity>> obstacleEntityListEntry : mapInteractables.entrySet()) {
@@ -382,6 +389,8 @@ public class LevelGameArea extends GameArea {
 
     return interactableIds;
   }
+
+   */
 
   public void spawnLevelEndPortal(int posX, int posY, int width) {
     spawnLevelEndPortal(posX, posY, width, false, true);
@@ -412,10 +421,10 @@ public class LevelGameArea extends GameArea {
     levelFile.terrain.mapLayer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
 
     // Save the obstacles
-    generateInteractableIDs(); // Assign interactable IDs to obstacles here
+    //generateInteractableIDs(); // Assign interactable IDs to obstacles here
     levelFile.obstacles = new LevelFile.Obstacles();
     levelFile.obstacles.obstacleEntities = this.obstacleEntities;
-    levelFile.obstacles.interactablesMap = generateInteractablesMap();
+    //levelFile.obstacles.interactablesMap = generateInteractablesMap();
 
     // save the file
     file.writeString(json.prettyPrint(levelFile), false);
@@ -434,7 +443,7 @@ public class LevelGameArea extends GameArea {
         ObstacleEntity newObstacle = spawnObstacle(obstacleEntity.getDefinition(), (int) obstacleEntity.getPosition().x,
                 (int) obstacleEntity.getPosition().y, obstacleEntity.size);
 
-        newObstacle.interactableID = obstacleEntity.interactableID;
+        //newObstacle.interactableID = obstacleEntity.interactableID;
       }
     } catch (NullPointerException e) {
       e.printStackTrace();

@@ -90,6 +90,7 @@ public class PlayerMovementComponent extends Component {
                 // Colliding with button
                 // Get the list of mapped sub-interactables
                 ArrayList<ObstacleEntity> mappedSubInts = interactableComponent.getMapped();
+                System.out.println(target.toString() + " mapped to " + mappedSubInts.toString());
 
                 for (int i = 0; i < mappedSubInts.size(); i++) {
                     ObstacleEntity mapped = mappedSubInts.get(i); // Get current mapped interactable
@@ -111,6 +112,8 @@ public class PlayerMovementComponent extends Component {
                     }
                 }
             }
+
+
         }
         if (levelEndComponent != null) {
             MainGameScreen.setLevelComplete();
