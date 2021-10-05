@@ -11,6 +11,7 @@ import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
+import com.deco2800.game.components.player.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -423,6 +424,30 @@ public class PlayerActionsTest {
         entity.getComponent(PhysicsComponent.class).getBody().setLinearVelocity(8f, 0f);
         playerActions.checkIfSlidingIsDone();
         assertEquals("Sliding" , playerActions.getCurrentMovement());
+    }
+
+    /* Test that player can fall out of bounds */
+    @Test
+    void playerOutOfBoundsTest() {
+        short playerLayer = (1 << 1);
+        Entity entity = createPlayer(playerLayer);
+        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+
+        entity.getComponent(PhysicsComponent.class).getBody().setTransform(10, -6, 0);
+        entity.update();
+        assertEquals(true, playerActions.getPlayerHasDied());
+    }
+
+    /* Test that player is alive on spawn */
+    @Test
+    void playerAliveOnSpawn() {
+        short playerLayer = (1 << 1);
+        Entity entity = createPlayer(playerLayer);
+        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+
+        entity.getComponent(PhysicsComponent.class).getBody().setTransform(10, 0, 0);
+        entity.update();
+        assertEquals(false, playerActions.getPlayerHasDied());
     }
 
     //------------------------------------------------------------------------------------------

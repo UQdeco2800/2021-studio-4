@@ -4,6 +4,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
@@ -66,7 +67,7 @@ public class PlayerActions extends Component {
   private int keysPressed; //stores number of keys being pressed that affect the plaer
   AnimationRenderComponent animator;
 
-  private Vector2 jumpSpeed = new Vector2(0f, 300f);
+  private Vector2 jumpSpeed = new Vector2(0f, 500f);
   private Vector2 jumpPadSpeed = new Vector2(0f, 600f);
   private boolean canJump = false; // Whether the player can jump
 
@@ -127,6 +128,9 @@ public class PlayerActions extends Component {
           if(!playerHasDied && cameraIsSet) {
               ServiceLocator.getCamera().getEntity().setPosition(entity.getCenterPosition());
       }
+    }
+    if (this.body.getPosition().y < -5) {
+      playerIsDead();
     }
   }
 

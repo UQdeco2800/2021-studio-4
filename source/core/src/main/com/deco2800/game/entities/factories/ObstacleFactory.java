@@ -160,7 +160,6 @@ public class ObstacleFactory {
                     .addComponent(new TextureRenderComponent("map-textures/mapTextures_Jumppad-idle.png"))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
-                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
                     .addComponent(new InteractableComponent())
                     .addComponent(new JumpPadComponent());
 
@@ -190,7 +189,7 @@ public class ObstacleFactory {
     bridge.getComponent(TextureRenderComponent.class).scaleEntity();
 
     bridge.getComponent(ColliderComponent.class).setSensor(true);
-    bridge.getComponent(HitboxComponent.class).setSensor(true);
+    bridge.getComponent(HitboxComponent.class).setSensor(true); // starts with collisions
 
     bridge.scaleHeight(0.5f);
     PhysicsUtils.setScaledCollider(bridge, 1f, 1f);
@@ -208,6 +207,7 @@ public class ObstacleFactory {
         .addComponent(new TextureRenderComponent(platformTexture))
         .addComponent(new PhysicsComponent())
         .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
+        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
         .addComponent(new SubInteractableComponent());
 
     door.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
