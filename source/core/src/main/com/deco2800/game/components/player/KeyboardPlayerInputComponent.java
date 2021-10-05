@@ -6,6 +6,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.utils.math.Vector2Utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Input handler for the player for keyboard and touch (mouse) input.
  * This input handler only uses keyboard input.
@@ -13,6 +16,9 @@ import com.deco2800.game.utils.math.Vector2Utils;
 public class KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
   private boolean paused = false;
+
+  private List<Integer> illegalKeydowns = new ArrayList<>();
+  private List<Integer> keydowns = new ArrayList<>();
 
   public KeyboardPlayerInputComponent() {
     super(5);
@@ -26,9 +32,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
    */
   @Override
   public boolean keyDown(int keycode) {
+    keydowns.add(keycode);
     if (paused) {
-      walkDirection.set(Vector2.Zero.cpy());
-      triggerWalkEvent();
+      illegalKeydowns.add(keycode);
       return false;
     }
     switch (keycode) {
@@ -41,10 +47,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         walkDirection.add(Vector2Utils.LEFT);
         triggerWalkEvent();
         entity.getEvents().trigger("setPreviousWalkDirection", Vector2Utils.LEFT);
-        return true;
-      case Keys.S:
-        walkDirection.add(Vector2Utils.DOWN);
-        triggerWalkEvent();
         return true;
       case Keys.D:
         entity.getEvents().trigger("keyPressed");
@@ -68,19 +70,15 @@ public class KeyboardPlayerInputComponent extends InputComponent {
    */
   @Override
   public boolean keyUp(int keycode) {
-    if (paused) {
-      walkDirection.set(Vector2.Zero.cpy());
-      triggerWalkEvent();
+    keydowns.remove(Integer.valueOf(keycode));
+    if (illegalKeydowns.contains(keycode)) {
+      illegalKeydowns.remove(Integer.valueOf(keycode));
       return false;
     }
     switch (keycode) {
       case Keys.A:
         entity.getEvents().trigger("keyReleased");
         walkDirection.sub(Vector2Utils.LEFT);
-        triggerWalkEvent();
-        return true;
-      case Keys.S:
-        walkDirection.sub(Vector2Utils.DOWN);
         triggerWalkEvent();
         return true;
       case Keys.D:
@@ -95,14 +93,13 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
   public void pause() {
     paused = true;
+    illegalKeydowns.addAll(keydowns);
     walkDirection.set(Vector2.Zero.cpy());
     triggerWalkEvent();
   }
 
   public void resume() {
     paused = false;
-    walkDirection.set(Vector2.Zero.cpy());
-    triggerWalkEvent();
   }
 
   private void triggerWalkEvent() {
