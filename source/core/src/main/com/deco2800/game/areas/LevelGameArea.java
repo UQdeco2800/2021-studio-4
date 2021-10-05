@@ -123,7 +123,7 @@ public class LevelGameArea extends GameArea {
    */
   public void init() {
     loadAssets();
-    displayBackground();
+    //displayBackground();
     spawnTerrain();
     spawnLevelFromFile();
     mapInteractables();
@@ -132,7 +132,7 @@ public class LevelGameArea extends GameArea {
      // displayLoadingScreen();
      // displayBackground("images/background_level4.png");
         // add code to show the loading screen
-    }*/
+    }
 
 
   /**
