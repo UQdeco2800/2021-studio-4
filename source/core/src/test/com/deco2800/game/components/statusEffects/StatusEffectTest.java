@@ -19,8 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(GameExtension.class)
 public class StatusEffectTest {
 
-    private StatusEffectOperation jumpBoost;
-    private StatusEffectOperation speedBoost;
+    private StatusEffectOperation jumpBuff;
+    private StatusEffectOperation speedBuff;
     private StatusEffectOperation stuckInTheMud;
     private Entity player;
     private CombatStatsComponent combatStatsComponentNotDead;
@@ -108,7 +108,7 @@ public class StatusEffectTest {
     @BeforeEach
     public void initialiseStatusEffectOperationClasses() {
         /* Initialise the buff and de-buff classes. Also redefining some methods for mocking purposes */
-        speedBoost = new StatusEffectOperation(player, "Buff_Speed",  statusEffectList) {
+        speedBuff = new StatusEffectOperation(player, "Buff_Speed",  statusEffectList) {
             /* The speedChange() has been rewritten to change the stats in the playerActions class.
                  This is because the player Entity is a mock class, meaning that when we call functions that rely on
                  other classes, those classes will return null because it does not have them initialised,
@@ -120,7 +120,7 @@ public class StatusEffectTest {
                  is that in practice, the player Entity and PlayerActions object are explicitly linked, here they are not due to mocking.
                  */
             @Override
-            public int speedChange(int type) {
+            public int applySpeedBoost(int type) {
                 int statOriginal = (int) player.getComponent(PlayerActions.class).getSpeed();
                 int newSpeed = StatusEffectEnum.SPEED.statChange(type, StatusEffectEnum.SPEED.getStatChange(), statOriginal);
                 //System.err.println("" + "Player speed before change = " + player.getComponent(PlayerActions.class).getSpeed());
@@ -148,9 +148,9 @@ public class StatusEffectTest {
             }
         };
 
-        jumpBoost = new StatusEffectOperation(player, "Buff_Jump",  statusEffectList) {
+        jumpBuff = new StatusEffectOperation(player, "Buff_Jump",  statusEffectList) {
             @Override
-            public int jumpBoost() {
+            public int applyJumpBoost() {
                 playerActions.alterJumpHeight(StatusEffectEnum.JUMPBUFF.getStatChange());
                 if (player.getComponent(CombatStatsComponent.class).isDead()) {
                     playerActions.alterJumpHeight(-StatusEffectEnum.JUMPBUFF.getStatChange());
@@ -194,7 +194,7 @@ public class StatusEffectTest {
 
     @Test
     public void testSpeedBuffNotDead() {
-        System.err.println("testSpeedBuffNotDead()");
+        //System.err.println("testSpeedBuffNotDead()");
         type = 1;
 
         /* Initialise method functionality */
@@ -208,14 +208,14 @@ public class StatusEffectTest {
 
         /* Check that the change in stat is correct */
         expected = StatusEffectEnum.SPEED.getStatChange();
-        result = speedBoost.speedChange(type);
+        result = speedBuff.applySpeedBoost(type);
         assertTestCase(expected, result);
 
         /* Check the change in stat */
         expected = 15f;
         result = player.getComponent(PlayerActions.class).getSpeed();
         assertTestCase(expected, result);
-        System.err.println("testSpeedBuffNotDead()\n");
+        //System.err.println("testSpeedBuffNotDead()\n");
     }
 
     @Test
@@ -226,7 +226,7 @@ public class StatusEffectTest {
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentIsDead);
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
 
-        speedBoost.speedChange(type); /* Call the speed change */
+        speedBuff.applySpeedBoost(type); /* Call the speed change */
 
         expected = 10f;
         result = player.getComponent(PlayerActions.class).getSpeed();
@@ -247,7 +247,7 @@ public class StatusEffectTest {
 
         /* Check that the jumpBoost amount is correct */
         expected = StatusEffectEnum.JUMPBUFF.getStatChange();
-        result = jumpBoost.jumpBoost();
+        result = jumpBuff.applyJumpBoost();
         assertTestCase(expected, result);
 
         /* Check that the jump height has changed */
@@ -260,7 +260,7 @@ public class StatusEffectTest {
     public void testJumpBoostIsDead() {
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentIsDead);
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
-        jumpBoost.jumpBoost();
+        jumpBuff.applyJumpBoost();
 
         /* Check that the jump height does not change because the player is dead */
         expected = 300f;
@@ -278,7 +278,7 @@ public class StatusEffectTest {
 
         /* Test that the stat change is as expected */
         expected = 5;
-        result = speedBoost.speedChange(type);
+        result = speedBuff.applySpeedBoost(type);
         assertTestCase(expected, result);
 
         /* Test that the player stat decreased */
@@ -295,7 +295,7 @@ public class StatusEffectTest {
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentIsDead);
 
-        speedBoost.speedChange(type);
+        speedBuff.applySpeedBoost(type);
 
         expected = 10f;
         result = playerActions.getSpeed();
@@ -330,7 +330,7 @@ public class StatusEffectTest {
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentNotDead);
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
         /* Apply the buff */
-        jumpBoost.jumpBoost();
+        jumpBuff.applyJumpBoost();
 
         /* Check that the stat changed. */
         expected = 500f;
@@ -360,10 +360,15 @@ public class StatusEffectTest {
 //        assertTestCase(expected, result);
 //
 //        /* Wait for the stat to change back */
-//        await().until(speedStatChangedBack());
-//        expected = 10f;
-//        result = playerActions.getSpeed();
-//        assertTestCase(expected, result);
+//        try {
+//            await().until(speedStatChangedBack());
+//            expected = 10f;
+//            result = playerActions.getSpeed();
+//            assertTestCase(expected, result);
+//        } catch(org.awaitility.core.ConditionTimeoutException e) {
+//            System.err.println("" + "inside try-catch block player stat = " + playerActions.getSpeed());
+//            System.err.println("" + "exception = " + e);
+//        }
 //        System.err.println("testSpeedBuffDelay()\n");
 //    }
 
@@ -375,7 +380,7 @@ public class StatusEffectTest {
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentNotDead);
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
         /* Apply the debuff */
-        speedBoost.speedChange(type);
+        speedBuff.applySpeedBoost(type);
 
         /* Check that the stat changed. */
         expected = 5f;
