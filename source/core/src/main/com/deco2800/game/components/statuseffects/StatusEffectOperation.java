@@ -4,7 +4,6 @@ import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.npc.StatusEffectsController;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.services.GameTime;
 
 import java.util.ArrayList;
@@ -54,18 +53,18 @@ public class StatusEffectOperation {
     public void inspect() {
         switch (statusEffect) {
             case "Buff_Jump":
-                jumpBoost();
+                applyJumpBoost();
                 break;
             case "Buff_Time_Stop":
                 FreezeVoid();
                 break;
             case "Buff_Speed":
-                speedChange(1);
+                applySpeedBoost(1);
                 break;
             case "Debuff_Bomb": // Try to finish tomorrow
                 break;
             case "Debuff_Speed":
-                speedChange(-1);
+                applySpeedBoost(-1);
                 break;
             case "Debuff_Stuck":
                 stuckInMud();
@@ -99,7 +98,7 @@ public class StatusEffectOperation {
      * @return the new speed of the player
      */
     /* Changed the method to be public for testing. Originally private. */
-    public int speedChange(int type) { // Returns int for testing in possible future
+    public int applySpeedBoost(int type) { // Returns int for testing in possible future
         int speedBoost = StatusEffectEnum.SPEED.getStatChange(); // Must be smaller than 10
 
         int statOriginal;
@@ -153,7 +152,7 @@ public class StatusEffectOperation {
      * changes the jump height of the player
      * @return the new jump height of the player
      */
-    public int jumpBoost() {
+    public int applyJumpBoost() {
         int jumpBoost = StatusEffectEnum.JUMPBUFF.getStatChange(); // Must be smaller than 10
 
         singleStatusEffectCheck();
