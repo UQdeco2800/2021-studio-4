@@ -141,7 +141,11 @@ public class PlayerActions extends Component {
 
   private void playerIsDead() {
       canPlayerMove = false;
-      this.entity.getComponent(PlayerStatsDisplay.class).playerIsDead();
+      entity.getComponent(PlayerStatsDisplay.class).playerIsDead();
+  }
+
+  public boolean getCanMove() {
+    return canPlayerMove;
   }
 
   /**
