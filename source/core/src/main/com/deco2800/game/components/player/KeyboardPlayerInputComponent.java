@@ -12,7 +12,7 @@ import com.deco2800.game.utils.math.Vector2Utils;
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
-  public static boolean paused = false;
+  private boolean paused = false;
 
   public KeyboardPlayerInputComponent() {
     super(5);
@@ -91,6 +91,18 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       default:
         return false;
     }
+  }
+
+  public void pause() {
+    paused = true;
+    walkDirection.set(Vector2.Zero.cpy());
+    triggerWalkEvent();
+  }
+
+  public void resume() {
+    paused = false;
+    walkDirection.set(Vector2.Zero.cpy());
+    triggerWalkEvent();
   }
 
   private void triggerWalkEvent() {

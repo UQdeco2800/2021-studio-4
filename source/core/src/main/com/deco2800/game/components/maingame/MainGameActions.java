@@ -16,6 +16,7 @@ public class MainGameActions extends Component {
   private static final Logger logger = LoggerFactory.getLogger(MainGameActions.class);
   private GdxGame game;
   private PreviousLevel previousLevel = new PreviousLevel();
+  private boolean paused;
 
   public MainGameActions(GdxGame game) {
     this.game = game;
@@ -36,14 +37,20 @@ public class MainGameActions extends Component {
     logger.info("Exiting main game screen");
     game.setScreen(GdxGame.ScreenType.MAIN_MENU);
     TheVoidTasks.paused = false;
-    KeyboardPlayerInputComponent.paused = false;
+    //KeyboardPlayerInputComponent.paused = false;
   }
 
   private void onPause() {
     logger.info("Pause the level");
+    if (!paused) {
+      paused = true;
+      game.getScreen().pause();
+    } else {
+      paused = false;
+      game.getScreen().resume();
+    }
     TheVoidTasks.paused = !TheVoidTasks.paused;
-    KeyboardPlayerInputComponent.paused = !KeyboardPlayerInputComponent.paused;
-
+    //KeyboardPlayerInputComponent.paused = !KeyboardPlayerInputComponent.paused;
 
     //game.setScreen(GdxGame.ScreenType.PAUSE);
     //game.setPauseScreen();
@@ -53,7 +60,7 @@ public class MainGameActions extends Component {
     logger.info("Restart the level");
     game.setLevel(GdxGame.ScreenType.MAIN_GAME, previousLevel.getPreviousLevel());
     TheVoidTasks.paused = false;
-    KeyboardPlayerInputComponent.paused = false;
+    //KeyboardPlayerInputComponent.paused = false;
   }
 //
 //  private void death() {

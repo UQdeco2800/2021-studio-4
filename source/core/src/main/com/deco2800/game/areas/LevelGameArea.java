@@ -167,6 +167,10 @@ public class LevelGameArea extends GameArea {
 
   }
 
+  public Entity getPlayer() {
+    return this.player;
+  }
+
   /**
    * Get a random buff to spawn in game
    * @return Buff name
