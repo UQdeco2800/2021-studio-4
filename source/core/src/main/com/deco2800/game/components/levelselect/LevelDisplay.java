@@ -105,8 +105,6 @@ public class LevelDisplay extends UIComponent {
         // List all the files in the levels folder and create a button for each
         for (LevelDefinition level : LevelDefinition.values()) {
 
-            TextButton startBtn = new TextButton(level.getName(), skin);
-
             String pathName = "images/levels-screen-buttons/";
             String hoverPathName = "images/levels-screen-buttons/";
             int posX = centreWidth1;
@@ -155,7 +153,7 @@ public class LevelDisplay extends UIComponent {
                 }
             );
 
-            TextButton editorBtn = new TextButton("Edit", skin);
+            TextButton editorBtn = new TextButton("Edit " + level.getName(), skin);
             editorBtn.addListener(
               new ChangeListener() {
                   @Override

@@ -173,7 +173,7 @@ public class ScoreDisplay extends UIComponent {
         levelLabel.getStyle().fontColor.add(Color.WHITE); // Other colours
                                                           // default to white is
                                                           // this colour is changed?
-//        scoreLabel.getStyle().fontColor.add(Color.GOLD);
+        //scoreLabel.getStyle().fontColor.add(Color.GOLDENROD);
 
         int CenterScoreTextWidth = Math.round(centreWidth1 - scoreLabel.getWidth()/2);
         int CenterLevelTextWidth = Math.round(centreWidth1 - levelLabel.getWidth()/2);
