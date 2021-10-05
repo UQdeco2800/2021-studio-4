@@ -104,7 +104,7 @@ public class LevelSelectScreen extends ScreenAdapter {
             logger.info("Loading... {}% MMM", resourceService.getProgress());
             logger.info("Loading... {}% MMM", resourceService.getProgress());
 
-            logger.info(String.valueOf(LevelDisplay.selected));
+            //logger.info(String.valueOf(LevelDisplay.selected));
         }
 
     }
@@ -124,19 +124,19 @@ public class LevelSelectScreen extends ScreenAdapter {
         logger.debug("Creating ui");
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
-        long start = System.currentTimeMillis();
-        float sec = 0;
+        //long start = System.currentTimeMillis();
+        //float sec = 0;
         /* global update button event listner passing into a different class */
-        if (LevelDisplay.selected == true) {
+        /*if (LevelDisplay.selected == true) {
             boolean displayedLoading = false;
             ui.addComponent(new LoadingScreenDisplay());
-            logger.info("display loading screen");
+            logger.info("display loading screen");*/
             //while (sec < 5) {
             //    long end = System.currentTimeMillis();
            //     sec = (end - start) / 1000F;
            // }
            // game.setLevel(GdxGame.ScreenType.MAIN_GAME, levelDefinition);
-        }
+       // }
         ui.addComponent(new LevelDisplay()).
                 addComponent(new InputDecorator(stage, 10)).
                 addComponent(new LevelDisplayActions(game));

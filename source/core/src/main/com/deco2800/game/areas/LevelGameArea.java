@@ -69,7 +69,10 @@ public class LevelGameArea extends GameArea {
     "images/level1_background.jpg",
     "images/simple_player_animation.png",
     "images/testingrunningsprite.png",
-    "images/background_level1.jpg"
+    "images/background_level1.jpg",
+     "images/background_level2.jpg",
+     "images/background_level3.jpg",
+      "images/background_level4.png"
   };
 
   private static final String[] gameTextureAtlases = {
@@ -90,14 +93,6 @@ public class LevelGameArea extends GameArea {
     gameSong.player_collision, gameSong.player_power_up, gameSong.void_death, gameSong.void_noise, gameSong.game_level_1_option2,
   gameSong.ending_menu, gameSong.game_level_2, gameSong.main_menu, gameSong.death_noise_2,
           gameSong.game_level_3};
-
-  /*private static final String backgroundMusic = "sounds/BackingMusicWithDrums.mp3";
-  private static final String[] gameMusic = {"sounds/BackingMusicWithDrums.mp3",
-          "sounds/CLICK_Click.mp3", "sounds/End credits.mp3", "sounds/ENEMY_Collision.mp3",
-          "sounds/Enemy_Little enemy wobble sound.mp3", "sounds/OBSTACLE_Button.mp3",
-          "sounds/OBSTACLE_Player Jumping", "sounds/PLAYER_Player Getting Power.mp3",
-          "sounds/PLAYER_Running Into.mp3", "sounds/VOID_LoseGame_VirusHit.mp3",
-          "sounds/VOID_void sound.mp3", "sounds/MainMenuMusic.mp3"};*/
 
 
   private final TerrainFactory terrainFactory;
@@ -123,15 +118,22 @@ public class LevelGameArea extends GameArea {
    */
   public void init() {
     loadAssets();
-    //displayBackground();
     spawnTerrain();
     spawnLevelFromFile();
     mapInteractables();
-    //while (loading == true){
-    //  logger.info("Loading Screen is loading in!");
-     // displayLoadingScreen();
-     // displayBackground("images/background_level4.png");
-        // add code to show the loading screen
+    String level = levelDefinition.getLevelFileName();
+    if (level.equals("levels/level1.json")) {
+      displayBackground("images/background_level1.jpg");
+    } else if (level.equals("levels/level2.json")) {
+      displayBackground("images/background_level2.jpg");
+    } else if (level.equals("levels/level3.json")) {
+      displayBackground("images/background_level3.jpg");
+    } else if (level.equals("levels/level4.json")) {
+      displayBackground("images/background_level4.png");
+    }
+
+
+
     }
 
 
@@ -159,8 +161,12 @@ public class LevelGameArea extends GameArea {
     String level = levelDefinition.getLevelFileName();
     if (level.equals("levels/level1.json")) {
       playTheMusic("game_level_1");
+    } else if (level.equals("levels/level2.json")) {
+      playTheMusic("game_level_2");
+    } else if (level.equals("levels/level3.json")) {
+      playTheMusic("game_level_3");
     } else if (level.equals("levels/level4.json")) {
-      playTheMusic("level_1_2"); //replace with level 4 music when it's created
+      playTheMusic("level_1_2");//replace with level 4 music when it's created
     }
 
 
