@@ -35,7 +35,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class LevelGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(LevelGameArea.class);
-  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 15);
+  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
   private static final GridPoint2 STATUSEFFECT_SPAWN1 = new GridPoint2(60, 25);
   private static final GridPoint2 STATUSEFFECT_SPAWN2 = new GridPoint2(40, 25);
   public List<ObstacleEntity> obstacleEntities = new ArrayList<>();

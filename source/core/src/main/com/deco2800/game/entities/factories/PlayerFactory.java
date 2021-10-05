@@ -55,6 +55,7 @@ public class PlayerFactory {
 
     animator.addAnimation("spawn_level1", 0.1f, Animation.PlayMode.NORMAL);
     animator.addAnimation("portal_flip", 0.1f, Animation.PlayMode.NORMAL);
+    animator.addAnimation("spawn_portal", 0.1f, Animation.PlayMode.NORMAL);
     animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
 
 
