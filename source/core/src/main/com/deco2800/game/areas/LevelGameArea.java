@@ -35,7 +35,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class LevelGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(LevelGameArea.class);
-  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(15, 15);
+  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 15);
   private static final GridPoint2 STATUSEFFECT_SPAWN1 = new GridPoint2(60, 25);
   private static final GridPoint2 STATUSEFFECT_SPAWN2 = new GridPoint2(40, 25);
   public List<ObstacleEntity> obstacleEntities = new ArrayList<>();
@@ -44,7 +44,8 @@ public class LevelGameArea extends GameArea {
   public static ArrayList<String> deBuffers = new ArrayList<>();
   private Random random = new Random();
 
-  public Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables = new ConcurrentHashMap<>();
+  public Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables = new HashMap<>();
+  public List<ObstacleEntity> interactableEntities = new ArrayList<>();
 
   private static final String[] gameTextures = {
     "images/game_background.png",
@@ -59,8 +60,6 @@ public class LevelGameArea extends GameArea {
     "images/button.png",
     "images/level1_background.jpg",
     "images/simple_player_animation.png",
-    "images/walkingsprite.png",
-    "images/playerStill.png",
     "images/testingrunningsprite.png",
     "images/background_level1.jpg"
   };
@@ -74,7 +73,7 @@ public class LevelGameArea extends GameArea {
     "images/button.atlas",
     "images/walking_sprite.atlas",
     "images/testingrunning.atlas",
-    "images/simple_player_sprite.atlas"
+    "images/simple_player_sprite.atlas",
   };
 
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
@@ -317,10 +316,11 @@ public class LevelGameArea extends GameArea {
         }
       }
 
-      // map earliest button with earliest door/bridge, continue for all buttons
       if (buttons.size() > 0 && subInteractables.size() > 0) {
         for (int j = 0; j < buttons.size(); j++) {
-          //mapInteractables.put(buttons.get(j), subInteractables.get(j));
+          InteractableComponent interactable = buttons.get(j).getComponent(InteractableComponent.class);
+          interactable.addSubInteractable(subInteractables.get(j));
+          interactableEntities.add(buttons.get(j));
         }
       }
   }
@@ -580,7 +580,7 @@ public class LevelGameArea extends GameArea {
   private void spawnTheVoid() {
     int startPosY = terrain.getMapBounds(0).y;
     GridPoint2 startPos = new GridPoint2();
-    startPos.set(-20, startPosY/2 - 3);
+    startPos.set(-25, startPosY/2 - 3);
 
     Entity theVoid = NPCFactory.createTheVoid(player);
     spawnEntityAt(theVoid, startPos, true, true);

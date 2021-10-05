@@ -6,6 +6,9 @@ import com.deco2800.game.components.Component;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.statuseffects.StatusEffectEnum;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.physics.PhysicsLayer;
+import com.deco2800.game.physics.components.ColliderComponent;
+import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.MusicService;
@@ -34,6 +37,8 @@ public class TheVoidController extends Component {
     private AnimationRenderComponent animator;
     private Body body;
     private Entity player;
+    private int iterator = 0;
+    private boolean hasHitPlayer = false;
     //
     MusicServiceDirectory dict = new  MusicServiceDirectory();
     MusicService musicService = new MusicService(dict.void_noise);
@@ -49,7 +54,7 @@ public class TheVoidController extends Component {
      */
     @Override
     public void create() {
-        physicsComponent = entity.getComponent(PhysicsComponent.class);
+
         animator = this.entity.getComponent(AnimationRenderComponent.class);
         physicsComponent = entity.getComponent(PhysicsComponent.class);
         physicsComponent.getBody().setGravityScale(0);
@@ -71,11 +76,15 @@ public class TheVoidController extends Component {
     }
 
     void stopVoidIfPlayerDead() {
-         if (getPlayerDistance() < 0.06) {
-             SPEED = new Vector2(0f, 0f);
-             System.out.println("stopping the void worked");
+        //System.out.println(getPlayerDistance());
+         if (getPlayerDistance() < 0.02 || hasHitPlayer) {
+             hasHitPlayer = true;
+             if(iterator == 1) {
+                 this.entity.getComponent(HitboxComponent.class).setLayer(PhysicsLayer.NONE);
+             }
+             iterator++;
          }
-    }
+   }
 
     void restartVoidOnRestart() {
         if (getPlayerDistance() < 0.06) {

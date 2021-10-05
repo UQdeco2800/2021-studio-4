@@ -17,6 +17,7 @@ public class CameraComponent extends Component {
   public CameraComponent(Camera camera) {
     this.camera = camera;
     lastPosition = Vector2.Zero.cpy();
+
   }
 
   @Override
