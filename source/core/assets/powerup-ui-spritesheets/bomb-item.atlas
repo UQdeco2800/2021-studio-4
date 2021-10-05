@@ -4,337 +4,337 @@ size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-bomb-item00
+bomb-item
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item39
+  index: 0
+bomb-item
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item01
+  index: 39
+bomb-item
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item02
+  index: 1
+bomb-item
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item03
+  index: 2
+bomb-item
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 3
 
 bomb-item2.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-bomb-item04
+bomb-item
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item05
+  index: 4
+bomb-item
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item06
+  index: 5
+bomb-item
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item07
+  index: 6
+bomb-item
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 7
 
 bomb-item3.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-bomb-item08
+bomb-item
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item09
+  index: 8
+bomb-item
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item10
+  index: 9
+bomb-item
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item11
+  index: 10
+bomb-item
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 11
 
 bomb-item4.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-bomb-item12
+bomb-item
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item13
+  index: 12
+bomb-item
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item14
+  index: 13
+bomb-item
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item15
+  index: 14
+bomb-item
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 15
 
 bomb-item5.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-bomb-item16
+bomb-item
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item17
+  index: 16
+bomb-item
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item18
+  index: 17
+bomb-item
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item19
+  index: 18
+bomb-item
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 19
 
 bomb-item6.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-bomb-item20
+bomb-item
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item21
+  index: 20
+bomb-item
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item22
+  index: 21
+bomb-item
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item23
+  index: 22
+bomb-item
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 23
 
 bomb-item7.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-bomb-item24
+bomb-item
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item25
+  index: 24
+bomb-item
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item26
+  index: 25
+bomb-item
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item27
+  index: 26
+bomb-item
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 27
 
 bomb-item8.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-bomb-item28
+bomb-item
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item29
+  index: 28
+bomb-item
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item30
+  index: 29
+bomb-item
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item31
+  index: 30
+bomb-item
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 31
 
 bomb-item9.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-bomb-item32
+bomb-item
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item33
+  index: 32
+bomb-item
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item34
+  index: 33
+bomb-item
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item35
+  index: 34
+bomb-item
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 35
 
 bomb-item10.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-bomb-item36
+bomb-item
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item37
+  index: 36
+bomb-item
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-bomb-item38
+  index: 37
+bomb-item
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 38

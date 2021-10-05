@@ -4,337 +4,337 @@ size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-lightning00
+lightning
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning39
+  index: 0
+lightning
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning01
+  index: 39
+lightning
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning02
+  index: 1
+lightning
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning03
+  index: 2
+lightning
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 3
 
 lightning2.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-lightning04
+lightning
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning05
+  index: 4
+lightning
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning06
+  index: 5
+lightning
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning07
+  index: 6
+lightning
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 7
 
 lightning3.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-lightning08
+lightning
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning09
+  index: 8
+lightning
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning10
+  index: 9
+lightning
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning11
+  index: 10
+lightning
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 11
 
 lightning4.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-lightning12
+lightning
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning13
+  index: 12
+lightning
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning14
+  index: 13
+lightning
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning15
+  index: 14
+lightning
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 15
 
 lightning5.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-lightning16
+lightning
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning17
+  index: 16
+lightning
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning18
+  index: 17
+lightning
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning19
+  index: 18
+lightning
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 19
 
 lightning6.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-lightning20
+lightning
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning21
+  index: 20
+lightning
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning22
+  index: 21
+lightning
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning23
+  index: 22
+lightning
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 23
 
 lightning7.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-lightning24
+lightning
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning25
+  index: 24
+lightning
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning26
+  index: 25
+lightning
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning27
+  index: 26
+lightning
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 27
 
 lightning8.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-lightning28
+lightning
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning29
+  index: 28
+lightning
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning30
+  index: 29
+lightning
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning31
+  index: 30
+lightning
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 31
 
 lightning9.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-lightning32
+lightning
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning33
+  index: 32
+lightning
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning34
+  index: 33
+lightning
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning35
+  index: 34
+lightning
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 35
 
 lightning10.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-lightning36
+lightning
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning37
+  index: 36
+lightning
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-lightning38
+  index: 37
+lightning
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 38

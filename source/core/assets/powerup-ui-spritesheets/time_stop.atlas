@@ -1,204 +1,204 @@
 
-stuck-lock.png
+time_stop.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-stuck-lock00
+time-stop
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-stuck-lock23
+  index: 0
+time-stop
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-stuck-lock01
+  index: 23
+time-stop
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-stuck-lock02
+  index: 1
+time-stop
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-stuck-lock03
+  index: 2
+time-stop
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 3
 
-stuck-lock2.png
+time_stop2.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-stuck-lock04
+time-stop
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-stuck-lock05
+  index: 4
+time-stop
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-stuck-lock06
+  index: 5
+time-stop
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-stuck-lock07
+  index: 6
+time-stop
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 7
 
-stuck-lock3.png
+time_stop3.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-stuck-lock08
+time-stop
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-stuck-lock09
+  index: 8
+time-stop
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-stuck-lock10
+  index: 9
+time-stop
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-stuck-lock11
+  index: 10
+time-stop
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 11
 
-stuck-lock4.png
+time_stop4.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-stuck-lock12
+time-stop
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-stuck-lock13
+  index: 12
+time-stop
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-stuck-lock14
+  index: 13
+time-stop
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-stuck-lock15
+  index: 14
+time-stop
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 15
 
-stuck-lock5.png
+time_stop5.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-stuck-lock16
+time-stop
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-stuck-lock17
+  index: 16
+time-stop
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-stuck-lock18
+  index: 17
+time-stop
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-stuck-lock19
+  index: 18
+time-stop
   rotate: false
   xy: 476, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 19
 
-stuck-lock6.png
+time_stop6.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-stuck-lock20
+time-stop
   rotate: false
   xy: 2, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-stuck-lock21
+  index: 20
+time-stop
   rotate: false
   xy: 2, 2
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
-stuck-lock22
+  index: 21
+time-stop
   rotate: false
   xy: 476, 475
   size: 472, 471
   orig: 472, 471
   offset: 0, 0
-  index: -1
+  index: 22
