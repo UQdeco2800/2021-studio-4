@@ -343,7 +343,7 @@ public class PlayerActions extends Component {
   // so I can't try and load in an animation i havent defined
 private void setCurrentPowerUp(String powerUp) {
   currentPowerUp = powerUp;
-  //setMovementAnimation(currentMovement);
+  setMovementAnimation(currentMovement);
 }
 
 public String getCurrentPowerUp() {
@@ -371,12 +371,10 @@ public String getCurrentPowerUp() {
 
 
     if(!(previousAnimation.equals(getAnimation())) || value != currentMovement){
-      //System.out.println(value);
       currentMovement = value;
       previousAnimation = getAnimation();
       animator.startAnimation(getAnimation());
 
-       // System.out.println(getCurrentMovement());
     }
 
 
