@@ -32,6 +32,12 @@ public class PlayerMovementComponent extends Component {
         this.targetLayer = targetLayer;
     }
 
+    /**
+     * Create a component which interacts with entities on collision.
+     * @param targetLayer The physics layer of the target's collider.
+     * @param mapInteractables The list of sub-interactable and interactable mappings.
+     * @param levelGameArea The level game area.
+     */
     public PlayerMovementComponent(short targetLayer, Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables, LevelGameArea levelGameArea) {
         this.levelGameArea = levelGameArea;
         this.targetLayer = targetLayer;
