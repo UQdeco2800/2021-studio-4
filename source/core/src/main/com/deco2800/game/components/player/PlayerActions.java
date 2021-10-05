@@ -4,6 +4,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
@@ -66,7 +67,7 @@ public class PlayerActions extends Component {
   private int keysPressed; //stores number of keys being pressed that affect the plaer
   AnimationRenderComponent animator;
 
-  private Vector2 jumpSpeed = new Vector2(0f, 300f);
+  private Vector2 jumpSpeed = new Vector2(0f, 500f);
   private Vector2 jumpPadSpeed = new Vector2(0f, 600f);
   private boolean canJump = false; // Whether the player can jump
 
@@ -128,8 +129,15 @@ public class PlayerActions extends Component {
               ServiceLocator.getCamera().getEntity().setPosition(entity.getCenterPosition());
       }
     }
+    if (this.body.getPosition().y < -5) {
+      playerIsDead();
+    }
   }
 
+    /**
+     * This function was so the camera would slowly translate over to the playable character after
+     * the spawn animation has player to stop the camera from jumping
+     */
 /*
   private void slowlyMoveCameraToPos(Vector2 pos){
 
@@ -215,7 +223,7 @@ public class PlayerActions extends Component {
      * sets the value of spawnAnimation to one of the existing spawn animation, this is done randomly using
      * math.random()
      */
-   private void setSpawnAnimation(){
+   public int setSpawnAnimation(){
        //if(gameLevel == "LEVEL_4") {
         //   spawnAnimation = "spawn_level1";
       // } else {
@@ -224,10 +232,29 @@ public class PlayerActions extends Component {
       spawnAnimationToUse = num;
       if (spawnAnimationToUse == 1.0) {
           spawnAnimation = "portal_flip";
+
       } else {
           spawnAnimation = "spawn_level1";
       }
       //  }
+
+       return (int) spawnAnimationToUse;
+  }
+
+    /**
+     *
+     * @return the spawn animation
+     */
+  public String getSpawnAnimation() {
+       return spawnAnimation;
+  }
+
+    /**
+     *
+     * @return if the player has died
+     */
+  public Boolean getPlayerHasDied(){
+      return playerHasDied;
   }
 
    /**
@@ -235,7 +262,7 @@ public class PlayerActions extends Component {
     * so that the death animation appears to be the same size as the playable character. It then also starts
     * the player's death animation
     */
-  private void playerIsDead() {
+  public void playerIsDead() {
       if(!playerHasDied) {
           playerHasDied = true;
           canPlayerMove = false;
@@ -366,9 +393,9 @@ public String getCurrentPowerUp() {
    * includes the movement they are doing, the direction they are moving/looking
    * and the current power up they have
    *
-   * @returns String containing currentMovement + movingDirection + powerUp
+   * @return String containing currentMovement + movingDirection + powerUp
    */
-  private String getAnimation(){
+  public String getAnimation(){
     return  getCurrentMovement() + getCurrentDirection();
   }
 

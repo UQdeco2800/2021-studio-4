@@ -74,7 +74,6 @@ public class PlayerMovementComponent extends Component {
 
         // Can control user behaviour with component
         PlayerActions playerActions = player.getComponent(PlayerActions.class);
-        // System.out.println("player actions");
 
         if (physicsComponent != null) {
             if (jumpableComponent != null) {
@@ -91,34 +90,33 @@ public class PlayerMovementComponent extends Component {
                 // Colliding with button
                 // Get the list of mapped sub-interactables
                 ArrayList<ObstacleEntity> mappedSubInts = interactableComponent.getMapped();
+                System.out.println(target.toString() + " mapped to " + mappedSubInts.toString());
 
-                ObstacleEntity mapped = mappedSubInts.get(0); // Default retrieve first mapped element
+                for (int i = 0; i < mappedSubInts.size(); i++) {
+                    ObstacleEntity mapped = mappedSubInts.get(i); // Get current mapped interactable
 
-                if (mapped != null) {
-                    ColliderComponent colliderComponent = mapped.getComponent(ColliderComponent.class);
-                    HitboxComponent mappedHitboxComponent = mapped.getComponent(HitboxComponent.class);
-                    ObstacleDefinition mappedType = mapped.getDefinition();
-                    // System.out.println("definition");
+                    if (mapped != null) {
+                        ColliderComponent colliderComponent = mapped.getComponent(ColliderComponent.class);
+                        HitboxComponent mappedHitboxComponent = mapped.getComponent(HitboxComponent.class);
+                        ObstacleDefinition mappedType = mapped.getDefinition();
 
-                    if (mappedType == ObstacleDefinition.DOOR) {
-                        // Desired affect on mapped door - disappears
-                        // System.out.println("dispose");
-                        mappedHitboxComponent.setSensor(true);
-                        colliderComponent.setSensor(true);
-                    } else if (mappedType == ObstacleDefinition.BRIDGE) {
-                        // Desired affect on mapped bridge - appears
-                        // System.out.println("created");
-                        mappedHitboxComponent.setSensor(false);
-                        colliderComponent.setSensor(false);
+                        if (mappedType == ObstacleDefinition.DOOR) {
+                            // Desired affect on mapped door - disappears
+                            mappedHitboxComponent.setSensor(true);
+                            colliderComponent.setSensor(true);
+                        } else if (mappedType == ObstacleDefinition.BRIDGE) {
+                            // Desired affect on mapped bridge - appears
+                            mappedHitboxComponent.setSensor(false);
+                            colliderComponent.setSensor(false);
+                        }
                     }
                 }
             }
+
+
         }
         if (levelEndComponent != null) {
             MainGameScreen.setLevelComplete();
         }
-
-        // && physicsComponent.toString()
-        //             .equals("Entity{id=9}.PhysicsComponent") ---> uglier but only allows jumping from floor
     }
 }

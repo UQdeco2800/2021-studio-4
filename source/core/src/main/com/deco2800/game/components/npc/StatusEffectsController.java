@@ -80,8 +80,7 @@ public class StatusEffectsController extends Component {
     public float getPlayerDistance(){
         float distance_x;
         float statusEffect_length = this.entity.getScale().x;
-        Vector2 statusEffect_pos = this.entity.getPosition();
-        distance_x = player.getPosition().sub(statusEffect_pos).x - statusEffect_length;
+        distance_x = player.getPosition().x - entity.getPosition().x - statusEffect_length;
         return distance_x;
     }
 

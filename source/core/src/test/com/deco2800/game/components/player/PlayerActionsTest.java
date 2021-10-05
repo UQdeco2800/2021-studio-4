@@ -11,6 +11,7 @@ import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
+import com.deco2800.game.components.player.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -425,13 +426,92 @@ public class PlayerActionsTest {
         assertEquals("Sliding" , playerActions.getCurrentMovement());
     }
 
+    /* Test that player can fall out of bounds */
+    @Test
+    void playerOutOfBoundsTest() {
+        short playerLayer = (1 << 1);
+        Entity entity = createPlayer(playerLayer);
+        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
 
+        entity.getComponent(PhysicsComponent.class).getBody().setTransform(10, -6, 0);
+        entity.update();
+        assertEquals(true, playerActions.getPlayerHasDied());
+    }
 
+    /* Test that player is alive on spawn */
+    @Test
+    void playerAliveOnSpawn() {
+        short playerLayer = (1 << 1);
+        Entity entity = createPlayer(playerLayer);
+        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
 
+        entity.getComponent(PhysicsComponent.class).getBody().setTransform(10, 0, 0);
+        entity.update();
+        assertEquals(false, playerActions.getPlayerHasDied());
+    }
 
+    //------------------------------------------------------------------------------------------
 
+    @Test
+    void checkSpawnAnimationWhenSetAnimationReturns1() {
+        short playerLayer = (1 << 1);
+        Entity entity = createPlayer(playerLayer);
 
+        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        int number = playerActions.setSpawnAnimation();
 
+        if (number == 1) {
+            assertEquals("portal_flip", playerActions.getSpawnAnimation());
+        }
+    }
+
+    @Test
+    void checkSpawnAnimationWhenSetAnimationReturns2() {
+        short playerLayer = (1 << 1);
+        Entity entity = createPlayer(playerLayer);
+
+        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        int number = playerActions.setSpawnAnimation();
+
+        if (number == 2) {
+            assertEquals("spawn_level1", playerActions.getSpawnAnimation());
+        }
+    }
+
+    @Test
+    void checkPlayerDeathAnimation() {
+        short playerLayer = (1 << 1);
+        Entity entity = createPlayer(playerLayer);
+
+        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.playerIsDead();
+
+        assertEquals(true, playerActions.getPlayerHasDied());
+    }
+
+    @Test
+    void checkPlayerCantMoveWhenPlayerCanMoveIsFalse() {
+        short playerLayer = (1 << 1);
+        Entity entity = createPlayer(playerLayer);
+
+        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(false);
+        playerActions.jump();
+        assertEquals("IdleRight", playerActions.getAnimation());
+    }
+
+    @Test
+    void checkPlayerCanMoveWhenPlayerCanMoveIsTrue() {
+        short playerLayer = (1 << 1);
+        Entity entity = createPlayer(playerLayer);
+
+        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        playerActions.setCanPlayerMove(true);
+        //This sets canJump to true to allow jumping
+        playerActions.togglePlayerJumping();
+        playerActions.jump();
+        assertEquals("JumpRight", playerActions.getAnimation());
+    }
 
 
 

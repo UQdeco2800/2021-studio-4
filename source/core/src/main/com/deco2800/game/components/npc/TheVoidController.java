@@ -63,6 +63,7 @@ public class TheVoidController extends Component {
         entity.getEvents().addListener("TheVoidMove", this::theVoidMove);
         entity.getEvents().addListener("UpdateSound", this::updateSound);
         entity.getEvents().addListener("StopVoidIfPlayerDead", this:: stopVoidIfPlayerDead);
+        entity.getEvents().addListener("RestartVoidOnRestart", this:: restartVoidOnRestart);
 
         this.body = physicsComponent.getBody();
     }
@@ -85,6 +86,12 @@ public class TheVoidController extends Component {
          }
    }
 
+    void restartVoidOnRestart() {
+        if (getPlayerDistance() < 0.06) {
+            SPEED = new Vector2(8f,0f);
+            System.out.println("restarting the void worked");
+        }
+    }
 
     /**
      * Makes the void move (if called repeatedly the void will move at a constant speed)
@@ -101,8 +108,7 @@ public class TheVoidController extends Component {
      private float getPlayerDistance(){
         float distance_x;
         float void_length = this.entity.getScale().x;
-        Vector2 void_pos = this.entity.getPosition();
-        distance_x = player.getPosition().sub(void_pos).x - void_length;
+        distance_x = player.getPosition().x - entity.getPosition().x - void_length;
         return distance_x;
     }
 
