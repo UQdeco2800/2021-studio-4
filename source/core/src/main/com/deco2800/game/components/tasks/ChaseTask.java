@@ -39,7 +39,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
   @Override
   public void start() {
     super.start();
-    movementTask = new MovementTask(target.getPosition());
+    movementTask = new MovementTask(target.getPosition().cpy());
     movementTask.create(owner);
     movementTask.start();
     
@@ -48,7 +48,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
 
   @Override
   public void update() {
-    movementTask.setTarget(target.getPosition());
+    movementTask.setTarget(target.getPosition().cpy());
     movementTask.update();
     if (movementTask.getStatus() != Status.ACTIVE) {
       movementTask.start();

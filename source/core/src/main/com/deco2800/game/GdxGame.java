@@ -69,11 +69,15 @@ public class GdxGame extends Game {
     if (currentScreen != null) {
       currentScreen.dispose();
     }
-
     System.gc();
     System.runFinalization();
 
     setScreen(newScreen(screenType));
+  }
+
+  public void setPauseScreen() {
+    logger.info("Setting up pause screen");
+    setScreen(newScreen(ScreenType.PAUSE));
   }
 
   @Override
@@ -99,6 +103,8 @@ public class GdxGame extends Game {
         return new DeathScreen(this);
       case SCORE_SCREEN:
         return new ScoreScreen(this, levelDefinition, getCompletionTime());
+      case PAUSE:
+        return new PauseScreen(this);
       default:
         return null;
     }
@@ -109,7 +115,6 @@ public class GdxGame extends Game {
   }
 
   public enum ScreenType {
-    // PAUSE is an unused enum. Plans to implement this with the pause functionality.
     MAIN_MENU, MAIN_GAME, SETTINGS, LOAD_LEVELS, PAUSE, DEATH_SCREEN, SCORE_SCREEN, LEVEL_EDITOR
   }
 

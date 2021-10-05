@@ -47,7 +47,7 @@ public class LinkingToolComponent extends BaseToolComponent {
     marker
       .addComponent(new TextureRenderComponent(textureName));
     marker.scaleHeight(0.5f);
-    marker.setPosition(target.getPosition());
+    marker.setPosition(target.getPosition().cpy());
     markers.put(target, marker);
     ServiceLocator.getEntityService().register(marker);
   }
@@ -58,12 +58,27 @@ public class LinkingToolComponent extends BaseToolComponent {
    */
   private void link(Entity entity) {
     ObstacleEntity obstacleEntity = levelGameArea.getObstacle(entity);
-    if (obstacleEntity.getComponent(SubInteractableComponent.class) == null) return;
+    SubInteractableComponent subComponent = obstacleEntity.getComponent(SubInteractableComponent.class);
+    InteractableComponent parentComponent = selectedParent.getComponent(InteractableComponent.class);
+
+    if (subComponent == null) return;
+
+    /*
     if (!levelGameArea.mapInteractables.containsKey(selectedParent)) {
       levelGameArea.mapInteractables.put(selectedParent, new ArrayList<>());
     } else if (!levelGameArea.mapInteractables.get(selectedParent).contains(obstacleEntity)){
       levelGameArea.mapInteractables.get(selectedParent).add(obstacleEntity);
     }
+     */
+
+    if (!levelGameArea.interactableEntities.contains(selectedParent)) {
+      levelGameArea.interactableEntities.add(selectedParent);
+    }
+
+    if (parentComponent.getMapped().contains(entity)) return;
+
+    parentComponent.addSubInteractable(obstacleEntity);
+
     createMarker(obstacleEntity,true);
   }
 
@@ -73,10 +88,21 @@ public class LinkingToolComponent extends BaseToolComponent {
    */
   private void unlink(Entity entity) {
     ObstacleEntity obstacleEntity = levelGameArea.getObstacle(entity);
-    if (entity.getComponent(SubInteractableComponent.class) == null) return;
+    SubInteractableComponent subComponent = obstacleEntity.getComponent(SubInteractableComponent.class);
+    InteractableComponent parentComponent = selectedParent.getComponent(InteractableComponent.class);
+
+    if (subComponent == null) return;
+
+    /*
     if (levelGameArea.mapInteractables.containsKey(selectedParent)) {
       levelGameArea.mapInteractables.get(selectedParent).remove(obstacleEntity);
     }
+     */
+
+    if (levelGameArea.interactableEntities.contains(selectedParent)) {
+      parentComponent.getMapped().remove(obstacleEntity);
+    }
+
     ServiceLocator.getEntityService().unregister(markers.get(obstacleEntity));
     markers.get(obstacleEntity).dispose();
     markers.remove(obstacleEntity);
@@ -97,7 +123,7 @@ public class LinkingToolComponent extends BaseToolComponent {
    */
   private void clearLinks() {
     clearMarkers();
-    levelGameArea.mapInteractables.remove(selectedParent);
+    levelGameArea.interactableEntities.remove(selectedParent);
     markers = new HashMap<>();
   }
 
@@ -107,10 +133,13 @@ public class LinkingToolComponent extends BaseToolComponent {
    */
   private void setSelectedParent(Entity entity) {
     selectedParent = levelGameArea.getObstacle(entity);
+    InteractableComponent parentComponent = selectedParent.getComponent(InteractableComponent.class);
+
     clearMarkers();
 
     createMarker(selectedParent, false);
 
+    /*
     if (levelGameArea.mapInteractables.containsKey(selectedParent)) {
       List<ObstacleEntity> linked = levelGameArea.mapInteractables.get(selectedParent);
 
@@ -118,6 +147,16 @@ public class LinkingToolComponent extends BaseToolComponent {
         createMarker(obstacleEntity, true);
       }
     }
+     */
+
+    if (levelGameArea.interactableEntities.contains(selectedParent)) {
+      List<ObstacleEntity> linked = parentComponent.getMapped();
+
+      for (ObstacleEntity obstacleEntity : linked) {
+        createMarker(obstacleEntity, true);
+      }
+    }
+
   }
 
   @Override

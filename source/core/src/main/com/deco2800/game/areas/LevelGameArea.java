@@ -48,24 +48,6 @@ public class LevelGameArea extends GameArea {
   public List<ObstacleEntity> interactableEntities = new ArrayList<>();
 
   private static final String[] gameTextures = {
-
-    "images/virus_man.png",
-    "images/box_boy_leaf.png",
-    "images/tree.png",
-    "images/ghost_king.png",
-    "images/ghost_1.png",
-    "images/grass_1.png",
-    "images/grass_2.png",
-    "images/grass_3.png",
-    "images/hex_grass_1.png",
-    "images/hex_grass_2.png",
-    "images/hex_grass_3.png",
-    "images/iso_grass_1.png",
-    "images/iso_grass_2.png",
-    "images/iso_grass_3.png",
-    "images/basicenemysprite.png",
-    "images/chasingenemy.png",
-    "images/enemyspritehsee.png",
     "images/game_background.png",
     "map-textures/marker_cross.png",
     "map-textures/marker_o.png",
@@ -83,11 +65,6 @@ public class LevelGameArea extends GameArea {
   };
 
   private static final String[] gameTextureAtlases = {
-
-    "images/terrain_iso_grass.atlas",
-    "images/ghost.atlas",
-    "images/ghostKing.atlas",
-    "images/testingenemy.atlas",
     "map-spritesheets/mapTextures.atlas",
     "images/void.atlas",
     "images/Pick_Ups.atlas",
@@ -97,8 +74,8 @@ public class LevelGameArea extends GameArea {
     "images/walking_sprite.atlas",
     "images/testingrunning.atlas",
     "images/simple_player_sprite.atlas",
-
   };
+
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
   private static final String[] gameMusic = {gameSong.click, gameSong.game_level_1,gameSong.end_credits,
     gameSong.enemy_collision,gameSong.enemy_death, gameSong.obstacle_boost, gameSong.obstacle_button,
@@ -139,10 +116,10 @@ public class LevelGameArea extends GameArea {
   public void init() {
 
     loadAssets();
-    mapInteractables();
     displayBackground();
     spawnTerrain();
     spawnLevelFromFile();
+    mapInteractables();
     //while (loading == true){
     //  logger.info("Loading Screen is loading in!");
      // displayLoadingScreen();
@@ -158,12 +135,8 @@ public class LevelGameArea extends GameArea {
     init();
     displayUI();
     player = spawnPlayer();
-    spawnLevelFromFile();
+    //spawnLevelFromFile();
     spawnTheVoid();
-
-    //spawnGorgonGear(20,8);
-    spawnTheVoid();
-
 
 //  spawnStatusEffectDeBuff("Buff_Time_Stop"); //Spawns specified statusEffect for testing purposes
 //  spawnStatusEffectBuff("Buff_Jump");
@@ -184,9 +157,13 @@ public class LevelGameArea extends GameArea {
 
 
 
-    spawnPlatform(8, 21, 5);
-    spawnDoor(9, 23, 5);
+    //spawnPlatform(8, 21, 5);
+    //spawnDoor(9, 23, 5);
 
+  }
+
+  public Entity getPlayer() {
+    return this.player;
   }
 
   /**
@@ -313,6 +290,32 @@ public class LevelGameArea extends GameArea {
   }
 
   /**
+   * Spawn a new jump pad.
+   * @param posX X-position
+   * @param posY Y-position
+   */
+  public void spawnJumppad(int posX, int posY) {
+    spawnButton(posX, posY, false, true);
+  }
+
+  /**
+   * Spawn a new jump pad.
+   * @param posX X-position
+   * @param posY Y-position
+   * @param centerX boolean center X value
+   * @param centerY boolean center Y value
+   * @return jump pad
+   */
+  public ObstacleEntity spawnJumppad(int posX, int posY, boolean centerX, boolean centerY) {
+    ObstacleEntity jumppad = (ObstacleEntity) ObstacleFactory.createJumpPad();
+    GridPoint2 position = new GridPoint2(posX,posY);
+    spawnEntityAt(jumppad, position, centerX, centerY);
+    obstacleEntities.add(jumppad);
+    jumppad.setTilePosition(position);
+    return jumppad;
+  }
+
+  /**
    * Maps the sub-interactables (i.e. bridges and doors) to the closest
    * spawned interactable (i.e. button).
    */
@@ -342,6 +345,9 @@ public class LevelGameArea extends GameArea {
           interactableEntities.add(buttons.get(j));
         }
       }
+
+    System.out.println(buttons.toString());
+    System.out.println(subInteractables.toString());
   }
 
   public ObstacleEntity getObstacle(Entity entity) {
@@ -356,6 +362,7 @@ public class LevelGameArea extends GameArea {
    * This is not a very clean solution (this data needs to be moved to be stored on the actual InteractableComponent)
    * but it's the simplest way to do it with the existing implementation.
    */
+  /*
   private void generateInteractableIDs() {
     int id = 0;
     for (ObstacleEntity obstacleEntity : obstacleEntities) {
@@ -366,9 +373,12 @@ public class LevelGameArea extends GameArea {
     }
   }
 
+   */
+
   /**
    * Generates a map of interactableIDs to be saved/loaded from file
    */
+  /*
   private Map<Integer, List<Integer>> generateInteractablesMap() {
     Map<Integer, List<Integer>> interactableIds = new HashMap<>();
     for (Map.Entry<ObstacleEntity, List<ObstacleEntity>> obstacleEntityListEntry : mapInteractables.entrySet()) {
@@ -382,6 +392,8 @@ public class LevelGameArea extends GameArea {
 
     return interactableIds;
   }
+
+   */
 
   public void spawnLevelEndPortal(int posX, int posY, int width) {
     spawnLevelEndPortal(posX, posY, width, false, true);
@@ -412,10 +424,10 @@ public class LevelGameArea extends GameArea {
     levelFile.terrain.mapLayer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
 
     // Save the obstacles
-    generateInteractableIDs(); // Assign interactable IDs to obstacles here
+    //generateInteractableIDs(); // Assign interactable IDs to obstacles here
     levelFile.obstacles = new LevelFile.Obstacles();
     levelFile.obstacles.obstacleEntities = this.obstacleEntities;
-    levelFile.obstacles.interactablesMap = generateInteractablesMap();
+    //levelFile.obstacles.interactablesMap = generateInteractablesMap();
 
     // save the file
     file.writeString(json.prettyPrint(levelFile), false);
@@ -429,25 +441,25 @@ public class LevelGameArea extends GameArea {
     assert file != null;
 
     LevelFile levelFile = json.fromJson(LevelFile.class, file);
-  try {
-    for (ObstacleEntity obstacleEntity : levelFile.obstacles.obstacleEntities) {
-      ObstacleEntity newObstacle = spawnObstacle(obstacleEntity.getDefinition(), (int) obstacleEntity.getPosition().x,
-              (int) obstacleEntity.getPosition().y, obstacleEntity.size);
+    try {
+      for (ObstacleEntity obstacleEntity : levelFile.obstacles.obstacleEntities) {
+        ObstacleEntity newObstacle = spawnObstacle(obstacleEntity.getDefinition(), (int) obstacleEntity.getPosition().x,
+                (int) obstacleEntity.getPosition().y, obstacleEntity.size);
 
-      newObstacle.interactableID = obstacleEntity.interactableID;
-    }
-  }catch (NullPointerException e) {
-    e.printStackTrace();
+        //newObstacle.interactableID = obstacleEntity.interactableID;
+      }
+    } catch (NullPointerException e) {
+      e.printStackTrace();
     }
 
     // Add entities to subInteractables list
     for (ObstacleEntity obstacleEntity : obstacleEntities) {
       if (obstacleEntity.interactableID != null) {
-//        System.out.println(obstacleEntity.interactableID);
-//        System.out.println(levelFile.obstacles.interactablesMap);
-//        System.out.println(levelFile.obstacles.interactablesMap.keySet());
-//        System.out.println(levelFile.obstacles.interactablesMap.get(obstacleEntity.interactableID);
-//        System.out.println(levelFile.obstacles.interactablesMap.containsKey(obstacleEntity.interactableID));
+  //        System.out.println(obstacleEntity.interactableID);
+  //        System.out.println(levelFile.obstacles.interactablesMap);
+  //        System.out.println(levelFile.obstacles.interactablesMap.keySet());
+  //        System.out.println(levelFile.obstacles.interactablesMap.get(obstacleEntity.interactableID);
+  //        System.out.println(levelFile.obstacles.interactablesMap.containsKey(obstacleEntity.interactableID));
         if (levelFile.obstacles.interactablesMap.containsKey(obstacleEntity.interactableID)) {
           List<Integer> subInteractableIds = levelFile.obstacles.interactablesMap.get(obstacleEntity.interactableID);
           List<ObstacleEntity> subInteractables = new ArrayList<>();
@@ -576,7 +588,7 @@ public class LevelGameArea extends GameArea {
       case LEVEL_END_PORTAL:
         return spawnLevelEndPortal(x,y,size,false,false);
       case JUMPPAD:
-//        return spawnJumpPad ??? why this missing
+        return spawnJumppad(x, y, false, false);
     }
 
     return null;

@@ -22,24 +22,19 @@ public enum StatusEffectEnum implements StatusEffectInterface {
     VOIDFREEZE (0, 3000, "VOIDFREEZE") {
         @Override
         public int statChange(int type, int boost, int statOriginal) {
-            int statChange = type * boost + statOriginal;
-            return statChange;
+            return type * boost + statOriginal;
         }
     },
     INTERFERANCE (0, 0, "INTERFERANCE") {
         @Override
         public int statChange(int type, int boost, int statOriginal) {
-
-
-            int statChange = type * boost + statOriginal;
-            return statChange;
+            return type * boost + statOriginal;
         }
     },
     STUCKINMUD (0, 4000, "INTERFERANCE") {
         @Override
         public int statChange(int type, int boost, int statOriginal) {
-            int statChange = type * boost + statOriginal;
-            return statChange;
+            return type * boost + statOriginal;
         }
     };
 
