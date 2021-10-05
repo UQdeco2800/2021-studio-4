@@ -162,19 +162,23 @@ extends <a href="../../components/Component.html" title="class in com.deco2800.g
 <tr class="altColor" id="i0">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addSubInteractable(com.deco2800.game.entities.ObstacleEntity)">addSubInteractable</a></span>&#8203;(<a href="../../entities/ObstacleEntity.html" title="class in com.deco2800.game.entities">ObstacleEntity</a>&nbsp;obstacle)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Add a new sub-interactable entity to the mapping.</div>
+</td>
 </tr>
 <tr class="rowColor" id="i1">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#create()">create</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Called when the entity is created and registered.</div>
+<div class="block">Create a new Interactable component.</div>
 </td>
 </tr>
 <tr class="altColor" id="i2">
 <td class="colFirst"><code>java.util.ArrayList&lt;<a href="../../entities/ObstacleEntity.html" title="class in com.deco2800.game.entities">ObstacleEntity</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMapped()">getMapped</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Get the mapped sub-interactable entities.</div>
+</td>
 </tr>
 </tbody>
 </table>
@@ -223,9 +227,7 @@ extends <a href="../../components/Component.html" title="class in com.deco2800.g
 <section class="detail">
 <h3><a id="create()">create</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">create</span>()</div>
-<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../components/Component.html#create()">Component</a></code></span></div>
-<div class="block">Called when the entity is created and registered. Initial logic such as calls to GetComponent
- should be made here, not in the constructor which is called before an entity is finished.</div>
+<div class="block">Create a new Interactable component.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code><a href="../../components/Component.html#create()">create</a></code>&nbsp;in class&nbsp;<code><a href="../../components/Component.html" title="class in com.deco2800.game.components">Component</a></code></dd>
@@ -236,12 +238,22 @@ extends <a href="../../components/Component.html" title="class in com.deco2800.g
 <section class="detail">
 <h3><a id="getMapped()">getMapped</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.ArrayList&lt;<a href="../../entities/ObstacleEntity.html" title="class in com.deco2800.game.entities">ObstacleEntity</a>&gt;</span>&nbsp;<span class="memberName">getMapped</span>()</div>
+<div class="block">Get the mapped sub-interactable entities.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Mapped sub-interactable entities</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="addSubInteractable(com.deco2800.game.entities.ObstacleEntity)">addSubInteractable</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">addSubInteractable</span>&#8203;(<span class="arguments"><a href="../../entities/ObstacleEntity.html" title="class in com.deco2800.game.entities">ObstacleEntity</a>&nbsp;obstacle)</span></div>
+<div class="block">Add a new sub-interactable entity to the mapping.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>obstacle</code> - Sub-interactable entity</dd>
+</dl>
 </section>
 </li>
 </ul>
