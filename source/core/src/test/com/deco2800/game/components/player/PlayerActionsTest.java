@@ -2,6 +2,8 @@ package com.deco2800.game.components.player;
 
 
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.components.statuseffects.StatusEffectTargetComponent;
+import com.deco2800.game.components.statuseffects.StatusEffectUIComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.physics.PhysicsService;
@@ -539,7 +541,9 @@ public class PlayerActionsTest {
                         .addComponent(new PhysicsComponent())
                         .addComponent(new HitboxComponent().setLayer(playerLayer))
                         .addComponent(new PlayerActions("some level string"))
-                        .addComponent(animationRenderComponent);
+                        .addComponent(animationRenderComponent)
+                        .addComponent(new StatusEffectTargetComponent())
+                        .addComponent(new StatusEffectUIComponent());
 
 
         entity.create();
