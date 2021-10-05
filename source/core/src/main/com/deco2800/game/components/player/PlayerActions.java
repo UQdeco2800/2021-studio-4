@@ -203,6 +203,8 @@ public class PlayerActions extends Component {
           this.entity.setPosition(entity.getPosition().add(2f, 0f));
       } else if (animator.getCurrentAnimation().equals("portal_flip")){
           this.entity.setPosition(entity.getPosition().add(1f,0f));
+      } else if (animator.getCurrentAnimation().equals("spawn_portal")) {
+          this.entity.setPosition(entity.getPosition().add(2.5f,0f));
       }
   }
 
@@ -215,6 +217,8 @@ public class PlayerActions extends Component {
           entity.setScale(4f, 4f);
       } else if (spawnAnimation.equals("portal_flip")){
           entity.setScale(2.7f,2.7f);
+      } else if (spawnAnimation.equals("spawn_portal")) {
+          entity.setScale(6f,1.5f);
       }
       animator.startAnimation(spawnAnimation);
   }
@@ -227,18 +231,17 @@ public class PlayerActions extends Component {
        //if(gameLevel == "LEVEL_4") {
         //   spawnAnimation = "spawn_level1";
       // } else {
-      double num = Math.round(Math.random() + 1);
-      double spawnAnimationToUse;
-      spawnAnimationToUse = num;
-      if (spawnAnimationToUse == 1.0) {
+      int spawnAnimationToUse = 1 + (int) (Math.random() * 3);
+      if (spawnAnimationToUse == 1) {
           spawnAnimation = "portal_flip";
-
-      } else {
+      } else if (spawnAnimationToUse == 2){
           spawnAnimation = "spawn_level1";
+      } else {
+          spawnAnimation = "spawn_portal";
       }
       //  }
 
-       return (int) spawnAnimationToUse;
+       return spawnAnimationToUse;
   }
 
     /**
@@ -348,12 +351,10 @@ public class PlayerActions extends Component {
 
 
     if(!(previousAnimation.equals(getAnimation())) || value != currentMovement){
-      //System.out.println(value);
       currentMovement = value;
       previousAnimation = getAnimation();
       animator.startAnimation(getAnimation());
 
-       // System.out.println(getCurrentMovement());
     }
 
 
@@ -392,7 +393,7 @@ public class PlayerActions extends Component {
    */
   void setIsFalling(){
       if (canPlayerMove) {
-          setCanJump(false);
+          playerState = PlayerState.AIR;
           setMovementAnimation(Movement.Falling);
       }
   }

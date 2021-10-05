@@ -155,9 +155,14 @@ public class ObstacleFactory {
    * @return jump pad
    */
   public static Entity createJumpPad() {
+    TextureAtlas atlas = ServiceLocator.getResourceService()
+            .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
+
+    Texture jumpPadTexture = expandTexture(atlas.findRegion("mapTextures_Jumppad-idle"), 1, 1);
+
     ObstacleEntity jumpPad =
             new ObstacleEntity(ObstacleDefinition.JUMPPAD,1)
-                    .addComponent(new TextureRenderComponent("map-textures/mapTextures_Jumppad-idle.png"))
+                    .addComponent(new TextureRenderComponent(jumpPadTexture))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
                     .addComponent(new InteractableComponent())

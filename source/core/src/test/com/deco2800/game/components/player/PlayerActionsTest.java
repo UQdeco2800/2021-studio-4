@@ -479,6 +479,19 @@ public class PlayerActionsTest {
     }
 
     @Test
+    void checkSpawnAnimationWhenSetAnimationReturns3() {
+        short playerLayer = (1 << 1);
+        Entity entity = createPlayer(playerLayer);
+
+        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        int number = playerActions.setSpawnAnimation();
+
+        if (number == 3) {
+            assertEquals("spawn_portal", playerActions.getSpawnAnimation());
+        }
+    }
+
+    @Test
     void checkPlayerDeathAnimation() {
         short playerLayer = (1 << 1);
         Entity entity = createPlayer(playerLayer);
