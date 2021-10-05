@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -181,66 +181,101 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
 </td>
 </tr>
 <tr class="rowColor" id="i3">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAnimation()">getAnimation</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Returns a string that represents the current state of the player, this
+ includes the movement they are doing, the direction they are moving/looking
+ and the current power up they have</div>
+</td>
+</tr>
+<tr class="altColor" id="i4">
 <td class="colFirst"><code>java.lang.Boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCanJump()">getCanJump</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Get whether the player can jump.</div>
 </td>
 </tr>
-<tr class="altColor" id="i4">
+<tr class="rowColor" id="i5">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCurrentPowerUp()">getCurrentPowerUp</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i5">
+<tr class="altColor" id="i6">
 <td class="colFirst"><code>float</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getJumpHeight()">getJumpHeight</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor" id="i6">
+<tr class="rowColor" id="i7">
+<td class="colFirst"><code>java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPlayerHasDied()">getPlayerHasDied</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i8">
 <td class="colFirst"><code><a href="PlayerState.html" title="enum in com.deco2800.game.components.player">PlayerState</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPlayerState()">getPlayerState</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Get the player's state.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i7">
+<tr class="rowColor" id="i9">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSpawnAnimation()">getSpawnAnimation</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i10">
 <td class="colFirst"><code>float</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSpeed()">getSpeed</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor" id="i8">
+<tr class="rowColor" id="i11">
 <td class="colFirst"><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getWalkDirection()">getWalkDirection</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Get the player's walking direction.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i9">
+<tr class="altColor" id="i12">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#jumpPad()">jumpPad</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Thrusts the player up at the defined jump pad speed.</div>
 </td>
 </tr>
-<tr class="altColor" id="i10">
+<tr class="rowColor" id="i13">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#playerIsDead()">playerIsDead</a></span>()</code></th>
+<td class="colLast">
+<div class="block">makes it so the player can no longer be controlled by the user and increases the player's scale
+ so that the death animation appears to be the same size as the playable character.</div>
+</td>
+</tr>
+<tr class="altColor" id="i14">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCanJump(java.lang.Boolean)">setCanJump</a></span>&#8203;(java.lang.Boolean&nbsp;value)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i11">
+<tr class="rowColor" id="i15">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCanPlayerMove(boolean)">setCanPlayerMove</a></span>&#8203;(boolean&nbsp;value)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor" id="i12">
+<tr class="altColor" id="i16">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSpawnAnimation()">setSpawnAnimation</a></span>()</code></th>
+<td class="colLast">
+<div class="block">sets the value of spawnAnimation to one of the existing spawn animation, this is done randomly using
+ math.random()</div>
+</td>
+</tr>
+<tr class="rowColor" id="i17">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#togglePlayerJumping()">togglePlayerJumping</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Allows the player to jump after colliding with the ground.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i13">
+<tr class="altColor" id="i18">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update()">update</a></span>()</code></th>
 <td class="colLast">
@@ -318,6 +353,43 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
 </li>
 <li class="blockList">
 <section class="detail">
+<h3><a id="setSpawnAnimation()">setSpawnAnimation</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">setSpawnAnimation</span>()</div>
+<div class="block">sets the value of spawnAnimation to one of the existing spawn animation, this is done randomly using
+ math.random()</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getSpawnAnimation()">getSpawnAnimation</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.lang.String</span>&nbsp;<span class="memberName">getSpawnAnimation</span>()</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the spawn animation</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getPlayerHasDied()">getPlayerHasDied</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.lang.Boolean</span>&nbsp;<span class="memberName">getPlayerHasDied</span>()</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>if the player has died</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="playerIsDead()">playerIsDead</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">playerIsDead</span>()</div>
+<div class="block">makes it so the player can no longer be controlled by the user and increases the player's scale
+ so that the death animation appears to be the same size as the playable character. It then also starts
+ the player's death animation</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
 <h3><a id="getSpeed()">getSpeed</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">float</span>&nbsp;<span class="memberName">getSpeed</span>()</div>
 </section>
@@ -353,6 +425,19 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
 <section class="detail">
 <h3><a id="getCurrentPowerUp()">getCurrentPowerUp</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.lang.String</span>&nbsp;<span class="memberName">getCurrentPowerUp</span>()</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getAnimation()">getAnimation</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.lang.String</span>&nbsp;<span class="memberName">getAnimation</span>()</div>
+<div class="block">Returns a string that represents the current state of the player, this
+ includes the movement they are doing, the direction they are moving/looking
+ and the current power up they have</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>String containing currentMovement + movingDirection + powerUp</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">

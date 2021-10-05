@@ -10,6 +10,7 @@ com.deco2800.game.components.levelselect
 com.deco2800.game.components.maingame
 com.deco2800.game.components.mainmenu
 com.deco2800.game.components.npc
+com.deco2800.game.components.pausegame
 com.deco2800.game.components.player
 com.deco2800.game.components.scores
 com.deco2800.game.components.settingsmenu
