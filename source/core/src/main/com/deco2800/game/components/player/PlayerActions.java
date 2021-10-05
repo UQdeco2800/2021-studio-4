@@ -393,7 +393,7 @@ public String getCurrentPowerUp() {
    * includes the movement they are doing, the direction they are moving/looking
    * and the current power up they have
    *
-   * @returns String containing currentMovement + movingDirection + powerUp
+   * @return String containing currentMovement + movingDirection + powerUp
    */
   public String getAnimation(){
     return  getCurrentMovement() + getCurrentDirection();

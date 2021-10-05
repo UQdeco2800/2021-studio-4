@@ -48,24 +48,6 @@ public class LevelGameArea extends GameArea {
   public List<ObstacleEntity> interactableEntities = new ArrayList<>();
 
   private static final String[] gameTextures = {
-
-    "images/virus_man.png",
-    "images/box_boy_leaf.png",
-    "images/tree.png",
-    "images/ghost_king.png",
-    "images/ghost_1.png",
-    "images/grass_1.png",
-    "images/grass_2.png",
-    "images/grass_3.png",
-    "images/hex_grass_1.png",
-    "images/hex_grass_2.png",
-    "images/hex_grass_3.png",
-    "images/iso_grass_1.png",
-    "images/iso_grass_2.png",
-    "images/iso_grass_3.png",
-    "images/basicenemysprite.png",
-    "images/chasingenemy.png",
-    "images/enemyspritehsee.png",
     "images/game_background.png",
     "map-textures/marker_cross.png",
     "map-textures/marker_o.png",
@@ -83,11 +65,6 @@ public class LevelGameArea extends GameArea {
   };
 
   private static final String[] gameTextureAtlases = {
-
-    "images/terrain_iso_grass.atlas",
-    "images/ghost.atlas",
-    "images/ghostKing.atlas",
-    "images/testingenemy.atlas",
     "map-spritesheets/mapTextures.atlas",
     "images/void.atlas",
     "images/Pick_Ups.atlas",
@@ -97,8 +74,8 @@ public class LevelGameArea extends GameArea {
     "images/walking_sprite.atlas",
     "images/testingrunning.atlas",
     "images/simple_player_sprite.atlas",
-
   };
+
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
   private static final String[] gameMusic = {gameSong.click, gameSong.game_level_1,gameSong.end_credits,
     gameSong.enemy_collision,gameSong.enemy_death, gameSong.obstacle_boost, gameSong.obstacle_button,
@@ -184,6 +161,10 @@ public class LevelGameArea extends GameArea {
     //spawnPlatform(8, 21, 5);
     //spawnDoor(9, 23, 5);
 
+  }
+
+  public Entity getPlayer() {
+    return this.player;
   }
 
   /**
