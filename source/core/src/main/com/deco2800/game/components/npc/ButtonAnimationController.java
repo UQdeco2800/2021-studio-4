@@ -7,7 +7,7 @@ import com.deco2800.game.rendering.AnimationRenderComponent;
  * This class listens to events relevant to an interactable object's state and plays the animation when one
  * of the events is triggered.
  */
-public class ObstacleAnimationController extends Component {
+public class ButtonAnimationController extends Component {
     AnimationRenderComponent animator;
 
     @Override
@@ -19,10 +19,10 @@ public class ObstacleAnimationController extends Component {
     }
 
     void animateIdle() {
-        animator.startAnimation("Default");
+        animator.startAnimation("mapTextures_Button-Off");
     }
 
     void animateActive() {
-        animator.startAnimation("Active");
+        animator.startAnimation("mapTextures_Button-On");
     }
 }
