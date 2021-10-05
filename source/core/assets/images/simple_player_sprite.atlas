@@ -1316,3 +1316,96 @@ death
   orig: 700, 613
   offset: 0, 0
   index: 26
+
+
+spawn_portal.png
+size:5766,4328
+format: RGBA8888
+filter: Nearest,Nearest
+repeat:none
+spawn_portal
+  rotate: false
+  xy: 0, 0
+  size: 1922, 675
+  orig: 1922, 675
+  offset: 0, 0
+  index: 0
+spawn_portal
+  rotate: false
+  xy: 1922, 0
+  size: 1922, 675
+  orig: 1922, 675
+  offset: 0, 0
+  index: 1
+spawn_portal
+  rotate: false
+  xy: 3844, 0
+  size: 1922, 675
+  orig: 1922, 675
+  offset: 0, 0
+  index: 8
+spawn_portal
+  rotate: false
+  xy: 0, 1082
+  size: 1922, 675
+  orig: 1922, 675
+  offset: 0, 0
+  index: 2
+spawn_portal
+  rotate: false
+  xy: 1922, 1082
+  size: 1922, 675
+  orig: 1922, 675
+  offset: 0, 0
+  index: 3
+spawn_portal
+  rotate: false
+  xy: 3844, 1082
+  size: 1922, 675
+  orig: 1922, 675
+  offset: 0, 0
+  index: 9
+spawn_portal
+  rotate: false
+  xy: 0, 2164
+  size: 1922, 675
+  orig: 1922, 675
+  offset: 0, 0
+  index: 4
+spawn_portal
+  rotate: false
+  xy: 1922, 2164
+  size: 1922, 675
+  orig: 1922, 675
+  offset: 0, 0
+  index: 5
+spawn_portal
+  rotate: false
+  xy: 3844, 2164
+  size: 1922, 675
+  orig: 1922, 675
+  offset: 0, 0
+  index: 10
+spawn_portal
+  rotate: false
+  xy: 0, 3246
+  size: 1922, 675
+  orig: 1922, 675
+  offset: 0, 0
+  index: 6
+spawn_portal
+  rotate: false
+  xy: 1922, 3246
+  size: 1922, 675
+  orig: 1922, 675
+  offset: 0, 0
+  index: 7
+spawn_portal
+  rotate: false
+  xy: 3844, 3246
+  size: 1922, 675
+  orig: 1922, 675
+  offset: 0, 0
+  index: 11
+
+
