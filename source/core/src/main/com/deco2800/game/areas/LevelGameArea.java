@@ -186,7 +186,16 @@ public class LevelGameArea extends GameArea {
     spawnEntity(background);
   }
   private void displayLoadingScreen() {
-    Entity background = new Entity();
+    ResourceService resourceService = ServiceLocator.getResourceService();
+    String[] loadingTexture = { "images/button_exit.png"};
+    resourceService.loadTextures(loadingTexture );
+    while (!resourceService.loadForMillis(10)) {
+      // This could be upgraded to a loading screen
+      logger.info("Loading LoadingScreen texture... {}%", resourceService.getProgress());
+    }
+    Entity loadingScreen = new Entity();
+    loadingScreen.addComponent(new BackgroundRenderComponent("images/button_exit.png"));
+    spawnEntity(loadingScreen);
   }
 
   private void spawnTerrain() {
