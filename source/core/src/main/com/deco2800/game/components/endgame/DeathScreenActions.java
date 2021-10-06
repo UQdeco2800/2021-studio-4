@@ -4,7 +4,6 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.levelselect.LevelDisplayActions;
 import com.deco2800.game.components.levelselect.PreviousLevel;
-import com.deco2800.game.levels.LevelDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

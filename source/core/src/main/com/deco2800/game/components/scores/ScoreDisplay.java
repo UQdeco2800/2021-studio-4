@@ -40,7 +40,7 @@ public class ScoreDisplay extends UIComponent {
     private int completionTime; // Will need to be set using GameTime
     private int highScore;
     private boolean isSuccessful;
-    private ArrayList<Integer> levels = new ArrayList<>();; // The current Level
+    private ArrayList<Integer> levels = new ArrayList<>(); // The current Level
     private ArrayList<Integer> highScores = new ArrayList<>();
 
     public ScoreDisplay(LevelDefinition levelDefinition, int completionTime) {
@@ -91,7 +91,7 @@ public class ScoreDisplay extends UIComponent {
     private void addActors() {
         table = new Table();
         table.setFillParent(true);
-        sprite = new Sprite(new Texture("images/title_screen_clean.png"));
+        sprite = new Sprite(new Texture("images/score_screen_guide.png"));
         table.setBackground(new SpriteDrawable(sprite)); // Set background
 
         InsertImageButton insImage = new InsertImageButton();
@@ -107,10 +107,10 @@ public class ScoreDisplay extends UIComponent {
         /**
          * Creates the button texture for the Exit Button.
          */
-        String startMainImage = "images/default_buttons/exit-button.png";
-        String startHoverImage = "images/hovered-buttons/exit-button-hovered.png";
+        String exitMainImage = "images/default_buttons/exit-button.png";
+        String exitHoverImage = "images/hovered-buttons/exit-button-hovered.png";
         ImageButton exitBtn;
-        exitBtn = insImage.setImage(startMainImage, startHoverImage,
+        exitBtn = insImage.setImage(exitMainImage, exitHoverImage,
                 centreWidth,centreHeight-height105Percent,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
@@ -173,7 +173,7 @@ public class ScoreDisplay extends UIComponent {
         levelLabel.getStyle().fontColor.add(Color.WHITE); // Other colours
                                                           // default to white is
                                                           // this colour is changed?
-//        scoreLabel.getStyle().fontColor.add(Color.GOLD);
+        //scoreLabel.getStyle().fontColor.add(Color.GOLDENROD);
 
         int CenterScoreTextWidth = Math.round(centreWidth1 - scoreLabel.getWidth()/2);
         int CenterLevelTextWidth = Math.round(centreWidth1 - levelLabel.getWidth()/2);
@@ -190,14 +190,15 @@ public class ScoreDisplay extends UIComponent {
         congratsLabel.setBounds(CenterLevelTextWidth - 100, 560,
                 textDimenstionWidth, textDimenstionHeight);
 
+        int imageWidth = Gdx.graphics.getWidth()/2;
         /**
          * Creates the 'SCOREDISPLAY' title texture.
          */
-        Texture scoreDisplay = new Texture(Gdx.files.internal("images/ScoreTitlePlaceHolder.png"));
+        Texture scoreDisplay = new Texture(Gdx.files.internal("images/scores-title.png"));
         Drawable scoreDisplayDrawable = new TextureRegionDrawable(new TextureRegion(scoreDisplay));
         Image scoreDisplayTitle = new Image(scoreDisplayDrawable);
-        scoreDisplayTitle.setBounds(0,Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/5,
-                Gdx.graphics.getWidth(),Gdx.graphics.getHeight()/6);
+        scoreDisplayTitle.setBounds(Gdx.graphics.getWidth()/2 - imageWidth/2,Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/5,
+                imageWidth,Gdx.graphics.getHeight()/6);
 //        Image image1 = new Image(new Texture("images/ScoreTitlePlaceHolder.png"));
         //image1.setBounds(200, 80, 70, 40);
 //        image1.setBounds(400, 200, 700, 200);

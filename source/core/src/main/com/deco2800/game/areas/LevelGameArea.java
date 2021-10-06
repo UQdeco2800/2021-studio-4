@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.JsonWriter;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.areas.terrain.TerrainTileDefinition;
+import com.deco2800.game.effects.StatusEffect;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleDefinition;
 import com.deco2800.game.entities.ObstacleEntity;
@@ -35,9 +36,8 @@ import java.util.concurrent.ConcurrentHashMap;
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class LevelGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(LevelGameArea.class);
-  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(15, 15);
-  private static final GridPoint2 STATUSEFFECT_SPAWN1 = new GridPoint2(60, 25);
-  private static final GridPoint2 STATUSEFFECT_SPAWN2 = new GridPoint2(40, 25);
+  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 15);
+  private static final GridPoint2 STATUSEFFECT_SPAWN = new GridPoint2(15, 15);
   public List<ObstacleEntity> obstacleEntities = new ArrayList<>();
   public static ArrayList<TerrainTile> terrainTiles = new ArrayList<>();
   public static ArrayList<String> buffers = new ArrayList<>();
@@ -48,24 +48,6 @@ public class LevelGameArea extends GameArea {
   public List<ObstacleEntity> interactableEntities = new ArrayList<>();
 
   private static final String[] gameTextures = {
-
-    "images/virus_man.png",
-    "images/box_boy_leaf.png",
-    "images/tree.png",
-    "images/ghost_king.png",
-    "images/ghost_1.png",
-    "images/grass_1.png",
-    "images/grass_2.png",
-    "images/grass_3.png",
-    "images/hex_grass_1.png",
-    "images/hex_grass_2.png",
-    "images/hex_grass_3.png",
-    "images/iso_grass_1.png",
-    "images/iso_grass_2.png",
-    "images/iso_grass_3.png",
-    "images/basicenemysprite.png",
-    "images/chasingenemy.png",
-    "images/enemyspritehsee.png",
     "images/game_background.png",
     "map-textures/marker_cross.png",
     "map-textures/marker_o.png",
@@ -78,19 +60,11 @@ public class LevelGameArea extends GameArea {
     "images/button.png",
     "images/level1_background.jpg",
     "images/simple_player_animation.png",
-    "images/walkingsprite.png",
-    "images/playerStill.png",
     "images/testingrunningsprite.png",
     "images/background_level1.jpg"
   };
 
   private static final String[] gameTextureAtlases = {
-
-
-    "images/terrain_iso_grass.atlas",
-    "images/ghost.atlas",
-    "images/ghostKing.atlas",
-    "images/testingenemy.atlas",
     "map-spritesheets/mapTextures.atlas",
     "images/void.atlas",
     "images/Pick_Ups.atlas",
@@ -99,9 +73,15 @@ public class LevelGameArea extends GameArea {
     "images/button.atlas",
     "images/walking_sprite.atlas",
     "images/testingrunning.atlas",
-    "images/simple_player_sprite.atlas"
-
+    "images/simple_player_sprite.atlas",
+    "powerup-ui-spritesheets/bomb-item.atlas",
+    "powerup-ui-spritesheets/jump_boost.atlas",
+    "powerup-ui-spritesheets/lightning.atlas",
+    "powerup-ui-spritesheets/speed_decrease.atlas",
+    "powerup-ui-spritesheets/stuck_lock.atlas",
+    "powerup-ui-spritesheets/time_stop.atlas",
   };
+
   private static final MusicServiceDirectory gameSong = new MusicServiceDirectory();
   private static final String[] gameMusic = {gameSong.click, gameSong.game_level_1,gameSong.end_credits,
     gameSong.enemy_collision,gameSong.enemy_death, gameSong.obstacle_boost, gameSong.obstacle_button,
@@ -164,14 +144,13 @@ public class LevelGameArea extends GameArea {
     //spawnLevelFromFile();
     spawnTheVoid();
 
-
-//  spawnStatusEffectDeBuff("Buff_Time_Stop"); //Spawns specified statusEffect for testing purposes
-//  spawnStatusEffectBuff("Buff_Jump");
-    spawnStatusEffectBuff(getBuff()); // Selected randomly from a list of the effects
-    spawnStatusEffectDeBuff(getDeBuff()); // Selected randomly from a list of the effects
-    // Spawns two more power ups further down in the map later on
-    spawnStatusEffectBuff2(getBuff());
-    spawnStatusEffectDeBuff2(getDeBuff());
+    int statusPosX = STATUSEFFECT_SPAWN.x;
+    int statusPosY = STATUSEFFECT_SPAWN.y;
+    spawnStatusEffect(StatusEffect.FAST, statusPosX, statusPosY);
+    spawnStatusEffect(StatusEffect.JUMP, statusPosX+10, statusPosY);
+    spawnStatusEffect(StatusEffect.TIME_STOP, statusPosX+20, statusPosY);
+    spawnStatusEffect(StatusEffect.SLOW, statusPosX+30, statusPosY);
+    spawnStatusEffect(StatusEffect.STUCK, statusPosX+40, statusPosY);
 
 
     String level = levelDefinition.getLevelFileName();
@@ -189,22 +168,8 @@ public class LevelGameArea extends GameArea {
 
   }
 
-  /**
-   * Get a random buff to spawn in game
-   * @return Buff name
-   */
-  private String getBuff() {
-    int indexNum = random.nextInt(3);
-    return buffers.get(indexNum);
-  }
-
-  /**
-   * Get a random debuff to spawn in game
-   * @return Debuff name
-   */
-  private String getDeBuff() {
-    int indexNum = random.nextInt(3);
-    return deBuffers.get(indexNum);
+  public Entity getPlayer() {
+    return this.player;
   }
 
   private void displayUI() {
@@ -634,48 +599,22 @@ public class LevelGameArea extends GameArea {
   private void spawnTheVoid() {
     int startPosY = terrain.getMapBounds(0).y;
     GridPoint2 startPos = new GridPoint2();
-    startPos.set(-20, startPosY/2 - 3);
+    startPos.set(-25, startPosY/2 - 3);
 
     Entity theVoid = NPCFactory.createTheVoid(player);
     spawnEntityAt(theVoid, startPos, true, true);
   }
 
   /**
-   * Spawns the Buff StatusEffect on the map by calling the createStatusEffect() method in NPCFactory
-   * with player as its parameter.
+   * Spawns a status effect as the given location
    */
-  private void spawnStatusEffectBuff(String statusEffectType) {
-    Entity statusEffect = NPCFactory.createStatusEffect(player, statusEffectType);
-    spawnEntityAt(statusEffect, STATUSEFFECT_SPAWN1, true, true);
-  }
-
-  /**
-   * Spawns the second Buff StatusEffect on the map by calling the createStatusEffect() method in NPCFactory
-   * with player as its parameter.
-   */
-  private void spawnStatusEffectBuff2(String statusEffectType) {
-    Entity statusEffect = NPCFactory.createStatusEffect(player, statusEffectType);
-    GridPoint2 StatusEffectSpawn2 = STATUSEFFECT_SPAWN1.add(100, 0);
-    spawnEntityAt(statusEffect, StatusEffectSpawn2, true, true);
-  }
-
-  /**
-   * Spawns the DeBuff StatusEffect on the map by calling the createStatusEffect() method in NPCFactory
-   * with player as its parameter.
-   */
-  private void spawnStatusEffectDeBuff(String statusEffectType) {
-    Entity statusEffect = NPCFactory.createStatusEffect(player, statusEffectType);
-    spawnEntityAt(statusEffect, STATUSEFFECT_SPAWN2, true, true);
-  }
-
-  /**
-   * Spawns the second DeBuff StatusEffect on the map by calling the createStatusEffect() method in NPCFactory
-   * with player as its parameter.
-   */
-  private void spawnStatusEffectDeBuff2(String statusEffectType) {
-    Entity statusEffect = NPCFactory.createStatusEffect(player, statusEffectType);
-    GridPoint2 StatusEffectSpawn2 = STATUSEFFECT_SPAWN2.add(100, 0);
-    spawnEntityAt(statusEffect, STATUSEFFECT_SPAWN2, true, true);
+  private void spawnStatusEffect(StatusEffect statusEffect, int posX, int posY) {
+    System.out.println(statusEffect);
+    System.out.println(posX);
+    System.out.println(posY);
+    Entity statusEffectEntity = NPCFactory.createStatusEffect(statusEffect);
+    GridPoint2 position = new GridPoint2(posX, posY);
+    spawnEntityAt(statusEffectEntity, position, true, true);
   }
 
   /**

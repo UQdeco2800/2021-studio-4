@@ -47,7 +47,7 @@ public class LinkingToolComponent extends BaseToolComponent {
     marker
       .addComponent(new TextureRenderComponent(textureName));
     marker.scaleHeight(0.5f);
-    marker.setPosition(target.getPosition());
+    marker.setPosition(target.getPosition().cpy());
     markers.put(target, marker);
     ServiceLocator.getEntityService().register(marker);
   }

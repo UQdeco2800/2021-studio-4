@@ -13,7 +13,7 @@ public class PreviousLevel {
      * Update the most recent level played.
      */
     public void updatePreviousLevel(LevelDefinition levelPlayed) {
-        this.previousLevel = levelPlayed;
+        previousLevel = levelPlayed;
     }
 
     /**
@@ -21,6 +21,6 @@ public class PreviousLevel {
      * @return previous level.
      */
     public LevelDefinition getPreviousLevel() {
-        return this.previousLevel;
+        return previousLevel;
     }
 }

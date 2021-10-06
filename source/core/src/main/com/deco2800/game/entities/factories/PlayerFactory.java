@@ -9,6 +9,8 @@ import com.deco2800.game.components.PlayerMovementComponent;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
+import com.deco2800.game.components.statuseffects.StatusEffectTargetComponent;
+import com.deco2800.game.components.statuseffects.StatusEffectUIComponent;
 import com.deco2800.game.components.tasks.PlayerChangeAnimationHelper;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleEntity;
@@ -48,37 +50,33 @@ public class PlayerFactory {
             new AITaskComponent()
                     .addTask(new PlayerChangeAnimationHelper());
 
-   // String[] atlasFiles = new String[] {"images/simple_player_sprite.atlas", "images/levelOneSpawn.atlas"};
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/simple_player_sprite.atlas", TextureAtlas.class));
 
-    animator.addAnimation("spawn_level1", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("spawn_level1", 0.1f, Animation.PlayMode.NORMAL);
+    animator.addAnimation("portal_flip", 0.1f, Animation.PlayMode.NORMAL);
+    animator.addAnimation("spawn_portal", 0.1f, Animation.PlayMode.NORMAL);
+    animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
 
 
-    String[] movement = {"Running", "Jump", "Sliding", "Falling", "Idle", "Walk"};
+
+    String[] movement = {"Running", "Jump", "Sliding", "Falling", "Idle", "Walk", "Slow"};
     String[] direction = {"Left", "Right"};
 
     for(String mov : movement) {
       for (String dir : direction) {
         if (mov.equals("Jump") | mov.equals("Sliding") | mov.equals("Falling")) {
           animator.addAnimation(mov + dir, 0.03f, Animation.PlayMode.NORMAL);
+        } else if (mov.equals("Slow")){
+          animator.addAnimation(mov + dir, 0.16f, Animation.PlayMode.LOOP);
         } else {
           animator.addAnimation(mov + dir, 0.08f, Animation.PlayMode.LOOP);
         }
       }
     }
 
-    /**
-
-    animator.addAnimation("spawnOne", 0.1f, Animation.PlayMode.NORMAL);
-    animator.addAnimation("spawnTwo", 0.1f, Animation.PlayMode.NORMAL);
-    animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
-
-    animator.addAnimation("levelOneSpawn", 0.1f, Animation.PlayMode.NORMAL);
-
-     */
 
 
 
@@ -93,22 +91,22 @@ public class PlayerFactory {
             .addComponent(new PlayerActions(levelGameArea.getLevelDefinition()))
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
             .addComponent(new InventoryComponent(stats.gold))
-            //.addComponent(new StatusEffectsController()) /** Added a new StatusEffects Component */
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(aiComponent)
-                                                                                                  // Added in to allow                                          // for collision controlled jumping
-            .addComponent(new PlayerMovementComponent(PhysicsLayer.OBSTACLE, mapInteractables, levelGameArea)); // Added in to allow
-                                                                                  // for collision controlled jumping
-                                                    // Recently added mapInteractables for interactable functionality
+            .addComponent(new PlayerMovementComponent(PhysicsLayer.OBSTACLE, mapInteractables, levelGameArea))
+            .addComponent(new StatusEffectTargetComponent())
+            .addComponent(new StatusEffectUIComponent());
 
 
 
-    PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
-    player.getComponent(ColliderComponent.class).setDensity(1.5f);
-    player.getComponent(AnimationRenderComponent.class).scaleEntity();
-    player.setScale(1.7f,1.3f);
+    PhysicsUtils.setScaledCollider(player, 0.8f, 0.7f);
+    player.getComponent(ColliderComponent.class).setDensity(0.4f);
+    //player.getComponent(AnimationRenderComponent.class).scaleEntity();
+    player.setScale(1.5f,1f);
     return player;
+
+
   }
 
   private PlayerFactory() {

@@ -73,7 +73,7 @@ public class PhysicsComponent extends Component {
     userData.entity = entity;
     body.setUserData(userData);
 
-    entity.getEvents().addListener("setPosition", (Vector2 pos) -> body.setTransform(pos, 0f));
+    entity.getEvents().addListener("setPosition", (Vector2 pos) -> body.setTransform(pos.cpy(), 0f));
   }
 
   /**
@@ -84,7 +84,7 @@ public class PhysicsComponent extends Component {
   public void earlyUpdate() {
     Vector2 bodyPos = body.getPosition();
     // Don't notify position changes due to physics
-    entity.setPosition(bodyPos, false);
+    entity.setPosition(bodyPos.cpy(), false);
   }
 
   @Override

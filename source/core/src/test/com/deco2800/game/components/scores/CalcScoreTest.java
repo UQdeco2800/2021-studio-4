@@ -4,8 +4,12 @@ import com.deco2800.game.extensions.GameExtension;
 import com.sun.source.tree.AssertTree;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
+import java.util.ArrayList;
+
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.mock;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -80,5 +84,35 @@ public class CalcScoreTest {
         } catch (IllegalArgumentException e) {
             assertTrue(true);
         }
+    }
+
+    /**
+     * Tests that all scores have two zeros at the end
+     */
+    @Test
+    public void doubleZeroTest() {
+        CalcScore calcScore = new CalcScore();
+
+        ArrayList<String> arrayList = new ArrayList();
+
+        int time1 = calcScore.calculateScore(10);
+        int time2 = calcScore.calculateScore(70);
+        int time3 = calcScore.calculateScore(144);
+        String string1 = Integer.toString(time1);
+        String string2 = Integer.toString(time2);
+        String string3 = Integer.toString(time3);
+        arrayList.add(string1);
+        arrayList.add(string2);
+        arrayList.add(string3);
+
+        for (String string : arrayList) {
+            if (string.charAt(string.length() - 1) != '0') {
+                Assertions.fail();
+            }
+            if (string.charAt(string.length() - 2) != '0') {
+                Assertions.fail();
+            }
+        }
+        assertTrue(true);
     }
 }

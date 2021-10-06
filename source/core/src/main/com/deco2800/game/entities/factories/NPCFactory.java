@@ -3,16 +3,18 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.npc.GhostAnimationController;
 import com.deco2800.game.components.TouchAttackComponent;
-import com.deco2800.game.components.npc.StatusEffectsController;
+import com.deco2800.game.components.npc.StatusEffectController;
 import com.deco2800.game.components.npc.TheVoidController;
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.components.tasks.StatusEffectTasks;
 import com.deco2800.game.components.tasks.TheVoidTasks;
 import com.deco2800.game.components.tasks.WanderTask;
+import com.deco2800.game.effects.StatusEffect;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
 import com.deco2800.game.files.FileLoader;
@@ -23,11 +25,7 @@ import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
-import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
@@ -100,10 +98,9 @@ public class NPCFactory {
   /**
    * Creates a statusEffect (PowerUp) entity.
    *
-   * @param target entity to calculate distance from
    * @return entity
    */
-  public static Entity createStatusEffect(Entity target, String effect) {
+  public static Entity createStatusEffect(StatusEffect effect) {
     AITaskComponent aiComponent =
             new AITaskComponent()
                     .addTask(new StatusEffectTasks());
@@ -113,32 +110,24 @@ public class NPCFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
-
-                            .getAsset("images/Pick_Ups.atlas", TextureAtlas.class));
-    animator.addAnimation(effect, 0.1f, Animation.PlayMode.LOOP);
-
-//    AnimationRenderComponent animator =
-//            new AnimationRenderComponent(
-//                    ServiceLocator.getResourceService().getAsset("images/testingenemy.atlas", TextureAtlas.class));
-//    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
+                            .getAsset(effect.getGroundAnimationAtlas(), TextureAtlas.class));
+    animator.addAnimation(effect.getGroundAnimationName(), 0.1f, Animation.PlayMode.LOOP);
 
     Entity statusEffect = new Entity();
-    StatusEffectConfig config = configs.statusEffect;
 
     statusEffect
-            //.addComponent(new PhysicsMovementComponent())
             .addComponent(new PhysicsComponent())
-            .addComponent(new StatusEffectsController(target, effect))
-            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC)) // DO we need all of these???????
-            .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(new StatusEffectController(effect))
+            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
             .addComponent(new ColliderComponent())
             .addComponent(aiComponent)
             .addComponent(animator);
 
-    //statusEffect.getComponent(AnimationRenderComponent.class).scaleEntity(); // Don't understand but throws
-                                                                               // NullPointerException
     statusEffect.setScale(0.5f,0.5f);
+    statusEffect.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
+    PhysicsUtils.setScaledCollider(statusEffect, 0.5f,0.5f);
+
+    System.out.println(statusEffect);
 
     return statusEffect;
   }
