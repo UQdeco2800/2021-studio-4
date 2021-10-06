@@ -84,7 +84,8 @@ public class MainGameScreen extends ScreenAdapter {
     ServiceLocator.registerCamera(renderer.getCamera());
 
     loadAssets();
-   /* new java.util.Timer().schedule(
+   /*
+    new java.util.Timer().schedule(
             new java.util.TimerTask() {
               @Override
               public void run() {
