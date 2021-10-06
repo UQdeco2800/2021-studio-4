@@ -74,16 +74,19 @@ public class LoadingScreenDisplay extends UIComponent {
         music.playMusicSingleton("sounds/MainMenuMusic.mp3");
     }*/
     public String randomMessage() {
+        /* Modified with changes from Stacksoverflow:
+        https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-java*/
         Random rand = new Random();
-        int max = 20;
-        int min = 1;
-        int randomNum = rand.nextInt((max - min) + 1) + min;
+        int maxaximum = 20;
+        int minimum = 1;
+        int randomNum = rand.nextInt((maxaximum - minimum) + 1) + minimum;
         return terms[randomNum];
     }
     /**
      * Added Background image and initialised buttons
      */
     private void addActors() {
+        /* Docs on the stage use: https://www.tabnine.com/code/java/classes/com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle */
         Texture runtimeTitleTexture = new Texture(Gdx.files.internal("images/runtime-title.png"));
         Drawable runtimeTitleDrawable = new TextureRegionDrawable(new TextureRegion(runtimeTitleTexture));
         ImageButton runtimeTitle = new ImageButton(runtimeTitleDrawable);
