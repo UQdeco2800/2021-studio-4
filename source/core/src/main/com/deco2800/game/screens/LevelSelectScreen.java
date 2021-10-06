@@ -130,15 +130,15 @@ public class LevelSelectScreen extends ScreenAdapter {
         //long start = System.currentTimeMillis();
         //float sec = 0;
         /* global update button event listner passing into a different class */
-        if (levelDisplay.loadingScreen == true) {
-            ui.addComponent(new LoadingScreenDisplay());
-            logger.info("display loading screen");
+       // if (levelDisplay.loadingScreen == true) {
+           // ui.addComponent(new LoadingScreenDisplay());
+          //  logger.info("display loading screen");
             //while (sec < 5) {
             //    long end = System.currentTimeMillis();
            //     sec = (end - start) / 1000F;
            // }
            // game.setLevel(GdxGame.ScreenType.MAIN_GAME, levelDefinition);
-       }
+     //  }
         ui.addComponent(levelDisplay).
                 addComponent(new InputDecorator(stage, 10)).
                 addComponent(new LevelDisplayActions(game));
