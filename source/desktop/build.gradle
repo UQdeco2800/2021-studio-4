@@ -15,11 +15,11 @@ task run(dependsOn: classes, type: JavaExec) {
     /** If you use windows, please comment out the MAC one instead of deleting it. */
     // Windows jvmArgs.
 
-    jvmArgs = ["-Djava.util.logging.config.file=../../logging.properties"]
+    //jvmArgs = ["-Djava.util.logging.config.file=../../logging.properties"]
 
 
     // MAC jvmArgs.
-    //jvmArgs = jvmArgs = ["-Djava.util.logging.config.file=../../logging.properties", "-XstartOnFirstThread"]
+   // jvmArgs = jvmArgs = ["-Djava.util.logging.config.file=../../logging.properties", "-XstartOnFirstThread"]
 
 
     //jvmArgs = ["-Djava.util.logging.config.file=../../logging.properties", "-Xmx2G"]
@@ -27,7 +27,8 @@ task run(dependsOn: classes, type: JavaExec) {
     //jvmArgs = ["-Djava.util.logging.config.file=../../logging.properties", "-Xmx2G"]
 
     // MAC jvmArgs.
-    //jvmArgs = jvmArgs = ["-Djava.util.logging.config.file=../../logging.properties", "-Xmx2G", "-XstartOnFirstThread"]
+    //
+    jvmArgs = jvmArgs = ["-Djava.util.logging.config.file=../../logging.properties", "-Xmx2G", "-XstartOnFirstThread"]
 }
    
 
