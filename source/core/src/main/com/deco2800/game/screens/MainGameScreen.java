@@ -204,12 +204,12 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay());*/
 
-
+    if (loading == false) {
       ui.addComponent(new LoadingScreenDisplay());
       ServiceLocator.getEntityService().register(ui);
-
-      if (loading == false) {
-        ui.dispose();
+    }
+      if (loading == true) {
+       // ui.dispose();
         Entity ui2 = new Entity();
         ui2.addComponent(new InputDecorator(stage, 10))
                 .addComponent(new PerformanceDisplay())
@@ -219,7 +219,7 @@ public class MainGameScreen extends ScreenAdapter {
                 .addComponent(inputComponent)
                 .addComponent(new TerminalDisplay());
         ServiceLocator.getEntityService().register(ui2);
-        ServiceLocator.getEntityService().unregister(ui);
+        //ServiceLocator.getEntityService().unregister(ui);
       }
 
     }

@@ -112,10 +112,6 @@ public class LoadingScreenDisplay extends UIComponent {
 
 
 
-    /**
-     * Return Mute Button for testing purposes
-     * @return ImageButton MuteBtn
-     */
 
 
 
