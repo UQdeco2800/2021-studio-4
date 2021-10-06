@@ -61,7 +61,10 @@ public class LevelGameArea extends GameArea {
     "images/level1_background.jpg",
     "images/simple_player_animation.png",
     "images/testingrunningsprite.png",
-    "images/background_level1.jpg"
+    "images/background_level1.jpg",
+          "images/background_level2.jpg",
+          "images/background_level3NEW.png",
+          "images/background_level4.png"
   };
 
   private static final String[] gameTextureAtlases = {
@@ -89,13 +92,6 @@ public class LevelGameArea extends GameArea {
   gameSong.ending_menu, gameSong.game_level_2, gameSong.main_menu, gameSong.death_noise_2,
           gameSong.game_level_3};
 
-  /*private static final String backgroundMusic = "sounds/BackingMusicWithDrums.mp3";
-  private static final String[] gameMusic = {"sounds/BackingMusicWithDrums.mp3",
-          "sounds/CLICK_Click.mp3", "sounds/End credits.mp3", "sounds/ENEMY_Collision.mp3",
-          "sounds/Enemy_Little enemy wobble sound.mp3", "sounds/OBSTACLE_Button.mp3",
-          "sounds/OBSTACLE_Player Jumping", "sounds/PLAYER_Player Getting Power.mp3",
-          "sounds/PLAYER_Running Into.mp3", "sounds/VOID_LoseGame_VirusHit.mp3",
-          "sounds/VOID_void sound.mp3", "sounds/MainMenuMusic.mp3"};*/
 
 
   private final TerrainFactory terrainFactory;
@@ -122,15 +118,19 @@ public class LevelGameArea extends GameArea {
   public void init() {
 
     loadAssets();
-    displayBackground();
+    String levels = levelDefinition.getLevelFileName();
+    if (levels.equals("levels/level1.json")) {
+      displayBackground("images/background_level1.jpg");
+    } else if (levels.equals("levels/level2.json")) {
+      displayBackground("images/background_level2.jpg");
+    } else if (levels.equals("levels/level3.json")) {
+      displayBackground("images/background_level3NEW.png");
+    } else if (levels.equals("levels/level4.json")) {
+      displayBackground("images/background_level4.png");
+    }
     spawnTerrain();
     spawnLevelFromFile();
     mapInteractables();
-    //while (loading == true){
-    //  logger.info("Loading Screen is loading in!");
-     // displayLoadingScreen();
-        // add code to show the loading screen
-    //}
   }
 
   /**
@@ -156,12 +156,13 @@ public class LevelGameArea extends GameArea {
     String level = levelDefinition.getLevelFileName();
     if (level.equals("levels/level1.json")) {
       playTheMusic("game_level_1");
+    } else if (level.equals("levels/level2.json")) {
+      playTheMusic("level_2");
+    } else if (level.equals("levels/level3.json")) {
+      playTheMusic("level_3");
     } else if (level.equals("levels/level4.json")) {
       playTheMusic("level_1_2"); //replace with level 4 music when it's created
     }
-
-
-
 
     //spawnPlatform(8, 21, 5);
     //spawnDoor(9, 23, 5);
@@ -179,13 +180,22 @@ public class LevelGameArea extends GameArea {
     loading = false;
   }
 
-  private void displayBackground() {
+  private void displayBackground(String imagePath) {
     Entity background = new Entity();
-    background.addComponent(new BackgroundRenderComponent("images/background_level1.jpg"));
+    background.addComponent(new BackgroundRenderComponent(imagePath));
     spawnEntity(background);
   }
   private void displayLoadingScreen() {
-    Entity background = new Entity();
+    ResourceService resourceService = ServiceLocator.getResourceService();
+    String[] loadingTexture = { "images/button_exit.png"};
+    resourceService.loadTextures(loadingTexture );
+    while (!resourceService.loadForMillis(10)) {
+      // This could be upgraded to a loading screen
+      logger.info("Loading LoadingScreen texture... {}%", resourceService.getProgress());
+    }
+    Entity loadingScreen = new Entity();
+    loadingScreen.addComponent(new BackgroundRenderComponent("images/button_exit.png"));
+    spawnEntity(loadingScreen);
   }
 
   private void spawnTerrain() {

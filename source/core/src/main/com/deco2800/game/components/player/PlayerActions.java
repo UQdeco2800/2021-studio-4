@@ -10,6 +10,8 @@ import com.deco2800.game.effects.StatusEffect;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
+import com.deco2800.game.services.MusicService;
+import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
 
@@ -532,6 +534,10 @@ public class PlayerActions extends Component {
             this.playerState = PlayerState.AIR;
             body.applyForceToCenter(jumpSpeed, true);
             canJump = false;
+
+            /*MusicServiceDirectory directory = new MusicServiceDirectory();
+            MusicService jumpMusic = new MusicService(directory.click);
+            jumpMusic.changeVolume(0.7f);*/
         }
     }
   }

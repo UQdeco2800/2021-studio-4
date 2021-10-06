@@ -48,7 +48,7 @@ public class BackgroundRenderComponent extends RenderComponent {
     // Draw texture
     //batch.draw(texture, screenWidth/6, screenHeight/6, screenWidth, screenHeight);
     //batch.begin();
-    batch.draw(texture, -1, -2, screenWidth, screenHeight);
+    batch.draw(texture, -4, -2, screenWidth * 1.5f, screenHeight * 1.5f);
     //batch.draw(texture, -screenWidth/10, -screenHeight/10, screenWidth, screenHeight);
     //batch.end();
 
@@ -71,6 +71,7 @@ public class BackgroundRenderComponent extends RenderComponent {
     // Draw texture
     batch.draw(texture, position.x-(screenWidth/2), position.y-(screenHeight/2), screenWidth, screenHeight);*/
   }
+
 
   @Override
   public int getLayer() {
