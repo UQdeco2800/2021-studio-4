@@ -90,6 +90,7 @@ public class PlayerMovementComponent extends Component {
             if (jumpPadComponent != null) {
                 // Colliding with jumppad
                 playerActions.jumpPad();
+                target.getEvents().trigger("activate");
             }
 
             if (interactableComponent != null) {
