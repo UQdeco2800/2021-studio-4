@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
-import com.deco2800.game.components.loading.LoadingScreenDisplay;
 import com.deco2800.game.components.maingame.MainGameActions;
 import com.deco2800.game.components.player.KeyboardPlayerInputComponent;
 import com.deco2800.game.entities.Entity;
@@ -30,10 +29,6 @@ import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-import java.util.Timer;
-import java.util.TimerTask;
-
 import static com.deco2800.game.components.player.PlayerStatsDisplay.gameOver;
 
 /**
@@ -46,8 +41,7 @@ public class MainGameScreen extends ScreenAdapter {
   private static final String[] mainGameTextures = {"images/heart.png"};
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
 
-  private long start = System.currentTimeMillis();
-  private long end = start + 2*1000;
+
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
@@ -84,16 +78,7 @@ public class MainGameScreen extends ScreenAdapter {
     ServiceLocator.registerCamera(renderer.getCamera());
 
     loadAssets();
-   /* new java.util.Timer().schedule(
-            new java.util.TimerTask() {
-              @Override
-              public void run() {
-                createUI(false);
-              }
-            },
-            5000
-    );*/
-    createUI(true);
+    createUI();
 
     logger.debug("Initialising main game screen entities");
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
@@ -186,44 +171,21 @@ public class MainGameScreen extends ScreenAdapter {
    * Creates the main game's ui including components for rendering ui elements to the screen and
    * capturing and handling ui input.
    */
-
-  private void createUI(boolean loading)  {
+  private void createUI() {
     logger.debug("Creating ui");
-
     Stage stage = ServiceLocator.getRenderService().getStage();
-    boolean displayLoading = false;
     InputComponent inputComponent =
-            ServiceLocator.getInputService().getInputFactory().createForTerminal();
-    Entity ui = new Entity();
+        ServiceLocator.getInputService().getInputFactory().createForTerminal();
 
-   /* ui.addComponent(new InputDecorator(stage, 10))
+    Entity ui = new Entity();
+    ui.addComponent(new InputDecorator(stage, 10))
         .addComponent(new PerformanceDisplay())
         .addComponent(new MainGameActions(this.game))
         .addComponent(new MainGameExitDisplay())
         .addComponent(new Terminal())
         .addComponent(inputComponent)
-        .addComponent(new TerminalDisplay());*/
+        .addComponent(new TerminalDisplay());
 
-
-      ui.addComponent(new LoadingScreenDisplay());
-      ServiceLocator.getEntityService().register(ui);
-
-      if (loading == false) {
-        ui.dispose();
-        Entity ui2 = new Entity();
-        ui2.addComponent(new InputDecorator(stage, 10))
-                .addComponent(new PerformanceDisplay())
-                .addComponent(new MainGameActions(this.game))
-                .addComponent(new MainGameExitDisplay())
-                .addComponent(new Terminal())
-                .addComponent(inputComponent)
-                .addComponent(new TerminalDisplay());
-        ServiceLocator.getEntityService().register(ui2);
-        ServiceLocator.getEntityService().unregister(ui);
-      }
-
-    }
+    ServiceLocator.getEntityService().register(ui);
   }
-
-
-
+}

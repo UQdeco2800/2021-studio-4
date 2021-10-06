@@ -43,7 +43,7 @@ public class MusicSingleton {
         if (mute.getMute() == false) {
             Music music = ServiceLocator.getResourceService().getAsset(filename, Music.class);
             music.setLooping(true);
-            music.setVolume(0.2f);
+            music.setVolume(0.3f);
             music.play();
         }
 

@@ -63,7 +63,7 @@ public class MusicService {
         /* If the mute button is off, play the music otherwise do nothing. */
         if (mute.getMute() == false) {
             music.setLooping(true);
-            music.setVolume(0.2f);
+            music.setVolume(0.3f);
             music.play();
         }
     }
