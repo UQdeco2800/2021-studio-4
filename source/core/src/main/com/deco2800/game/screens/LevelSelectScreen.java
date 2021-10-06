@@ -3,14 +3,8 @@ package com.deco2800.game.screens;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
-import javax.swing.Timer;
-
-import com.deco2800.game.areas.LevelGameArea;
-import com.deco2800.game.components.endgame.DeathScreenActions;
-import com.deco2800.game.components.endgame.DeathScreenDisplay;
 import com.deco2800.game.components.levelselect.LevelDisplay;
 import com.deco2800.game.components.levelselect.LevelDisplayActions;
-import com.deco2800.game.components.loading.LoadingScreenDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -23,9 +17,6 @@ import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
 /**
@@ -88,7 +79,7 @@ public class LevelSelectScreen extends ScreenAdapter {
     }
 
     private void loadAssets() {
-        logger.debug("This ONE!");
+
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(levelSelectMenuTextures);
@@ -97,16 +88,7 @@ public class LevelSelectScreen extends ScreenAdapter {
 
         while (!resourceService.loadForMillis(10)) {
             // This could be upgraded to a loading screen
-            Stage stage = ServiceLocator.getRenderService().getStage();
-            Entity ui = new Entity();
-            ui.addComponent(new LoadingScreenDisplay());
-            ServiceLocator.getEntityService().register(ui);
-            logger.info("LoadingScreen");
-            logger.info("Loading... {}% MMM", resourceService.getProgress());
-            logger.info("Loading... {}% MMM", resourceService.getProgress());
-            logger.info("Loading... {}% MMM", resourceService.getProgress());
-
-            //logger.info(String.valueOf(LevelDisplay.selected));
+            logger.info("Loading... {}%", resourceService.getProgress());
         }
 
     }
@@ -126,28 +108,10 @@ public class LevelSelectScreen extends ScreenAdapter {
         logger.debug("Creating ui");
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
-        LevelDisplay levelDisplay = new LevelDisplay();
-        //long start = System.currentTimeMillis();
-        //float sec = 0;
-        /* global update button event listner passing into a different class */
-        if (levelDisplay.loadingScreen == true) {
-            ui.addComponent(new LoadingScreenDisplay());
-            logger.info("display loading screen");
-            //while (sec < 5) {
-            //    long end = System.currentTimeMillis();
-           //     sec = (end - start) / 1000F;
-           // }
-           // game.setLevel(GdxGame.ScreenType.MAIN_GAME, levelDefinition);
-       }
-        ui.addComponent(levelDisplay).
-                addComponent(new InputDecorator(stage, 10)).
-                addComponent(new LevelDisplayActions(game));
+        ui.addComponent(new LevelDisplay())
+                .addComponent(new InputDecorator(stage, 10))
+                .addComponent(new LevelDisplayActions(game));
         ServiceLocator.getEntityService().register(ui);
-
     }
 
-
-
-    }
-
-
+}

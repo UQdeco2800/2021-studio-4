@@ -3,8 +3,6 @@ package com.deco2800.game.screens;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.components.endgame.DeathScreenActions;
-import com.deco2800.game.components.loading.LoadingScreenDisplay;
 import com.deco2800.game.components.mainmenu.MainMenuActions;
 import com.deco2800.game.components.mainmenu.MainMenuDisplay;
 import com.deco2800.game.entities.Entity;
@@ -92,8 +90,7 @@ public class MainMenuScreen extends ScreenAdapter {
 
     while (!resourceService.loadForMillis(10)) {
       // This could be upgraded to a loading screen
-
-      logger.info("Loading... {}% MMM", resourceService.getProgress());
+      logger.info("Loading... {}%", resourceService.getProgress());
     }
 
   }
