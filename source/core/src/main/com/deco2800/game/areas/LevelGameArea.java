@@ -131,11 +131,6 @@ public class LevelGameArea extends GameArea {
     spawnTerrain();
     spawnLevelFromFile();
     mapInteractables();
-    //while (loading == true){
-    //  logger.info("Loading Screen is loading in!");
-     // displayLoadingScreen();
-        // add code to show the loading screen
-    //}
   }
 
   /**
@@ -168,9 +163,6 @@ public class LevelGameArea extends GameArea {
     } else if (level.equals("levels/level4.json")) {
       playTheMusic("level_1_2"); //replace with level 4 music when it's created
     }
-
-
-
 
     //spawnPlatform(8, 21, 5);
     //spawnDoor(9, 23, 5);
