@@ -32,6 +32,7 @@ public class LoadingScreenDisplay extends UIComponent {
     private String loadingText;
     private int loadingPercentage;
     private String[] terms;
+    Random rand = new Random();
 
 
     /**
@@ -76,7 +77,6 @@ public class LoadingScreenDisplay extends UIComponent {
     public String randomMessage() {
         /* Modified with changes from Stacksoverflow:
         https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-java*/
-        Random rand = new Random();
         int maxaximum = 20;
         int minimum = 1;
         int randomNum = rand.nextInt((maxaximum - minimum) + 1) + minimum;

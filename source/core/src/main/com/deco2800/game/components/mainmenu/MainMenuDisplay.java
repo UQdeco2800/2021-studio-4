@@ -175,7 +175,7 @@ public class MainMenuDisplay extends UIComponent {
         }
 
         //Sets the size and position of the button after texture applied, for Mute and Currently Muted both.
-        muteBtn.setBounds(screenRight,centreHeight - heightDifference,
+        muteBtn.setBounds(screenRight,(float)(centreHeight - heightDifference),
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         /**

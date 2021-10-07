@@ -183,11 +183,11 @@ public class ScoreDisplay extends UIComponent {
         /**
          * Sets the position of the label.
          */
-        levelLabel.setBounds(CenterLevelTextWidth - 100,400,
+        levelLabel.setBounds((float)(CenterLevelTextWidth - 100),400,
                 textDimenstionWidth,textDimenstionHeight);
-        scoreLabel.setBounds(CenterScoreTextWidth + 100,400,
+        scoreLabel.setBounds((float)(CenterScoreTextWidth + 100),400,
                 textDimenstionWidth,textDimenstionHeight);
-        congratsLabel.setBounds(CenterLevelTextWidth - 100, 560,
+        congratsLabel.setBounds((float)(CenterLevelTextWidth - 100), 560,
                 textDimenstionWidth, textDimenstionHeight);
 
         int imageWidth = Gdx.graphics.getWidth()/2;

@@ -120,7 +120,7 @@ public class LevelDisplay extends UIComponent {
                     pathName = pathName + "level-1.png";
                     hoverPathName = hoverPathName + "level-1-hovered.png";
                     posX = middleX;
-                    posY = posY;
+                    //posY = posY;
                     break;
                 case ("Level 2"):
                     pathName = pathName + "level-2.png";
