@@ -86,15 +86,12 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Creates the 'RUNTIME' title texture.
          */
-        Texture runtimeTitleTexture = new Texture(Gdx.files.internal("images/runtime-title.png"));
-        Drawable runtimeTitleDrawable = new TextureRegionDrawable(new TextureRegion(runtimeTitleTexture));
-        ImageButton runtimeTitle = new ImageButton(runtimeTitleDrawable);
-        /**
-         * Sets the size and position of the Runtime Title after texture applied.
-         */
-        runtimeTitle.setBounds(titleWidth, titleHeight,
+        String titleMainImage = "images/runtime-title.png";
+        String titleHoverImage = "images/runtime-on-hover.png";
+        ImageButton runtimeTitle;
+        runtimeTitle = insImage.setImage(titleMainImage, titleHoverImage,
+                titleWidth, titleHeight,
                 titleWidthDimension, titleHeightDimension);
-        runtimeTitle.setDisabled(true);
 
 
 //        /**
