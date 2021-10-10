@@ -2,9 +2,12 @@ package com.deco2800.game.components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 /**
@@ -37,5 +40,13 @@ public class InsertImageButton {
                 Width, height);
 
         return buttonImage;
+    }
+
+    public Table setTable(String backgroundImage) {
+        Table table = new Table();
+        table.setFillParent(true);
+        Sprite sprite = new Sprite(new Texture(backgroundImage));
+        table.setBackground(new SpriteDrawable(sprite)); // Set background
+        return table;
     }
 }

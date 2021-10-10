@@ -30,7 +30,6 @@ public class ScoreDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(ScoreDisplay.class);
     private static final float Z_INDEX = 2f;
     private Table table;
-    private Sprite sprite;
     private Label scoreLabel; // Shows the score.
     private Label levelLabel; // Shows the current level.
     private Label congratsLabel; // Shows the congratulations text.
@@ -89,12 +88,9 @@ public class ScoreDisplay extends UIComponent {
      * Added Background image and initialised buttons
      */
     private void addActors() {
-        table = new Table();
-        table.setFillParent(true);
-        sprite = new Sprite(new Texture("images/score_screen_guide.png"));
-        table.setBackground(new SpriteDrawable(sprite)); // Set background
-
         InsertImageButton insImage = new InsertImageButton();
+
+        table = insImage.setTable("images/score_screen_guide.png");
 
         int centreWidth1 = Gdx.graphics.getWidth()/2;
         int centreHeight1 = Gdx.graphics.getHeight()/2;

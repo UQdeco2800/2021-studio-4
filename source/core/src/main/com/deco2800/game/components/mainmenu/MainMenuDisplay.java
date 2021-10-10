@@ -50,13 +50,9 @@ public class MainMenuDisplay extends UIComponent {
      * Added Background image and initialised buttons
      */
     private void addActors() {
-
-        table = new Table();
-        table.setFillParent(true);
-        Sprite sprite = new Sprite(new Texture("images/title-screen.png"));
-        table.setBackground(new SpriteDrawable(sprite)); // Set background
-
         InsertImageButton insImage = new InsertImageButton();
+
+        table = insImage.setTable("images/title-screen.png");
 
         /**
          * Creates the button size and position based off

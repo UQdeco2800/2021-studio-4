@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
+import com.deco2800.game.components.InsertImageButton;
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.ui.UIComponent;
@@ -32,10 +33,9 @@ public class DeathScreenDisplay extends UIComponent {
      * Add death screen image, exit and retry buttons.
      */
     private void addActors() {
-        table = new Table();
-        table.setFillParent(true);
-        sprite = new Sprite(new Texture("images/death-screen-background.png"));
-        table.setBackground(new SpriteDrawable(sprite)); // Set background.
+
+        InsertImageButton insImage = new InsertImageButton();
+        table = insImage.setTable("images/death-screen-background.png");
 
         // Add exit button to go back to main menu.
         TextButton exitBtn = new TextButton("Exit", skin);
