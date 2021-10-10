@@ -53,11 +53,9 @@ public class LevelDisplay extends UIComponent {
      * Add level select screen image and buttons.
      */
     private void addActors() {
-        table = new Table();
-        table.setFillParent(true);
-        sprite = new Sprite(new Texture("images/title_screen_clean.png"));
-        table.setBackground(new SpriteDrawable(sprite)); // Set background.
         InsertImageButton insImage = new InsertImageButton();
+
+        table = insImage.setTable("images/title_screen_clean.png");
 
         int centreWidth1 = Gdx.graphics.getWidth()/2;
         int centreHeight1 = Gdx.graphics.getHeight()/2;
