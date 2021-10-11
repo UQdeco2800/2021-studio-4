@@ -55,7 +55,7 @@ public class LevelDisplay extends UIComponent {
     private void addActors() {
         table = new Table();
         table.setFillParent(true);
-        sprite = new Sprite(new Texture("images/title_screen_clean.png"));
+        sprite = new Sprite(new Texture("ui-elements/title_screen_clean.png"));
         table.setBackground(new SpriteDrawable(sprite)); // Set background.
         InsertImageButton insImage = new InsertImageButton();
 
@@ -75,7 +75,7 @@ public class LevelDisplay extends UIComponent {
         /**
          * Creates the button texture for the Exit Button.
          */
-        String titleImage = "images/levels-heading.png";
+        String titleImage = "ui-elements/levels-heading.png";
         ImageButton titleBtn;
         titleBtn = insImage.setImage(titleImage, titleImage,
                 centreTitleWidth,centreTitleHeight,
@@ -84,8 +84,8 @@ public class LevelDisplay extends UIComponent {
         /**
          * Creates the button texture for the Exit Button.
          */
-        String exitMainImage = "images/default_buttons/exit-button.png";
-        String exitHoverImage = "images/hovered-buttons/exit-button-hovered.png";
+        String exitMainImage = "ui-elements/default_buttons/exit-button.png";
+        String exitHoverImage = "ui-elements/hovered-buttons/exit-button-hovered.png";
         ImageButton exitBtn;
         exitBtn = insImage.setImage(exitMainImage, exitHoverImage,
                 centreWidth,centreHeight-height105Percent,
@@ -107,8 +107,8 @@ public class LevelDisplay extends UIComponent {
         // List all the files in the levels folder and create a button for each
         for (LevelDefinition level : LevelDefinition.values()) {
 
-            String pathName = "images/levels-screen-buttons/";
-            String hoverPathName = "images/levels-screen-buttons/";
+            String pathName = "ui-elements/levels-screen-buttons/";
+            String hoverPathName = "ui-elements/levels-screen-buttons/";
             int posX = centreWidth1;
             int posY = centreHeight1;
             int widthX = centreWidth1/3; // Sets buttons dimensions

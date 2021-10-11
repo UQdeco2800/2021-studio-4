@@ -48,36 +48,34 @@ public class LevelGameArea extends GameArea {
   public List<ObstacleEntity> interactableEntities = new ArrayList<>();
 
   private static final String[] gameTextures = {
-    "images/game_background.png",
+    "backgrounds/game_background.png",
     "map-textures/marker_cross.png",
     "map-textures/marker_o.png",
     "map-textures/end_portal.png",
-    "images/animatedvoid.png",
-    "images/void_spritesheet2.png",
-    "images/Pick_Ups.png",
-    "images/portal-door.png",
-    "images/jumppad.png",
-    "images/button.png",
-    "images/level1_background.jpg",
-    "images/simple_player_animation.png",
-    "images/testingrunningsprite.png",
-    "images/background_level1.jpg",
-          "images/background_level2.jpg",
-          "images/background_level3NEW.png",
-          "images/background_level4.png"
+    "void/animatedvoid.png",
+    "void/void_spritesheet2.png",
+    "powerups/Pick_Ups.png",
+    "map-textures/portal-door.png",
+    "backgrounds/level1_background.jpg",
+    "player/simple_player_animation.png",
+    "player/testingrunningsprite.png",
+    "spawn-animations/spawn_portal.png",
+    "spawn-animations/levelOneSpawn.png",
+    "spawn-animations/spawnAnimationOne.png",
+    "backgrounds/background_level1.jpg",
+          "backgrounds/background_level2.jpg",
+          "backgrounds/background_level3.png",
+          "backgrounds/background_level4.png"
   };
 
   private static final String[] gameTextureAtlases = {
     "map-spritesheets/mapTextures.atlas",
-    "images/void.atlas",
-    "images/Pick_Ups.atlas",
-    "images/portal-door.atlas",
-    "images/jumppad.atlas",
-    "images/button.atlas",
-    "images/walking_sprite.atlas",
-    "images/testingrunning.atlas",
-    "images/simple_player_sprite.atlas",
-    "powerup-ui-spritesheets/bomb-item.atlas",
+    "void/void.atlas",
+    "powerups/Pick_Ups.atlas",
+    "map-textures/portal-door.atlas",
+    "player/testingrunning.atlas",
+    "player/simple_player_sprite.atlas",
+    "powerup-ui-spritesheets/bomb_item.atlas",
     "powerup-ui-spritesheets/jump_boost.atlas",
     "powerup-ui-spritesheets/lightning.atlas",
     "powerup-ui-spritesheets/speed_decrease.atlas",
@@ -120,13 +118,13 @@ public class LevelGameArea extends GameArea {
     loadAssets();
     String levels = levelDefinition.getLevelFileName();
     if (levels.equals("levels/level1.json")) {
-      displayBackground("images/background_level1.jpg");
+      displayBackground("backgrounds/background_level1.jpg");
     } else if (levels.equals("levels/level2.json")) {
-      displayBackground("images/background_level2.jpg");
+      displayBackground("backgrounds/background_level2.jpg");
     } else if (levels.equals("levels/level3.json")) {
-      displayBackground("images/background_level3NEW.png");
+      displayBackground("backgrounds/background_level3.png");
     } else if (levels.equals("levels/level4.json")) {
-      displayBackground("images/background_level4.png");
+      displayBackground("backgrounds/background_level4.png");
     }
     spawnTerrain();
     spawnLevelFromFile();
@@ -185,16 +183,18 @@ public class LevelGameArea extends GameArea {
     background.addComponent(new BackgroundRenderComponent(imagePath));
     spawnEntity(background);
   }
+
+
   private void displayLoadingScreen() {
     ResourceService resourceService = ServiceLocator.getResourceService();
-    String[] loadingTexture = { "images/button_exit.png"};
+    String[] loadingTexture = { "images/button_exit.png"}; //Update this to be correct path once implemented
     resourceService.loadTextures(loadingTexture );
     while (!resourceService.loadForMillis(10)) {
       // This could be upgraded to a loading screen
       logger.info("Loading LoadingScreen texture... {}%", resourceService.getProgress());
     }
     Entity loadingScreen = new Entity();
-    loadingScreen.addComponent(new BackgroundRenderComponent("images/button_exit.png"));
+    loadingScreen.addComponent(new BackgroundRenderComponent("images/button_exit.png")); //update to be correct path
     spawnEntity(loadingScreen);
   }
 

@@ -25,7 +25,7 @@ public class ScoreScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(ScoreScreen.class);
     private final GdxGame game;
     private final Renderer renderer;
-    private static final String[] scoreScreenTextures = {"images/title_screen_clean.png"};
+    private static final String[] scoreScreenTextures = {"ui-elements/title_screen_clean.png"};
     private static final MusicServiceDirectory mainMenuSong = new MusicServiceDirectory();
     private static final String[] MainMenuMusic = {mainMenuSong.main_menu};
     private LevelDefinition levelDefinition;

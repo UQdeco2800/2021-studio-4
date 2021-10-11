@@ -91,7 +91,7 @@ public class ScoreDisplay extends UIComponent {
     private void addActors() {
         table = new Table();
         table.setFillParent(true);
-        sprite = new Sprite(new Texture("images/score_screen_guide.png"));
+        sprite = new Sprite(new Texture("ui-elements/score_screen_guide.png"));
         table.setBackground(new SpriteDrawable(sprite)); // Set background
 
         InsertImageButton insImage = new InsertImageButton();
@@ -107,8 +107,8 @@ public class ScoreDisplay extends UIComponent {
         /**
          * Creates the button texture for the Exit Button.
          */
-        String exitMainImage = "images/default_buttons/exit-button.png";
-        String exitHoverImage = "images/hovered-buttons/exit-button-hovered.png";
+        String exitMainImage = "ui-elements/default_buttons/exit-button.png";
+        String exitHoverImage = "ui-elements/hovered-buttons/exit-button-hovered.png";
         ImageButton exitBtn;
         exitBtn = insImage.setImage(exitMainImage, exitHoverImage,
                 centreWidth,centreHeight-height105Percent,
@@ -194,7 +194,7 @@ public class ScoreDisplay extends UIComponent {
         /**
          * Creates the 'SCOREDISPLAY' title texture.
          */
-        Texture scoreDisplay = new Texture(Gdx.files.internal("images/scores-title.png"));
+        Texture scoreDisplay = new Texture(Gdx.files.internal("ui-elements/scores-title.png"));
         Drawable scoreDisplayDrawable = new TextureRegionDrawable(new TextureRegion(scoreDisplay));
         Image scoreDisplayTitle = new Image(scoreDisplayDrawable);
         scoreDisplayTitle.setBounds(Gdx.graphics.getWidth()/2 - imageWidth/2,Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/5,
