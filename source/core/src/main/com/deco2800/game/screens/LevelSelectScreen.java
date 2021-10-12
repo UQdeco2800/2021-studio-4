@@ -35,7 +35,7 @@ public class LevelSelectScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(LevelSelectScreen.class);
     private final GdxGame game;
     private final Renderer renderer;
-    private static final String[] levelSelectMenuTextures = {"images/LevelSelectScreenPlaceholder.png"};
+    private static final String[] levelSelectMenuTextures = {"ui-elements/LevelSelectScreenPlaceholder.png"};
     private static final MusicServiceDirectory mainMenuSong = new MusicServiceDirectory();
     private static final String[] MainMenuMusic = {mainMenuSong.main_menu};
 

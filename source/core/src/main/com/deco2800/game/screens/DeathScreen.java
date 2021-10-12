@@ -22,7 +22,7 @@ public class DeathScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(DeathScreen.class);
     private final GdxGame game;
     private final Renderer renderer;
-    private static final String[] DeathScreenTextures = {"images/FailScreenPlaceholder.png"};
+    private static final String[] DeathScreenTextures = {"ui-elements/FailScreenPlaceholder.png"};
     private static final MusicServiceDirectory deathSong = new MusicServiceDirectory();
     private static final String[] DeathMusic = {deathSong.death_noise_2};
 

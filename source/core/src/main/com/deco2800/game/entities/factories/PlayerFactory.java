@@ -53,7 +53,7 @@ public class PlayerFactory {
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
-                    ServiceLocator.getResourceService().getAsset("images/simple_player_sprite.atlas", TextureAtlas.class));
+                    ServiceLocator.getResourceService().getAsset("player/simple_player_sprite.atlas", TextureAtlas.class));
 
     animator.addAnimation("spawn_level1", 0.1f, Animation.PlayMode.NORMAL);
     animator.addAnimation("portal_flip", 0.1f, Animation.PlayMode.NORMAL);
