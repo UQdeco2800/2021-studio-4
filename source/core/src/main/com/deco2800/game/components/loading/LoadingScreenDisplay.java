@@ -87,7 +87,7 @@ public class LoadingScreenDisplay extends UIComponent {
      */
     private void addActors() {
         /* Docs on the stage use: https://www.tabnine.com/code/java/classes/com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle */
-        Texture runtimeTitleTexture = new Texture(Gdx.files.internal("images/runtime-title.png"));
+        Texture runtimeTitleTexture = new Texture(Gdx.files.internal("ui-elements/runtime-title.png"));
         Drawable runtimeTitleDrawable = new TextureRegionDrawable(new TextureRegion(runtimeTitleTexture));
         ImageButton runtimeTitle = new ImageButton(runtimeTitleDrawable);
         String loadingText2 = randomMessage();
@@ -102,7 +102,7 @@ public class LoadingScreenDisplay extends UIComponent {
         label.setAlignment(Align.center);
 
        // TextureRegionDrawable textureRegionDrawable = new TextureRegionDrawable(new TextureRegion(bground));
-        Sprite sprite = new Sprite(new Texture("images/loading_screen_background.png"));
+        Sprite sprite = new Sprite(new Texture("ui-elements/loading_screen_background.png"));
         table.setBackground(new SpriteDrawable(sprite));
         loadingText = "Game is loading! Enjoy";
         table.add(label).center().width(100).height(100);;

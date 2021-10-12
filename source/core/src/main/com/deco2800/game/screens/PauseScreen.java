@@ -22,7 +22,7 @@ public class PauseScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(PauseScreen.class);
   private final GdxGame game;
   private final Renderer renderer;
-  private static final String[] PauseScreenTextures = {"images/death-screen-background.png"};
+  private static final String[] PauseScreenTextures = {"ui-elements/death-screen-background.png"};
 
   public PauseScreen(GdxGame game) {
     this.game = game;
