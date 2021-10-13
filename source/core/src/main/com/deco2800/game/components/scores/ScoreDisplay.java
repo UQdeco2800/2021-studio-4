@@ -90,7 +90,7 @@ public class ScoreDisplay extends UIComponent {
     private void addActors() {
         InsertImageButton insImage = new InsertImageButton();
 
-        table = insImage.setTable("images/score_screen_guide.png");
+        table = insImage.setTable("ui-elements/score_screen_guide.png");
 
         int centreWidth1 = Gdx.graphics.getWidth()/2;
         int centreHeight1 = Gdx.graphics.getHeight()/2;

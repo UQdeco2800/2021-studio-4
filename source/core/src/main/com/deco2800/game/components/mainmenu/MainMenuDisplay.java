@@ -52,7 +52,7 @@ public class MainMenuDisplay extends UIComponent {
     private void addActors() {
         InsertImageButton insImage = new InsertImageButton();
 
-        table = insImage.setTable("images/title-screen.png");
+        table = insImage.setTable("ui-elements/title-screen.png");
 
         /**
          * Creates the button size and position based off
