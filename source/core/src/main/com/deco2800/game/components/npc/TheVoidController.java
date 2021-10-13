@@ -123,18 +123,20 @@ public class TheVoidController extends Component {
              if (distance_from_player > (float)0.01) {
                  float change1 = abs(1 - distance_from_player);
                  if (change1 > (float)1) {
-                     musicService.changeVolume((float)0.2);
+                     musicService.playSong(false, 0.2f);
                  } else {
-                     musicService.changeVolume((float)0.4);
+                     musicService.playSong(false, 0.4f);
 
                  }
              }
              else if (distance_from_player < (float)0.99) {
                  float change2 = abs(1 - distance_from_player);
                  if (change2 > (float)1) {
-                     musicService.changeVolume((float)0.9);
+                     //musicService.changeVolume((float)0.9);
+                     musicService.playSong(false, 0.9f);
                  } else {
-                     musicService.changeVolume((float)0.6);
+                     //musicService.changeVolume((float)0.6);
+                     musicService.playSong(false, 0.6f);
                  }
              }
     }

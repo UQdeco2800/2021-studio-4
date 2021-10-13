@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.components.InsertImageButton;
 import com.deco2800.game.levels.LevelDefinition;
 import com.deco2800.game.services.MusicService;
+import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -244,8 +245,11 @@ public class ScoreDisplay extends UIComponent {
      * Play the music
      */
     public void playTheMusic() {
-        MusicService musicScreen = new MusicService("sounds/MainMenuMusic.mp3");
-        musicScreen.playMusic();
+        //MusicService musicScreen = new MusicService("sounds/MainMenuMusic.mp3");
+        //musicScreen.playMusic();
+        MusicServiceDirectory menuSong = new MusicServiceDirectory();
+        MusicService menuMusic = new MusicService(menuSong.main_menu);
+        menuMusic.playSong(true, 0.2f);
     }
 
     @Override
