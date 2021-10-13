@@ -20,6 +20,9 @@ import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * A ui component for displaying the Main menu.
  */
@@ -280,7 +283,6 @@ public class MainMenuDisplay extends UIComponent {
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.info("Launching title Animation");
                         titlesAnimation();
-
                     }
                 });
 
@@ -300,33 +302,46 @@ public class MainMenuDisplay extends UIComponent {
      */
     private void titlesAnimation() {
 
+        int centreWidth = Gdx.graphics.getWidth()/2;
+        int centreHeight = Gdx.graphics.getHeight()/2;
+
         Image animationImage = new Image(new Texture("ui-elements/runtime-title.png")); // works as expected
-        animationImage.setBounds(120, 120, 120, 120);
-//        AnimationRenderComponent animator =
-//                new AnimationRenderComponent(
-//                        ServiceLocator.getResourceService()
-//                                .getAsset("images/void.atlas", TextureAtlas.class));
-//        animator.addAnimation("void", 0.1f, Animation.PlayMode.LOOP);
-//        animator.startAnimation("void");
+        animationImage.setBounds(centreWidth, centreHeight, 100, 100);
+        stage.addActor(animationImage);
+        moveAnimationImage(animationImage);
     }
 
-    private void loadAssets() {
-        logger.debug("Loading assets");
-        ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(gameTextures);
-        resourceService.loadTextureAtlases(gameTextureAtlases);
-
-        while (!resourceService.loadForMillis(10)) {
-            // This could be upgraded to a loading screen
-            logger.info("Loading... {}%", resourceService.getProgress());
+    /**
+     * moves the image around thew screen in a cool loop
+     * @param image
+     */
+    private void moveAnimationImage(Image image) {
+        //image.scaleBy(2);
+        Timer timer = new Timer();
+        long startTime = ServiceLocator.getTimeSource().getTime();
+        while (ServiceLocator.getTimeSource().getTimeSince(startTime) <= 3) {
+            changeSize(image);
         }
     }
 
-    private void unloadAssets() {
-        logger.debug("Unloading assets");
-        ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.unloadAssets(gameTextures);
-        resourceService.unloadAssets(gameTextureAtlases);
+    private void changeSize(Image image) {
+        int scalar = 20;
+        int centreWidth = Gdx.graphics.getWidth()/2;
+        int centreHeight = Gdx.graphics.getHeight()/2;
+
+        float width = image.getImageWidth() + scalar;
+        float height = image.getImageHeight() + scalar;
+
+        Timer speedBoostDuration = new Timer();
+        speedBoostDuration.schedule(
+                new TimerTask() {
+                    @Override
+                    public void run() {
+                        image.setBounds(centreWidth, centreHeight, width, height);
+                    }
+                },
+                1000
+        );
     }
 
     @Override
@@ -342,7 +357,6 @@ public class MainMenuDisplay extends UIComponent {
     @Override
     public void dispose() {
         table.clear();
-        unloadAssets();
         super.dispose();
     }
 }
