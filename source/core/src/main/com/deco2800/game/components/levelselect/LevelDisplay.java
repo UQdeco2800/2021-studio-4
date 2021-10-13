@@ -55,7 +55,7 @@ public class LevelDisplay extends UIComponent {
     private void addActors() {
         InsertImageButton insImage = new InsertImageButton();
 
-        table = insImage.setTable("images/title_screen_clean.png");
+        table = insImage.setTable("ui-elements/title_screen_clean.png");
 
         int centreWidth1 = Gdx.graphics.getWidth()/2;
         int centreHeight1 = Gdx.graphics.getHeight()/2;
