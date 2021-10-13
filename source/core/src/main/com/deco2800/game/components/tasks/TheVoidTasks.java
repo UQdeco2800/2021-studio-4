@@ -24,6 +24,7 @@ public class TheVoidTasks extends DefaultTask implements PriorityTask {
 
     public void update() {
         if (!paused) {
+            this.owner.getEntity().getEvents().trigger("UpdateSpeed");
             this.owner.getEntity().getEvents().trigger("TheVoidMove");
             this.owner.getEntity().getEvents().trigger("UpdateSound");
             this.owner.getEntity().getEvents().trigger("StopVoidIfPlayerDead");

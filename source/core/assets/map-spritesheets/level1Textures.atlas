@@ -1,81 +1,144 @@
-
-level1Textures.png
-size: 1024, 1024
+lvl1_texture.png
+size:8192,8192
 format: RGBA8888
-filter: Nearest, Nearest
-repeat: none
-level1Textures_Bridge
+filter: Nearest,Nearest
+repeat:none
+Level 1 Textures (Interactables)_Artboard 9 - Half Bottom
   rotate: false
-  xy: 2, 504
-  size: 500, 500
-  orig: 500, 500
-  offset: 0, 0
-  index: -1
-level1Textures_Half-Bottom
-  rotate: false
-  xy: 2, 2
-  size: 500, 500
-  orig: 500, 500
-  offset: 0, 0
-  index: -1
-level1Textures_Half-Top
-  rotate: false
-  xy: 504, 504
-  size: 500, 500
-  orig: 500, 500
-  offset: 0, 0
-  index: -1
-level1Textures_Middle-Platform
-  rotate: false
-  xy: 504, 2
-  size: 500, 500
-  orig: 500, 500
-  offset: 0, 0
-  index: -1
+   xy: 0, 0
+   size: 4167, 4167
+   orig: 4167, 4167
+   offset: 0, 0
+   index: 1
 
-level1Textures2.png
-size: 1024, 1024
+lvl1_texture2.png
+size:8192,8192
 format: RGBA8888
-filter: Nearest, Nearest
-repeat: none
-level1Textures_Platforms
+filter: Nearest,Nearest
+repeat:none
+Level 1 Textures (Interactables)_Artboard 8 - Middle Platform
   rotate: false
-  xy: 2, 504
-  size: 500, 500
-  orig: 500, 500
-  offset: 0, 0
-  index: -1
-mapTextures_Button-Off
-  rotate: false
-  xy: 2, 2
-  size: 500, 500
-  orig: 500, 500
-  offset: 0, 0
-  index: -1
-mapTextures_Button-On
-  rotate: false
-  xy: 504, 504
-  size: 500, 500
-  orig: 500, 500
-  offset: 0, 0
-  index: -1
-mapTextures_Jumppad-Opened
-  rotate: false
-  xy: 504, 169
-  size: 500, 333
-  orig: 500, 333
-  offset: 0, 0
-  index: -1
+   xy: 0, 0
+   size: 4167, 4167
+   orig: 4167, 4167
+   offset: 0, 0
+   index: 1
 
-level1Textures3.png
-size: 512, 512
+lvl1_texture3.png
+size:8192,8192
 format: RGBA8888
-filter: Nearest, Nearest
-repeat: none
-mapTextures_Jumppad-idle
+filter: Nearest,Nearest
+repeat:none
+Level 1 Textures (Interactables)_Artboard 10 - Half Top(1)
   rotate: false
-  xy: 2, 2
-  size: 500, 333
-  orig: 500, 333
-  offset: 0, 0
-  index: -1
+   xy: 0, 0
+   size: 4167, 4167
+   orig: 4167, 4167
+   offset: 0, 0
+   index: 1
+
+lvl1_texture4.png
+size:8192,8192
+format: RGBA8888
+filter: Nearest,Nearest
+repeat:none
+Level 1 Textures (Interactables)_Artboard 10 - Half Top
+  rotate: false
+   xy: 0, 0
+   size: 4167, 4167
+   orig: 4167, 4167
+   offset: 0, 0
+   index: 1
+
+lvl1_texture5.png
+size:8192,8192
+format: RGBA8888
+filter: Nearest,Nearest
+repeat:none
+Level 1 Textures (Basic)_Artboard 10 - Half Top
+  rotate: false
+   xy: 0, 0
+   size: 4167, 4167
+   orig: 4167, 4167
+   offset: 0, 0
+   index: 1
+
+lvl1_texture6.png
+size:8192,8192
+format: RGBA8888
+filter: Nearest,Nearest
+repeat:none
+Level 1 Textures (Basic)_Artboard 8 - Middle Platform
+  rotate: false
+   xy: 0, 0
+   size: 4167, 4167
+   orig: 4167, 4167
+   offset: 0, 0
+   index: 1
+
+lvl1_texture7.png
+size:8192,8192
+format: RGBA8888
+filter: Nearest,Nearest
+repeat:none
+Level 1 Textures (Basic)_Artboard 9 - Half Bottom
+  rotate: false
+   xy: 0, 0
+   size: 4167, 4167
+   orig: 4167, 4167
+   offset: 0, 0
+   index: 1
+
+lvl1_texture8.png
+size:8192,8192
+format: RGBA8888
+filter: Nearest,Nearest
+repeat:none
+Level 1 Textures (Basic)_Artboard 4 - Bridge
+  rotate: false
+   xy: 0, 0
+   size: 4167, 4167
+   orig: 4167, 4167
+   offset: 0, 0
+   index: 1
+
+lvl1_texture9.png
+size:8192,8192
+format: RGBA8888
+filter: Nearest,Nearest
+repeat:none
+Level 1 Textures (Interactables)_Artboard 1 - Platforms
+  rotate: false
+   xy: 0, 0
+   size: 4167, 4167
+   orig: 4167, 4167
+   offset: 0, 0
+   index: 1
+
+lvl1_texture10.png
+size:8192,8192
+format: RGBA8888
+filter: Nearest,Nearest
+repeat:none
+Level 1 Textures (Basic)_Artboard 5 - Door
+  rotate: false
+   xy: 0, 0
+   size: 4167, 4167
+   orig: 4167, 4167
+   offset: 0, 0
+   index: 1
+
+
+lvl1_texture11.png
+size:8192,8192
+format: RGBA8888
+filter: Nearest,Nearest
+repeat:none
+Level 1 Textures (Basic)_Artboard 1 - Platforms
+  rotate: false
+   xy: 0, 0
+   size: 4167, 4167
+   orig: 4167, 4167
+   offset: 0, 0
+   index: 1
+

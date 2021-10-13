@@ -74,7 +74,7 @@ public class NPCFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
-                            .getAsset("images/void.atlas", TextureAtlas.class));
+                            .getAsset("void/void.atlas", TextureAtlas.class));
     animator.addAnimation("void", 0.1f, Animation.PlayMode.LOOP);
 
     Entity theVoid = new Entity();

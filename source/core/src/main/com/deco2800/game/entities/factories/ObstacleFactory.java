@@ -53,24 +53,6 @@ public class ObstacleFactory {
   }
 
   /**
-   * Creates a tree entity.
-   * @return entity
-   */
-  public static Entity createTree() {
-    Entity tree =
-        new Entity()
-            .addComponent(new TextureRenderComponent("images/tree.png"))
-            .addComponent(new PhysicsComponent())
-            .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
-
-    tree.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-    tree.getComponent(TextureRenderComponent.class).scaleEntity();
-    tree.scaleHeight(2.5f);
-    PhysicsUtils.setScaledCollider(tree, 0.5f, 0.2f);
-    return tree;
-  }
-
-  /**
    * Creates an invisible physics wall.
    * @param width Wall width in world units
    * @param height Wall height in world units

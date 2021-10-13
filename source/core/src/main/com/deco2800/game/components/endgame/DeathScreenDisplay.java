@@ -35,7 +35,7 @@ public class DeathScreenDisplay extends UIComponent {
     private void addActors() {
 
         InsertImageButton insImage = new InsertImageButton();
-        table = insImage.setTable("images/death-screen-background.png");
+        table = insImage.setTable("ui-elements/death-screen-background.png");
 
         // Add exit button to go back to main menu.
         TextButton exitBtn = new TextButton("Exit", skin);
