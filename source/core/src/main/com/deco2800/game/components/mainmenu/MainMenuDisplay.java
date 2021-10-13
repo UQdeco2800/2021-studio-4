@@ -3,9 +3,7 @@ package com.deco2800.game.components.mainmenu;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -15,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.components.InsertImageButton;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.*;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -35,11 +34,21 @@ public class MainMenuDisplay extends UIComponent {
     public MainMenuDisplay() {
     }
 
+    private static final String[] gameTextures = {
+            "images/animatedvoid.png",
+            "images/void_spritesheet2.png",
+    };
+
+    private static final String[] gameTextureAtlases = {
+            "images/void.atlas",
+    };
+
     @Override
     public void create() {
         super.create();
         addActors();
         playTheMusic();
+        loadAssets();
     }
     public void playTheMusic() {
             MusicSingleton music = MusicSingleton.getInstance();
@@ -275,6 +284,25 @@ public class MainMenuDisplay extends UIComponent {
                     }
                 });
 
+        /**
+         * Sets the animation for when pressed
+         */
+        runtimeTitle.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.info("Launching title Animation");
+                        System.out.println("YAY");
+                        AnimationRenderComponent animator =
+                                new AnimationRenderComponent(
+                                        ServiceLocator.getResourceService()
+                                                .getAsset("images/void.atlas", TextureAtlas.class));
+                        animator.addAnimation("void", 0.1f, Animation.PlayMode.LOOP);
+                        animator.startAnimation("void");
+
+                    }
+                });
+
 
         stage.addActor(table);
         stage.addActor(startBtn);
@@ -283,21 +311,28 @@ public class MainMenuDisplay extends UIComponent {
         stage.addActor(settingsBtn);
         stage.addActor(exitBtn);
         stage.addActor(leaderBoardBtn);
-//        stage.addActor(virusHead);
         stage.addActor(runtimeTitle);
         stage.addActor(levelEditorBtn);
     }
 
+    private void loadAssets() {
+        logger.debug("Loading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.loadTextures(gameTextures);
+        resourceService.loadTextureAtlases(gameTextureAtlases);
 
-
-    /**
-     * Return Mute Button for testing purposes
-     * @return ImageButton MuteBtn
-     */
-    public ImageButton getMuteBtn() {
-        return muteBtn;
+        while (!resourceService.loadForMillis(10)) {
+            // This could be upgraded to a loading screen
+            logger.info("Loading... {}%", resourceService.getProgress());
+        }
     }
 
+    private void unloadAssets() {
+        logger.debug("Unloading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.unloadAssets(gameTextures);
+        resourceService.unloadAssets(gameTextureAtlases);
+    }
 
     @Override
     public void draw(SpriteBatch batch) {
@@ -312,6 +347,7 @@ public class MainMenuDisplay extends UIComponent {
     @Override
     public void dispose() {
         table.clear();
+        unloadAssets();
         super.dispose();
     }
 }

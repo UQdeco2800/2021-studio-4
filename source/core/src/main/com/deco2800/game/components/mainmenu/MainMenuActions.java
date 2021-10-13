@@ -1,11 +1,14 @@
 package com.deco2800.game.components.mainmenu;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.levels.LevelDefinition;
-import com.deco2800.game.services.MusicService;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.MusicSingleton;
 import com.deco2800.game.services.MuteManager;
+import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +24,15 @@ public class MainMenuActions extends Component {
     this.game = game;
   }
 
+  private static final String[] gameTextures = {
+          "images/animatedvoid.png",
+          "images/void_spritesheet2.png",
+  };
+
+  private static final String[] gameTextureAtlases = {
+          "images/void.atlas",
+  };
+
   @Override
   public void create() {
     entity.getEvents().addListener("start", this::onStart);
@@ -30,6 +42,7 @@ public class MainMenuActions extends Component {
     entity.getEvents().addListener("mute", this::onMute);
     entity.getEvents().addListener("scoreSelect", this::onScore);
     entity.getEvents().addListener("levelEditor", this::onLevelEditor);
+    entity.getEvents().addListener("titleAnimation", this::onTitleAnimation);
   }
 
   /**
@@ -97,5 +110,19 @@ public class MainMenuActions extends Component {
   private void onLevelEditor(){
     logger.info("Launching level editor");
     game.setLevel(GdxGame.ScreenType.LEVEL_EDITOR, LevelDefinition.LEVEL_1);
+  }
+
+  /**
+   * Launches title's animation
+   */
+  private void onTitleAnimation(){
+    logger.info("Launching title Animation");
+    System.out.println("YAY");
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/void.atlas", TextureAtlas.class));
+    animator.addAnimation("void", 0.1f, Animation.PlayMode.LOOP);
+    animator.startAnimation("void");
   }
 }
