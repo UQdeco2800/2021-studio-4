@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -48,7 +49,7 @@ public class MainMenuDisplay extends UIComponent {
         super.create();
         addActors();
         playTheMusic();
-        loadAssets();
+        //loadAssets();
     }
     public void playTheMusic() {
             MusicSingleton music = MusicSingleton.getInstance();
@@ -97,20 +98,6 @@ public class MainMenuDisplay extends UIComponent {
         runtimeTitle = insImage.setImage(titleMainImage, titleHoverImage,
                 titleWidth, titleHeight,
                 titleWidthDimension, titleHeightDimension);
-
-
-//        /**
-//         * Creates the VirusHead texture for the virus image
-//         */
-//        Texture virusTexture = new Texture(Gdx.files.internal("images/VirusHead.png"));
-//        Drawable virusDrawable = new TextureRegionDrawable(new TextureRegion(virusTexture));
-//        ImageButton virusHead = new ImageButton(virusDrawable);
-//        /**
-//         * Sets the size and position of the virusHead after texture applied.
-//         */
-//        virusHead.setBounds(centreWidth,centreHeight-height79Percent,
-//                buttonDimensionsWidth, buttonDimensionsHeight*2);
-//        virusHead.setDisabled(true);
 
         /**
          * Creates the button texture for the Start Button.
@@ -292,17 +279,10 @@ public class MainMenuDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.info("Launching title Animation");
-                        System.out.println("YAY");
-                        AnimationRenderComponent animator =
-                                new AnimationRenderComponent(
-                                        ServiceLocator.getResourceService()
-                                                .getAsset("images/void.atlas", TextureAtlas.class));
-                        animator.addAnimation("void", 0.1f, Animation.PlayMode.LOOP);
-                        animator.startAnimation("void");
+                        titlesAnimation();
 
                     }
                 });
-
 
         stage.addActor(table);
         stage.addActor(startBtn);
@@ -313,6 +293,21 @@ public class MainMenuDisplay extends UIComponent {
         stage.addActor(leaderBoardBtn);
         stage.addActor(runtimeTitle);
         stage.addActor(levelEditorBtn);
+    }
+
+    /**
+     * The animation when the title buttons has been pressed
+     */
+    private void titlesAnimation() {
+
+        Image animationImage = new Image(new Texture("ui-elements/runtime-title.png")); // works as expected
+        animationImage.setBounds(120, 120, 120, 120);
+//        AnimationRenderComponent animator =
+//                new AnimationRenderComponent(
+//                        ServiceLocator.getResourceService()
+//                                .getAsset("images/void.atlas", TextureAtlas.class));
+//        animator.addAnimation("void", 0.1f, Animation.PlayMode.LOOP);
+//        animator.startAnimation("void");
     }
 
     private void loadAssets() {

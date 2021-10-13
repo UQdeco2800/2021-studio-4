@@ -42,7 +42,6 @@ public class MainMenuActions extends Component {
     entity.getEvents().addListener("mute", this::onMute);
     entity.getEvents().addListener("scoreSelect", this::onScore);
     entity.getEvents().addListener("levelEditor", this::onLevelEditor);
-    entity.getEvents().addListener("titleAnimation", this::onTitleAnimation);
   }
 
   /**
@@ -104,25 +103,11 @@ public class MainMenuActions extends Component {
     game.setScreen(GdxGame.ScreenType.SCORE_SCREEN);
   }
 
-    /**
-    * Launches level editor
-    */
-  private void onLevelEditor(){
+  /**
+   * Launches level editor
+   */
+  private void onLevelEditor() {
     logger.info("Launching level editor");
     game.setLevel(GdxGame.ScreenType.LEVEL_EDITOR, LevelDefinition.LEVEL_1);
-  }
-
-  /**
-   * Launches title's animation
-   */
-  private void onTitleAnimation(){
-    logger.info("Launching title Animation");
-    System.out.println("YAY");
-    AnimationRenderComponent animator =
-            new AnimationRenderComponent(
-                    ServiceLocator.getResourceService()
-                            .getAsset("images/void.atlas", TextureAtlas.class));
-    animator.addAnimation("void", 0.1f, Animation.PlayMode.LOOP);
-    animator.startAnimation("void");
   }
 }
