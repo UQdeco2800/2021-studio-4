@@ -43,6 +43,7 @@ public class LevelGameArea extends GameArea {
   public static ArrayList<String> buffers = new ArrayList<>();
   public static ArrayList<String> deBuffers = new ArrayList<>();
   private Random random = new Random();
+  private LevelFile levelFile;
 
   public Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables = new HashMap<>();
   public List<ObstacleEntity> interactableEntities = new ArrayList<>();
@@ -69,7 +70,6 @@ public class LevelGameArea extends GameArea {
   };
 
   private static final String[] gameTextureAtlases = {
-    "map-spritesheets/mapTextures.atlas",
     "void/void.atlas",
     "powerups/Pick_Ups.atlas",
     "map-textures/portal-door.atlas",
@@ -114,8 +114,9 @@ public class LevelGameArea extends GameArea {
    * Initializes basic components such as loading assets, background and terrain
    */
   public void init() {
-
+    loadLevelFile();
     loadAssets();
+
     String levels = levelDefinition.getLevelFileName();
     if (levels.equals("levels/level1.json")) {
       displayBackground("backgrounds/background_level1.jpg");
@@ -431,14 +432,17 @@ public class LevelGameArea extends GameArea {
     file.writeString(json.prettyPrint(levelFile), false);
   }
 
-  private void readAll() {
+  private void loadLevelFile() {
     Json json = new Json();
     applyTerrainSerializers(json);
 
     FileHandle file = Gdx.files.local(levelDefinition.getLevelFileName());
     assert file != null;
 
-    LevelFile levelFile = json.fromJson(LevelFile.class, file);
+    levelFile = json.fromJson(LevelFile.class, file);
+  }
+
+  private void generateAll() {
     try {
       for (ObstacleEntity obstacleEntity : levelFile.obstacles.obstacleEntities) {
         ObstacleEntity newObstacle = spawnObstacle(obstacleEntity.getDefinition(), (int) obstacleEntity.getPosition().x,
@@ -558,7 +562,7 @@ public class LevelGameArea extends GameArea {
   private void spawnLevelFromFile() {
   //  _spawnLevelFromFile(); // Used to load an old level.txt file to the new json format.
     // Load actual elements
-    readAll();
+    generateAll();
 
     // Generate tile bodies
     TerrainFactory.generateBodies(terrain.getMap());
@@ -704,6 +708,7 @@ public class LevelGameArea extends GameArea {
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(gameTextures);
     resourceService.loadTextureAtlases(gameTextureAtlases);
+    resourceService.loadTextureAtlases(new String[] {levelFile.levelTexture.getAtlasName()});
     resourceService.loadMusic(gameMusic);
 
 

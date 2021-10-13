@@ -7,8 +7,8 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.areas.terrain.TerrainTileDefinition;
 import com.deco2800.game.entities.ObstacleEntity;
+import com.deco2800.game.levels.LevelTexture;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +17,7 @@ public class LevelFile {
   public GridPoint2 playerStartPos;
   public Terrain terrain;
   public Obstacles obstacles;
+  public LevelTexture levelTexture = LevelTexture.LEVEL_ONE;
 
   public static class PositionedTerrainTile implements Json.Serializable {
     public TerrainTile tile;
