@@ -35,7 +35,7 @@ public class PauseScreenDisplay extends UIComponent {
 
     InsertImageButton insImage = new InsertImageButton();
 
-    table = insImage.setTable("images/background_pause.png");
+    table = insImage.setTable("ui-elements/background_pause.png");
 
     // Add exit button to go back to main menu.
     TextButton exitBtn = new TextButton("Exit", skin);
