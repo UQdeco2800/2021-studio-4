@@ -50,8 +50,12 @@ public class GdxGame extends Game {
     }
 
     switch (screenType) {
-      case MAIN_GAME -> setScreen(new MainGameScreen(this, levelDefinition));
-      case LEVEL_EDITOR -> setScreen(new LevelEditorScreen(this, levelDefinition));
+      case MAIN_GAME:
+        setScreen(new MainGameScreen(this, levelDefinition));
+        break;
+      case LEVEL_EDITOR:
+        setScreen(new LevelEditorScreen(this, levelDefinition));
+        break;
     }
   }
 
@@ -88,19 +92,26 @@ public class GdxGame extends Game {
    * @return new screen
    */
   private Screen newScreen(ScreenType screenType) {
-    return switch (screenType) {
-      case MAIN_MENU -> new MainMenuScreen(this);
-      case SETTINGS -> new SettingsScreen(this);
-      case LOAD_LEVELS -> new LevelSelectScreen(this);
-      case DEATH_SCREEN -> new DeathScreen(this);
-      case SCORE_SCREEN -> new ScoreScreen(this, levelDefinition, getCompletionTime());
-      case PAUSE -> new PauseScreen(this);
-      default -> null;
-    };
+    switch (screenType) {
+      case MAIN_MENU:
+        return new MainMenuScreen(this);
+      case SETTINGS:
+        return new SettingsScreen(this);
+      case LOAD_LEVELS:
+        return new LevelSelectScreen(this);
+      case DEATH_SCREEN:
+        return new DeathScreen(this);
+      case SCORE_SCREEN:
+        return new ScoreScreen(this, levelDefinition, getCompletionTime());
+      case PAUSE:
+        return new PauseScreen(this);
+      default:
+        return null;
+    }
   }
 
   private int getCompletionTime() {
-    return (int) (timeScore/1000);
+    return Math.round(timeScore/1000);
   }
 
   public enum ScreenType {
