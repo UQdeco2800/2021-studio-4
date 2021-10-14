@@ -44,7 +44,8 @@ public class LevelDisplay extends UIComponent {
     private void playTheMusic() {
         MusicServiceDirectory mainMenuSong = new MusicServiceDirectory();
         MusicService musicScreen = new MusicService(mainMenuSong.main_menu);
-        musicScreen.playMusic();
+        //musicScreen.playMusic();
+        musicScreen.playSong(true, 0.2f);
         //MusicSingleton s = MusicSingleton.getInstance();
         //s.playSingleton("sounds/MainMenuMusic.mp3");
     }

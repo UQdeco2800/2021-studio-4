@@ -40,7 +40,7 @@ public class MusicSingleton {
     public void playMusicSingleton(String filename) {
         MuteManager mute = MuteManager.getInstance();
         /* If the mute button is off, play the music otherwise do nothing. */
-        if (mute.getMute() == false) {
+        if (!mute.getMute()) {
             Music music = ServiceLocator.getResourceService().getAsset(filename, Music.class);
             music.setLooping(true);
             music.setVolume(0.2f);

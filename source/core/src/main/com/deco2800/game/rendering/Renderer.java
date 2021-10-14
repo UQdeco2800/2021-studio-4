@@ -95,6 +95,8 @@ public class Renderer implements Disposable {
   public void render() {
     Matrix4 projMatrix = camera.getProjectionMatrix();
     batch.setProjectionMatrix(projMatrix);
+    /*change background color to black*/
+    Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
     batch.begin();

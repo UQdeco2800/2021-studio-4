@@ -547,9 +547,9 @@ public class PlayerActions extends Component {
             body.applyForceToCenter(jumpSpeed, true);
             canJump = false;
 
-            /*MusicServiceDirectory directory = new MusicServiceDirectory();
+            MusicServiceDirectory directory = new MusicServiceDirectory();
             MusicService jumpMusic = new MusicService(directory.click);
-            jumpMusic.changeVolume(0.7f);*/
+            jumpMusic.playSong(false, 0.7f);
         }
     }
   }

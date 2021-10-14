@@ -627,12 +627,13 @@ public class LevelGameArea extends GameArea {
    * @param musicPath - String (see Music Directory for more information)
    */
   private void playTheMusic(String musicPath) {
-    logger.debug("Playing game area music"); //??
+    logger.debug("Playing game area music");
     MusicServiceDirectory dict = new  MusicServiceDirectory();
     MusicService gameMusic = null;
     switch (musicPath) {
       case "click":
         gameMusic = new MusicService(dict.click);
+        logger.debug("Play jump song");
         break;
       case "end_credits":
         gameMusic = new MusicService(dict.end_credits);
@@ -682,17 +683,11 @@ public class LevelGameArea extends GameArea {
       default:
         gameMusic = new MusicService(dict.game_level_1);//To make sure gameMusic is never null
     }
-      gameMusic.playMusic();
+      //gameMusic.playMusic();
+    gameMusic.playSong(true, 0.2f);
 
   }
 
-  /*private void playMusic() {
-    //MusicServiceDirectory mainMenuSong = new MusicServiceDirectory();
-    //MusicService musicScreen = new MusicService(mainMenuSong.main_menu);
-    //musicScreen.playMusic();
-    MusicSingleton s = MusicSingleton.getInstance();
-    s.playMusicSingleton("sounds/BackingMusicWithDrums.mp3");
-  }*/
 
   private void loadAssets() {
     logger.debug("Loading assets");
