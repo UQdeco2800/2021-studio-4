@@ -17,6 +17,7 @@ import com.deco2800.game.GdxGame.ScreenType;
 import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.files.UserSettings.DisplaySettings;
 import com.deco2800.game.services.MusicService;
+import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import com.deco2800.game.utils.StringDecorator;
@@ -44,8 +45,11 @@ public class SettingsMenuDisplay extends UIComponent {
   }
 
   public void playTheMusic() {
-      MusicService musicScreen = new MusicService("sounds/MainMenuMusic.mp3");
-      musicScreen.playMusic();
+      //MusicService musicScreen = new MusicService("sounds/MainMenuMusic.mp3");
+      //musicScreen.playMusic();
+    MusicServiceDirectory menuSong = new MusicServiceDirectory();
+    MusicService menuMusic = new MusicService(menuSong.main_menu);
+    menuMusic.playSong(true, 0.2f);
 
 
     /*MusicSingleton m = MusicSingleton.getInstance();

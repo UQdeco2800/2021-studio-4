@@ -80,7 +80,8 @@ public class DeathScreenDisplay extends UIComponent {
     public void playTheMusic() {
         MusicServiceDirectory deathSong = new MusicServiceDirectory();
         MusicService music = new MusicService(deathSong.death_noise_2);
-        music.changeVolume((float)0.8);
+        //music.changeVolume((float)0.8);
+        music.playSong(false, 0.7f);
     }
 
     @Override
