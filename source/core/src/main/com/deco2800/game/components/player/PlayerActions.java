@@ -74,6 +74,7 @@ public class PlayerActions extends Component {
   private Vector2 jumpSpeed = new Vector2(0f, 500f);
   private Vector2 jumpPadSpeed = new Vector2(0f, 600f);
   private boolean canJump = false; // Whether the player can jump
+    private boolean oneTimeThing = true;
 
 
   @Override
@@ -113,6 +114,7 @@ public class PlayerActions extends Component {
   public void update() {
       iterator++;
       isDeathAnimationCompleted();
+      isPlayerFallingToDeath();
 
 
       if(iterator == 3) {
@@ -193,6 +195,16 @@ public class PlayerActions extends Component {
   private void beginBasicAnimations(){
       animator.startAnimation(getAnimation());
       hasSpawnAnimationFinished = true;
+  }
+
+  private void isPlayerFallingToDeath() {
+      if(oneTimeThing) {
+          if (this.entity.getPosition().y < 2) {
+              oneTimeThing = false;
+              //start playing sound here
+              System.out.println("dead");
+          }
+      }
   }
 
     /**

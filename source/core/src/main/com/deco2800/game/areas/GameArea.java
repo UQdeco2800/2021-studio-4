@@ -19,7 +19,7 @@ import java.util.List;
 public abstract class GameArea implements Disposable {
   protected TerrainComponent terrain;
   protected List<Entity> areaEntities;
-  public GameArea() {
+  protected GameArea() {
     areaEntities = new ArrayList<>();
   }
 
@@ -38,7 +38,7 @@ public abstract class GameArea implements Disposable {
    * @param pos Position to check
    * @return ArrayList of entities
    */
-  public ArrayList<Entity> getEntities(Vector2 pos) {
+  public List<Entity> getEntities(Vector2 pos) {
     ArrayList<Entity> entities = new ArrayList<>();
 
     for (Entity areaEntity : areaEntities) {
