@@ -29,7 +29,7 @@ public class TheVoidController extends Component {
 
     // private static final Vector2 SPEED = new Vector2(8f, 0f);
     // Changed so that the speed of void can be changed
-    private static Vector2 normalSpeed = new Vector2(8f, 0f);
+    private static Vector2 normalSpeed = new Vector2(18f, 0f);
     private static Vector2 pausedSpeed = new Vector2(0f, 0f);
     private static Vector2 SPEED = normalSpeed;
 

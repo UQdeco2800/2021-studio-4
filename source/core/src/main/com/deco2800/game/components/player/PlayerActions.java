@@ -3,18 +3,13 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.deco2800.game.ai.tasks.Task;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.statuseffects.StatusEffectTargetComponent;
 import com.deco2800.game.effects.StatusEffect;
-import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
-
-import java.util.Random;
-import java.util.function.DoubleToIntFunction;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
@@ -69,8 +64,8 @@ public class PlayerActions extends Component {
   private int keysPressed; //stores number of keys being pressed that affect the plaer
   AnimationRenderComponent animator;
 
-  private Vector2 jumpSpeed = new Vector2(0f, 500f);
-  private Vector2 jumpPadSpeed = new Vector2(0f, 600f);
+  private Vector2 jumpSpeed = new Vector2(0f, 400f);
+  private Vector2 jumpPadSpeed = new Vector2(0f, 500f);
   private boolean canJump = false; // Whether the player can jump
 
 
