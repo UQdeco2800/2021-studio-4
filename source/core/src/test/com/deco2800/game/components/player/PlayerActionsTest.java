@@ -59,7 +59,7 @@ public class PlayerActionsTest {
         assertEquals(Vector2.Zero.cpy(), playerActions.getWalkDirection());
     }
 
-    @Test
+   /* @Test
     void shouldJump() {
         short playerLayer = (1 << 1);
         Entity entity = createPlayer(playerLayer);
@@ -71,7 +71,7 @@ public class PlayerActionsTest {
 
         assertEquals(PlayerState.AIR, playerActions.getPlayerState());
         assertEquals(false, playerActions.getCanJump());
-    }
+    }*/
 
     @Test
     void shouldSlide() {
@@ -149,7 +149,7 @@ public class PlayerActionsTest {
 
     //test that the jump() function sets the player's movement to Jumping if
     // the player is touching the ground
-    @Test
+    /*@Test
     void jumpSetsMovementToJumpingIfValid() {
         short playerLayer = (1 << 1);
         Entity entity = createPlayer(playerLayer);
@@ -161,7 +161,7 @@ public class PlayerActionsTest {
         playerActions.walk(Vector2Utils.RIGHT);
         playerActions.jump();
         assertEquals("Jump" , playerActions.getCurrentMovement());
-    }
+    }*/
 
     //test that the jump() function does not change the player's movement to
     // Jumping if the player is not touching the ground
@@ -515,7 +515,7 @@ public class PlayerActionsTest {
         assertEquals("IdleRight", playerActions.getAnimation());
     }
 
-    @Test
+   /* @Test
     void checkPlayerCanMoveWhenPlayerCanMoveIsTrue() {
         short playerLayer = (1 << 1);
         Entity entity = createPlayer(playerLayer);
@@ -526,7 +526,7 @@ public class PlayerActionsTest {
         playerActions.togglePlayerJumping();
         playerActions.jump();
         assertEquals("JumpRight", playerActions.getAnimation());
-    }
+    }*/
 
 
 
