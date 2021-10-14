@@ -1,12 +1,12 @@
 package com.deco2800.game.effects;
 
 public enum StatusEffect {
-  BOMB("images/Pick_Ups.atlas", "Debuff_Bomb", "powerup-ui-spritesheets/bomb-item.atlas", "bomb-item", 4, true, 0),
-  JUMP("images/Pick_Ups.atlas", "Buff_Jump", "powerup-ui-spritesheets/jump_boost.atlas", "jump-boost", 6, false, 200),
-  FAST("images/Pick_Ups.atlas", "Buff_Speed", "powerup-ui-spritesheets/lightning.atlas", "lightning", 4, false, 5),
-  SLOW("images/Pick_Ups.atlas", "Debuff_Speed", "powerup-ui-spritesheets/speed_decrease.atlas", "speed-decrease", 4, true, 5),
-  STUCK("images/Pick_Ups.atlas", "Debuff_Stuck", "powerup-ui-spritesheets/stuck_lock.atlas", "stuck-lock", 2, true, 0),
-  TIME_STOP("images/Pick_Ups.atlas", "Buff_Time_Stop", "powerup-ui-spritesheets/time_stop.atlas", "time-stop", 2, false, 0);
+  BOMB("powerups/Pick_Ups.atlas", "Debuff_Bomb", "powerup-ui-spritesheets/bomb_item.atlas", "bomb-item", 4, true, 0),
+  JUMP("powerups/Pick_Ups.atlas", "Buff_Jump", "powerup-ui-spritesheets/jump_boost.atlas", "jump-boost", 6, false, 200),
+  FAST("powerups/Pick_Ups.atlas", "Buff_Speed", "powerup-ui-spritesheets/lightning.atlas", "lightning", 4, false, 5),
+  SLOW("powerups/Pick_Ups.atlas", "Debuff_Speed", "powerup-ui-spritesheets/speed_decrease.atlas", "speed-decrease", 4, true, 5),
+  STUCK("powerups/Pick_Ups.atlas", "Debuff_Stuck", "powerup-ui-spritesheets/stuck_lock.atlas", "stuck-lock", 2, true, 0),
+  TIME_STOP("powerups/Pick_Ups.atlas", "Buff_Time_Stop", "powerup-ui-spritesheets/time_stop.atlas", "time-stop", 2, false, 0);
 
   private final String groundAnimationAtlas;
   private final String groundAnimationName;

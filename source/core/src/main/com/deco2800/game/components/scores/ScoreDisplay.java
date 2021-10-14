@@ -31,7 +31,6 @@ public class ScoreDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(ScoreDisplay.class);
     private static final float Z_INDEX = 2f;
     private Table table;
-    private Sprite sprite;
     private Label scoreLabel; // Shows the score.
     private Label levelLabel; // Shows the current level.
     private Label congratsLabel; // Shows the congratulations text.
@@ -90,12 +89,9 @@ public class ScoreDisplay extends UIComponent {
      * Added Background image and initialised buttons
      */
     private void addActors() {
-        table = new Table();
-        table.setFillParent(true);
-        sprite = new Sprite(new Texture("images/score_screen_guide.png"));
-        table.setBackground(new SpriteDrawable(sprite)); // Set background
-
         InsertImageButton insImage = new InsertImageButton();
+
+        table = insImage.setTable("ui-elements/score_screen_guide.png");
 
         int centreWidth1 = Gdx.graphics.getWidth()/2;
         int centreHeight1 = Gdx.graphics.getHeight()/2;
@@ -108,8 +104,8 @@ public class ScoreDisplay extends UIComponent {
         /**
          * Creates the button texture for the Exit Button.
          */
-        String exitMainImage = "images/default_buttons/exit-button.png";
-        String exitHoverImage = "images/hovered-buttons/exit-button-hovered.png";
+        String exitMainImage = "ui-elements/default_buttons/exit-button.png";
+        String exitHoverImage = "ui-elements/hovered-buttons/exit-button-hovered.png";
         ImageButton exitBtn;
         exitBtn = insImage.setImage(exitMainImage, exitHoverImage,
                 centreWidth,centreHeight-height105Percent,
@@ -195,7 +191,7 @@ public class ScoreDisplay extends UIComponent {
         /**
          * Creates the 'SCOREDISPLAY' title texture.
          */
-        Texture scoreDisplay = new Texture(Gdx.files.internal("images/scores-title.png"));
+        Texture scoreDisplay = new Texture(Gdx.files.internal("ui-elements/scores-title.png"));
         Drawable scoreDisplayDrawable = new TextureRegionDrawable(new TextureRegion(scoreDisplay));
         Image scoreDisplayTitle = new Image(scoreDisplayDrawable);
         scoreDisplayTitle.setBounds(Gdx.graphics.getWidth()/2 - imageWidth/2,Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/5,

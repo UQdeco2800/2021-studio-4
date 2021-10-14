@@ -63,6 +63,7 @@ public class TheVoidController extends Component {
         entity.getEvents().addListener("TheVoidAnimate", this::theVoidAnimate);
         entity.getEvents().addListener("TheVoidMove", this::theVoidMove);
         entity.getEvents().addListener("UpdateSound", this::updateSound);
+        entity.getEvents().addListener("UpdateSpeed", this::updateSpeed);
         entity.getEvents().addListener("StopVoidIfPlayerDead", this:: stopVoidIfPlayerDead);
         entity.getEvents().addListener("RestartVoidOnRestart", this:: restartVoidOnRestart);
 
@@ -72,9 +73,19 @@ public class TheVoidController extends Component {
     /**
      * Starts the void's animation
      */
-     void theVoidAnimate(){
+    void theVoidAnimate(){
         animator.startAnimation("void");
     }
+
+
+    void updateSpeed() {
+        if (getPlayerDistance() > 12) {
+            SPEED = new Vector2(50f, 0f);
+        } else {
+            SPEED = normalSpeed;
+        }
+    }
+
 
     void stopVoidIfPlayerDead() {
         //System.out.println(getPlayerDistance());

@@ -51,13 +51,9 @@ public class MainMenuDisplay extends UIComponent {
      * Added Background image and initialised buttons
      */
     private void addActors() {
-
-        table = new Table();
-        table.setFillParent(true);
-        Sprite sprite = new Sprite(new Texture("images/title-screen.png"));
-        table.setBackground(new SpriteDrawable(sprite)); // Set background
-
         InsertImageButton insImage = new InsertImageButton();
+
+        table = insImage.setTable("ui-elements/title-screen.png");
 
         /**
          * Creates the button size and position based off
@@ -87,15 +83,12 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Creates the 'RUNTIME' title texture.
          */
-        Texture runtimeTitleTexture = new Texture(Gdx.files.internal("images/runtime-title.png"));
-        Drawable runtimeTitleDrawable = new TextureRegionDrawable(new TextureRegion(runtimeTitleTexture));
-        ImageButton runtimeTitle = new ImageButton(runtimeTitleDrawable);
-        /**
-         * Sets the size and position of the Runtime Title after texture applied.
-         */
-        runtimeTitle.setBounds(titleWidth, titleHeight,
+        String titleMainImage = "ui-elements/runtime-title.png";
+        String titleHoverImage = "ui-elements/runtime-on-hover.png";
+        ImageButton runtimeTitle;
+        runtimeTitle = insImage.setImage(titleMainImage, titleHoverImage,
+                titleWidth, titleHeight,
                 titleWidthDimension, titleHeightDimension);
-        runtimeTitle.setDisabled(true);
 
 
 //        /**
@@ -114,8 +107,8 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Creates the button texture for the Start Button.
          */
-        String startMainImage = "images/default_buttons/start-button.png";
-        String startHoverImage = "images/hovered-buttons/start-button-hovered.png";
+        String startMainImage = "ui-elements/default_buttons/start-button.png";
+        String startHoverImage = "ui-elements/hovered-buttons/start-button-hovered.png";
         ImageButton startBtn;
         startBtn = insImage.setImage(startMainImage, startHoverImage,
                 screenRight,centreHeight + heightDifference * 3,
@@ -125,8 +118,8 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Creates the button texture for the Level Selection Button.
          */
-        String levelMainImage = "images/default_buttons/levels-button.png";
-        String levelHoverImage = "images/hovered-buttons/levels-button-hovered.png";
+        String levelMainImage = "ui-elements/default_buttons/levels-button.png";
+        String levelHoverImage = "ui-elements/hovered-buttons/levels-button-hovered.png";
         ImageButton levelSelectBtn;
         levelSelectBtn = insImage.setImage(levelMainImage, levelHoverImage,
                 screenRightWithXOffset,centreHeight + heightDifference*2,
@@ -135,8 +128,8 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Creates the button texture for the Settings Button.
          */
-        String settingsMainImage = "images/default_buttons/settings-button.png";
-        String settingsHoverImage = "images/hovered-buttons/settings-button-hovered.png";
+        String settingsMainImage = "ui-elements/default_buttons/settings-button.png";
+        String settingsHoverImage = "ui-elements/hovered-buttons/settings-button-hovered.png";
         ImageButton settingsBtn;
         settingsBtn = insImage.setImage(settingsMainImage, settingsHoverImage,
                 screenRightWithXOffset,centreHeight,
@@ -145,8 +138,8 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Creates the button texture for the Exit Button.
          */
-        String exitMainImage = "images/default_buttons/exit-button.png";
-        String  exitHoverImage = "images/hovered-buttons/exit-button-hovered.png";
+        String exitMainImage = "ui-elements/default_buttons/exit-button.png";
+        String  exitHoverImage = "ui-elements/hovered-buttons/exit-button-hovered.png";
         ImageButton exitBtn;
         exitBtn = insImage.setImage(exitMainImage, exitHoverImage,
                 screenRight,centreHeight - heightDifference * 3,
@@ -156,13 +149,13 @@ public class MainMenuDisplay extends UIComponent {
          * Creates the button texture for the Mute Button. Also loads the 'Muted' button.
          */
         Texture muteTexture = new Texture(Gdx
-                .files.internal("images/default_buttons/mute-button.png"));
+                .files.internal("ui-elements/default_buttons/mute-button.png"));
         Texture muteHoverTexture = new Texture(Gdx
-                .files.internal("images/hovered-buttons/mute-button-hovered.png"));
+                .files.internal("ui-elements/hovered-buttons/mute-button-hovered.png"));
         Texture currentlyMutedTexture = new Texture(Gdx
-                .files.internal("images/default_buttons/unmute-button.png"));
+                .files.internal("ui-elements/default_buttons/unmute-button.png"));
         Texture currentlyMutedHoverTexture = new Texture(Gdx
-                .files.internal("images/hovered-buttons/unmute-button-hovered.png"));
+                .files.internal("ui-elements/hovered-buttons/unmute-button-hovered.png"));
         Drawable muteDrawing = new TextureRegionDrawable(new TextureRegion(muteTexture));
         muteBtn = new ImageButton(muteDrawing);
         // Initialise the image of the button to muteTexture.
@@ -185,8 +178,8 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Creates the button texture for the Leaderboard Button.
          */
-        String leaderBoardMainImage = "images/default_buttons/scores-button.png";
-        String  leaderBoardHoverImage = "images/hovered-buttons/scores-button-hovered.png";
+        String leaderBoardMainImage = "ui-elements/default_buttons/scores-button.png";
+        String  leaderBoardHoverImage = "ui-elements/hovered-buttons/scores-button-hovered.png";
         ImageButton leaderBoardBtn;
         leaderBoardBtn = insImage.setImage(leaderBoardMainImage, leaderBoardHoverImage,
                 screenRight,centreHeight + heightDifference,
@@ -195,8 +188,8 @@ public class MainMenuDisplay extends UIComponent {
         /**
          * Creates the button texture for the Leaderboard Button.
          */
-        String levelEditorImage = "images/default_buttons/level-editor-button.png";
-        String  levelEditorHoverImage = "images/hovered-buttons/level-editor-button-hovered.png";
+        String levelEditorImage = "ui-elements/default_buttons/level-editor-button.png";
+        String  levelEditorHoverImage = "ui-elements/hovered-buttons/level-editor-button-hovered.png";
         ImageButton levelEditorBtn;
         levelEditorBtn = insImage.setImage(levelEditorImage, levelEditorHoverImage,
                 screenRightWithXOffset,centreHeight - heightDifference * 2,

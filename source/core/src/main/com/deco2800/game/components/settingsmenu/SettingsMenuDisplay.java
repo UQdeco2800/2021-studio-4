@@ -70,7 +70,7 @@ public class SettingsMenuDisplay extends UIComponent {
 
     rootTable = new Table();
     rootTable.setFillParent(true);
-    Sprite sprite = new Sprite(new Texture("images/title_screen_clean.png"));
+    Sprite sprite = new Sprite(new Texture("ui-elements/title_screen_clean.png"));
     rootTable.setBackground(new SpriteDrawable(sprite)); // Set background
 
     rootTable.add(title).expandX().top().padTop(20f);
