@@ -302,11 +302,13 @@ public class MainMenuDisplay extends UIComponent {
         runtimeTitle.remove();
         int centreWidth = Gdx.graphics.getWidth() / 2;
         int centreHeight = Gdx.graphics.getHeight() / 2;
+        int imageWidth = 100;
+        int imageHeight = 100;
 
         Image animationImage = new Image(new Texture("ui-elements/runtime-title.png")); // works as expected
-        animationImage.setBounds(centreWidth, centreHeight, 100, 100);
+        animationImage.setBounds(centreWidth, centreHeight, imageWidth, imageHeight);
         /** This adds the tiny runtime logo */
-        moveAnimationImage(animationImage);
+        moveAnimationImage(animationImage, imageWidth, imageHeight);
     }
 
     /**
@@ -314,26 +316,29 @@ public class MainMenuDisplay extends UIComponent {
      *
      * @param animationImage
      */
-    private void moveAnimationImage(Image animationImage) {
-        float currentWidth = animationImage.getImageWidth();
-        float currentHeight = animationImage.getImageHeight();
-        int centreWidth = Gdx.graphics.getWidth() / 2;
-        int centreHeight = Gdx.graphics.getHeight() / 2;
-        duration = 2f;
+    private void moveAnimationImage(Image animationImage, int imageWidth, int imageHeight) {
+        int centreWidth = Gdx.graphics.getWidth() / 2 - imageWidth / 2;
+        int centreHeight = Gdx.graphics.getHeight() / 2 - imageHeight / 2;
+        duration = 3.5f;
 
         titleAnimation = new TitleAnimation(
-                new Texture("ui-elements/runtime-title.png"), animationImage.getImageWidth(),
-                animationImage.getImageHeight(), centreWidth, centreHeight, duration);
+                new Texture("ui-elements/runtime-title.png"), imageWidth,
+                imageHeight, centreWidth, centreHeight, duration);
 
         //titleAnimationStartTime = ServiceLocator.getTimeSource().getTime();
         titleAnimationStartTime = System.currentTimeMillis();
         stage.addActor(titleAnimation);
     }
 
+    /**
+     * Used to remove the animation image of the title upon completion
+     */
     @Override
     public void update() {
+
         if (titleAnimationStartTime != null) {
             long timePassed = System.currentTimeMillis() - titleAnimationStartTime;
+
             if (timePassed / 1000 >= duration) {
                 titleAnimation.remove();
                 stage.addActor(runtimeTitle);
