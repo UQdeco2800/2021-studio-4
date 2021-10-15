@@ -27,6 +27,7 @@ public class MainMenuDisplay extends UIComponent {
     private Long titleAnimationStartTime = null;
     private TitleAnimation titleAnimation;
     private float duration;
+    private ImageButton runtimeTitle;
 
     /**
      * used tp switch between button states
@@ -94,7 +95,6 @@ public class MainMenuDisplay extends UIComponent {
          */
         String titleMainImage = "ui-elements/runtime-title.png";
         String titleHoverImage = "ui-elements/runtime-on-hover.png";
-        ImageButton runtimeTitle;
         runtimeTitle = insImage.setImage(titleMainImage, titleHoverImage,
                 titleWidth, titleHeight,
                 titleWidthDimension, titleHeightDimension);
@@ -299,6 +299,7 @@ public class MainMenuDisplay extends UIComponent {
      * The animation when the title buttons has been pressed
      */
     private void titlesAnimation() {
+        runtimeTitle.remove();
         int centreWidth = Gdx.graphics.getWidth() / 2;
         int centreHeight = Gdx.graphics.getHeight() / 2;
 
@@ -335,6 +336,7 @@ public class MainMenuDisplay extends UIComponent {
             long timePassed = System.currentTimeMillis() - titleAnimationStartTime;
             if (timePassed / 1000 >= duration) {
                 titleAnimation.remove();
+                stage.addActor(runtimeTitle);
             }
         }
     }
