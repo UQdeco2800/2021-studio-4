@@ -46,24 +46,39 @@ public class MusicService {
      * Start playing this music from the given time.
      * Required:  an integer of the time of the music track being modified by the service.
      */
-    public void setTime(float time) {
-        MuteManager mute = MuteManager.getInstance();
+   // public void setTime(float time) {
+     //   MuteManager mute = MuteManager.getInstance();
         /* If the mute button is off */
-        if (mute.getMute() == false) {
-            music.setPosition(time);
-            music.play();
-        }
-    }
+       // if (!mute.getMute()) {
+         //   music.setPosition(time);
+          //  music.play();
+       // }
+    //}
 
     /**
      * Play this music in the loop.
      */
-    public void playMusic() {
+    /*public void playMusic() {
         MuteManager mute = MuteManager.getInstance();
-        /* If the mute button is off, play the music otherwise do nothing. */
-        if (mute.getMute() == false) {
+        // If the mute button is off, play the music otherwise do nothing.
+        if (!mute.getMute()) {
             music.setLooping(true);
             music.setVolume(0.2f);
+            music.play();
+        }
+    }*/
+
+    /**
+     * Play this music with the given volume and loop value.
+     * If loop is true, the music is played in the loop.
+     * Required: an integer between 0 and 1
+     */
+    public void playSong(boolean loop, float vol) {
+        MuteManager mute = MuteManager.getInstance();
+        /* If the mute button is off, play the music otherwise do nothing. */
+        if (!mute.getMute()) {
+            music.setLooping(loop);
+            music.setVolume(vol);
             music.play();
         }
     }
@@ -72,14 +87,14 @@ public class MusicService {
      * Play this music with the given volume.
      * Required: an integer between 0 and 1
      */
-    public void changeVolume(float vol) {
+   /* public void changeVolume(float vol) {
         MuteManager mute = MuteManager.getInstance();
-        /* If the mute button is off */
-        if (mute.getMute() == false) {
+        // If the mute button is off
+        if (!mute.getMute()) {
             music.setVolume(vol);
             music.play();
         }
-    }
+    }*/
 
 
 

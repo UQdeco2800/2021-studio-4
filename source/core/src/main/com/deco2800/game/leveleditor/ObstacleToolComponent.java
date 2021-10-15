@@ -13,6 +13,7 @@ import com.deco2800.game.screens.LevelEditorScreen;
 import com.deco2800.game.services.ServiceLocator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Component for editing the obstacles within the map, such as platforms etc
@@ -144,7 +145,7 @@ public class ObstacleToolComponent extends BaseToolComponent {
     if (removing) {
       removeLock = true;
       Vector2 pos = getMousePos();
-      ArrayList<Entity> entities = levelGameArea.getEntities(pos);
+      List<Entity> entities = levelGameArea.getEntities(pos);
 
       for (Entity entity : entities) {
         levelGameArea.untrackEntity(entity);
