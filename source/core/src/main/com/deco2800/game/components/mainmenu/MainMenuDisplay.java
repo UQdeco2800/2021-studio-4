@@ -324,14 +324,18 @@ public class MainMenuDisplay extends UIComponent {
                 new Texture("ui-elements/runtime-title.png"), animationImage.getImageWidth(),
                 animationImage.getImageHeight(), centreWidth, centreHeight, duration);
 
-        titleAnimationStartTime = ServiceLocator.getTimeSource().getTime();
+        //titleAnimationStartTime = ServiceLocator.getTimeSource().getTime();
+        titleAnimationStartTime = System.currentTimeMillis();
         stage.addActor(titleAnimation);
     }
 
     @Override
     public void update() {
-        if (titleAnimationStartTime != null && ServiceLocator.getTimeSource().getTimeSince(titleAnimationStartTime) >= duration) {
-            titleAnimation.remove();
+        if (titleAnimationStartTime != null) {
+            long timePassed = System.currentTimeMillis() - titleAnimationStartTime;
+            if (timePassed / 1000 >= duration) {
+                titleAnimation.remove();
+            }
         }
     }
 
