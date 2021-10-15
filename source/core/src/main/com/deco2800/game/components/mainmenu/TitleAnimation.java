@@ -1,26 +1,22 @@
 package com.deco2800.game.components.mainmenu;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ScaleByAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 
 public class TitleAnimation extends Image {
-    public TitleAnimation(Texture texture, float currentWidth, float currentHeight, int centreWidth, int centreHeight) {
+
+    public TitleAnimation(Texture texture, float currentWidth, float currentHeight,
+                          int centreWidth, int centreHeight, float duration) {
         super(texture);
 
         // These are magic numbers as the centre width equations does not centre the image
         // nicely.
         float width = 600;
         float height = 200;
-        float duration = 1.2f;
-        float scale = 1.2f;
+        float scale = 2f;
         setBounds(300,375,width,height);
         //setBounds(centreWidth,centreHeight,currentWidth,currentHeight);
 

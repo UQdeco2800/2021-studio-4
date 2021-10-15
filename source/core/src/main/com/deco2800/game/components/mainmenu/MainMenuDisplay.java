@@ -1,31 +1,20 @@
 package com.deco2800.game.components.mainmenu;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.components.InsertImageButton;
-import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.*;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * A ui component for displaying the Main menu.
@@ -35,6 +24,9 @@ public class MainMenuDisplay extends UIComponent {
     private static final float Z_INDEX = 2f;
     private Table table;
     private ImageButton muteBtn;
+    private Long titleAnimationStartTime = null;
+    private TitleAnimation titleAnimation;
+    private float duration;
 
     /**
      * used tp switch between button states
@@ -287,7 +279,7 @@ public class MainMenuDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.info("Launching title Animation");
-                        titlesAnimation(runtimeTitle);
+                        titlesAnimation();
                     }
                 });
 
@@ -306,80 +298,42 @@ public class MainMenuDisplay extends UIComponent {
     /**
      * The animation when the title buttons has been pressed
      */
-    private void titlesAnimation(ImageButton runtimeTitle) {
-        // Removes the original title.
-        runtimeTitle.remove();
+    private void titlesAnimation() {
         int centreWidth = Gdx.graphics.getWidth() / 2;
         int centreHeight = Gdx.graphics.getHeight() / 2;
 
         Image animationImage = new Image(new Texture("ui-elements/runtime-title.png")); // works as expected
         animationImage.setBounds(centreWidth, centreHeight, 100, 100);
         /** This adds the tiny runtime logo */
-        //stage.addActor(animationImage);
         moveAnimationImage(animationImage);
     }
 
     /**
-     * moves the image around thew screen in a cool loop
+     * moves the animationImage around thew screen in a cool loop
      *
-     * @param image
+     * @param animationImage
      */
-    private void moveAnimationImage(Image image) {
-        //image.scaleBy(2);
-        float currentWidth = image.getImageWidth();
-        float currentHeight = image.getImageHeight();
+    private void moveAnimationImage(Image animationImage) {
+        float currentWidth = animationImage.getImageWidth();
+        float currentHeight = animationImage.getImageHeight();
         int centreWidth = Gdx.graphics.getWidth() / 2;
         int centreHeight = Gdx.graphics.getHeight() / 2;
+        duration = 2f;
 
-        TitleAnimation titleAnimation = new TitleAnimation(new Texture("ui-elements/runtime-title.png"),
-                image.getImageWidth(), image.getImageHeight(), centreWidth, centreHeight);
+        titleAnimation = new TitleAnimation(
+                new Texture("ui-elements/runtime-title.png"), animationImage.getImageWidth(),
+                animationImage.getImageHeight(), centreWidth, centreHeight, duration);
 
+        titleAnimationStartTime = ServiceLocator.getTimeSource().getTime();
         stage.addActor(titleAnimation);
-
-
-
-
-//
-//        Timer timer = new Timer();
-//        long startTime = ServiceLocator.getTimeSource().getTime();
-//        while (ServiceLocator.getTimeSource().getTimeSince(startTime) <= 3) {
-//            changeSize(image);
-//        }
     }
 
-    private void removeImage(Image image) {
-        //removes the image.
-        if (image != null) {
-            image.remove();
+    @Override
+    public void update() {
+        if (titleAnimationStartTime != null && ServiceLocator.getTimeSource().getTimeSince(titleAnimationStartTime) >= duration) {
+            titleAnimation.remove();
         }
     }
-
-    private Image changeSize(float width, float height, int centreWidth, int centreHeight) {
-        // Draws a new image.
-        Image animationImage = new Image(new Texture("ui-elements/runtime-title.png")); // works as expected
-        animationImage.setBounds(centreWidth, centreHeight, width, height);
-
-        return animationImage;
-
-//        int scalar = 20;
-//        int centreWidth = Gdx.graphics.getWidth()/2;
-//        int centreHeight = Gdx.graphics.getHeight()/2;
-//
-//        float width = image.getImageWidth() + scalar;
-//        float height = image.getImageHeight() + scalar;
-//
-//        Timer speedBoostDuration = new Timer();
-//        speedBoostDuration.schedule(
-//                new TimerTask() {
-//                    @Override
-//                    public void run() {
-//                        image.setBounds(centreWidth, centreHeight, width, height);
-//                    }
-//                },
-//                1000
-//        );
-    }
-
 
     @Override
     public void draw(SpriteBatch batch) {
