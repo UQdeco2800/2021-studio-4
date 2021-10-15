@@ -1,42 +1,88 @@
-level2textures.png
-size:2048,256
+
+level2Textures.png
+size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
-repeat:none
-base
-  rotate: false
-  xy: 692, 7
-  size: 226, 226
-  orig: 226, 226
-  offset: 0, 0
-  index: 1
+repeat: none
 bridge
   rotate: false
-  xy: 918, 7
-  size: 226, 226
-  orig: 226, 226
+  xy: 2, 504
+  size: 500, 500
+  orig: 500, 500
   offset: 0, 0
-  index: 1
-grid
+  index: -1
+button
   rotate: false
-  xy: 466, 7
-  size: 226, 226
-  orig: 226, 226
+  xy: 2, 2
+  size: 500, 500
+  orig: 500, 500
   offset: 0, 0
   index: 1
-ramp-left
-bounds:233,0,233,233
+button
   rotate: false
-  xy: 233, 0
-  size: 233, 233
-  orig: 233, 233
+  xy: 504, 504
+  size: 500, 500
+  orig: 500, 500
   offset: 0, 0
-  index: 1
-ramp-right
-bounds:0,0,233,233
+  index: 2
+door
   rotate: false
-  xy: 0, 0
-  size: 233, 233
-  orig: 233, 233
+  xy: 504, 2
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+
+level2Textures2.png
+size: 1024, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+halfBottom
+  rotate: false
+  xy: 2, 504
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+halfTop
+  rotate: false
+  xy: 2, 2
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+jumppad
+  rotate: false
+  xy: 504, 504
+  size: 500, 500
+  orig: 500, 500
   offset: 0, 0
   index: 1
+jumppad
+  rotate: false
+  xy: 504, 2
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: 2
+
+level2Textures3.png
+size: 512, 512
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+middlePlatform
+  rotate: false
+  xy: 2, 2
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+platform
+  rotate: false
+  xy: 2, 2
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
