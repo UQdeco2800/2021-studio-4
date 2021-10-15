@@ -115,6 +115,7 @@ public class LevelGameArea extends GameArea {
    */
   public void init() {
     loadLevelFile();
+
     loadAssets();
 
     String levels = levelDefinition.getLevelFileName();
@@ -201,7 +202,7 @@ public class LevelGameArea extends GameArea {
 
   private void spawnTerrain() {
     // Generate terrain
-    terrain = terrainFactory.createTerrain();
+    terrain = terrainFactory.createTerrain(levelFile.terrain.mapLayer);
 
     Entity terrainEntity = new Entity();
     terrainEntity.addComponent(terrain);
@@ -418,9 +419,25 @@ public class LevelGameArea extends GameArea {
     LevelFile levelFile = new LevelFile();
 
     // save the TiledMapTileLayer
-    applyTerrainSerializers(json);
+    TiledMapTileLayer layer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
+    LevelFile.TileLayerData layerData = new LevelFile.TileLayerData();
+
+    // Add the tiles to the layer data
+    for (int x = 0; x < layer.getWidth(); x++) {
+      for (int y = 0; y < layer.getHeight(); y++) {
+        TiledMapTileLayer.Cell cell = layer.getCell(x, y);
+
+        if (cell != null) {
+          LevelFile.PositionedTerrainTile positionedTile =
+            new LevelFile.PositionedTerrainTile((TerrainTile) cell.getTile(), x, y);
+
+          layerData.tiles.add(positionedTile);
+        }
+      }
+    }
+
     levelFile.terrain = new LevelFile.Terrain();
-    levelFile.terrain.mapLayer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
+    levelFile.terrain.mapLayer = layerData;
 
     // Save the obstacles
     //generateInteractableIDs(); // Assign interactable IDs to obstacles here
@@ -434,7 +451,6 @@ public class LevelGameArea extends GameArea {
 
   private void loadLevelFile() {
     Json json = new Json();
-    applyTerrainSerializers(json);
 
     FileHandle file = Gdx.files.local(levelDefinition.getLevelFileName());
     assert file != null;
@@ -457,11 +473,6 @@ public class LevelGameArea extends GameArea {
     // Add entities to subInteractables list
     for (ObstacleEntity obstacleEntity : obstacleEntities) {
       if (obstacleEntity.interactableID != null) {
-  //        System.out.println(obstacleEntity.interactableID);
-  //        System.out.println(levelFile.obstacles.interactablesMap);
-  //        System.out.println(levelFile.obstacles.interactablesMap.keySet());
-  //        System.out.println(levelFile.obstacles.interactablesMap.get(obstacleEntity.interactableID);
-  //        System.out.println(levelFile.obstacles.interactablesMap.containsKey(obstacleEntity.interactableID));
         if (levelFile.obstacles.interactablesMap.containsKey(obstacleEntity.interactableID)) {
           List<Integer> subInteractableIds = levelFile.obstacles.interactablesMap.get(obstacleEntity.interactableID);
           List<ObstacleEntity> subInteractables = new ArrayList<>();
@@ -479,80 +490,6 @@ public class LevelGameArea extends GameArea {
     System.out.println(levelFile.obstacles.interactablesMap);
   }
 
-  private void applyTerrainSerializers(Json json) {
-    // Serializer for loading/saving cells to json using PositionedTerrainTile
-    json.setSerializer(TiledMapTileLayer.class, new Json.Serializer<>() {
-      @Override
-      public void write(Json json, TiledMapTileLayer layer, Class knownType) {
-        List<LevelFile.PositionedTerrainTile> tiles = new ArrayList<>();
-        // Create a list of PositionedTerrainTile to save
-        for (int x = 0; x < layer.getWidth(); x++) {
-          for (int y = 0; y < layer.getHeight(); y++) {
-            TiledMapTileLayer.Cell cell = layer.getCell(x, y);
-
-            if (cell != null) {
-              LevelFile.PositionedTerrainTile positionedTile =
-                new LevelFile.PositionedTerrainTile((TerrainTile) cell.getTile(), x, y);
-
-              tiles.add(positionedTile);
-            }
-          }
-        }
-
-        json.writeValue(tiles);
-      }
-
-      @Override
-      public TiledMapTileLayer read(Json json, JsonValue jsonData, Class type) {
-        TiledMapTileLayer mapTileLayer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
-
-        for (JsonValue tileData : jsonData) {
-          LevelFile.PositionedTerrainTile posTile = json.readValue(LevelFile.PositionedTerrainTile.class, tileData);
-
-          TiledMapTileLayer.Cell cell = posTile.tile.generateCell();
-          mapTileLayer.setCell(posTile.x, posTile.y, cell);
-        }
-
-        return mapTileLayer;
-      }
-    });
-  }
-
-//  @Deprecated
-//  private void _spawnLevelFromFile() {
-//    BufferedReader reader = null;
-//    try {
-//      reader = new BufferedReader(new FileReader("levels/level.txt"));
-//
-//      String line;
-//      while ((line = reader.readLine()) != null) {
-//        String[] lineInfo = line.split(":");
-//        if (lineInfo[0].equals("O")) {
-//          ObstacleDefinition obstacle = ObstacleDefinition.valueOf(lineInfo[1]);
-//          int size = Integer.parseInt(lineInfo[2]);
-//          int x = Integer.parseInt(lineInfo[3]);
-//          int y = Integer.parseInt(lineInfo[4]);
-//          spawnObstacle(obstacle, x, y, size);
-//        } else {
-//          TerrainTileDefinition definition = TerrainTileDefinition.valueOf(lineInfo[1]);
-//          int rotation = Integer.parseInt(lineInfo[2]);
-//          int x = Integer.parseInt(lineInfo[3]);
-//          int y = Integer.parseInt(lineInfo[4]);
-//          TiledMapTileLayer mapTileLayer = (TiledMapTileLayer) terrain.getMap().getLayers().get(0);
-//          TerrainFactory.loadTilesFromFile(mapTileLayer, definition, rotation, x, y);
-//        }
-//      }
-//    } catch (IOException | NullPointerException e) {
-//      e.printStackTrace();
-//    } finally {
-//      try {
-//        reader.close();
-//      } catch (IOException e) {
-//        e.printStackTrace();
-//      }
-//    }
-//  }
-
   @Override
   public void untrackEntity(Entity entity) {
     this.obstacleEntities.remove(entity);
@@ -560,7 +497,6 @@ public class LevelGameArea extends GameArea {
   }
 
   private void spawnLevelFromFile() {
-  //  _spawnLevelFromFile(); // Used to load an old level.txt file to the new json format.
     // Load actual elements
     generateAll();
 

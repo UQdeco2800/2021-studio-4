@@ -19,19 +19,21 @@ public enum TerrainTileDefinition {
   public static final int TILE_Y = 500;
 
   TerrainTileDefinition(String regionName, boolean rotateable, boolean flipable) {
-    TextureAtlas atlas = ServiceLocator.getResourceService()
-      .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
-    this.textureRegion = atlas.findRegion(regionName);
+    this.regionName = regionName;
     this.rotateable = rotateable;
     this.flipable = flipable;
   }
 
-  private final TextureRegion textureRegion;
+  private final String regionName;
   private final boolean rotateable;
   private final boolean flipable;
 
   public Sprite getSprite() {
-    return new Sprite(this.textureRegion);
+    TextureAtlas atlas = ServiceLocator.getResourceService()
+      .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
+    TextureRegion textureRegion = atlas.findRegion(regionName);
+
+    return new Sprite(textureRegion);
   }
 
   public boolean isRotateable() {
