@@ -1,12 +1,15 @@
 package com.deco2800.game.components.mainmenu;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -15,10 +18,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.components.InsertImageButton;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.*;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * A ui component for displaying the Main menu.
@@ -35,16 +42,26 @@ public class MainMenuDisplay extends UIComponent {
     public MainMenuDisplay() {
     }
 
+    private static final String[] gameTextures = {
+            "images/animatedvoid.png",
+            "images/void_spritesheet2.png",
+    };
+
+    private static final String[] gameTextureAtlases = {
+            "images/void.atlas",
+    };
+
     @Override
     public void create() {
         super.create();
         addActors();
         playTheMusic();
+        //loadAssets();
     }
-    public void playTheMusic() {
-            MusicSingleton music = MusicSingleton.getInstance();
-            music.playMusicSingleton("sounds/MainMenuMusic.mp3");
 
+    public void playTheMusic() {
+        MusicSingleton music = MusicSingleton.getInstance();
+        music.playMusicSingleton("sounds/MainMenuMusic.mp3");
     }
 
     /**
@@ -59,25 +76,25 @@ public class MainMenuDisplay extends UIComponent {
          * Creates the button size and position based off
          * of the users computer screen dimensions.
          */
-        int centreWidth1 = Gdx.graphics.getWidth()/2;
-        int centreHeight1 = Gdx.graphics.getHeight()/2;
+        int centreWidth1 = Gdx.graphics.getWidth() / 2;
+        int centreHeight1 = Gdx.graphics.getHeight() / 2;
 
         // Buttons dimensions
-        int buttonDimensionsWidth = (int) Math.round(centreWidth1*0.3);
-        int buttonDimensionsHeight = (int) Math.round(centreHeight1*0.15);
-        int titleHeightDimension = (int) Math.round(centreHeight1*0.45);
-        int titleWidthDimension = (int) Math.round(centreWidth1*1.4);
-        int centreWidth = centreWidth1 - buttonDimensionsWidth/2; // Moves middle of button to Centre
-        int screenRight = centreWidth*2;
+        int buttonDimensionsWidth = (int) Math.round(centreWidth1 * 0.3);
+        int buttonDimensionsHeight = (int) Math.round(centreHeight1 * 0.15);
+        int titleHeightDimension = (int) Math.round(centreHeight1 * 0.45);
+        int titleWidthDimension = (int) Math.round(centreWidth1 * 1.4);
+        int centreWidth = centreWidth1 - buttonDimensionsWidth / 2; // Moves middle of button to Centre
+        int screenRight = centreWidth * 2;
         int screenRightWithXOffset = screenRight - (int) Math.round(centreWidth1 * 0.1);
-        int centreHeight = centreHeight1 - buttonDimensionsHeight/2; // Height of top image
+        int centreHeight = centreHeight1 - buttonDimensionsHeight / 2; // Height of top image
         // Gap Between buttons (Y-axis)
         int heightDifference = (int) Math.round(centreHeight * 0.2);
 
         // Titles Dimensions
-        int centreTitleWidth = centreWidth1 - titleWidthDimension/2;
+        int centreTitleWidth = centreWidth1 - titleWidthDimension / 2;
         int titleWidth = (int) Math.round(centreTitleWidth * 0.5);
-        int centreTitleHeight = centreHeight1 - titleHeightDimension/2;
+        int centreTitleHeight = centreHeight1 - titleHeightDimension / 2;
         int titleHeight = (int) Math.round(centreTitleHeight * 1.1);
 
         /**
@@ -90,20 +107,6 @@ public class MainMenuDisplay extends UIComponent {
                 titleWidth, titleHeight,
                 titleWidthDimension, titleHeightDimension);
 
-
-//        /**
-//         * Creates the VirusHead texture for the virus image
-//         */
-//        Texture virusTexture = new Texture(Gdx.files.internal("images/VirusHead.png"));
-//        Drawable virusDrawable = new TextureRegionDrawable(new TextureRegion(virusTexture));
-//        ImageButton virusHead = new ImageButton(virusDrawable);
-//        /**
-//         * Sets the size and position of the virusHead after texture applied.
-//         */
-//        virusHead.setBounds(centreWidth,centreHeight-height79Percent,
-//                buttonDimensionsWidth, buttonDimensionsHeight*2);
-//        virusHead.setDisabled(true);
-
         /**
          * Creates the button texture for the Start Button.
          */
@@ -111,7 +114,7 @@ public class MainMenuDisplay extends UIComponent {
         String startHoverImage = "ui-elements/hovered-buttons/start-button-hovered.png";
         ImageButton startBtn;
         startBtn = insImage.setImage(startMainImage, startHoverImage,
-                screenRight,centreHeight + heightDifference * 3,
+                screenRight, centreHeight + heightDifference * 3,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
 
@@ -122,7 +125,7 @@ public class MainMenuDisplay extends UIComponent {
         String levelHoverImage = "ui-elements/hovered-buttons/levels-button-hovered.png";
         ImageButton levelSelectBtn;
         levelSelectBtn = insImage.setImage(levelMainImage, levelHoverImage,
-                screenRightWithXOffset,centreHeight + heightDifference*2,
+                screenRightWithXOffset, centreHeight + heightDifference * 2,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         /**
@@ -132,17 +135,17 @@ public class MainMenuDisplay extends UIComponent {
         String settingsHoverImage = "ui-elements/hovered-buttons/settings-button-hovered.png";
         ImageButton settingsBtn;
         settingsBtn = insImage.setImage(settingsMainImage, settingsHoverImage,
-                screenRightWithXOffset,centreHeight,
+                screenRightWithXOffset, centreHeight,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         /**
          * Creates the button texture for the Exit Button.
          */
         String exitMainImage = "ui-elements/default_buttons/exit-button.png";
-        String  exitHoverImage = "ui-elements/hovered-buttons/exit-button-hovered.png";
+        String exitHoverImage = "ui-elements/hovered-buttons/exit-button-hovered.png";
         ImageButton exitBtn;
         exitBtn = insImage.setImage(exitMainImage, exitHoverImage,
-                screenRight,centreHeight - heightDifference * 3,
+                screenRight, centreHeight - heightDifference * 3,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         /**
@@ -172,37 +175,37 @@ public class MainMenuDisplay extends UIComponent {
         }
 
         //Sets the size and position of the button after texture applied, for Mute and Currently Muted both.
-        muteBtn.setBounds(screenRight,(float)(centreHeight - heightDifference),
+        muteBtn.setBounds(screenRight, (float) (centreHeight - heightDifference),
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         /**
          * Creates the button texture for the Leaderboard Button.
          */
         String leaderBoardMainImage = "ui-elements/default_buttons/scores-button.png";
-        String  leaderBoardHoverImage = "ui-elements/hovered-buttons/scores-button-hovered.png";
+        String leaderBoardHoverImage = "ui-elements/hovered-buttons/scores-button-hovered.png";
         ImageButton leaderBoardBtn;
         leaderBoardBtn = insImage.setImage(leaderBoardMainImage, leaderBoardHoverImage,
-                screenRight,centreHeight + heightDifference,
+                screenRight, centreHeight + heightDifference,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         /**
          * Creates the button texture for the Leaderboard Button.
          */
         String levelEditorImage = "ui-elements/default_buttons/level-editor-button.png";
-        String  levelEditorHoverImage = "ui-elements/hovered-buttons/level-editor-button-hovered.png";
+        String levelEditorHoverImage = "ui-elements/hovered-buttons/level-editor-button-hovered.png";
         ImageButton levelEditorBtn;
         levelEditorBtn = insImage.setImage(levelEditorImage, levelEditorHoverImage,
-                screenRightWithXOffset,centreHeight - heightDifference * 2,
+                screenRightWithXOffset, centreHeight - heightDifference * 2,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
         levelEditorBtn.addListener(
                 new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent changeEvent, Actor actor) {
-                logger.debug("level button clicked");
-                entity.getEvents().trigger("levelEditor");
-            }
-        });
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.debug("level button clicked");
+                        entity.getEvents().trigger("levelEditor");
+                    }
+                });
 
         // Triggers an event when the button is pressed
         startBtn.addListener(
@@ -276,6 +279,17 @@ public class MainMenuDisplay extends UIComponent {
                     }
                 });
 
+        /**
+         * Sets the animation for when pressed
+         */
+        runtimeTitle.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.info("Launching title Animation");
+                        titlesAnimation(runtimeTitle);
+                    }
+                });
 
         stage.addActor(table);
         stage.addActor(startBtn);
@@ -284,19 +298,86 @@ public class MainMenuDisplay extends UIComponent {
         stage.addActor(settingsBtn);
         stage.addActor(exitBtn);
         stage.addActor(leaderBoardBtn);
-//        stage.addActor(virusHead);
         stage.addActor(runtimeTitle);
+        //stage.addActor(new TitleAnimation(new Texture("ui-elements/runtime-title.png")));
         stage.addActor(levelEditorBtn);
     }
 
+    /**
+     * The animation when the title buttons has been pressed
+     */
+    private void titlesAnimation(ImageButton runtimeTitle) {
+        // Removes the original title.
+        runtimeTitle.remove();
+        int centreWidth = Gdx.graphics.getWidth() / 2;
+        int centreHeight = Gdx.graphics.getHeight() / 2;
 
+        Image animationImage = new Image(new Texture("ui-elements/runtime-title.png")); // works as expected
+        animationImage.setBounds(centreWidth, centreHeight, 100, 100);
+        /** This adds the tiny runtime logo */
+        //stage.addActor(animationImage);
+        moveAnimationImage(animationImage);
+    }
 
     /**
-     * Return Mute Button for testing purposes
-     * @return ImageButton MuteBtn
+     * moves the image around thew screen in a cool loop
+     *
+     * @param image
      */
-    public ImageButton getMuteBtn() {
-        return muteBtn;
+    private void moveAnimationImage(Image image) {
+        //image.scaleBy(2);
+        float currentWidth = image.getImageWidth();
+        float currentHeight = image.getImageHeight();
+        int centreWidth = Gdx.graphics.getWidth() / 2;
+        int centreHeight = Gdx.graphics.getHeight() / 2;
+
+        TitleAnimation titleAnimation = new TitleAnimation(new Texture("ui-elements/runtime-title.png"),
+                image.getImageWidth(), image.getImageHeight(), centreWidth, centreHeight);
+
+        stage.addActor(titleAnimation);
+
+
+
+
+//
+//        Timer timer = new Timer();
+//        long startTime = ServiceLocator.getTimeSource().getTime();
+//        while (ServiceLocator.getTimeSource().getTimeSince(startTime) <= 3) {
+//            changeSize(image);
+//        }
+    }
+
+    private void removeImage(Image image) {
+        //removes the image.
+        if (image != null) {
+            image.remove();
+        }
+    }
+
+    private Image changeSize(float width, float height, int centreWidth, int centreHeight) {
+        // Draws a new image.
+        Image animationImage = new Image(new Texture("ui-elements/runtime-title.png")); // works as expected
+        animationImage.setBounds(centreWidth, centreHeight, width, height);
+
+        return animationImage;
+
+//        int scalar = 20;
+//        int centreWidth = Gdx.graphics.getWidth()/2;
+//        int centreHeight = Gdx.graphics.getHeight()/2;
+//
+//        float width = image.getImageWidth() + scalar;
+//        float height = image.getImageHeight() + scalar;
+//
+//        Timer speedBoostDuration = new Timer();
+//        speedBoostDuration.schedule(
+//                new TimerTask() {
+//                    @Override
+//                    public void run() {
+//                        image.setBounds(centreWidth, centreHeight, width, height);
+//                    }
+//                },
+//                1000
+//        );
     }
 
 
