@@ -68,8 +68,8 @@ public class LevelFile {
 
   public static class TileLayerData {
     public List<PositionedTerrainTile> tiles = new ArrayList<>();
-    public int width = 0;
-    public int height = 0;
+    public Integer width = 0;
+    public Integer height = 0;
   }
 
   public static class Terrain {

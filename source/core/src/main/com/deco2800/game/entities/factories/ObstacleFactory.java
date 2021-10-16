@@ -23,9 +23,6 @@ import com.deco2800.game.services.ServiceLocator;
  * <p>Each obstacle entity type should have a creation method that returns a corresponding entity.
  */
 public class ObstacleFactory {
-  public static LevelTexture currentTextures = LevelTexture.LEVEL_ONE;
-
-
   private static Pixmap textureRegionToPixmap(TextureRegion textureRegion) {
     // Get texture data for entire atlas
     TextureData textureData = textureRegion.getTexture().getTextureData();
@@ -82,7 +79,7 @@ public class ObstacleFactory {
 
   public static Entity createPlatform(int width) {
     TextureAtlas atlas = ServiceLocator.getResourceService()
-      .getAsset(currentTextures.getAtlasName(), TextureAtlas.class);
+      .getAsset(ServiceLocator.getCurrentTexture().getAtlasName(), TextureAtlas.class);
 
     TextureRegion textureRegion = atlas.findRegion("platform");
     Pixmap tilePixmap = textureRegionToPixmap(textureRegion);
@@ -106,7 +103,7 @@ public class ObstacleFactory {
 
   public static Entity createMiddlePlatform(int width) {
     TextureAtlas atlas = ServiceLocator.getResourceService()
-      .getAsset(currentTextures.getAtlasName(), TextureAtlas.class);
+      .getAsset(ServiceLocator.getCurrentTexture().getAtlasName(), TextureAtlas.class);
 
     TextureRegion textureRegion = atlas.findRegion("middlePlatform");
     Pixmap tilePixmap = textureRegionToPixmap(textureRegion);
@@ -130,7 +127,7 @@ public class ObstacleFactory {
 
   public static Entity createButton() {
     TextureAtlas atlas = ServiceLocator.getResourceService()
-      .getAsset(currentTextures.getAtlasName(), TextureAtlas.class);
+      .getAsset(ServiceLocator.getCurrentTexture().getAtlasName(), TextureAtlas.class);
 
     TextureRegion textureRegion = atlas.findRegion("button", 2);
     Pixmap tilePixmap = textureRegionToPixmap(textureRegion);
@@ -159,7 +156,7 @@ public class ObstacleFactory {
    */
   public static Entity createJumpPad() {
     TextureAtlas atlas = ServiceLocator.getResourceService()
-      .getAsset(currentTextures.getAtlasName(), TextureAtlas.class);
+      .getAsset(ServiceLocator.getCurrentTexture().getAtlasName(), TextureAtlas.class);
 
     TextureRegion textureRegion = atlas.findRegion("jumppad", 1);
     Pixmap tilePixmap = textureRegionToPixmap(textureRegion);
@@ -181,7 +178,7 @@ public class ObstacleFactory {
 
   public static Entity createBridge(int width) {
     TextureAtlas atlas = ServiceLocator.getResourceService()
-      .getAsset(currentTextures.getAtlasName(), TextureAtlas.class);
+      .getAsset(ServiceLocator.getCurrentTexture().getAtlasName(), TextureAtlas.class);
 
     TextureRegion textureRegion = atlas.findRegion("bridge");
     Pixmap tilePixmap = textureRegionToPixmap(textureRegion);
@@ -210,7 +207,7 @@ public class ObstacleFactory {
 
   public static Entity createDoor(int height) {
     TextureAtlas atlas = ServiceLocator.getResourceService()
-      .getAsset(currentTextures.getAtlasName(), TextureAtlas.class);
+      .getAsset(ServiceLocator.getCurrentTexture().getAtlasName(), TextureAtlas.class);
 
     TextureRegion textureRegion = atlas.findRegion("door");
     Pixmap tilePixmap = textureRegionToPixmap(textureRegion);

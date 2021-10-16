@@ -43,8 +43,8 @@ public class LevelGameArea extends GameArea {
   public static ArrayList<TerrainTile> terrainTiles = new ArrayList<>();
   public static ArrayList<String> buffers = new ArrayList<>();
   public static ArrayList<String> deBuffers = new ArrayList<>();
-  private Random random = new Random();
   private LevelFile levelFile;
+  private Random random = new Random();
 
   public Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables = new HashMap<>();
   public List<ObstacleEntity> interactableEntities = new ArrayList<>();
@@ -412,6 +412,8 @@ public class LevelGameArea extends GameArea {
   }
 
   public void writeAll() {
+    // Theoretically it is more efficient to simply change the current level file and save that again, however this
+    // could result in unintended consequences and thus is not a priority
     Json json = new Json();
     json.setOutputType(JsonWriter.OutputType.json);
 
@@ -424,6 +426,8 @@ public class LevelGameArea extends GameArea {
     // save the TiledMapTileLayer
     TiledMapTileLayer layer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
     LevelFile.TileLayerData layerData = new LevelFile.TileLayerData();
+    layerData.height = this.levelFile.terrain.mapLayer.height;
+    layerData.width = this.levelFile.terrain.mapLayer.width;
 
     // Add the tiles to the layer data
     for (int x = 0; x < layer.getWidth(); x++) {
@@ -448,6 +452,9 @@ public class LevelGameArea extends GameArea {
     levelFile.obstacles.obstacleEntities = this.obstacleEntities;
     //levelFile.obstacles.interactablesMap = generateInteractablesMap();
 
+    // Save current texture from old level file
+    levelFile.levelTexture = this.levelFile.levelTexture;
+
     // save the file
     file.writeString(json.prettyPrint(levelFile), false);
   }
@@ -459,6 +466,7 @@ public class LevelGameArea extends GameArea {
     assert file != null;
 
     levelFile = json.fromJson(LevelFile.class, file);
+    ServiceLocator.registerCurrentTexture(levelFile.levelTexture);
   }
 
   private void generateAll() {
