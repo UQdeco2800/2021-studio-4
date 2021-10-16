@@ -6,7 +6,6 @@ import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.PlayerMovementComponent;
-import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.components.statuseffects.StatusEffectTargetComponent;
@@ -90,7 +89,6 @@ public class PlayerFactory {
             .addComponent(animator)
             .addComponent(new PlayerActions(levelGameArea.getLevelDefinition()))
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
-            .addComponent(new InventoryComponent(stats.gold))
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(aiComponent)

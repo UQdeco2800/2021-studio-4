@@ -29,7 +29,7 @@ public class TheVoidController extends Component {
 
     // private static final Vector2 SPEED = new Vector2(8f, 0f);
     // Changed so that the speed of void can be changed
-    private static Vector2 normalSpeed = new Vector2(8f, 0f);
+    private static Vector2 normalSpeed = new Vector2(18f, 0f);
     private static Vector2 pausedSpeed = new Vector2(0f, 0f);
     private static Vector2 SPEED = normalSpeed;
 
@@ -63,6 +63,7 @@ public class TheVoidController extends Component {
         entity.getEvents().addListener("TheVoidAnimate", this::theVoidAnimate);
         entity.getEvents().addListener("TheVoidMove", this::theVoidMove);
         entity.getEvents().addListener("UpdateSound", this::updateSound);
+        entity.getEvents().addListener("UpdateSpeed", this::updateSpeed);
         entity.getEvents().addListener("StopVoidIfPlayerDead", this:: stopVoidIfPlayerDead);
         entity.getEvents().addListener("RestartVoidOnRestart", this:: restartVoidOnRestart);
 
@@ -72,9 +73,19 @@ public class TheVoidController extends Component {
     /**
      * Starts the void's animation
      */
-     void theVoidAnimate(){
+    void theVoidAnimate(){
         animator.startAnimation("void");
     }
+
+
+    void updateSpeed() {
+        if (getPlayerDistance() > 12) {
+            SPEED = new Vector2(50f, 0f);
+        } else {
+            SPEED = normalSpeed;
+        }
+    }
+
 
     void stopVoidIfPlayerDead() {
         //System.out.println(getPlayerDistance());
@@ -123,18 +134,20 @@ public class TheVoidController extends Component {
              if (distance_from_player > (float)0.01) {
                  float change1 = abs(1 - distance_from_player);
                  if (change1 > (float)1) {
-                     musicService.changeVolume((float)0.2);
+                     musicService.playSong(false, 0.2f);
                  } else {
-                     musicService.changeVolume((float)0.4);
+                     musicService.playSong(false, 0.4f);
 
                  }
              }
              else if (distance_from_player < (float)0.99) {
                  float change2 = abs(1 - distance_from_player);
                  if (change2 > (float)1) {
-                     musicService.changeVolume((float)0.9);
+                     //musicService.changeVolume((float)0.9);
+                     musicService.playSong(false, 0.9f);
                  } else {
-                     musicService.changeVolume((float)0.6);
+                     //musicService.changeVolume((float)0.6);
+                     musicService.playSong(false, 0.6f);
                  }
              }
     }

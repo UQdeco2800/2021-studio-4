@@ -36,6 +36,22 @@ public class StatusEffectTargetComponent extends Component {
   /**
    * Applies the given status effect to the target. Note: only one status effect will be present at one time.
    * @param statusEffect The effect to apply
+
+  if (currentStatusEffect != null && ServiceLocator.getTimeSource().getTimeSince(currentStatusEffectStartTime) >= currentStatusEffect.getDuration()*1000) {
+  currentStatusEffect = null;
+  currentStatusEffectStartTime = null;
+  currentStatusEffectResetTask.run();
+  currentStatusEffectResetTask = null;
+  }
+  }
+
+  public StatusEffect getCurrentStatusEffect() {
+  return currentStatusEffect;
+  }
+
+  /**
+   * Applies the given status effect to the target. Note: only one status effect will be present at one time.
+   * @param statusEffect The effect
    */
   private void applyStatusEffect(StatusEffect statusEffect) {
     if (currentStatusEffect != null) {
