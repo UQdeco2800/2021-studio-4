@@ -300,29 +300,26 @@ public class MainMenuDisplay extends UIComponent {
      */
     private void titlesAnimation() {
         runtimeTitle.remove();
-        int centreWidth = Gdx.graphics.getWidth() / 2;
-        int centreHeight = Gdx.graphics.getHeight() / 2;
         int imageWidth = 100;
         int imageHeight = 100;
-
-        Image animationImage = new Image(new Texture("ui-elements/runtime-title.png")); // works as expected
-        animationImage.setBounds(centreWidth, centreHeight, imageWidth, imageHeight);
         /** This adds the tiny runtime logo */
-        moveAnimationImage(animationImage, imageWidth, imageHeight);
+        moveAnimationImage(imageWidth, imageHeight);
     }
 
     /**
      * moves the animationImage around thew screen in a cool loop
      *
-     * @param animationImage
+     * @param imageWidth - width of image
+     * @param imageHeight - height of image
      */
-    private void moveAnimationImage(Image animationImage, int imageWidth, int imageHeight) {
+    private void moveAnimationImage(int imageWidth, int imageHeight) {
         int centreWidth = Gdx.graphics.getWidth() / 2 - imageWidth / 2;
         int centreHeight = Gdx.graphics.getHeight() / 2 - imageHeight / 2;
-        duration = 3.5f;
+        duration = 3.5f; // in seconds
+        String imageFile = "ui-elements/runtime-title.png";
 
         titleAnimation = new TitleAnimation(
-                new Texture("ui-elements/runtime-title.png"), imageWidth,
+                new Texture(imageFile), imageWidth,
                 imageHeight, centreWidth, centreHeight, duration);
 
         //titleAnimationStartTime = ServiceLocator.getTimeSource().getTime();
