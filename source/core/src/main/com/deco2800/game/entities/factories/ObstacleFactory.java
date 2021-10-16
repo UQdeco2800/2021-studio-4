@@ -84,7 +84,7 @@ public class ObstacleFactory {
     TextureAtlas atlas = ServiceLocator.getResourceService()
       .getAsset(currentTextures.getAtlasName(), TextureAtlas.class);
 
-    TextureRegion textureRegion = atlas.findRegion("mapTextures_Platforms");
+    TextureRegion textureRegion = atlas.findRegion("platform");
     Pixmap tilePixmap = textureRegionToPixmap(textureRegion);
 
     Texture platformTexture = expandTexture(tilePixmap, textureRegion, width, 1);
@@ -108,7 +108,7 @@ public class ObstacleFactory {
     TextureAtlas atlas = ServiceLocator.getResourceService()
       .getAsset(currentTextures.getAtlasName(), TextureAtlas.class);
 
-    TextureRegion textureRegion = atlas.findRegion("mapTextures_Middle-Platform");
+    TextureRegion textureRegion = atlas.findRegion("middlePlatform");
     Pixmap tilePixmap = textureRegionToPixmap(textureRegion);
 
     Texture platformTexture = expandTexture(tilePixmap, textureRegion, width, 1);
@@ -132,7 +132,7 @@ public class ObstacleFactory {
     TextureAtlas atlas = ServiceLocator.getResourceService()
       .getAsset(currentTextures.getAtlasName(), TextureAtlas.class);
 
-    TextureRegion textureRegion = atlas.findRegion("mapTextures_Button-On");
+    TextureRegion textureRegion = atlas.findRegion("button", 2);
     Pixmap tilePixmap = textureRegionToPixmap(textureRegion);
 
     Texture buttonTexture = expandTexture(tilePixmap, textureRegion, 1, 1);
@@ -161,14 +161,12 @@ public class ObstacleFactory {
     TextureAtlas atlas = ServiceLocator.getResourceService()
       .getAsset(currentTextures.getAtlasName(), TextureAtlas.class);
 
-    TextureRegion textureRegion = atlas.findRegion("mapTextures_Jumppad-idle");
+    TextureRegion textureRegion = atlas.findRegion("jumppad", 1);
     Pixmap tilePixmap = textureRegionToPixmap(textureRegion);
-
-    Texture jumpPadTexture = expandTexture(tilePixmap, textureRegion, 1, 1);
 
     ObstacleEntity jumpPad =
             new ObstacleEntity(ObstacleDefinition.JUMPPAD,1)
-                    .addComponent(new TextureRenderComponent(jumpPadTexture))
+                    .addComponent(new TextureRenderComponent(new Texture(tilePixmap)))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
                     .addComponent(new InteractableComponent())
@@ -185,7 +183,7 @@ public class ObstacleFactory {
     TextureAtlas atlas = ServiceLocator.getResourceService()
       .getAsset(currentTextures.getAtlasName(), TextureAtlas.class);
 
-    TextureRegion textureRegion = atlas.findRegion("mapTextures_bridge");
+    TextureRegion textureRegion = atlas.findRegion("bridge");
     Pixmap tilePixmap = textureRegionToPixmap(textureRegion);
 
     Texture platformTexture = expandTexture(tilePixmap, textureRegion, width, 1);
@@ -214,7 +212,7 @@ public class ObstacleFactory {
     TextureAtlas atlas = ServiceLocator.getResourceService()
       .getAsset(currentTextures.getAtlasName(), TextureAtlas.class);
 
-    TextureRegion textureRegion = atlas.findRegion("mapTextures_door");
+    TextureRegion textureRegion = atlas.findRegion("door");
     Pixmap tilePixmap = textureRegionToPixmap(textureRegion);
 
     Texture doorTexture = expandTexture(tilePixmap, textureRegion, 1, height);
