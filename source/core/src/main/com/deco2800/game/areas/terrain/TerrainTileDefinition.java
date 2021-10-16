@@ -28,9 +28,13 @@ public enum TerrainTileDefinition {
   private final boolean rotateable;
   private final boolean flipable;
 
+  private TextureAtlas atlas;
+
+  public void setAtlas(TextureAtlas atlas) {
+    this.atlas = atlas;
+  }
+
   public Sprite getSprite() {
-    TextureAtlas atlas = ServiceLocator.getResourceService()
-      .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
     TextureRegion textureRegion = atlas.findRegion(regionName);
 
     return new Sprite(textureRegion);

@@ -2,6 +2,7 @@ package com.deco2800.game.areas;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.GridPoint3;
@@ -202,7 +203,9 @@ public class LevelGameArea extends GameArea {
 
   private void spawnTerrain() {
     // Generate terrain
-    terrain = terrainFactory.createTerrain(levelFile.terrain.mapLayer);
+    TextureAtlas levelAtlas = ServiceLocator.getResourceService()
+      .getAsset(levelFile.levelTexture.getAtlasName(), TextureAtlas.class);
+    terrain = terrainFactory.createTerrain(levelFile.terrain.mapLayer, levelAtlas);
 
     Entity terrainEntity = new Entity();
     terrainEntity.addComponent(terrain);

@@ -1,5 +1,6 @@
 package com.deco2800.game.files;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
@@ -55,8 +56,10 @@ public class LevelFile {
      * This method generates the actual tile object, which must be done separately from loading the file
      * as the file contains the atlas, which is required for loading.
      */
-    public void generateTile(){
-      this.tile = new TerrainTile(TerrainTileDefinition.valueOf(rawTileData.getString("def")));
+    public void generateTile(TextureAtlas atlas){
+      TerrainTileDefinition definition = TerrainTileDefinition.valueOf(rawTileData.getString("def"));
+      definition.setAtlas(atlas);
+      this.tile = new TerrainTile(definition);
       this.tile.rotation = rawTileData.getInt("rot");
       this.tile.flipY = rawTileData.getBoolean("flipY");
       this.tile.flipX = rawTileData.getBoolean("flipX");

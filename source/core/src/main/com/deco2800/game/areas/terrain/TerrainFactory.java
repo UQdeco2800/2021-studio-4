@@ -1,6 +1,7 @@
 package com.deco2800.game.areas.terrain;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
@@ -37,9 +38,9 @@ public class TerrainFactory {
    * Generates the terraincomponent which will contain the terrain data
    * @return
    */
-  public TerrainComponent createTerrain(LevelFile.TileLayerData layerData) {
+  public TerrainComponent createTerrain(LevelFile.TileLayerData layerData, TextureAtlas levelAtlas) {
     GridPoint2 tilePixelSize = new GridPoint2(TerrainTileDefinition.TILE_X, TerrainTileDefinition.TILE_Y);
-    TiledMap tiledMap = loadTiles(tilePixelSize, layerData);
+    TiledMap tiledMap = loadTiles(tilePixelSize, layerData, levelAtlas);
     OrthoCachedTiledMapRenderer renderer = new OrthoCachedTiledMapRenderer(tiledMap, TILE_SIZE/tilePixelSize.x);
     generateBodies(tiledMap);
     return new TerrainComponent(camera, tiledMap, renderer, ORIENTATION, TILE_SIZE);
@@ -106,14 +107,12 @@ public class TerrainFactory {
    * @param tileSize
    * @return
    */
-  private TiledMap loadTiles(GridPoint2 tileSize, LevelFile.TileLayerData layerData) {
+  private TiledMap loadTiles(GridPoint2 tileSize, LevelFile.TileLayerData layerData, TextureAtlas levelAtlas) {
     TiledMap tiledMap = new TiledMap();
     TiledMapTileLayer layer = new TiledMapTileLayer(layerData.width, layerData.height, tileSize.x, tileSize.y);
 
     for (LevelFile.PositionedTerrainTile posTile : layerData.tiles) {
-      posTile.generateTile();
-      System.out.println(posTile.tile);
-      System.out.println(posTile.tile.definition);
+      posTile.generateTile(levelAtlas);
       TiledMapTileLayer.Cell cell = posTile.tile.generateCell();
       layer.setCell(posTile.x, posTile.y, cell);
     }
