@@ -140,8 +140,8 @@
 				"flipY": false
 			}
 		],
-		"width": 500,
-		"height": 500
+		"width": 1000,
+		"height": 40
 	}
 },
 "obstacles": {
