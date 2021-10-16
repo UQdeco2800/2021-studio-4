@@ -1,6 +1,7 @@
 package com.deco2800.game.areas.terrain;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.deco2800.game.areas.terrain.TerrainComponent.TerrainOrientation;
 import com.deco2800.game.components.CameraComponent;
+import com.deco2800.game.files.LevelFile;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.services.ServiceLocator;
 
@@ -36,9 +38,9 @@ public class TerrainFactory {
    * Generates the terraincomponent which will contain the terrain data
    * @return
    */
-  public TerrainComponent createTerrain() {
+  public TerrainComponent createTerrain(LevelFile.TileLayerData layerData, TextureAtlas levelAtlas) {
     GridPoint2 tilePixelSize = new GridPoint2(TerrainTileDefinition.TILE_X, TerrainTileDefinition.TILE_Y);
-    TiledMap tiledMap = loadTiles(tilePixelSize);
+    TiledMap tiledMap = loadTiles(tilePixelSize, layerData, levelAtlas);
     OrthoCachedTiledMapRenderer renderer = new OrthoCachedTiledMapRenderer(tiledMap, TILE_SIZE/tilePixelSize.x);
     generateBodies(tiledMap);
     return new TerrainComponent(camera, tiledMap, renderer, ORIENTATION, TILE_SIZE);
@@ -101,51 +103,21 @@ public class TerrainFactory {
   }
 
   /**
-   * Loads in the tiles, places them on the tile layer and returnes a tiledmap
+   * Loads in the tiles, places them on the tile layer and returns a tiledmap
    * @param tileSize
    * @return
    */
-  private TiledMap loadTiles(GridPoint2 tileSize) {
-    // These values determine the size of the base layer, these could be calculated by taking the largest coordinates
-    // from the map save, or could be saved with the map
-    int map_size_x = 100;
-    int map_size_y = 40;
-
+  private TiledMap loadTiles(GridPoint2 tileSize, LevelFile.TileLayerData layerData, TextureAtlas levelAtlas) {
     TiledMap tiledMap = new TiledMap();
-    TiledMapTileLayer layer = new TiledMapTileLayer(map_size_x, map_size_y, tileSize.x, tileSize.y);
+    TiledMapTileLayer layer = new TiledMapTileLayer(layerData.width, layerData.height, tileSize.x, tileSize.y);
 
-    // NOTE: THIS IS A PLACEHOLDER
-    // This should be dynamically loaded from the save file.
-    // note to self - could use this to load definitions: https://stackoverflow.com/questions/604424/how-to-get-an-enum-value-from-a-string-value-in-java
-    ArrayList<TerrainTile> tiles = new ArrayList<>();
-
-    tiles.add(new TerrainTile(TerrainTileDefinition.TILE_FULL_MIDDLE));
-    tiles.add(new TerrainTile(TerrainTileDefinition.TILE_FULL_TOP));
-    tiles.add(new TerrainTile(TerrainTileDefinition.TILE_FULL_TOP, 90, false, false));
-    tiles.add(new TerrainTile(TerrainTileDefinition.TILE_HALF_BOTTOM));
-    tiles.add(new TerrainTile(TerrainTileDefinition.TILE_HALF_BOTTOM, 90, false, false));
-    tiles.add(new TerrainTile(TerrainTileDefinition.TILE_HALF_TOP));
-
-
+    for (LevelFile.PositionedTerrainTile posTile : layerData.tiles) {
+      posTile.generateTile(levelAtlas);
+      TiledMapTileLayer.Cell cell = posTile.tile.generateCell();
+      layer.setCell(posTile.x, posTile.y, cell);
+    }
 
     tiledMap.getLayers().add(layer);
     return tiledMap;
-  }
-
-  public static void loadTilesFromFile(TiledMapTileLayer layer, TerrainTileDefinition definition, int rotation, int x, int y) {
-    TerrainTile tile = new TerrainTile(definition,rotation,false,false);
-    Cell cell = tile.generateCell();
-    layer.setCell(x,y,cell);
-  }
-
-  /**
-   * This enum should contain the different terrains in your game, e.g. forest, cave, home, all with
-   * the same oerientation. But for demonstration purposes, the base code has the same level in 3
-   * different orientations.
-   */
-  public enum TerrainType {
-    FOREST_DEMO,
-    FOREST_DEMO_ISO,
-    FOREST_DEMO_HEX
   }
 }
