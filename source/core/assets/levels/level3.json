@@ -1,9 +1,9 @@
 {
+"levelTexture": "LEVEL_THREE",
 "terrain": {
 	"mapLayer": {
 		"tiles": [
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 54,
 				"y": 7,
 				"def": "TILE_FULL_MIDDLE",
@@ -12,7 +12,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 57,
 				"y": 6,
 				"def": "TILE_FULL_MIDDLE",
@@ -21,7 +20,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 57,
 				"y": 7,
 				"def": "TILE_FULL_MIDDLE",
@@ -30,7 +28,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 57,
 				"y": 8,
 				"def": "TILE_FULL_MIDDLE",
@@ -39,7 +36,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 57,
 				"y": 9,
 				"def": "TILE_FULL_MIDDLE",
@@ -48,7 +44,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 57,
 				"y": 10,
 				"def": "TILE_FULL_MIDDLE",
@@ -57,7 +52,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 57,
 				"y": 11,
 				"def": "TILE_FULL_MIDDLE",
@@ -66,7 +60,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 57,
 				"y": 12,
 				"def": "TILE_FULL_MIDDLE",
@@ -75,7 +68,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 57,
 				"y": 13,
 				"def": "TILE_FULL_MIDDLE",
@@ -84,7 +76,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 57,
 				"y": 14,
 				"def": "TILE_FULL_MIDDLE",
@@ -93,7 +84,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 57,
 				"y": 15,
 				"def": "TILE_FULL_MIDDLE",
@@ -102,7 +92,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 60,
 				"y": 9,
 				"def": "TILE_FULL_MIDDLE",
@@ -111,7 +100,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 60,
 				"y": 10,
 				"def": "TILE_FULL_MIDDLE",
@@ -120,7 +108,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 60,
 				"y": 11,
 				"def": "TILE_FULL_MIDDLE",
@@ -129,7 +116,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 60,
 				"y": 12,
 				"def": "TILE_FULL_MIDDLE",
@@ -138,7 +124,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 64,
 				"y": 9,
 				"def": "TILE_FULL_MIDDLE",
@@ -147,7 +132,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 64,
 				"y": 10,
 				"def": "TILE_FULL_MIDDLE",
@@ -156,7 +140,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 64,
 				"y": 11,
 				"def": "TILE_FULL_MIDDLE",
@@ -165,7 +148,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 64,
 				"y": 12,
 				"def": "TILE_FULL_MIDDLE",
@@ -174,7 +156,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 67,
 				"y": 6,
 				"def": "TILE_FULL_MIDDLE",
@@ -183,7 +164,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 67,
 				"y": 7,
 				"def": "TILE_FULL_MIDDLE",
@@ -192,7 +172,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 67,
 				"y": 8,
 				"def": "TILE_FULL_MIDDLE",
@@ -201,7 +180,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 67,
 				"y": 9,
 				"def": "TILE_FULL_MIDDLE",
@@ -210,7 +188,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 67,
 				"y": 10,
 				"def": "TILE_FULL_MIDDLE",
@@ -219,7 +196,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 67,
 				"y": 11,
 				"def": "TILE_FULL_MIDDLE",
@@ -228,7 +204,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 67,
 				"y": 12,
 				"def": "TILE_FULL_MIDDLE",
@@ -237,7 +212,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 67,
 				"y": 13,
 				"def": "TILE_FULL_MIDDLE",
@@ -246,7 +220,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 67,
 				"y": 14,
 				"def": "TILE_FULL_MIDDLE",
@@ -255,7 +228,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 67,
 				"y": 15,
 				"def": "TILE_FULL_MIDDLE",
@@ -264,7 +236,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 73,
 				"y": 6,
 				"def": "TILE_FULL_MIDDLE",
@@ -273,7 +244,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 73,
 				"y": 7,
 				"def": "TILE_FULL_MIDDLE",
@@ -282,7 +252,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 73,
 				"y": 8,
 				"def": "TILE_FULL_MIDDLE",
@@ -291,7 +260,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 73,
 				"y": 9,
 				"def": "TILE_FULL_MIDDLE",
@@ -300,7 +268,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 89,
 				"y": 12,
 				"def": "TILE_FULL_MIDDLE",
@@ -309,7 +276,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 90,
 				"y": 10,
 				"def": "TILE_FULL_MIDDLE",
@@ -318,7 +284,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 90,
 				"y": 11,
 				"def": "TILE_FULL_MIDDLE",
@@ -327,7 +292,6 @@
 				"flipY": false
 			},
 			{
-				"class": "com.deco2800.game.files.LevelFile$PositionedTerrainTile",
 				"x": 90,
 				"y": 12,
 				"def": "TILE_FULL_MIDDLE",
@@ -337,7 +301,7 @@
 			}
 		],
 		"width": 500,
-		"height": 500,
+		"height": 500
 	}
 },
 "obstacles": {
