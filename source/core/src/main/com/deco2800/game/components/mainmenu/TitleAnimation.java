@@ -14,7 +14,7 @@ public class TitleAnimation extends Image {
 
         // These are magic numbers as the centre width equations does not centre the image
         // nicely.
-        float scale = 16f;
+        float scale = 25f;
         //setBounds(300,375,width,height);
         setBounds(centreWidth,centreHeight,currentWidth,currentHeight);
 

@@ -316,7 +316,7 @@ public class MainMenuDisplay extends UIComponent {
         int centreWidth = Gdx.graphics.getWidth() / 2 - imageWidth / 2;
         int centreHeight = Gdx.graphics.getHeight() / 2 - imageHeight / 2;
         duration = 3.5f; // in seconds
-        String imageFile = "ui-elements/runtime-title.png";
+        String imageFile = "player/virus_head_front.png";
 
         titleAnimation = new TitleAnimation(
                 new Texture(imageFile), imageWidth,
