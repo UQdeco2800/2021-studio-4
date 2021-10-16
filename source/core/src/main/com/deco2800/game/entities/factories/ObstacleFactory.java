@@ -39,7 +39,7 @@ public class ObstacleFactory {
     Pixmap newPixmap = new Pixmap(
       textureRegion.getRegionWidth(),
       textureRegion.getRegionHeight(),
-      textureData.getFormat()
+      Pixmap.Format.RGBA8888
     );
 
     // Draw the texture atlas over the new pixmap, in such a location that the unwanted pixels are cropped off
@@ -67,7 +67,7 @@ public class ObstacleFactory {
       for (int x = 0; x < width; x++) {
         widePixmap.drawPixmap(tilePixmap,
           x*texture.getRegionWidth(), y*texture.getRegionHeight(),
-          texture.getRegionX(), texture.getRegionY(),
+          0, 0,
           texture.getRegionWidth(), texture.getRegionHeight());
       }
     }
