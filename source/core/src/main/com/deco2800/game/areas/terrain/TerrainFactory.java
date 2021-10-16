@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.deco2800.game.areas.terrain.TerrainComponent.TerrainOrientation;
 import com.deco2800.game.components.CameraComponent;
 import com.deco2800.game.files.LevelFile;
+import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.services.ServiceLocator;
 
@@ -78,6 +79,9 @@ public class TerrainFactory {
           bodyDef.angle = 0f;
           bodyDef.active = true;
           Body body = ServiceLocator.getPhysicsService().getPhysics().createBody(bodyDef);
+          BodyUserData bodyUserData = new BodyUserData();
+          bodyUserData.cell = cell;
+          body.setUserData(bodyUserData);
 
           // Create a shape for the fixture
           PolygonShape bbox = new PolygonShape();
@@ -86,7 +90,7 @@ public class TerrainFactory {
           // Create a fixture for the body
           FixtureDef fixtureDef = new FixtureDef();
           fixtureDef.shape = bbox;
-          fixtureDef.filter.categoryBits = PhysicsLayer.TILE;
+          fixtureDef.filter.categoryBits = PhysicsLayer.OBSTACLE;
           fixtureDef.filter.groupIndex = 0;
           body.createFixture(fixtureDef);
 
