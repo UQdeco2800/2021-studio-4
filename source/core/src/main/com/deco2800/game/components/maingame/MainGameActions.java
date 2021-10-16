@@ -4,6 +4,7 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.levelselect.PreviousLevel;
 import com.deco2800.game.components.player.KeyboardPlayerInputComponent;
+import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.components.tasks.TheVoidTasks;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +50,7 @@ public class MainGameActions extends Component {
       paused = false;
       game.getScreen().resume();
     }
+    PlayerStatsDisplay.paused = !PlayerStatsDisplay.paused;
     TheVoidTasks.paused = !TheVoidTasks.paused;
     //KeyboardPlayerInputComponent.paused = !KeyboardPlayerInputComponent.paused;
 

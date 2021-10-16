@@ -1,5 +1,6 @@
 package com.deco2800.game.components;
 
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.deco2800.game.areas.LevelGameArea;
@@ -63,12 +64,24 @@ public class PlayerMovementComponent extends Component {
         }
 
         if (!PhysicsLayer.contains(targetLayer, other.getFilterData().categoryBits)) {
+            System.out.println("Ignoring collision");
             // Doesn't match our target layer, ignore
             return;
         }
 
-        // Get both entities
+        // Get player entity
         Entity player = ((BodyUserData) me.getBody().getUserData()).entity;
+
+        // Can control user behaviour with component
+        PlayerActions playerActions = player.getComponent(PlayerActions.class);
+
+        // Touching a cell, not another entity
+        if (((BodyUserData) other.getBody().getUserData()).cell != null) {
+            playerActions.togglePlayerJumping();
+            return; // Not an entity so save to return
+        }
+
+        // Get target entity (if is entity)
         Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
 
         // Get the relevant components from the target entity
@@ -77,9 +90,6 @@ public class PlayerMovementComponent extends Component {
         LevelEndComponent levelEndComponent = target.getComponent(LevelEndComponent.class);
         JumpPadComponent jumpPadComponent = target.getComponent(JumpPadComponent.class);
         InteractableComponent interactableComponent = target.getComponent(InteractableComponent.class);
-
-        // Can control user behaviour with component
-        PlayerActions playerActions = player.getComponent(PlayerActions.class);
 
         if (physicsComponent != null) {
             if (jumpableComponent != null) {

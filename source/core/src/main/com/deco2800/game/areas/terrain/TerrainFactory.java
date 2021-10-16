@@ -1,6 +1,7 @@
 package com.deco2800.game.areas.terrain;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
@@ -11,6 +12,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.deco2800.game.areas.terrain.TerrainComponent.TerrainOrientation;
 import com.deco2800.game.components.CameraComponent;
+import com.deco2800.game.files.LevelFile;
+import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.services.ServiceLocator;
 
@@ -36,9 +39,9 @@ public class TerrainFactory {
    * Generates the terraincomponent which will contain the terrain data
    * @return
    */
-  public TerrainComponent createTerrain() {
+  public TerrainComponent createTerrain(LevelFile.TileLayerData layerData, TextureAtlas levelAtlas) {
     GridPoint2 tilePixelSize = new GridPoint2(TerrainTileDefinition.TILE_X, TerrainTileDefinition.TILE_Y);
-    TiledMap tiledMap = loadTiles(tilePixelSize);
+    TiledMap tiledMap = loadTiles(tilePixelSize, layerData, levelAtlas);
     OrthoCachedTiledMapRenderer renderer = new OrthoCachedTiledMapRenderer(tiledMap, TILE_SIZE/tilePixelSize.x);
     generateBodies(tiledMap);
     return new TerrainComponent(camera, tiledMap, renderer, ORIENTATION, TILE_SIZE);
@@ -59,93 +62,85 @@ public class TerrainFactory {
   public static void generateBodies(TiledMap tiledMap) {
     TiledMapTileLayer mapTileLayer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
 
-    for (int x = 0; x < mapTileLayer.getWidth(); x++) {
-      for (int y = 0; y < mapTileLayer.getHeight(); y++) {
+    int cellCount = 0; // Number of cells before the currently selected one
+    Integer headX = null, headY = null;
+    for (int y = 0; y < mapTileLayer.getHeight(); y++) {
+      for (int x = 0; x < mapTileLayer.getWidth(); x++) {
         Cell cell = mapTileLayer.getCell(x, y);
+        Cell nextCell = mapTileLayer.getCell(x+1, y); // next cell along
 
         if (cell != null) {
-          // Create a rectangle at the location of the tile
-          int twidth = mapTileLayer.getTileWidth(), theight =  mapTileLayer.getTileHeight();
-          Rectangle rectangle = new Rectangle(x * TILE_SIZE, y * TILE_SIZE,  TILE_SIZE,  TILE_SIZE);
+          cellCount ++; // Add 1 to the cell count
 
-          // Create a body for this map object
-          BodyDef bodyDef = new BodyDef();
-          bodyDef.type = BodyDef.BodyType.StaticBody; // haha dynamic body makes it have gravity hahahahahahahaha
-          bodyDef.fixedRotation = true;
-          bodyDef.linearDamping = 5f;
-          bodyDef.angle = 0f;
-          bodyDef.active = true;
-          Body body = ServiceLocator.getPhysicsService().getPhysics().createBody(bodyDef);
+          // If there is no head cell, then this becomes the parent cell
+          if (headX == null) {
+            headX = x;
+            headY = y;
+          }
 
-          // Create a shape for the fixture
-          PolygonShape bbox = new PolygonShape();
-          bbox.setAsBox(rectangle.width/2, rectangle.height/2);
+          // If there's no next cell, we're at the end of the line and we need to create a box from the head cell
+          // to this cell, and reset our variables
+          if (nextCell == null) {
+            // Create a rectangle at the location of the tile
+            int twidth = mapTileLayer.getTileWidth(), theight =  mapTileLayer.getTileHeight();
+            Rectangle rectangle = new Rectangle(headX * TILE_SIZE, headY * TILE_SIZE,  cellCount * TILE_SIZE,  TILE_SIZE);
 
-          // Create a fixture for the body
-          FixtureDef fixtureDef = new FixtureDef();
-          fixtureDef.shape = bbox;
-          fixtureDef.filter.categoryBits = PhysicsLayer.TILE;
-          fixtureDef.filter.groupIndex = 0;
-          body.createFixture(fixtureDef);
+            // Create a body for this map object
+            BodyDef bodyDef = new BodyDef();
+            bodyDef.type = BodyDef.BodyType.StaticBody; // haha dynamic body makes it have gravity hahahahahahahaha
+            bodyDef.fixedRotation = true;
+            bodyDef.linearDamping = 5f;
+            bodyDef.angle = 0f;
+            bodyDef.active = true;
+            Body body = ServiceLocator.getPhysicsService().getPhysics().createBody(bodyDef);
+            BodyUserData bodyUserData = new BodyUserData();
+            bodyUserData.cell = cell;
+            body.setUserData(bodyUserData);
 
-          // Set body position
-          Vector2 center = new Vector2();
-          rectangle.getCenter(center);
-          body.setTransform(center,0);
+            // Create a shape for the fixture
+            PolygonShape bbox = new PolygonShape();
+            bbox.setAsBox(rectangle.width/2, rectangle.height/2);
 
-          // Dispose of unneeded shape
-          bbox.dispose();
+            // Create a fixture for the body
+            FixtureDef fixtureDef = new FixtureDef();
+            fixtureDef.shape = bbox;
+            fixtureDef.filter.categoryBits = PhysicsLayer.OBSTACLE;
+            fixtureDef.filter.groupIndex = 0;
+            body.createFixture(fixtureDef);
+
+            // Set body position
+            Vector2 center = new Vector2();
+            rectangle.getCenter(center);
+            body.setTransform(center,0);
+
+            // Dispose of unneeded shape
+            bbox.dispose();
+
+            cellCount = 0;
+            headX = null;
+            headY = null;
+          }
         }
       }
     }
   }
 
   /**
-   * Loads in the tiles, places them on the tile layer and returnes a tiledmap
+   * Loads in the tiles, places them on the tile layer and returns a tiledmap
    * @param tileSize
    * @return
    */
-  private TiledMap loadTiles(GridPoint2 tileSize) {
-    // These values determine the size of the base layer, these could be calculated by taking the largest coordinates
-    // from the map save, or could be saved with the map
-    int map_size_x = 100;
-    int map_size_y = 40;
-
+  private TiledMap loadTiles(GridPoint2 tileSize, LevelFile.TileLayerData layerData, TextureAtlas levelAtlas) {
     TiledMap tiledMap = new TiledMap();
-    TiledMapTileLayer layer = new TiledMapTileLayer(map_size_x, map_size_y, tileSize.x, tileSize.y);
+    TiledMapTileLayer layer = new TiledMapTileLayer(layerData.width, layerData.height, tileSize.x, tileSize.y);
 
-    // NOTE: THIS IS A PLACEHOLDER
-    // This should be dynamically loaded from the save file.
-    // note to self - could use this to load definitions: https://stackoverflow.com/questions/604424/how-to-get-an-enum-value-from-a-string-value-in-java
-    ArrayList<TerrainTile> tiles = new ArrayList<>();
-
-    tiles.add(new TerrainTile(TerrainTileDefinition.TILE_FULL_MIDDLE));
-    tiles.add(new TerrainTile(TerrainTileDefinition.TILE_FULL_TOP));
-    tiles.add(new TerrainTile(TerrainTileDefinition.TILE_FULL_TOP, 90, false, false));
-    tiles.add(new TerrainTile(TerrainTileDefinition.TILE_HALF_BOTTOM));
-    tiles.add(new TerrainTile(TerrainTileDefinition.TILE_HALF_BOTTOM, 90, false, false));
-    tiles.add(new TerrainTile(TerrainTileDefinition.TILE_HALF_TOP));
-
-
+    for (LevelFile.PositionedTerrainTile posTile : layerData.tiles) {
+      posTile.generateTile(levelAtlas);
+      TiledMapTileLayer.Cell cell = posTile.tile.generateCell();
+      layer.setCell(posTile.x, posTile.y, cell);
+    }
 
     tiledMap.getLayers().add(layer);
     return tiledMap;
-  }
-
-  public static void loadTilesFromFile(TiledMapTileLayer layer, TerrainTileDefinition definition, int rotation, int x, int y) {
-    TerrainTile tile = new TerrainTile(definition,rotation,false,false);
-    Cell cell = tile.generateCell();
-    layer.setCell(x,y,cell);
-  }
-
-  /**
-   * This enum should contain the different terrains in your game, e.g. forest, cave, home, all with
-   * the same oerientation. But for demonstration purposes, the base code has the same level in 3
-   * different orientations.
-   */
-  public enum TerrainType {
-    FOREST_DEMO,
-    FOREST_DEMO_ISO,
-    FOREST_DEMO_HEX
   }
 }

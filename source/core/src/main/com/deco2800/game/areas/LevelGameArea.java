@@ -2,6 +2,7 @@ package com.deco2800.game.areas;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Json;
@@ -37,6 +38,7 @@ public class LevelGameArea extends GameArea {
   public static ArrayList<TerrainTile> terrainTiles = new ArrayList<>();
   public static ArrayList<String> buffers = new ArrayList<>();
   public static ArrayList<String> deBuffers = new ArrayList<>();
+  private LevelFile levelFile;
   private Random random = new Random();
 
   public Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables = new HashMap<>();
@@ -64,7 +66,6 @@ public class LevelGameArea extends GameArea {
   };
 
   private static final String[] gameTextureAtlases = {
-    "map-spritesheets/mapTextures.atlas",
     "void/void.atlas",
     "powerups/Pick_Ups.atlas",
     "map-textures/portal-door.atlas",
@@ -109,8 +110,10 @@ public class LevelGameArea extends GameArea {
    * Initializes basic components such as loading assets, background and terrain
    */
   public void init() {
+    loadLevelFile();
 
     loadAssets();
+
     String levels = levelDefinition.getLevelFileName();
     if (levels.equals("levels/level1.json")) {
       displayBackground("backgrounds/background_level1.jpg");
@@ -195,7 +198,9 @@ public class LevelGameArea extends GameArea {
 
   private void spawnTerrain() {
     // Generate terrain
-    terrain = terrainFactory.createTerrain();
+    TextureAtlas levelAtlas = ServiceLocator.getResourceService()
+      .getAsset(levelFile.levelTexture.getAtlasName(), TextureAtlas.class);
+    terrain = terrainFactory.createTerrain(levelFile.terrain.mapLayer, levelAtlas);
 
     Entity terrainEntity = new Entity();
     terrainEntity.addComponent(terrain);
@@ -402,6 +407,8 @@ public class LevelGameArea extends GameArea {
   }
 
   public void writeAll() {
+    // Theoretically it is more efficient to simply change the current level file and save that again, however this
+    // could result in unintended consequences and thus is not a priority
     Json json = new Json();
     json.setOutputType(JsonWriter.OutputType.json);
 
@@ -412,9 +419,27 @@ public class LevelGameArea extends GameArea {
     LevelFile levelFile = new LevelFile();
 
     // save the TiledMapTileLayer
-    applyTerrainSerializers(json);
+    TiledMapTileLayer layer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
+    LevelFile.TileLayerData layerData = new LevelFile.TileLayerData();
+    layerData.height = this.levelFile.terrain.mapLayer.height;
+    layerData.width = this.levelFile.terrain.mapLayer.width;
+
+    // Add the tiles to the layer data
+    for (int x = 0; x < layer.getWidth(); x++) {
+      for (int y = 0; y < layer.getHeight(); y++) {
+        TiledMapTileLayer.Cell cell = layer.getCell(x, y);
+
+        if (cell != null) {
+          LevelFile.PositionedTerrainTile positionedTile =
+            new LevelFile.PositionedTerrainTile((TerrainTile) cell.getTile(), x, y);
+
+          layerData.tiles.add(positionedTile);
+        }
+      }
+    }
+
     levelFile.terrain = new LevelFile.Terrain();
-    levelFile.terrain.mapLayer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
+    levelFile.terrain.mapLayer = layerData;
 
     // Save the obstacles
     //generateInteractableIDs(); // Assign interactable IDs to obstacles here
@@ -422,18 +447,24 @@ public class LevelGameArea extends GameArea {
     levelFile.obstacles.obstacleEntities = this.obstacleEntities;
     //levelFile.obstacles.interactablesMap = generateInteractablesMap();
 
+    // Save current texture from old level file
+    levelFile.levelTexture = this.levelFile.levelTexture;
+
     // save the file
     file.writeString(json.prettyPrint(levelFile), false);
   }
 
-  private void readAll() {
+  private void loadLevelFile() {
     Json json = new Json();
-    applyTerrainSerializers(json);
 
     FileHandle file = Gdx.files.local(levelDefinition.getLevelFileName());
     assert file != null;
 
-    LevelFile levelFile = json.fromJson(LevelFile.class, file);
+    levelFile = json.fromJson(LevelFile.class, file);
+    ServiceLocator.registerCurrentTexture(levelFile.levelTexture);
+  }
+
+  private void generateAll() {
     try {
       for (ObstacleEntity obstacleEntity : levelFile.obstacles.obstacleEntities) {
         ObstacleEntity newObstacle = spawnObstacle(obstacleEntity.getDefinition(), (int) obstacleEntity.getPosition().x,
@@ -448,11 +479,6 @@ public class LevelGameArea extends GameArea {
     // Add entities to subInteractables list
     for (ObstacleEntity obstacleEntity : obstacleEntities) {
       if (obstacleEntity.interactableID != null) {
-  //        System.out.println(obstacleEntity.interactableID);
-  //        System.out.println(levelFile.obstacles.interactablesMap);
-  //        System.out.println(levelFile.obstacles.interactablesMap.keySet());
-  //        System.out.println(levelFile.obstacles.interactablesMap.get(obstacleEntity.interactableID);
-  //        System.out.println(levelFile.obstacles.interactablesMap.containsKey(obstacleEntity.interactableID));
         if (levelFile.obstacles.interactablesMap.containsKey(obstacleEntity.interactableID)) {
           List<Integer> subInteractableIds = levelFile.obstacles.interactablesMap.get(obstacleEntity.interactableID);
           List<ObstacleEntity> subInteractables = new ArrayList<>();
@@ -470,80 +496,6 @@ public class LevelGameArea extends GameArea {
     System.out.println(levelFile.obstacles.interactablesMap);
   }
 
-  private void applyTerrainSerializers(Json json) {
-    // Serializer for loading/saving cells to json using PositionedTerrainTile
-    json.setSerializer(TiledMapTileLayer.class, new Json.Serializer<>() {
-      @Override
-      public void write(Json json, TiledMapTileLayer layer, Class knownType) {
-        List<LevelFile.PositionedTerrainTile> tiles = new ArrayList<>();
-        // Create a list of PositionedTerrainTile to save
-        for (int x = 0; x < layer.getWidth(); x++) {
-          for (int y = 0; y < layer.getHeight(); y++) {
-            TiledMapTileLayer.Cell cell = layer.getCell(x, y);
-
-            if (cell != null) {
-              LevelFile.PositionedTerrainTile positionedTile =
-                new LevelFile.PositionedTerrainTile((TerrainTile) cell.getTile(), x, y);
-
-              tiles.add(positionedTile);
-            }
-          }
-        }
-
-        json.writeValue(tiles);
-      }
-
-      @Override
-      public TiledMapTileLayer read(Json json, JsonValue jsonData, Class type) {
-        TiledMapTileLayer mapTileLayer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
-
-        for (JsonValue tileData : jsonData) {
-          LevelFile.PositionedTerrainTile posTile = json.readValue(LevelFile.PositionedTerrainTile.class, tileData);
-
-          TiledMapTileLayer.Cell cell = posTile.tile.generateCell();
-          mapTileLayer.setCell(posTile.x, posTile.y, cell);
-        }
-
-        return mapTileLayer;
-      }
-    });
-  }
-
-//  @Deprecated
-//  private void _spawnLevelFromFile() {
-//    BufferedReader reader = null;
-//    try {
-//      reader = new BufferedReader(new FileReader("levels/level.txt"));
-//
-//      String line;
-//      while ((line = reader.readLine()) != null) {
-//        String[] lineInfo = line.split(":");
-//        if (lineInfo[0].equals("O")) {
-//          ObstacleDefinition obstacle = ObstacleDefinition.valueOf(lineInfo[1]);
-//          int size = Integer.parseInt(lineInfo[2]);
-//          int x = Integer.parseInt(lineInfo[3]);
-//          int y = Integer.parseInt(lineInfo[4]);
-//          spawnObstacle(obstacle, x, y, size);
-//        } else {
-//          TerrainTileDefinition definition = TerrainTileDefinition.valueOf(lineInfo[1]);
-//          int rotation = Integer.parseInt(lineInfo[2]);
-//          int x = Integer.parseInt(lineInfo[3]);
-//          int y = Integer.parseInt(lineInfo[4]);
-//          TiledMapTileLayer mapTileLayer = (TiledMapTileLayer) terrain.getMap().getLayers().get(0);
-//          TerrainFactory.loadTilesFromFile(mapTileLayer, definition, rotation, x, y);
-//        }
-//      }
-//    } catch (IOException | NullPointerException e) {
-//      e.printStackTrace();
-//    } finally {
-//      try {
-//        reader.close();
-//      } catch (IOException e) {
-//        e.printStackTrace();
-//      }
-//    }
-//  }
-
   @Override
   public void untrackEntity(Entity entity) {
     this.obstacleEntities.remove(entity);
@@ -551,9 +503,8 @@ public class LevelGameArea extends GameArea {
   }
 
   private void spawnLevelFromFile() {
-  //  _spawnLevelFromFile(); // Used to load an old level.txt file to the new json format.
     // Load actual elements
-    readAll();
+    generateAll();
 
     // Generate tile bodies
     TerrainFactory.generateBodies(terrain.getMap());
@@ -602,9 +553,9 @@ public class LevelGameArea extends GameArea {
    * @return void
    */
   private void spawnTheVoid() {
-    int startPosY = terrain.getMapBounds(0).y;
+    int startPosY = PLAYER_SPAWN.y;
     GridPoint2 startPos = new GridPoint2();
-    startPos.set(-25, startPosY/2 - 3);
+    startPos.set(-25, startPosY);
 
     Entity theVoid = NPCFactory.createTheVoid(player);
     spawnEntityAt(theVoid, startPos, true, true);
@@ -694,6 +645,7 @@ public class LevelGameArea extends GameArea {
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(gameTextures);
     resourceService.loadTextureAtlases(gameTextureAtlases);
+    resourceService.loadTextureAtlases(new String[] {levelFile.levelTexture.getAtlasName()});
     resourceService.loadMusic(gameMusic);
 
 
