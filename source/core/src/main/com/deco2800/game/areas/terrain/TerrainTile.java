@@ -31,7 +31,7 @@ public class TerrainTile implements TiledMapTile{
 
   public TerrainTile(TerrainTileDefinition definition, int rotation, boolean flipX, boolean flipY) {
     this.definition = definition;
-    this.sprite = definition.getSprite();
+    sprite = definition.getSprite();
 
     this.rotation = rotation;
     this.flipX = flipX;
@@ -80,7 +80,7 @@ public class TerrainTile implements TiledMapTile{
 
   @Override
   public TextureRegion getTextureRegion() {
-    return sprite;
+    return getSprite();
   }
 
   @Override
