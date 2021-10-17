@@ -40,16 +40,30 @@ public class BackgroundRenderComponent extends RenderComponent {
     Vector3 position = cam.position;
     // Camera lock is removed
     // Get actual viewport width and height, not screen width and height (not always fullscreen)
-    float screenWidth = cam.viewportWidth*3.5f;
-    //float screenHeight = cam.viewportHeight;
-    float screenHeight = cam.viewportHeight*1.3f;
+    //float screenWidth = cam.viewportWidth*3.5f;
+    //float screenHeight = cam.viewportHeight*1.3f;
+    float screenWidth = cam.viewportWidth;
+    float screenHeight = cam.viewportHeight;
+    if (texturePath.equals("backgrounds/background_level1_expanded8.png")) {
+      batch.draw(texture, -3, -1, screenWidth * 14f, screenHeight * 1.9f);
+    } else if (texturePath.equals("backgrounds/background_level2_expanded8.png")){
+      batch.draw(texture, -3, -2, screenWidth *10f, screenHeight * 2f);
+    } else if (texturePath.equals("backgrounds/background_level3.png")) {
+      batch.draw(texture, -3, -2, screenWidth, screenHeight);
+    } else if (texturePath.equals("backgrounds/background_level4_expanded8.png")) {
+      batch.draw(texture, -3, -1, screenWidth * 5f, screenHeight * 1.9f);
+    } else {
+      System.out.println("Not a valid texturePath");
+      //default
+      batch.draw(texture, -3, -2, screenWidth *10f, screenHeight * 2f);
+    }
+
 
 
     // Draw texture
-    //batch.draw(texture, screenWidth/6, screenHeight/6, screenWidth, screenHeight);
     //batch.begin();
-    batch.draw(texture, -4, -2, screenWidth * 1.5f, screenHeight * 1.5f);
-    //batch.draw(texture, -screenWidth/10, -screenHeight/10, screenWidth, screenHeight);
+   // batch.draw(texture, -4, -2, screenWidth * 15f, screenHeight * 2.1f);
+    //batch.draw(texture, 5, 5, screenWidth* 50f, screenHeight * 50f);
     //batch.end();
 
 

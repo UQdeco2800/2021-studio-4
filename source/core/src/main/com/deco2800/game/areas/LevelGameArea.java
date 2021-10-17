@@ -2,6 +2,7 @@ package com.deco2800.game.areas;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.GridPoint3;
@@ -56,16 +57,15 @@ public class LevelGameArea extends GameArea {
     "void/void_spritesheet2.png",
     "powerups/Pick_Ups.png",
     "map-textures/portal-door.png",
-    "backgrounds/level1_background.jpg",
     "player/simple_player_animation.png",
     "player/testingrunningsprite.png",
     "spawn-animations/spawn_portal.png",
     "spawn-animations/levelOneSpawn.png",
     "spawn-animations/spawnAnimationOne.png",
-    "backgrounds/background_level1.jpg",
-          "backgrounds/background_level2.jpg",
-          "backgrounds/background_level3.png",
-          "backgrounds/background_level4.png"
+    "backgrounds/background_level1_expanded8.png",
+    "backgrounds/background_level2_expanded8.png",
+    "backgrounds/background_level3.png",
+    "backgrounds/background_level4_expanded8.png"
   };
 
   private static final String[] gameTextureAtlases = {
@@ -118,13 +118,13 @@ public class LevelGameArea extends GameArea {
     loadAssets();
     String levels = levelDefinition.getLevelFileName();
     if (levels.equals("levels/level1.json")) {
-      displayBackground("backgrounds/background_level1.jpg");
+      displayBackground("backgrounds/background_level1_expanded8.png");
     } else if (levels.equals("levels/level2.json")) {
-      displayBackground("backgrounds/background_level2.jpg");
+      displayBackground("backgrounds/background_level2_expanded8.png");
     } else if (levels.equals("levels/level3.json")) {
       displayBackground("backgrounds/background_level3.png");
     } else if (levels.equals("levels/level4.json")) {
-      displayBackground("backgrounds/background_level4.png");
+      displayBackground("backgrounds/background_level4_expanded8.png");
     }
     spawnTerrain();
     spawnLevelFromFile();
