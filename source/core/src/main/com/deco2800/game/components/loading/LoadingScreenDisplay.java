@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -15,7 +12,19 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.deco2800.game.ai.tasks.AITaskComponent;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.InsertImageButton;
+import com.deco2800.game.components.TouchAttackComponent;
+import com.deco2800.game.components.npc.TheVoidController;
+import com.deco2800.game.components.tasks.TheVoidTasks;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.configs.TheVoidConfig;
+import com.deco2800.game.physics.PhysicsLayer;
+import com.deco2800.game.physics.components.HitboxComponent;
+import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.physics.components.PhysicsMovementComponent;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.*;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -82,6 +91,28 @@ public class LoadingScreenDisplay extends UIComponent {
         int randomNum = rand.nextInt((maxaximum - minimum) + 1) + minimum;
         return terms[randomNum];
     }
+    /* NOTE: Some of the code below is used with help from void team to create a atlas file in team 5's loading
+    screen
+    creatingLoadingBar(): adds in animation for loading animation.
+     */
+    public static Entity createLoadingBar() {
+        AITaskComponent aiComponent =
+                new AITaskComponent()
+                        .addTask(new TheVoidTasks());
+
+        AnimationRenderComponent animator =
+                new AnimationRenderComponent(
+                        ServiceLocator.getResourceService()
+                                .getAsset("void/void.atlas", TextureAtlas.class));
+        animator.addAnimation("void", 0.1f, Animation.PlayMode.LOOP);
+
+        Entity loadingBar = new Entity();
+        loadingBar
+                .addComponent(animator);
+        loadingBar.getComponent(AnimationRenderComponent.class).scaleEntity();
+        loadingBar.setScale(20f,22);
+        return loadingBar;
+    }
     /**
      * Added Background image and initialised buttons
      */
@@ -99,8 +130,8 @@ public class LoadingScreenDisplay extends UIComponent {
         BitmapFont font = new BitmapFont();
         Label.LabelStyle labelStyle = new Label.LabelStyle(font, Color.WHITE);
         label.setStyle(labelStyle);
-        label.setAlignment(Align.center);
-
+        label.setAlignment(Align.bottomRight);
+        Entity loadingAn = createLoadingBar();
        // TextureRegionDrawable textureRegionDrawable = new TextureRegionDrawable(new TextureRegion(bground));
         Sprite sprite = new Sprite(new Texture("ui-elements/loading_screen_background.png"));
         table.setBackground(new SpriteDrawable(sprite));
@@ -108,6 +139,7 @@ public class LoadingScreenDisplay extends UIComponent {
         table.add(label).center().width(100).height(100);;
        // table.addActor(runtimeTitle);
         stage.addActor(table);
+        //stage.addActor();
         //stage.addActor(label);
       //  stage.addActor(textureRegionDrawable);
        // stage.addActor(runtimeTitle);
