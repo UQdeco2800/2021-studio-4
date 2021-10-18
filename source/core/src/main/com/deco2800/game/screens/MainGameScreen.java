@@ -246,17 +246,14 @@ public class MainGameScreen extends ScreenAdapter {
     PauseScreenDisplay pauseScreenDisplay = new PauseScreenDisplay();
     if (loading == true) {
       ui.addComponent(pauseScreenDisplay);
+      ui.create();
       ServiceLocator.getEntityService().register(ui);
     }
     if (loading == false) {
-      ui.addComponent(new InputDecorator(stage, 10))
-              .addComponent(new PerformanceDisplay())
-              .addComponent(new MainGameActions(this.game))
-              .addComponent(new MainGameExitDisplay())
-              .addComponent(new Terminal())
-              .addComponent(inputComponent)
-              .addComponent(new TerminalDisplay());
-      pauseScreenDisplay.dispose();
+      //ui.dispose();
+      ServiceLocator.getEntityService().unregister(ui);
+      ui.scaleWidth(0f);
+      ui.scaleHeight(0f);
     }
   }
   }
