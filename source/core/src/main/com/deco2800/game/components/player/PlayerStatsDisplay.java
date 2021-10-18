@@ -26,10 +26,14 @@ public class PlayerStatsDisplay extends UIComponent {
   private Label healthLabel;
   private Label timeLabel;
   public static boolean gameOver = false;
+  public static boolean paused = false;
 
   private int iterator;
   private int initialValue;
-
+  private int seconds;
+  private int pausedTime = 0;
+  private boolean pauseSet = false;
+  int timeElapsedWhilePaused = 0;
 
   /**
    * Creates reusable ui styles and adds actors to the stage.
@@ -56,7 +60,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
     // Health text
     int health = entity.getComponent(CombatStatsComponent.class).getHealth();
-    CharSequence healthText = String.format("Health: %d", health);
+    CharSequence healthText = String.format(" Health: %d", health);
     healthLabel = new Label(healthText, skin, "large");
 
     table.add(healthLabel);
@@ -117,7 +121,7 @@ public class PlayerStatsDisplay extends UIComponent {
    * @param health player health
    */
   public void updatePlayerHealthUI(int health) {
-    CharSequence text = String.format("Health: %d", health);
+    CharSequence text = String.format(" Health: %d", health);
     healthLabel.setText(text);
     if (health == 0) {
       this.getEntity().getEvents().trigger("playerIsDead");
@@ -135,16 +139,27 @@ public class PlayerStatsDisplay extends UIComponent {
    */
   public void updatePlayerScore() {
     // Seems to be the perfect time to start on
-    if (iterator < 3) {
-      initialValue = Math.round(timeScore/1000);
-      iterator++;
+    if (!paused) {
+      if (iterator < 3) {
+        initialValue = Math.round(timeScore / 1000);
+        iterator++;
+      }
+      seconds = Math.round(timeScore / 1000) - initialValue;
+      if (pauseSet) {
+        pauseSet = false;
+        timeElapsedWhilePaused += seconds - pausedTime;
+      }
+
+
+
+      CharSequence text = String.format("Time: %d", seconds - timeElapsedWhilePaused);
+      timeLabel.setText(text);
+    } else {
+      if (!pauseSet) {
+        pauseSet = true;
+        pausedTime = seconds;
+      }
     }
-    int seconds;
-
-    seconds = Math.round(timeScore / 1000) - initialValue;
-
-    CharSequence text = String.format("Time: %d", seconds);
-    timeLabel.setText(text);
 
   }
 

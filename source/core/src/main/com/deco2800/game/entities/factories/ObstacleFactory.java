@@ -10,6 +10,7 @@ import com.deco2800.game.components.endgame.LevelEndComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleDefinition;
 import com.deco2800.game.entities.ObstacleEntity;
+import com.deco2800.game.levels.LevelTexture;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.*;
@@ -22,16 +23,40 @@ import com.deco2800.game.services.ServiceLocator;
  * <p>Each obstacle entity type should have a creation method that returns a corresponding entity.
  */
 public class ObstacleFactory {
+  private static Pixmap textureRegionToPixmap(TextureRegion textureRegion) {
+    // Get texture data for entire atlas
+    TextureData textureData = textureRegion.getTexture().getTextureData();
+
+    // Prepare texture data
+    if (!textureData.isPrepared()) {
+      textureData.prepare();
+    }
+
+    // Create a new appropriately sized pixmap
+    Pixmap newPixmap = new Pixmap(
+      textureRegion.getRegionWidth(),
+      textureRegion.getRegionHeight(),
+      Pixmap.Format.RGBA8888
+    );
+
+    // Draw the texture atlas over the new pixmap, in such a location that the unwanted pixels are cropped off
+    newPixmap.drawPixmap(
+      textureData.consumePixmap(),
+      0, 0, // top left corner
+      textureRegion.getRegionX(), textureRegion.getRegionY(), // source x/y
+      textureRegion.getRegionWidth(), textureRegion.getRegionHeight() // width/height to copy over
+    );
+
+    return newPixmap;
+  }
+
   /**
    * Uses pixmap to make a wider version of the same texture by repeating the texture widthways
    * @param texture Base texture
    * @param width Number of textures wide to make the new texture
    * @return The widened texture
    */
-  private static Texture expandTexture(TextureRegion texture, int width, int height) {
-    TextureData textureData = texture.getTexture().getTextureData();
-    textureData.prepare();
-    Pixmap tilePixmap = textureData.consumePixmap();
+  private static Texture expandTexture(Pixmap tilePixmap, TextureRegion texture, int width, int height) {
     Pixmap widePixmap = new Pixmap(
       texture.getRegionWidth()*width, texture.getRegionHeight()*height, Pixmap.Format.RGBA8888);
 
@@ -39,7 +64,7 @@ public class ObstacleFactory {
       for (int x = 0; x < width; x++) {
         widePixmap.drawPixmap(tilePixmap,
           x*texture.getRegionWidth(), y*texture.getRegionHeight(),
-          texture.getRegionX(), texture.getRegionY(),
+          0, 0,
           texture.getRegionWidth(), texture.getRegionHeight());
       }
     }
@@ -53,26 +78,18 @@ public class ObstacleFactory {
   }
 
   /**
-   * Creates an invisible physics wall.
-   * @param width Wall width in world units
-   * @param height Wall height in world units
-   * @return Wall entity of given width and height
+   * Creates a platform.
+   * @param width Platform width in world units
+   * @return Platform entity of given width
    */
-  public static Entity createWall(float width, float height) {
-    Entity wall = new Entity()
-        .addComponent(new PhysicsComponent().setBodyType(BodyType.StaticBody))
-        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
-        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
-        .addComponent(new JumpableComponent()); //Added for jump functionality
-    wall.setScale(width, height);
-    return wall;
-  }
-
   public static Entity createPlatform(int width) {
     TextureAtlas atlas = ServiceLocator.getResourceService()
-      .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
+      .getAsset(ServiceLocator.getCurrentTexture().getAtlasName(), TextureAtlas.class);
 
-    Texture platformTexture = expandTexture(atlas.findRegion("mapTextures_Platforms"), width, 1);
+    TextureRegion textureRegion = atlas.findRegion("platform");
+    Pixmap tilePixmap = textureRegionToPixmap(textureRegion);
+
+    Texture platformTexture = expandTexture(tilePixmap, textureRegion, width, 1);
 
     ObstacleEntity platform =
             new ObstacleEntity(ObstacleDefinition.PLATFORM,width)
@@ -89,11 +106,19 @@ public class ObstacleFactory {
     return platform;
   }
 
+  /**
+   * Creates a middle platform.
+   * @param width Platform width in world units
+   * @return Middle platform entity of given width
+   */
   public static Entity createMiddlePlatform(int width) {
     TextureAtlas atlas = ServiceLocator.getResourceService()
-      .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
+      .getAsset(ServiceLocator.getCurrentTexture().getAtlasName(), TextureAtlas.class);
 
-    Texture platformTexture = expandTexture(atlas.findRegion("mapTextures_Middle-Platform"), width, 1);
+    TextureRegion textureRegion = atlas.findRegion("middlePlatform");
+    Pixmap tilePixmap = textureRegionToPixmap(textureRegion);
+
+    Texture platformTexture = expandTexture(tilePixmap, textureRegion, width, 1);
 
     ObstacleEntity platformWall =
             new ObstacleEntity(ObstacleDefinition.MIDDLE_PLATFORM,width)
@@ -110,11 +135,18 @@ public class ObstacleFactory {
     return platformWall;
   }
 
+  /**
+   * Creates a button.
+   * @return Button entity of fixed width and height.
+   */
   public static Entity createButton() {
     TextureAtlas atlas = ServiceLocator.getResourceService()
-      .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
+      .getAsset(ServiceLocator.getCurrentTexture().getAtlasName(), TextureAtlas.class);
 
-    Texture buttonTexture = expandTexture(atlas.findRegion("mapTextures_Button-On"), 1, 1);
+    TextureRegion textureRegion = atlas.findRegion("button", 2);
+    Pixmap tilePixmap = textureRegionToPixmap(textureRegion);
+
+    Texture buttonTexture = expandTexture(tilePixmap, textureRegion, 1, 1);
 
     ObstacleEntity button =
       new ObstacleEntity(ObstacleDefinition.BUTTON,1)
@@ -134,17 +166,18 @@ public class ObstacleFactory {
 
   /**
    * Creates a jump pad entity.
-   * @return jump pad
+   * @return Jump pad of fixed width and height
    */
   public static Entity createJumpPad() {
     TextureAtlas atlas = ServiceLocator.getResourceService()
-            .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
+      .getAsset(ServiceLocator.getCurrentTexture().getAtlasName(), TextureAtlas.class);
 
-    Texture jumpPadTexture = expandTexture(atlas.findRegion("mapTextures_Jumppad-idle"), 1, 1);
+    TextureRegion textureRegion = atlas.findRegion("jumppad", 1);
+    Pixmap tilePixmap = textureRegionToPixmap(textureRegion);
 
     ObstacleEntity jumpPad =
             new ObstacleEntity(ObstacleDefinition.JUMPPAD,1)
-                    .addComponent(new TextureRenderComponent(jumpPadTexture))
+                    .addComponent(new TextureRenderComponent(new Texture(tilePixmap)))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
                     .addComponent(new InteractableComponent())
@@ -157,11 +190,19 @@ public class ObstacleFactory {
     return jumpPad;
   }
 
+  /**
+   * Creates a bridge.
+   * @param width Bridge width in world units
+   * @return Bridge entity of given width
+   */
   public static Entity createBridge(int width) {
     TextureAtlas atlas = ServiceLocator.getResourceService()
-      .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
+      .getAsset(ServiceLocator.getCurrentTexture().getAtlasName(), TextureAtlas.class);
 
-    Texture platformTexture = expandTexture(atlas.findRegion("mapTextures_bridge"), width, 1);
+    TextureRegion textureRegion = atlas.findRegion("bridge");
+    Pixmap tilePixmap = textureRegionToPixmap(textureRegion);
+
+    Texture platformTexture = expandTexture(tilePixmap, textureRegion, width, 1);
 
     ObstacleEntity bridge =
       new ObstacleEntity(ObstacleDefinition.BRIDGE,width)
@@ -183,15 +224,23 @@ public class ObstacleFactory {
     return bridge;
   }
 
+  /**
+   * Creates a door.
+   * @param height Door height in world units
+   * @return Door entity of given height
+   */
   public static Entity createDoor(int height) {
     TextureAtlas atlas = ServiceLocator.getResourceService()
-      .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
+      .getAsset(ServiceLocator.getCurrentTexture().getAtlasName(), TextureAtlas.class);
 
-    Texture platformTexture = expandTexture(atlas.findRegion("mapTextures_door"), 1, height);
+    TextureRegion textureRegion = atlas.findRegion("door");
+    Pixmap tilePixmap = textureRegionToPixmap(textureRegion);
+
+    Texture doorTexture = expandTexture(tilePixmap, textureRegion, 1, height);
 
     ObstacleEntity door =
-      new ObstacleEntity(ObstacleDefinition.DOOR,height)
-        .addComponent(new TextureRenderComponent(platformTexture))
+      new ObstacleEntity(ObstacleDefinition.DOOR, height)
+        .addComponent(new TextureRenderComponent(doorTexture))
         .addComponent(new PhysicsComponent())
         .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
         .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
@@ -204,6 +253,11 @@ public class ObstacleFactory {
     return door;
   }
 
+  /**
+   * Creates a level end portal.
+   * @param width Portal width in world units
+   * @return Level end portal of given width
+   */
   public static Entity createLevelEndPortal(int width) {
     ObstacleEntity levelEndPortal =
       new ObstacleEntity(ObstacleDefinition.LEVEL_END_PORTAL,width)

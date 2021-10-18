@@ -1,4 +1,4 @@
-package com.deco2800.game.components.statusEffects;
+package com.deco2800.game.components.statuseffects;
 
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.player.PlayerActions;
@@ -413,7 +413,7 @@ public class StatusEffectTest {
 //        assertTestCase(expected, result);
 //    }
 
-    /* Uncomment if you want to see how the null works */
+//    /* Uncomment if you want to see how the null works */
 //    @Test
 //    public void testNullClasses() {
 //        System.err.println("" + "Result of player.getComponent(PlayerActions.class) = " + player.getComponent(PlayerActions.class)); // This will print null.

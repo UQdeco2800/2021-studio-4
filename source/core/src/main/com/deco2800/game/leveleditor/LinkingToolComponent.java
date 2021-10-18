@@ -1,23 +1,16 @@
 package com.deco2800.game.leveleditor;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleEntity;
-import com.deco2800.game.entities.factories.ObstacleFactory;
-import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.physics.components.InteractableComponent;
 import com.deco2800.game.physics.components.SubInteractableComponent;
-import com.deco2800.game.rendering.SpriteRenderComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.screens.LevelEditorScreen;
 import com.deco2800.game.services.ServiceLocator;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,14 +56,6 @@ public class LinkingToolComponent extends BaseToolComponent {
 
     if (subComponent == null) return;
 
-    /*
-    if (!levelGameArea.mapInteractables.containsKey(selectedParent)) {
-      levelGameArea.mapInteractables.put(selectedParent, new ArrayList<>());
-    } else if (!levelGameArea.mapInteractables.get(selectedParent).contains(obstacleEntity)){
-      levelGameArea.mapInteractables.get(selectedParent).add(obstacleEntity);
-    }
-     */
-
     if (!levelGameArea.interactableEntities.contains(selectedParent)) {
       levelGameArea.interactableEntities.add(selectedParent);
     }
@@ -92,12 +77,6 @@ public class LinkingToolComponent extends BaseToolComponent {
     InteractableComponent parentComponent = selectedParent.getComponent(InteractableComponent.class);
 
     if (subComponent == null) return;
-
-    /*
-    if (levelGameArea.mapInteractables.containsKey(selectedParent)) {
-      levelGameArea.mapInteractables.get(selectedParent).remove(obstacleEntity);
-    }
-     */
 
     if (levelGameArea.interactableEntities.contains(selectedParent)) {
       parentComponent.getMapped().remove(obstacleEntity);
@@ -139,16 +118,6 @@ public class LinkingToolComponent extends BaseToolComponent {
 
     createMarker(selectedParent, false);
 
-    /*
-    if (levelGameArea.mapInteractables.containsKey(selectedParent)) {
-      List<ObstacleEntity> linked = levelGameArea.mapInteractables.get(selectedParent);
-
-      for (ObstacleEntity obstacleEntity : linked) {
-        createMarker(obstacleEntity, true);
-      }
-    }
-     */
-
     if (levelGameArea.interactableEntities.contains(selectedParent)) {
       List<ObstacleEntity> linked = parentComponent.getMapped();
 
@@ -173,7 +142,7 @@ public class LinkingToolComponent extends BaseToolComponent {
   @Override
   public boolean touchDown(int screenX, int screenY, int pointer, int button) {
     Vector2 pos = getMousePos();
-    ArrayList<Entity> entities = levelGameArea.getEntities(pos);
+    List<Entity> entities = levelGameArea.getEntities(pos);
 
     if (button == Input.Buttons.LEFT) {
       // If there is an interactable component, set as the parent

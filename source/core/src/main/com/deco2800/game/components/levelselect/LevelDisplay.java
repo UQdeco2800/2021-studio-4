@@ -69,7 +69,7 @@ public class LevelDisplay extends UIComponent {
         int titleWidth = buttonDimensionsWidth*4;
         int titleHeight = buttonDimensionsHeight*4;
         int centreTitleWidth = centreWidth1 - titleWidth/2; // Moves middle of button to Centre
-        int centreTitleHeight = centreWidth1 - titleHeight/2;
+        int centreTitleHeight = centreHeight1 + titleHeight/2;
 
         /**
          * Creates the button texture for the Exit Button.
@@ -110,7 +110,7 @@ public class LevelDisplay extends UIComponent {
             String hoverPathName = "ui-elements/levels-screen-buttons/";
             int posX = centreWidth1;
             int posY = centreHeight1;
-            int widthX = centreWidth1/3; // Sets buttons dimensions
+            int widthX = centreWidth1/4; // Sets buttons dimensions
             int widthY = centreHeight1/3;
             int middleX = posX - widthX/2;
 
@@ -124,27 +124,28 @@ public class LevelDisplay extends UIComponent {
                 case ("Level 2"):
                     pathName = pathName + "level-2.png";
                     hoverPathName = hoverPathName + "level-2-hovered.png";
-                    posX = middleX - widthX/2;
-                    posY = posY - widthY/2;
+                    posX = middleX - widthX;
+                    posY = posY - widthY;
                     break;
                 case ("Level 3"):
                     pathName = pathName + "level-3.png";
                     hoverPathName = hoverPathName + "level-3-hovered.png";
                     posX = middleX;
-                    posY = posY - widthY;
+                    posY = posY - widthY*2;
                     break;
                 case ("Level 4"):
                     pathName = pathName + "level-4.png";
                     hoverPathName = hoverPathName + "level-4-hovered.png";
-                    posX = middleX + widthX/2;
-                    posY = posY - widthY/2;
+                    posX = middleX + widthX;
+                    posY = posY - widthY;
                     break;
             }
 
-            ImageButton imageButton = insImage.setImage(pathName, hoverPathName, posX, posY, widthX, widthY);
-            imageButtons.add(imageButton);
+            ImageButton levelButton = insImage.setImage(pathName, hoverPathName, posX, posY, widthX, widthY);
+            imageButtons.add(levelButton);
 
-            imageButton.addListener(
+
+            levelButton.addListener(
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
@@ -165,19 +166,34 @@ public class LevelDisplay extends UIComponent {
                   }
               }
             );
-            editorBtn.setColor(Color.ROYAL);
 
-    //        table.add(startBtn).pad(10f);
-            table.add(editorBtn).padLeft(centreWidth * 1.5f);
+
+            editorBtn.setColor(Color.BLACK);
+            table.add(editorBtn).padLeft(centreWidth * 1.5f).padBottom(30f);
             table.row();
         }
+
+        /**
+         * Creates the button texture for the virus Head.
+         */
+        int posX = centreWidth1;
+        int posY = centreHeight1;
+        int widthX = centreWidth1/4;
+        int widthY = centreHeight1/3;
+        posX = posX - widthX/2;
+        posY = posY - widthY;
+        String virusHeadImage = "player/virus_head_front.png";
+        ImageButton virusHeadBtn;
+        virusHeadBtn = insImage.setImage(virusHeadImage, virusHeadImage, posX, posY, widthX, widthY);
 
         stage.addActor(table);
         for (ImageButton image : imageButtons) {
             stage.addActor(image);
+
         }
         stage.addActor(exitBtn);
         stage.addActor(titleBtn);
+        stage.addActor(virusHeadBtn);
     }
 
     @Override

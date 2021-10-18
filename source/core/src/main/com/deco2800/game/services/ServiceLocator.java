@@ -3,6 +3,7 @@ package com.deco2800.game.services;
 import com.deco2800.game.components.CameraComponent;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputService;
+import com.deco2800.game.levels.LevelTexture;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
 import org.slf4j.Logger;
@@ -24,6 +25,7 @@ public class ServiceLocator {
   private static InputService inputService;
   private static ResourceService resourceService;
   private static CameraComponent camera;
+  private static LevelTexture currentTexture;
 
 
   public static EntityService getEntityService() {
@@ -52,6 +54,10 @@ public class ServiceLocator {
 
   public static CameraComponent getCamera() {
     return camera;
+  }
+
+  public static LevelTexture getCurrentTexture() {
+    return currentTexture;
   }
 
   public static void registerEntityService(EntityService service) {
@@ -87,6 +93,11 @@ public class ServiceLocator {
   public static void registerCamera(CameraComponent cameraComponent) {
     logger.debug("Registering camera {}", cameraComponent);
     camera = cameraComponent;
+  }
+
+  public static void registerCurrentTexture(LevelTexture levelTexture) {
+    logger.debug("Registering level texture {}", levelTexture);
+    currentTexture = levelTexture;
   }
 
   public static void clear() {

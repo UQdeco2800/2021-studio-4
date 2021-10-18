@@ -1,5 +1,6 @@
 package com.deco2800.game.physics;
 
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.deco2800.game.entities.Entity;
 
 /**
@@ -12,4 +13,9 @@ public class BodyUserData {
    * The entity to which this body is attached
    */
   public Entity entity;
+
+  /**
+   * The cell to which this body is attached
+   */
+  public TiledMapTileLayer.Cell cell;
 }
