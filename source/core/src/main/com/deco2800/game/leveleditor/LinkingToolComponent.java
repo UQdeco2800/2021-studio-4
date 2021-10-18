@@ -56,14 +56,6 @@ public class LinkingToolComponent extends BaseToolComponent {
 
     if (subComponent == null) return;
 
-    /*
-    if (!levelGameArea.mapInteractables.containsKey(selectedParent)) {
-      levelGameArea.mapInteractables.put(selectedParent, new ArrayList<>());
-    } else if (!levelGameArea.mapInteractables.get(selectedParent).contains(obstacleEntity)){
-      levelGameArea.mapInteractables.get(selectedParent).add(obstacleEntity);
-    }
-     */
-
     if (!levelGameArea.interactableEntities.contains(selectedParent)) {
       levelGameArea.interactableEntities.add(selectedParent);
     }
@@ -85,12 +77,6 @@ public class LinkingToolComponent extends BaseToolComponent {
     InteractableComponent parentComponent = selectedParent.getComponent(InteractableComponent.class);
 
     if (subComponent == null) return;
-
-    /*
-    if (levelGameArea.mapInteractables.containsKey(selectedParent)) {
-      levelGameArea.mapInteractables.get(selectedParent).remove(obstacleEntity);
-    }
-     */
 
     if (levelGameArea.interactableEntities.contains(selectedParent)) {
       parentComponent.getMapped().remove(obstacleEntity);
@@ -131,16 +117,6 @@ public class LinkingToolComponent extends BaseToolComponent {
     clearMarkers();
 
     createMarker(selectedParent, false);
-
-    /*
-    if (levelGameArea.mapInteractables.containsKey(selectedParent)) {
-      List<ObstacleEntity> linked = levelGameArea.mapInteractables.get(selectedParent);
-
-      for (ObstacleEntity obstacleEntity : linked) {
-        createMarker(obstacleEntity, true);
-      }
-    }
-     */
 
     if (levelGameArea.interactableEntities.contains(selectedParent)) {
       List<ObstacleEntity> linked = parentComponent.getMapped();
