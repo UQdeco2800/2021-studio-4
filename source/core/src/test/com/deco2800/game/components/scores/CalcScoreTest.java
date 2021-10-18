@@ -1,20 +1,14 @@
 package com.deco2800.game.components.scores;
 
 import com.deco2800.game.extensions.GameExtension;
-import com.sun.source.tree.AssertTree;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.ArrayList;
-
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.mock;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @ExtendWith(GameExtension.class)
 public class CalcScoreTest {
