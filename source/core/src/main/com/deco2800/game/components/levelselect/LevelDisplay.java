@@ -144,6 +144,7 @@ public class LevelDisplay extends UIComponent {
             ImageButton levelButton = insImage.setImage(pathName, hoverPathName, posX, posY, widthX, widthY);
             imageButtons.add(levelButton);
 
+
             levelButton.addListener(
                 new ChangeListener() {
                     @Override
@@ -165,10 +166,10 @@ public class LevelDisplay extends UIComponent {
                   }
               }
             );
-            editorBtn.setColor(Color.ROYAL);
 
-    //        table.add(startBtn).pad(10f);
-            table.add(editorBtn).padLeft(centreWidth * 1.5f);
+
+            editorBtn.setColor(Color.BLACK);
+            table.add(editorBtn).padLeft(centreWidth * 1.5f).padBottom(30f);
             table.row();
         }
 
@@ -188,6 +189,7 @@ public class LevelDisplay extends UIComponent {
         stage.addActor(table);
         for (ImageButton image : imageButtons) {
             stage.addActor(image);
+
         }
         stage.addActor(exitBtn);
         stage.addActor(titleBtn);
