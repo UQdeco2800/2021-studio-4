@@ -7,6 +7,7 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.loading.LoadingScreenDisplay;
+import com.deco2800.game.components.loading.PauseScreenDisplay;
 import com.deco2800.game.components.maingame.MainGameActions;
 import com.deco2800.game.components.player.KeyboardPlayerInputComponent;
 import com.deco2800.game.entities.Entity;
@@ -88,15 +89,15 @@ public class MainGameScreen extends ScreenAdapter {
 
 
     createUI(false);
-    new java.util.Timer().schedule(
+   /* new java.util.Timer().schedule(
             new java.util.TimerTask() {
               @Override
               public void run() {
-                createUI(false);
+                createUI(true);
               }
             },
             5000
-    );
+    );*/
     logger.debug("Initialising main game screen entities");
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     levelGameArea = new LevelGameArea(terrainFactory, levelDefinition);
@@ -145,14 +146,14 @@ public class MainGameScreen extends ScreenAdapter {
 
   @Override
   public void pause() {
-    createUI(true);
+    createPauseUI(true);
     logger.info("Game paused");
     levelGameArea.getPlayer().getComponent(KeyboardPlayerInputComponent.class).pause();
   }
 
   @Override
   public void resume() {
-    createUI(false);
+    createPauseUI(false);
     logger.info("Game resumed");
     levelGameArea.getPlayer().getComponent(KeyboardPlayerInputComponent.class).resume();
   }
@@ -222,8 +223,6 @@ public class MainGameScreen extends ScreenAdapter {
       logger.info("It's not loading!");
        // ui.dispose();
        // Entity ui2 = new Entity();
-        ServiceLocator.getEntityService().unregister(ui);
-        ServiceLocator.getEntityService().unregister(ui2);
         ui3.addComponent(new InputDecorator(stage, 10))
                 .addComponent(new PerformanceDisplay())
                 .addComponent(new MainGameActions(this.game))
@@ -236,6 +235,30 @@ public class MainGameScreen extends ScreenAdapter {
       }
 
     }
+  private void createPauseUI(boolean loading) {
+    logger.debug("Creating ui");
+    Stage stage = ServiceLocator.getRenderService().getStage();
+    boolean displayLoading = false;
+    InputComponent inputComponent =
+            ServiceLocator.getInputService().getInputFactory().createForTerminal();
+    Entity ui = new Entity();
+    Entity ui2 = new Entity();
+    PauseScreenDisplay pauseScreenDisplay = new PauseScreenDisplay();
+    if (loading == true) {
+      ui.addComponent(pauseScreenDisplay);
+      ServiceLocator.getEntityService().register(ui);
+    }
+    if (loading == false) {
+      ui.addComponent(new InputDecorator(stage, 10))
+              .addComponent(new PerformanceDisplay())
+              .addComponent(new MainGameActions(this.game))
+              .addComponent(new MainGameExitDisplay())
+              .addComponent(new Terminal())
+              .addComponent(inputComponent)
+              .addComponent(new TerminalDisplay());
+      pauseScreenDisplay.dispose();
+    }
+  }
   }
 
 

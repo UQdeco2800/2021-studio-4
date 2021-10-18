@@ -95,24 +95,7 @@ public class LoadingScreenDisplay extends UIComponent {
     screen
     creatingLoadingBar(): adds in animation for loading animation.
      */
-    public static Entity createLoadingBar() {
-        AITaskComponent aiComponent =
-                new AITaskComponent()
-                        .addTask(new TheVoidTasks());
 
-        AnimationRenderComponent animator =
-                new AnimationRenderComponent(
-                        ServiceLocator.getResourceService()
-                                .getAsset("void/void.atlas", TextureAtlas.class));
-        animator.addAnimation("void", 0.1f, Animation.PlayMode.LOOP);
-
-        Entity loadingBar = new Entity();
-        loadingBar
-                .addComponent(animator);
-        loadingBar.getComponent(AnimationRenderComponent.class).scaleEntity();
-        loadingBar.setScale(20f,22);
-        return loadingBar;
-    }
     /**
      * Added Background image and initialised buttons
      */
@@ -130,15 +113,35 @@ public class LoadingScreenDisplay extends UIComponent {
         BitmapFont font = new BitmapFont();
         Label.LabelStyle labelStyle = new Label.LabelStyle(font, Color.WHITE);
         label.setStyle(labelStyle);
-        label.setAlignment(Align.bottomRight);
-        Entity loadingAn = createLoadingBar();
+        label.setAlignment(Align.bottomLeft);
        // TextureRegionDrawable textureRegionDrawable = new TextureRegionDrawable(new TextureRegion(bground));
         Sprite sprite = new Sprite(new Texture("ui-elements/loading_screen_background.png"));
         table.setBackground(new SpriteDrawable(sprite));
+
         loadingText = "Game is loading! Enjoy";
-        table.add(label).center().width(100).height(100);;
+        Texture texture = new Texture("loading-screen/key-hints.png");
+        Image playerControls = new Image(texture);
+        table.add(label).bottom().width(100).height(100);;
+      /*  AITaskComponent aiComponent =
+                new AITaskComponent()
+                        .addTask(new TheVoidTasks());
+
+        AnimationRenderComponent animator =
+                new AnimationRenderComponent(
+                        ServiceLocator.getResourceService()
+                                .getAsset("void/void.atlas", TextureAtlas.class));
+        animator.addAnimation("void", 0.1f, Animation.PlayMode.LOOP);
+        Texture textureLoadingBar = new Texture("loading-screen/loading.atlas");
+        Entity loadingBar = new Entity();
+        loadingBar
+                .addComponent(animator);
+        loadingBar.getComponent(AnimationRenderComponent.class).scaleEntity();
+        loadingBar.setScale(20f,22);*/
        // table.addActor(runtimeTitle);
+
         stage.addActor(table);
+        stage.addActor(playerControls);
+       // stage.addActor(loadingBar);
         //stage.addActor();
         //stage.addActor(label);
       //  stage.addActor(textureRegionDrawable);
