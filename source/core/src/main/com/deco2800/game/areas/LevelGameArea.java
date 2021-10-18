@@ -338,7 +338,7 @@ public class LevelGameArea extends GameArea {
         }
       }
 
-      if (buttons.size() > 0 && subInteractables.size() > 0) {
+      if (!buttons.isEmpty() && !subInteractables.isEmpty()) {
         for (int j = 0; j < buttons.size(); j++) {
           InteractableComponent interactable = buttons.get(j).getComponent(InteractableComponent.class);
           interactable.addSubInteractable(subInteractables.get(j));
@@ -435,22 +435,21 @@ public class LevelGameArea extends GameArea {
 
     // Add entities to subInteractables list
     for (ObstacleEntity obstacleEntity : obstacleEntities) {
-      if (obstacleEntity.interactableID != null) {
-        if (levelFile.obstacles.interactablesMap.containsKey(obstacleEntity.interactableID)) {
-          List<Integer> subInteractableIds = levelFile.obstacles.interactablesMap.get(obstacleEntity.interactableID);
-          List<ObstacleEntity> subInteractables = new ArrayList<>();
-          for (ObstacleEntity entity : obstacleEntities) {
-            if (subInteractableIds.contains(entity.interactableID)) {
-              subInteractables.add(entity);
-              break;
-            }
+      if (obstacleEntity.interactableID != null && levelFile.obstacles.interactablesMap.containsKey(obstacleEntity.interactableID)) {
+        List<Integer> subInteractableIds = levelFile.obstacles.interactablesMap.get(obstacleEntity.interactableID);
+        List<ObstacleEntity> subInteractables = new ArrayList<>();
+        for (ObstacleEntity entity : obstacleEntities) {
+          if (subInteractableIds.contains(entity.interactableID)) {
+            subInteractables.add(entity);
+            break;
           }
-
-          mapInteractables.put(obstacleEntity, subInteractables);
         }
-      }
+
+        mapInteractables.put(obstacleEntity, subInteractables);
+        }
+
     }
-    System.out.println(levelFile.obstacles.interactablesMap);
+    System.err.println(levelFile.obstacles.interactablesMap);
   }
 
   @Override
@@ -472,8 +471,6 @@ public class LevelGameArea extends GameArea {
   }
 
   private ObstacleEntity spawnObstacle(ObstacleDefinition selectedObstacle, int x, int y, int size) {
-//    x = x*2;
-//    y = y*2;
 
     switch (selectedObstacle){
       case PLATFORM:
@@ -522,9 +519,9 @@ public class LevelGameArea extends GameArea {
    * Spawns a status effect as the given location
    */
   private void spawnStatusEffect(StatusEffect statusEffect, int posX, int posY) {
-    System.out.println(statusEffect);
-    System.out.println(posX);
-    System.out.println(posY);
+    System.err.println(statusEffect);
+    System.err.println(posX);
+    System.err.println(posY);
     Entity statusEffectEntity = NPCFactory.createStatusEffect(statusEffect);
     GridPoint2 position = new GridPoint2(posX, posY);
     spawnEntityAt(statusEffectEntity, position, true, true);
@@ -591,7 +588,6 @@ public class LevelGameArea extends GameArea {
       default:
         gameMusic = new MusicService(dict.game_level_1);//To make sure gameMusic is never null
     }
-      //gameMusic.playMusic();
     gameMusic.playSong(true, 0.2f);
 
   }
