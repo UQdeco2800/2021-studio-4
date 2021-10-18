@@ -77,10 +77,6 @@ public class PlayerFactory {
     }
 
 
-
-
-
-
     Entity player =
         new Entity()
             .addComponent(new PhysicsComponent())
@@ -95,7 +91,6 @@ public class PlayerFactory {
             .addComponent(new PlayerMovementComponent(PhysicsLayer.OBSTACLE, mapInteractables, levelGameArea))
             .addComponent(new StatusEffectTargetComponent())
             .addComponent(new StatusEffectUIComponent());
-
 
 
     PhysicsUtils.setScaledCollider(player, 0.8f, 0.7f);

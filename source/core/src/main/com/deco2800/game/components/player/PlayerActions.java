@@ -66,7 +66,7 @@ public class PlayerActions extends Component {
   private int keysPressed; //stores number of keys being pressed that affect the plaer
   AnimationRenderComponent animator;
 
-  private Vector2 jumpSpeed = new Vector2(0f, 400f);
+  private Vector2 jumpSpeed = new Vector2(50f, 400f);
   private Vector2 jumpPadSpeed = new Vector2(0f, 500f);
   private boolean canJump = false; // Whether the player can jump
     private boolean oneTimeThing = true;

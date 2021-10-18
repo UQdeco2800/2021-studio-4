@@ -68,6 +68,11 @@ public class ObstacleFactory {
     return wall;
   }
 
+  /**
+   * Creates a platform.
+   * @param width Platform width in world units
+   * @return Platform entity of given width
+   */
   public static Entity createPlatform(int width) {
     TextureAtlas atlas = ServiceLocator.getResourceService()
       .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
@@ -89,6 +94,11 @@ public class ObstacleFactory {
     return platform;
   }
 
+  /**
+   * Creates a middle platform.
+   * @param width Platform width in world units
+   * @return Middle platform entity of given width
+   */
   public static Entity createMiddlePlatform(int width) {
     TextureAtlas atlas = ServiceLocator.getResourceService()
       .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
@@ -110,6 +120,10 @@ public class ObstacleFactory {
     return platformWall;
   }
 
+  /**
+   * Creates a button.
+   * @return Button entity of fixed width and height.
+   */
   public static Entity createButton() {
     TextureAtlas atlas = ServiceLocator.getResourceService()
       .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
@@ -134,7 +148,7 @@ public class ObstacleFactory {
 
   /**
    * Creates a jump pad entity.
-   * @return jump pad
+   * @return Jump pad of fixed width and height
    */
   public static Entity createJumpPad() {
     TextureAtlas atlas = ServiceLocator.getResourceService()
@@ -157,6 +171,11 @@ public class ObstacleFactory {
     return jumpPad;
   }
 
+  /**
+   * Creates a bridge.
+   * @param width Bridge width in world units
+   * @return Bridge entity of given width
+   */
   public static Entity createBridge(int width) {
     TextureAtlas atlas = ServiceLocator.getResourceService()
       .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
@@ -183,6 +202,11 @@ public class ObstacleFactory {
     return bridge;
   }
 
+  /**
+   * Creates a door.
+   * @param height Door height in world units
+   * @return Door entity of given height
+   */
   public static Entity createDoor(int height) {
     TextureAtlas atlas = ServiceLocator.getResourceService()
       .getAsset("map-spritesheets/mapTextures.atlas", TextureAtlas.class);
@@ -204,6 +228,11 @@ public class ObstacleFactory {
     return door;
   }
 
+  /**
+   * Creates a level end portal.
+   * @param width Portal width in world units
+   * @return Level end portal of given width
+   */
   public static Entity createLevelEndPortal(int width) {
     ObstacleEntity levelEndPortal =
       new ObstacleEntity(ObstacleDefinition.LEVEL_END_PORTAL,width)
