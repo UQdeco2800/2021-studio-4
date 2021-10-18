@@ -48,7 +48,7 @@ public class LevelSelectScreen extends ScreenAdapter {
         ServiceLocator.registerRenderService(new RenderService());
         renderer = RenderFactory.createRenderer();
         loadAssets();
-        createUI();
+        createUI(false);
     }
 
     @Override
@@ -76,13 +76,12 @@ public class LevelSelectScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
+        createUI(true);
         logger.debug("Disposing level select screen");
-
         renderer.dispose();
         unloadAssets();
         ServiceLocator.getRenderService().dispose();
         ServiceLocator.getEntityService().dispose();
-
         ServiceLocator.clear();
 
     }
@@ -122,11 +121,14 @@ public class LevelSelectScreen extends ScreenAdapter {
      * Creates the level select menu's ui including components for rendering ui elements to the screen and
      * capturing and handling ui input.
      */
-    private void createUI() {
+    private void createUI(boolean exiting) {
         logger.debug("Creating ui");
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
         LevelDisplay levelDisplay = new LevelDisplay();
+        if (exiting == true) {
+            ui.addComponent(new LoadingScreenDisplay());
+        }
         //long start = System.currentTimeMillis();
         //float sec = 0;
         /* global update button event listner passing into a different class */

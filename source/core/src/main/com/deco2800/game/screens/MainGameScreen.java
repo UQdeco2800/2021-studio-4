@@ -52,6 +52,8 @@ public class MainGameScreen extends ScreenAdapter {
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
+  private Entity ui = new Entity();
+  private PauseScreenDisplay pauseScreenDisplay = new PauseScreenDisplay();
 //  private final LevelDefinition levelDefinition;
   private LevelGameArea levelGameArea;
 
@@ -241,9 +243,8 @@ public class MainGameScreen extends ScreenAdapter {
     boolean displayLoading = false;
     InputComponent inputComponent =
             ServiceLocator.getInputService().getInputFactory().createForTerminal();
-    Entity ui = new Entity();
     Entity ui2 = new Entity();
-    PauseScreenDisplay pauseScreenDisplay = new PauseScreenDisplay();
+
     if (loading == true) {
       ui.addComponent(pauseScreenDisplay);
       ui.create();
@@ -251,9 +252,7 @@ public class MainGameScreen extends ScreenAdapter {
     }
     if (loading == false) {
       //ui.dispose();
-      ServiceLocator.getEntityService().unregister(ui);
-      ui.scaleWidth(0f);
-      ui.scaleHeight(0f);
+      pauseScreenDisplay.remove();
     }
   }
   }
