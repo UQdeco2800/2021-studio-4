@@ -53,6 +53,7 @@ public class PlayerActions extends Component {
   private boolean cameraIsSet = false;
   private int iterator = 0;
   private int cameraDelay = 0;
+  private boolean isTesting = false;
 
   private static Vector2 ACCELERATION = new Vector2(10f, 0f);  // Force of acceleration, in Newtons (kg.m.s^2)
   private static final float NORMAL_FRICTION = 0.1f;                 // Coefficient of friction for normal movement
@@ -69,7 +70,10 @@ public class PlayerActions extends Component {
   private Vector2 jumpSpeed = new Vector2(50f, 400f);
   private Vector2 jumpPadSpeed = new Vector2(0f, 500f);
   private boolean canJump = false; // Whether the player can jump
-    private boolean oneTimeThing = true;
+  private boolean oneTimeThing = true;
+
+
+
 
 
   @Override
@@ -103,6 +107,8 @@ public class PlayerActions extends Component {
     canPlayerMove = false;
     hasSpawnAnimationFinished = false;
     setSpawnAnimation();
+
+
   }
 
   @Override
@@ -168,6 +174,11 @@ public class PlayerActions extends Component {
           }
   }
  */
+
+
+    public void setIsTesting(boolean value) {
+        isTesting = value;
+    }
 
     /**
      * After this function is called a certain number of times it centers the camera on the player, this is done so
@@ -288,8 +299,10 @@ public class PlayerActions extends Component {
    * the game is ove.
    */
   private void isDeathAnimationCompleted(){
-      if(animator.getCurrentAnimation() == "death" && animator.isFinished()) {
-          this.entity.getComponent(PlayerStatsDisplay.class).playerIsDead();
+      if (animator.getCurrentAnimation() != null) {
+          if (animator.getCurrentAnimation().equals("death") && animator.isFinished()) {
+              this.entity.getComponent(PlayerStatsDisplay.class).playerIsDead();
+          }
       }
   }
 
@@ -538,13 +551,16 @@ public class PlayerActions extends Component {
             //System.out.println("in air"); // More testing prints
             setIsJumping();
 
+
+
             this.playerState = PlayerState.AIR;
             body.applyForceToCenter(jumpSpeed, true);
             canJump = false;
-
-            MusicServiceDirectory directory = new MusicServiceDirectory();
-            MusicService jumpMusic = new MusicService(directory.click);
-            jumpMusic.playSong(false, 0.7f);
+            if (!isTesting) {
+                MusicServiceDirectory directory = new MusicServiceDirectory();
+                MusicService jumpMusic = new MusicService(directory.click);
+                jumpMusic.playSong(false, 0.7f);
+            }
         }
     }
   }
