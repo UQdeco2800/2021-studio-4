@@ -60,10 +60,6 @@ public class PlayerStatsDisplay extends UIComponent {
 
     // Health text
     int health = entity.getComponent(CombatStatsComponent.class).getHealth();
-    CharSequence healthText = String.format(" Health: %d", health);
-    healthLabel = new Label(healthText, skin, "large");
-
-    table.add(healthLabel);
 
     table.row();
     iterator = 0;
@@ -121,8 +117,6 @@ public class PlayerStatsDisplay extends UIComponent {
    * @param health player health
    */
   public void updatePlayerHealthUI(int health) {
-    CharSequence text = String.format(" Health: %d", health);
-    healthLabel.setText(text);
     if (health == 0) {
       this.getEntity().getEvents().trigger("playerIsDead");
     }
@@ -141,10 +135,10 @@ public class PlayerStatsDisplay extends UIComponent {
     // Seems to be the perfect time to start on
     if (!paused) {
       if (iterator < 3) {
-        initialValue = Math.round(timeScore / 1000);
+        initialValue = Math.round((float)timeScore / 1000);
         iterator++;
       }
-      seconds = Math.round(timeScore / 1000) - initialValue;
+      seconds = Math.round((float)timeScore / 1000) - initialValue;
       if (pauseSet) {
         pauseSet = false;
         timeElapsedWhilePaused += seconds - pausedTime;
