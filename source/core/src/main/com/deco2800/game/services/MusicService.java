@@ -42,31 +42,6 @@ public class MusicService {
         return music.getPosition();
     }
 
-    /**
-     * Start playing this music from the given time.
-     * Required:  an integer of the time of the music track being modified by the service.
-     */
-   // public void setTime(float time) {
-     //   MuteManager mute = MuteManager.getInstance();
-        /* If the mute button is off */
-       // if (!mute.getMute()) {
-         //   music.setPosition(time);
-          //  music.play();
-       // }
-    //}
-
-    /**
-     * Play this music in the loop.
-     */
-    /*public void playMusic() {
-        MuteManager mute = MuteManager.getInstance();
-        // If the mute button is off, play the music otherwise do nothing.
-        if (!mute.getMute()) {
-            music.setLooping(true);
-            music.setVolume(0.2f);
-            music.play();
-        }
-    }*/
 
     /**
      * Play this music with the given volume and loop value.
@@ -82,22 +57,6 @@ public class MusicService {
             music.play();
         }
     }
-
-    /**
-     * Play this music with the given volume.
-     * Required: an integer between 0 and 1
-     */
-   /* public void changeVolume(float vol) {
-        MuteManager mute = MuteManager.getInstance();
-        // If the mute button is off
-        if (!mute.getMute()) {
-            music.setVolume(vol);
-            music.play();
-        }
-    }*/
-
-
-
 
 
 }
