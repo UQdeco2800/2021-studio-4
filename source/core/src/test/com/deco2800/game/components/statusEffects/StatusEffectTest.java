@@ -1,4 +1,4 @@
-package com.deco2800.game.components.statuseffects;
+package com.deco2800.game.components.statusEffects;
 
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.player.PlayerActions;
