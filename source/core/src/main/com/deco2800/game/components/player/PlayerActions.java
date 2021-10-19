@@ -43,6 +43,7 @@ public class PlayerActions extends Component {
     Right
   }
 
+
   private MovingDirection movingDirection;
   private Movement currentMovement;
   private String previousAnimation;
@@ -53,8 +54,9 @@ public class PlayerActions extends Component {
   private boolean cameraIsSet = false;
   private int iterator = 0;
   private int cameraDelay = 0;
+  private boolean isTesting = false;
 
-  private static Vector2 ACCELERATION = new Vector2(10f, 0f);  // Force of acceleration, in Newtons (kg.m.s^2)
+  private static Vector2 acceleration = new Vector2(10f, 0f);  // Force of acceleration, in Newtons (kg.m.s^2)
   private static final float NORMAL_FRICTION = 0.1f;                 // Coefficient of friction for normal movement
 
   private PlayerState playerState = PlayerState.STOPPED;        // Movement state of the player, see PlayerState
@@ -69,7 +71,10 @@ public class PlayerActions extends Component {
   private Vector2 jumpSpeed = new Vector2(50f, 400f);
   private Vector2 jumpPadSpeed = new Vector2(0f, 500f);
   private boolean canJump = false; // Whether the player can jump
-    private boolean oneTimeThing = true;
+  private boolean oneTimeThing = true;
+
+
+
 
 
   @Override
@@ -103,6 +108,8 @@ public class PlayerActions extends Component {
     canPlayerMove = false;
     hasSpawnAnimationFinished = false;
     setSpawnAnimation();
+
+
   }
 
   @Override
@@ -133,48 +140,18 @@ public class PlayerActions extends Component {
     }
   }
 
-    /**
-     * This function was so the camera would slowly translate over to the playable character after
-     * the spawn animation has player to stop the camera from jumping
-     */
-/*
-  private void slowlyMoveCameraToPos(Vector2 pos){
 
-          float cameraPosX = ServiceLocator.getCamera().getEntity().getPosition().x;
-          float cameraPosY = ServiceLocator.getCamera().getEntity().getPosition().y;
-          float destPosX = pos.x;
-          float destPosY = pos.y;
-          float movementX;
-          float movementY;
 
-          if((Math.floor(cameraPosX * 10) != Math.floor(destPosX * 10)) && (Math.floor(cameraPosY * 10) != Math.floor(destPosY * 10))) {
-
-              if (cameraPosX > destPosX) {
-                  movementX = -0.01f;
-              } else {
-                  movementX = 0.01f;
-              }
-              if (cameraPosY > destPosY) {
-                  movementY = -0.01f;
-              } else {
-                  movementY = 0.01f;
-              }
-
-              Vector2 movementVector = new Vector2(movementX, movementY);
-              ServiceLocator.getCamera().getEntity().setPosition(ServiceLocator.getCamera().getEntity().getPosition().add(movementVector));
-          } else {
-              //System.out.println("camer was set");
-              cameraIsSet = true;
-          }
-  }
- */
+    public void setIsTesting(boolean value) {
+        isTesting = value;
+    }
 
     /**
      * After this function is called a certain number of times it centers the camera on the player, this is done so
      * the camera does not jump directly after the spawn animation is finished to make it look smoother
      */
   private void setCameraPosAfterDelay() {
-      if (hasSpawnAnimationFinished & !cameraIsSet) {
+      if (hasSpawnAnimationFinished && !cameraIsSet) {
           cameraDelay++;
           if (cameraDelay == 25) {
               cameraIsSet = true;
@@ -193,12 +170,9 @@ public class PlayerActions extends Component {
   }
 
   private void isPlayerFallingToDeath() {
-      if(oneTimeThing) {
-          if (this.entity.getPosition().y < 2) {
-              oneTimeThing = false;
-              //start playing sound here
-              System.out.println("dead");
-          }
+      if (oneTimeThing && this.entity.getPosition().y < 2) {
+          oneTimeThing = false;
+          //start playing sound here
       }
   }
 
@@ -237,9 +211,6 @@ public class PlayerActions extends Component {
      * math.random()
      */
    public int setSpawnAnimation(){
-       //if(gameLevel == "LEVEL_4") {
-        //   spawnAnimation = "spawn_level1";
-      // } else {
       int spawnAnimationToUse = 1 + (int) (Math.random() * 3);
       if (spawnAnimationToUse == 1) {
           spawnAnimation = "portal_flip";
@@ -248,7 +219,6 @@ public class PlayerActions extends Component {
       } else {
           spawnAnimation = "spawn_portal";
       }
-      //  }
 
        return spawnAnimationToUse;
   }
@@ -288,7 +258,7 @@ public class PlayerActions extends Component {
    * the game is ove.
    */
   private void isDeathAnimationCompleted(){
-      if(animator.getCurrentAnimation() == "death" && animator.isFinished()) {
+      if (animator.getCurrentAnimation() != null && animator.getCurrentAnimation().equals("death") && animator.isFinished()) {
           this.entity.getComponent(PlayerStatsDisplay.class).playerIsDead();
       }
   }
@@ -301,12 +271,12 @@ public class PlayerActions extends Component {
   private void updateSpeed() {
     // Scale the walk direction by the acceleration, and apply that as a force
       if(canPlayerMove) {
-          this.body.applyForceToCenter(walkDirection.cpy().scl(ACCELERATION), true);
+          this.body.applyForceToCenter(walkDirection.cpy().scl(acceleration), true);
       }
   }
 
   public float getSpeed() {
-    return ACCELERATION.x;
+    return acceleration.x;
   }
 
   public float getJumpHeight() {
@@ -319,15 +289,12 @@ public class PlayerActions extends Component {
    * speed limit.
    */
   public int alterSpeed(int newSpeed) {
-
     // increase or decrease the players movement
-    ACCELERATION.add(newSpeed, 0);
-    //return (int) ACCELERATION.x;
+      acceleration.add(newSpeed, 0);
     return newSpeed;
   }
 
   public int alterJumpHeight(int newJump) {
-
     // increase or decrease the players movement
     jumpSpeed.add(0, newJump);
     return newJump;
@@ -420,8 +387,8 @@ public class PlayerActions extends Component {
    * be and sets the player to the correct animation
    */
   void checkIfFallingIsDone(){
-    if((currentMovement == Movement.Falling | currentMovement == Movement.Jump) && canJump && canPlayerMove){
-        if(body.getLinearVelocity().x == 0 | keysPressed == 0){
+    if((currentMovement == Movement.Falling || currentMovement == Movement.Jump) && canJump && canPlayerMove){
+        if(body.getLinearVelocity().x == 0 || keysPressed == 0){
           setMovementAnimation(Movement.Idle);
         } else {
           setMovementAnimation(Movement.Walk);
@@ -514,8 +481,7 @@ public class PlayerActions extends Component {
           if (currentMovement != Movement.Falling) {
               setMovementAnimation(Movement.Idle);
           }
-          //currentVelocity = new Vector2(-0.2f, -0.2f);
-          //updateSpeed();
+
       }
   }
 
@@ -532,16 +498,13 @@ public class PlayerActions extends Component {
    */
   void jump() {
     StatusEffect statusEffect = entity.getComponent(StatusEffectTargetComponent.class).getCurrentStatusEffect();
-    if (canPlayerMove && statusEffect != StatusEffect.STUCK) {
-        //System.out.println("trying to jump and " + canJump + "state is " + playerState); // Testing print
-        if (playerState != PlayerState.AIR && canJump) {
-            //System.out.println("in air"); // More testing prints
-            setIsJumping();
+    if (canPlayerMove && statusEffect != StatusEffect.STUCK && playerState != PlayerState.AIR && canJump) {
+        setIsJumping();
 
-            this.playerState = PlayerState.AIR;
-            body.applyForceToCenter(jumpSpeed, true);
-            canJump = false;
-
+        this.playerState = PlayerState.AIR;
+        body.applyForceToCenter(jumpSpeed, true);
+        canJump = false;
+        if (!isTesting) {
             MusicServiceDirectory directory = new MusicServiceDirectory();
             MusicService jumpMusic = new MusicService(directory.click);
             jumpMusic.playSong(false, 0.7f);
@@ -556,7 +519,7 @@ public class PlayerActions extends Component {
     StatusEffect statusEffect = entity.getComponent(StatusEffectTargetComponent.class).getCurrentStatusEffect();
     if(canPlayerMove && !getCurrentMovement().equals("Sliding") && statusEffect != StatusEffect.STUCK) {
         this.playerState = PlayerState.SLIDING;
-        if (getCanJump()) {
+        if (canJump) {
             setIsSliding();
             if (previousWalkDirection.epsilonEquals(Vector2Utils.LEFT)) {
                 body.applyForceToCenter(new Vector2(-300f, 0f), true);
