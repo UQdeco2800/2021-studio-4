@@ -8,7 +8,6 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.ServiceLocator;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,14 +21,12 @@ public class StatusEffectTest {
 
     private Entity player;
     private CombatStatsComponent combatStatsComponent;
-    private PlayerActions playerActions;
     private StatusEffectTargetComponent SETC;
     private GameTime gameTime;
-    private Entity entity;
+    private PlayerActions playerActions;
 
     private float expected;
     private float result;
-    private int type;
 
     private void assertTestCase(float expected, float result) {
         assertEquals(expected, result);
@@ -44,31 +41,17 @@ public class StatusEffectTest {
     }
 
     @BeforeEach
-    public void mockClasses() {
+    public void initialiseClasses() {
         /* Mocking classes */
-        entity = Mockito.mock(Entity.class);
         player = Mockito.mock(Entity.class);
         gameTime = Mockito.mock(GameTime.class);
         ServiceLocator.registerTimeSource(gameTime);
-    }
 
-    @BeforeEach
-    public void initialiseClasses() {
-        playerActions = new PlayerActions("example_level_string");
+        /* Initialise other classes */
+        playerActions = new PlayerActions("placeholder-stage-name");
         combatStatsComponent = new CombatStatsComponent(1, 0);
         SETC = new StatusEffectTargetComponent();
         SETC.setEntity(player);
-    }
-
-    @AfterEach
-    public void cleanUp() {
-        /* Sets all objects to null to be reinitialised. This is to prevent any changes from previous
-        tests carrying over. */
-        SETC = null;
-        playerActions = null;
-        combatStatsComponent = null;
-        player = null;
-        gameTime = null;
     }
 
     @Test
@@ -79,7 +62,7 @@ public class StatusEffectTest {
 
         /* Add speed boost */
         SETC.applyStatusEffect(StatusEffect.FAST);
-        // We expect the getComponent(PlayerActions.class) is called twice.
+        /* We expect the getComponent(PlayerActions.class) is called twice */
         verify(player, times(2)).getComponent(PlayerActions.class);
         assertStatusEffects(StatusEffect.FAST, SETC.getCurrentStatusEffect());
     }
@@ -132,21 +115,6 @@ public class StatusEffectTest {
     }
 
     @Test
-    public void testSpeedBuffStatChange() {
-        when(gameTime.getTime()).thenReturn(0L);
-        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
-        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
-
-        type = 1;
-        /* apply speed buff */
-        SETC.applyStatusEffect(StatusEffect.FAST);
-        result = playerActions.getSpeed();
-        expected = 15;
-        verify(player, times(2)).getComponent(PlayerActions.class);
-        assertTestCase(expected, result);
-    }
-
-    @Test
     public void testJumpBuffStatChange() {
         when(gameTime.getTime()).thenReturn(0L);
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
@@ -157,6 +125,35 @@ public class StatusEffectTest {
         result = playerActions.getJumpHeight();
         expected = 600;
         verify(player).getComponent(PlayerActions.class);
+        assertTestCase(expected, result);
+    }
+
+    @Test
+    public void testStuckInTheMudStatChange() {
+        PlayerActions playerStuckInTheMud = new PlayerActions("new-stage");
+        when(gameTime.getTime()).thenReturn(0L);
+        when(player.getComponent(PlayerActions.class)).thenReturn(playerStuckInTheMud);
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
+
+        /* apply jump buff */
+        SETC.applyStatusEffect(StatusEffect.STUCK);
+        result = playerStuckInTheMud.getSpeed();
+        expected = 0f;
+        verify(player, times(2)).getComponent(PlayerActions.class);
+        assertTestCase(expected, result);
+    }
+
+    @Test
+    public void testSpeedDebuffStatChange() {
+        when(gameTime.getTime()).thenReturn(0L);
+        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
+
+        /* apply jump buff */
+        SETC.applyStatusEffect(StatusEffect.SLOW);
+        result = playerActions.getSpeed();
+        expected = 5;
+        verify(player, times(2)).getComponent(PlayerActions.class);
         assertTestCase(expected, result);
     }
 
