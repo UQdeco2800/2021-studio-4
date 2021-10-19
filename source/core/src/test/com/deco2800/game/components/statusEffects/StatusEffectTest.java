@@ -193,31 +193,58 @@ public class StatusEffectTest {
     }
 
     @Test
-    public void testApplyStatusEffect() {
-        System.err.println("1");
+    public void testApplySpeedBuff() {
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
 
         /* Add speed boost */
         SETC.applyStatusEffect(StatusEffect.FAST);
-        //verify(player).getComponent(PlayerActions.class);
+        // We expect the getComponent(PlayerActions.class) is called twice.
+        verify(player, times(2)).getComponent(PlayerActions.class);
         assertStatusEffects(StatusEffect.FAST, SETC.getCurrentStatusEffect());
+    }
 
+    @Test
+    public void testApplyJumpBuff() {
+        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
         /* Add jump boost */
         SETC.applyStatusEffect(StatusEffect.JUMP);
+        verify(player, times(1)).getComponent(PlayerActions.class);
         assertStatusEffects(StatusEffect.JUMP, SETC.getCurrentStatusEffect());
+    }
+
+    @Test
+    public void testApplyTimeStop() {
+        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
 
         /* Add time stop buff */
         SETC.applyStatusEffect(StatusEffect.TIME_STOP);
+        verify(player, times(0)).getComponent(PlayerActions.class);
         assertStatusEffects(StatusEffect.TIME_STOP, SETC.getCurrentStatusEffect());
+    }
 
-        /* Add stuck debuff */
-        SETC.applyStatusEffect(StatusEffect.STUCK);
-        assertStatusEffects(StatusEffect.STUCK, SETC.getCurrentStatusEffect());
+    @Test
+    public void testApplySpeedDebuff() {
+        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
 
-        /* Add speed debuff*/
+        /* Add time stop buff */
         SETC.applyStatusEffect(StatusEffect.SLOW);
+        verify(player, times(2)).getComponent(PlayerActions.class);
         assertStatusEffects(StatusEffect.SLOW, SETC.getCurrentStatusEffect());
+    }
+
+    @Test
+    public void testApplyStuckInMud() {
+        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
+
+        /* Add time stop buff */
+        SETC.applyStatusEffect(StatusEffect.STUCK);
+        verify(player, times(2)).getComponent(PlayerActions.class);
+        assertStatusEffects(StatusEffect.STUCK, SETC.getCurrentStatusEffect());
     }
 
     @Test
