@@ -48,6 +48,7 @@ public class PauseScreenDisplay extends UIComponent {
 
     @Override
     public void create() {
+
         super.create();
         addActors();
         // playTheMusic();
@@ -65,14 +66,75 @@ public class PauseScreenDisplay extends UIComponent {
         Table table = new Table();
         table.setFillParent(true);
         // TextureRegionDrawable textureRegionDrawable = new TextureRegionDrawable(new TextureRegion(bground));
-        Sprite sprite = new Sprite(new Texture("ui-elements/pause_game1.png"));
+        Sprite sprite = new Sprite(new Texture("ui-elements/pause_notext.png"));
         table.setBackground(new SpriteDrawable(sprite));
+
         stage.addActor(table);
+        Table table2 = new Table();
+        table2.center();
+        table2.setFillParent(true);
+
+        // Add pause button to pause game
+        TextButton pauseBtn = new TextButton("Pause", skin);
+
+
+        // Add exit button to go back to main menu.
+        TextButton exitBtn = new TextButton("Exit", skin);
+
+
+        // Add retry button to restart level
+        TextButton retryBtn = new TextButton("Retry", skin);
+
+
+
+
+        // Pause button event
+        pauseBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.debug("Pause button clicked");
+                        entity.getEvents().trigger("pause");
+                    }
+                });
+        table2.add(pauseBtn).center();
+        table2.row();
+        table2.add(exitBtn).center();
+        table2.row();
+        table2.add(retryBtn).center();
+        stage.addActor(table2);
+
+        // Exit button event.
+        exitBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+
+                        logger.debug("Exit button from death screen is clicked");
+                        entity.getEvents().trigger("exit");
+                    }
+                });
+
+        // Retry button event.
+        retryBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+
+                        logger.debug("Retry button clicked");
+                        entity.getEvents().trigger("retry");
+                    }
+                });
     }
 
 
     public void remove() {
         stage.dispose();
+    }
+
+    public void add() {
+        super.create();
+        addActors();
     }
 
 

@@ -53,6 +53,8 @@ public class MainGameScreen extends ScreenAdapter {
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
   private Entity ui = new Entity();
+  private Entity ui2 = new Entity();
+  private Entity ui3 = new Entity();
   private PauseScreenDisplay pauseScreenDisplay = new PauseScreenDisplay();
 //  private final LevelDefinition levelDefinition;
   private LevelGameArea levelGameArea;
@@ -91,15 +93,8 @@ public class MainGameScreen extends ScreenAdapter {
 
 
     createUI(false);
-   /* new java.util.Timer().schedule(
-            new java.util.TimerTask() {
-              @Override
-              public void run() {
-                createUI(true);
-              }
-            },
-            5000
-    );*/
+
+
     logger.debug("Initialising main game screen entities");
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     levelGameArea = new LevelGameArea(terrainFactory, levelDefinition);
@@ -200,9 +195,7 @@ public class MainGameScreen extends ScreenAdapter {
     boolean displayLoading = false;
     InputComponent inputComponent =
             ServiceLocator.getInputService().getInputFactory().createForTerminal();
-    Entity ui = new Entity();
-    Entity ui2 = new Entity();
-    Entity ui3 = new Entity();
+
    /* ui.addComponent(new InputDecorator(stage, 10))
         .addComponent(new PerformanceDisplay())
         .addComponent(new MainGameActions(this.game))
@@ -212,6 +205,7 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new TerminalDisplay());*/
 
     if (loading == true) {
+      System.out.println("Yoodole");
       logger.debug("It's loading!");
       ui.addComponent(new LoadingScreenDisplay());
       ui2.addComponent(new InputDecorator(stage, 10))
@@ -220,8 +214,16 @@ public class MainGameScreen extends ScreenAdapter {
               .addComponent(new MainGameExitDisplay());
       ServiceLocator.getEntityService().register(ui);
       ServiceLocator.getEntityService().register(ui2);
+      while (gameTime.getDeltaTime() > 2) {
+        if (gameTime.getDeltaTime() > 2) {
+          createUI(false);
+        }
+      }
     }
       if (loading == false) {
+        System.out.println("Yoodole");
+        logger.info("Yo!!!!");
+        logger.debug("YooO!");
       logger.info("It's not loading!");
        // ui.dispose();
        // Entity ui2 = new Entity();
@@ -233,6 +235,7 @@ public class MainGameScreen extends ScreenAdapter {
                 .addComponent(inputComponent)
                 .addComponent(new TerminalDisplay());
         ServiceLocator.getEntityService().register(ui3);
+      //  ui.dispose();
 
       }
 
@@ -247,12 +250,21 @@ public class MainGameScreen extends ScreenAdapter {
 
     if (loading == true) {
       ui.addComponent(pauseScreenDisplay);
+      pauseScreenDisplay.add();
       ui.create();
       ServiceLocator.getEntityService().register(ui);
     }
     if (loading == false) {
       //ui.dispose();
       pauseScreenDisplay.remove();
+      ui2.addComponent(new InputDecorator(stage, 10))
+              .addComponent(new PerformanceDisplay())
+              .addComponent(new MainGameActions(this.game))
+              .addComponent(new MainGameExitDisplay())
+              .addComponent(new Terminal())
+              .addComponent(inputComponent)
+              .addComponent(new TerminalDisplay());
+      ServiceLocator.getEntityService().register(ui2);
     }
   }
   }
