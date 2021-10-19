@@ -112,14 +112,8 @@ public class StatusEffectTest {
         SETC = new StatusEffectTargetComponent() {
             private StatusEffect currentStatusEffect = null;
             private Long currentStatusEffectStartTime = null;
-            /* Determines the time that has elapsed since the game has been running. */
-            private int runTime;
             private StatusEffectResetTask currentStatusEffectResetTask = null;
-
-            /* Initialises the runTime of the game depending on the status effect that has been used */
-            public void setRunTime(int duration) {
-                this.runTime = duration;
-            }
+            private Long runTime = 60000L;
 
             // Overwriting function to force set the current start time of the status effect.
             @Override
@@ -274,7 +268,53 @@ public class StatusEffectTest {
         assertStatusEffects(StatusEffect.SLOW, SETC.getCurrentStatusEffect());
     }
 
-    
+    @Test
+    public void testUpdateStatusEffect() {
+        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentNotDead);
+
+        /* Test speed buff */
+        SETC.applyStatusEffect(StatusEffect.FAST);
+        // Check that the status effect has been added.
+        assertStatusEffects(StatusEffect.FAST, SETC.getCurrentStatusEffect());
+        // Remove the status effect.
+        SETC.update();
+        assertStatusEffects(null, SETC.getCurrentStatusEffect());
+
+        /* Test jump buff */
+        SETC.applyStatusEffect(StatusEffect.JUMP);
+        // Check that the status effect has been added.
+        assertStatusEffects(StatusEffect.JUMP, SETC.getCurrentStatusEffect());
+        // Remove the status effect.
+        SETC.update();
+        assertStatusEffects(null, SETC.getCurrentStatusEffect());
+
+        /* Test time stop */
+        SETC.applyStatusEffect(StatusEffect.TIME_STOP);
+        // Check that the status effect has been added.
+        assertStatusEffects(StatusEffect.TIME_STOP, SETC.getCurrentStatusEffect());
+        // Remove the status effect.
+        SETC.update();
+        assertStatusEffects(null, SETC.getCurrentStatusEffect());
+
+        /* Test speed debuff*/
+        SETC.applyStatusEffect(StatusEffect.SLOW);
+        // Check that the status effect has been added.
+        assertStatusEffects(StatusEffect.SLOW, SETC.getCurrentStatusEffect());
+        // Remove the status effect.
+        SETC.update();
+        assertStatusEffects(null, SETC.getCurrentStatusEffect());
+
+        /* Test stuck in the mud debuff */
+        SETC.applyStatusEffect(StatusEffect.STUCK);
+        // Check that the status effect has been added.
+        assertStatusEffects(StatusEffect.STUCK, SETC.getCurrentStatusEffect());
+        // Remove the status effect.
+        SETC.update();
+        assertStatusEffects(null, SETC.getCurrentStatusEffect());
+    }
+
+
 //    @BeforeEach
 //    public void initialiseStatusEffectOperationClasses() {
 //        /* Initialise the buff and de-buff classes. Also redefining some methods for mocking purposes */
