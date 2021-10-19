@@ -1,6 +1,7 @@
 package com.deco2800.game.components.statusEffects;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.deco2800.game.components.CameraComponent;
 import com.deco2800.game.components.CombatStatsComponent;
@@ -14,6 +15,7 @@ import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.ServiceLocator;
 import org.junit.internal.runners.model.EachTestNotifier;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,42 +32,13 @@ public class StatusEffectTest {
 
     private Entity player;
     private CombatStatsComponent combatStatsComponent;
-    private static CameraComponent camera;
-
-    float expected;
-    float result;
-    int type;
     private PlayerActions playerActions;
     private StatusEffectTargetComponent SETC;
-    private ServiceLocator serviceLocator;
-    private StatusEffectTargetComponent mockStatusEffect;
-    //StatusEffectTargetComponent.StatusEffectResetTask resetStatusEffectTask;
+    private static TheVoidController theVoid;
 
-    /**
-     * Waits for the callable stat change of the jump buff to return the player's jump stat
-     * back to normal.
-     * @return a callable that satisfies the above condition.
-     */
-    private Callable jumpStatChangedBack() {
-        return new Callable() {
-          public Boolean call() throws Exception {
-              return playerActions.getJumpHeight() == 300f; // The condition that must be fulfilled in order for the await to stop.
-          }
-        };
-    }
-
-    /**
-     * Waits for the callable stat change of the speed buff to return the player's speed stat
-     * back to normal.
-     * @return a callable that satisfies the above condition.
-     */
-    private Callable speedStatChangedBack() {
-        return new Callable() {
-            public Boolean call() throws Exception {
-                return playerActions.getSpeed() == 10f; // The condition that must be fulfilled in order for the await to stop.
-            }
-        };
-    }
+    private float expected;
+    private float result;
+    private int type;
 
     private void assertTestCase(float expected, float result) {
         assertEquals(expected, result);
@@ -78,35 +51,17 @@ public class StatusEffectTest {
         assertTrue(expected == result);
     };
 
-//    public void initialiseClasses() {
-//        playerActions = new PlayerActions("example_level_string");
-//        /* The health determines whether the unit is dead. 1 = alive, 0 = dead */
-//        combatStatsComponentIsDead = new CombatStatsComponent(0,0);
-//        combatStatsComponentNotDead = new CombatStatsComponent(1,0);
-//
-//        /* Reset the original speed of the player. This is mathematically done as there is no setter method */
-//        float speed = playerActions.getSpeed();
-//        int originalSpeed;
-//        if (speed != 10f) {
-//            originalSpeed = 10 - (int) speed;
-//            playerActions.alterSpeed(originalSpeed);
-//        }
-//
-//        /* Reset the original height of the player */
-//        float height = playerActions.getJumpHeight();
-//        int originalHeight;
-//        if (height != 300f) {
-//            originalHeight = 300 - (int) height;
-//            playerActions.alterJumpHeight(originalHeight);
-//        }
-//    }
+    @BeforeEach
+    public void mockClasses() {
+        /* Mocking classes */
+        player = Mockito.mock(Entity.class);
+        theVoid = Mockito.mock(TheVoidController.class);
+    }
 
     @BeforeEach
     public void initialiseClasses() {
         playerActions = new PlayerActions("example_level_string");
-        /* The health determines whether the unit is dead. 1 = alive, 0 = dead */
         combatStatsComponent = new CombatStatsComponent(1,0);
-
         SETC = new StatusEffectTargetComponent() {
             private StatusEffect currentStatusEffect = null;
             private Long currentStatusEffectStartTime = null;
@@ -141,7 +96,7 @@ public class StatusEffectTest {
                         currentStatusEffectResetTask = stuckInMud();
                         break;
                     case TIME_STOP:
-                        currentStatusEffectResetTask = TheVoidController.pauseVoid();
+                        currentStatusEffectResetTask = theVoid.pauseVoid();
                         break;
                 }
             }
@@ -226,27 +181,26 @@ public class StatusEffectTest {
         };
     }
 
-    @BeforeEach
-    public void mockClasses() {
-        /* Mocking classes */
-        player = Mockito.mock(Entity.class);
-        serviceLocator = Mockito.mock(ServiceLocator.class);
-        mockStatusEffect = Mockito.mock(StatusEffectTargetComponent.class);
-    }
-
     @AfterEach
     public void cleanUp() {
-        /* Sets all objects to null to be reinitialised */
+        /* Sets all objects to null to be reinitialised. This is to prevent any changes from previous
+        tests carrying over. */
         SETC = null;
+        playerActions = null;
+        combatStatsComponent = null;
+        theVoid = null;
+        player = null;
     }
 
     @Test
     public void testApplyStatusEffect() {
+        System.err.println("1");
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
 
         /* Add speed boost */
         SETC.applyStatusEffect(StatusEffect.FAST);
+        //verify(player).getComponent(PlayerActions.class);
         assertStatusEffects(StatusEffect.FAST, SETC.getCurrentStatusEffect());
 
         /* Add jump boost */
@@ -268,6 +222,7 @@ public class StatusEffectTest {
 
     @Test
     public void testUpdateStatusEffect() {
+        System.err.println("2");
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
 
@@ -314,22 +269,22 @@ public class StatusEffectTest {
 
     @Test
     public void testSpeedBuffStatChange() {
-        type = 1;
-
+        System.err.println("3");
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
 
+        type = 1;
         /* apply speed buff */
         SETC.applyStatusEffect(StatusEffect.FAST);
         result = playerActions.getSpeed();
         expected = 15;
+        verify(player, times(2)).getComponent(PlayerActions.class);
         assertTestCase(expected, result);
     }
 
     @Test
     public void testJumpBuffStatChange() {
-        type = 1;
-
+        System.err.println("4");
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
 
@@ -337,8 +292,20 @@ public class StatusEffectTest {
         SETC.applyStatusEffect(StatusEffect.JUMP);
         result = playerActions.getJumpHeight();
         expected = 600;
+        verify(player).getComponent(PlayerActions.class);
         assertTestCase(expected, result);
     }
+
+//    @Test
+//    public void testTimeStopBehaviour() {
+//        System.err.println("5");
+//        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
+//        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
+//
+//        /* apply time stop buff */
+//        SETC.applyStatusEffect(StatusEffect.TIME_STOP);
+//        verify(theVoid).pauseVoid();
+//    }
 
 
 
