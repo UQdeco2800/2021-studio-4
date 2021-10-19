@@ -29,8 +29,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class StatusEffectTest {
 
     private Entity player;
-    private CombatStatsComponent combatStatsComponentNotDead;
-    private CombatStatsComponent combatStatsComponentIsDead;
+    private CombatStatsComponent combatStatsComponent;
     private static CameraComponent camera;
 
     float expected;
@@ -106,8 +105,7 @@ public class StatusEffectTest {
     public void initialiseClasses() {
         playerActions = new PlayerActions("example_level_string");
         /* The health determines whether the unit is dead. 1 = alive, 0 = dead */
-        combatStatsComponentIsDead = new CombatStatsComponent(0,0);
-        combatStatsComponentNotDead = new CombatStatsComponent(1,0);
+        combatStatsComponent = new CombatStatsComponent(1,0);
 
         SETC = new StatusEffectTargetComponent() {
             private StatusEffect currentStatusEffect = null;
@@ -245,7 +243,7 @@ public class StatusEffectTest {
     @Test
     public void testApplyStatusEffect() {
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
-        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentNotDead);
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
 
         /* Add speed boost */
         SETC.applyStatusEffect(StatusEffect.FAST);
@@ -271,7 +269,7 @@ public class StatusEffectTest {
     @Test
     public void testUpdateStatusEffect() {
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
-        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponentNotDead);
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
 
         /* Test speed buff */
         SETC.applyStatusEffect(StatusEffect.FAST);
@@ -314,94 +312,36 @@ public class StatusEffectTest {
         assertStatusEffects(null, SETC.getCurrentStatusEffect());
     }
 
+    @Test
+    public void testSpeedBuffStatChange() {
+        type = 1;
 
-//    @BeforeEach
-//    public void initialiseStatusEffectOperationClasses() {
-//        /* Initialise the buff and de-buff classes. Also redefining some methods for mocking purposes */
-//        speedBuff = new StatusEffectOperation(player, "Buff_Speed",  statusEffectList) {
-//            /* The speedChange() has been rewritten to change the stats in the playerActions class.
-//                 This is because the player Entity is a mock class, meaning that when we call functions that rely on
-//                 other classes, those classes will return null because it does not have them initialised,
-//                 i.e. player.getComponents(PlayerActions.class).getSpeed() will fail because
-//                 player.getComponent(PlayerActions.class) is null. The last JUnit test demonstrates this.
-//                 To solve this, we create a PlayerActions object and directly implement the changes on the object whenever
-//                 the player entity calls a function that affects PlayerActions. This is why when we call getSpeed(),
-//                 we change the PlayerActions object manually, the same way as it would be done in practice; only difference
-//                 is that in practice, the player Entity and PlayerActions object are explicitly linked, here they are not due to mocking.
-//                 */
-//            @Override
-//            public int applySpeedBoost(int type) {
-//                int statOriginal = (int) player.getComponent(PlayerActions.class).getSpeed();
-//                int newSpeed = StatusEffectEnum.SPEED.statChange(type, StatusEffectEnum.SPEED.getStatChange(), statOriginal);
-//                //System.err.println("" + "Player speed before change = " + player.getComponent(PlayerActions.class).getSpeed());
-//                playerActions.alterSpeed(newSpeed);
-//                //System.err.println("" + "Player speed after change = " + player.getComponent(PlayerActions.class).getSpeed());
-//                if (player.getComponent(CombatStatsComponent.class).isDead()) {
-//                    playerActions.alterSpeed(-newSpeed);
-//                } else {
-//                    Timer speedBoostDuration = new Timer();
-//                    speedBoostDuration.schedule(
-//                            new TimerTask() {
-//                                @Override
-//                                public void run() {
-//                                    //System.err.println("" + "alterSpeed = " + -newSpeed);
-//                                    //System.err.println("" + "Player speed before revert = " + playerActions.getSpeed());
-//                                    player.getComponent(PlayerActions.class).alterSpeed(-newSpeed);
-//                                    //System.err.println("" + "Player speed after revert = " + playerActions.getSpeed());
-//                                    speedBoostDuration.cancel();
-//                                }
-//                            },
-//                            StatusEffectEnum.SPEED.getStatDuration()/25
-//                    );
-//                }
-//                return StatusEffectEnum.SPEED.getStatChange();
-//            }
-//        };
-//
-//        jumpBuff = new StatusEffectOperation(player, "Buff_Jump",  statusEffectList) {
-//            @Override
-//            public int applyJumpBoost() {
-//                playerActions.alterJumpHeight(StatusEffectEnum.JUMPBUFF.getStatChange());
-//                if (player.getComponent(CombatStatsComponent.class).isDead()) {
-//                    playerActions.alterJumpHeight(-StatusEffectEnum.JUMPBUFF.getStatChange());
-//                } else {
-//                    Timer jumpBuffDuration = new java.util.Timer();
-//                    jumpBuffDuration.schedule(
-//                            new java.util.TimerTask() {
-//                                @Override
-//                                public void run() {
-//                                    player.getComponent(PlayerActions.class).alterJumpHeight(-StatusEffectEnum.JUMPBUFF.getStatChange());
-//                                    jumpBuffDuration.cancel();
-//                                }
-//                            },
-//                            StatusEffectEnum.JUMPBUFF.getStatDuration()/25 /* For testing purposes, the time we wait is significantly lessened */
-//                    );
-//                }
-//                return StatusEffectEnum.JUMPBUFF.getStatChange();
-//            }
-//        };
-//
-//        stuckInTheMud = new StatusEffectOperation(player, "Debuff_Stuck",  statusEffectList) {
-//            @Override
-//            public void stuckInMud() {
-//                int newSpeed = -1 * (int) player.getComponent(PlayerActions.class).getSpeed();
-//                player.getComponent(PlayerActions.class).alterSpeed(newSpeed);
-//
-//                Timer debuffDuration = new java.util.Timer();
-//                debuffDuration.schedule(
-//                        new java.util.TimerTask() {
-//                            @Override
-//                            public void run() {
-//                                player.getComponent(PlayerActions.class).alterSpeed(-newSpeed);
-//                                debuffDuration.cancel();
-//                            }
-//                        },
-//                        StatusEffectEnum.STUCKINMUD.getStatDuration()/25 /* 4/25 seconds */
-//                );
-//            }
-//        };
-//    }
-//
+        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
+
+        /* apply speed buff */
+        SETC.applyStatusEffect(StatusEffect.FAST);
+        result = playerActions.getSpeed();
+        expected = 15;
+        assertTestCase(expected, result);
+    }
+
+    @Test
+    public void testJumpBuffStatChange() {
+        type = 1;
+
+        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
+        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
+
+        /* apply jump buff */
+        SETC.applyStatusEffect(StatusEffect.JUMP);
+        result = playerActions.getJumpHeight();
+        expected = 600;
+        assertTestCase(expected, result);
+    }
+
+
+
 //    @Test
 //    public void testSpeedBuffNotDead() {
 //        //System.err.println("testSpeedBuffNotDead()");
