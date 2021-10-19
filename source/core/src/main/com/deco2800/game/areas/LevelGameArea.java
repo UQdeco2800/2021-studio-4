@@ -5,10 +5,12 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainTile;
+import com.deco2800.game.components.npc.StatusEffectController;
 import com.deco2800.game.effects.StatusEffect;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleDefinition;
@@ -34,6 +36,7 @@ public class LevelGameArea extends GameArea {
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 15);
   private static final GridPoint2 STATUSEFFECT_SPAWN = new GridPoint2(15, 15);
   public List<ObstacleEntity> obstacleEntities = new ArrayList<>();
+  public List<Entity> statusEffects = new ArrayList<>();
   public static ArrayList<String> buffers = new ArrayList<>();
   public static ArrayList<String> deBuffers = new ArrayList<>();
   private LevelFile levelFile;
@@ -408,6 +411,15 @@ public class LevelGameArea extends GameArea {
     // Create a new LevelFile object
     LevelFile levelFile = new LevelFile();
 
+    // Save the status effects
+    for (Entity statusEffect : statusEffects) {
+      LevelFile.StatusEffectInfo statusEffectInfo = new LevelFile.StatusEffectInfo();
+      statusEffectInfo.statusEffect = statusEffect.getComponent(StatusEffectController.class).getEffect();
+      statusEffectInfo.posX = statusEffect.getPosition().x;
+      statusEffectInfo.posY = statusEffect.getPosition().y;
+      levelFile.statusEffects.add(statusEffectInfo);
+    }
+
     // save the TiledMapTileLayer
     TiledMapTileLayer layer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
     LevelFile.TileLayerData layerData = new LevelFile.TileLayerData();
@@ -450,6 +462,12 @@ public class LevelGameArea extends GameArea {
   }
 
   private void generateAll() {
+    // Spawn the status effects
+    for (LevelFile.StatusEffectInfo statusEffectInfo : levelFile.statusEffects) {
+      Entity effect = spawnStatusEffect(statusEffectInfo.statusEffect, 0, 0);
+      effect.setPosition(statusEffectInfo.posX, statusEffectInfo.posY);
+    }
+
     try {
       for (ObstacleEntity obstacleEntity : levelFile.obstacles.obstacleEntities) {
         ObstacleEntity newObstacle = spawnObstacle(obstacleEntity.getDefinition(), (int) obstacleEntity.getPosition().x,
@@ -549,13 +567,16 @@ public class LevelGameArea extends GameArea {
   /**
    * Spawns a status effect as the given location
    */
-  private void spawnStatusEffect(StatusEffect statusEffect, int posX, int posY) {
+  private Entity spawnStatusEffect(StatusEffect statusEffect, int posX, int posY) {
     System.out.println(statusEffect);
     System.out.println(posX);
     System.out.println(posY);
     Entity statusEffectEntity = NPCFactory.createStatusEffect(statusEffect);
     GridPoint2 position = new GridPoint2(posX, posY);
     spawnEntityAt(statusEffectEntity, position, true, true);
+    statusEffects.add(statusEffectEntity);
+
+    return statusEffectEntity;
   }
 
   /**

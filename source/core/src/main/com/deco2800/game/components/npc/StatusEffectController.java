@@ -83,4 +83,8 @@ public class StatusEffectController extends Component {
     void animate(){
         animator.startAnimation(effect.getGroundAnimationName());
     }
+
+    public StatusEffect getEffect() {
+        return effect;
+    }
 }

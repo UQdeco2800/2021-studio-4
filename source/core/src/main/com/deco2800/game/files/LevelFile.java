@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.areas.terrain.TerrainTileDefinition;
+import com.deco2800.game.effects.StatusEffect;
 import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.levels.LevelTexture;
 
@@ -18,6 +19,7 @@ public class LevelFile {
   public Terrain terrain;
   public Obstacles obstacles;
   public LevelTexture levelTexture = LevelTexture.LEVEL_ONE;
+  public List<StatusEffectInfo> statusEffects = new ArrayList<StatusEffectInfo>();
 
   public static class PositionedTerrainTile implements Json.Serializable {
     public TerrainTile tile;
@@ -78,5 +80,11 @@ public class LevelFile {
   public static class Obstacles {
     public List<ObstacleEntity> obstacleEntities;
     public Map<Integer, List<Integer>> interactablesMap = new HashMap<Integer, List<Integer>>();
+  }
+
+  public static class StatusEffectInfo {
+    public StatusEffect statusEffect;
+    public float posX;
+    public float posY;
   }
 }
