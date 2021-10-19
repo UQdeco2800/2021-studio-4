@@ -20,13 +20,6 @@ import com.deco2800.game.utils.math.Vector2Utils;
 
 
 public class PlayerActions extends Component {
-
-    private String gameLevel;
-
-    public PlayerActions(String currentLevel) {
-        this.gameLevel = currentLevel;
-    }
-
 //enum consisting of the possible movement of the player
   private enum Movement {
     Running,

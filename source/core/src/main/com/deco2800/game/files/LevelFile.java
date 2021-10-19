@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 public class LevelFile {
-  public GridPoint2 playerStartPos;
   public Terrain terrain;
   public Obstacles obstacles;
   public LevelTexture levelTexture = LevelTexture.LEVEL_ONE;

@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainTile;
@@ -18,7 +17,7 @@ import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.files.LevelFile;
-import com.deco2800.game.levels.LevelDefinition;
+import com.deco2800.game.levels.LevelInfo;
 import com.deco2800.game.physics.components.InteractableComponent;
 import com.deco2800.game.physics.components.SubInteractableComponent;
 import com.deco2800.game.rendering.BackgroundRenderComponent;
@@ -26,7 +25,7 @@ import com.deco2800.game.services.*;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.deco2800.game.leveleditor.ObstacleToolComponent;
+import com.deco2800.game.components.leveleditor.ObstacleToolComponent;
 import java.util.*;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
@@ -35,7 +34,6 @@ public class LevelGameArea extends GameArea {
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 15);
   private static final GridPoint2 STATUSEFFECT_SPAWN = new GridPoint2(15, 15);
   public List<ObstacleEntity> obstacleEntities = new ArrayList<>();
-  public static ArrayList<TerrainTile> terrainTiles = new ArrayList<>();
   public static ArrayList<String> buffers = new ArrayList<>();
   public static ArrayList<String> deBuffers = new ArrayList<>();
   private LevelFile levelFile;
@@ -60,9 +58,9 @@ public class LevelGameArea extends GameArea {
     "spawn-animations/levelOneSpawn.png",
     "spawn-animations/spawnAnimationOne.png",
     "backgrounds/background_level1.jpg",
-          "backgrounds/background_level2.jpg",
-          "backgrounds/background_level3.png",
-          "backgrounds/background_level4.png"
+    "backgrounds/background_level2.jpg",
+    "backgrounds/background_level3.png",
+    "backgrounds/background_level4.png"
   };
 
   private static final String[] gameTextureAtlases = {
@@ -89,13 +87,13 @@ public class LevelGameArea extends GameArea {
 
 
   private final TerrainFactory terrainFactory;
-  private final LevelDefinition levelDefinition;
+  private final LevelInfo levelInfo;
   private static boolean loading = true;
   private Entity player;
 
-  public LevelGameArea(TerrainFactory terrainFactory, LevelDefinition levelDefinition) {
+  public LevelGameArea(TerrainFactory terrainFactory, LevelInfo levelInfo) {
     super();
-    this.levelDefinition = levelDefinition;
+    this.levelInfo = levelInfo;
 
     this.terrainFactory = terrainFactory;
     buffers.add(0, "Buff_Jump");
@@ -114,16 +112,23 @@ public class LevelGameArea extends GameArea {
 
     loadAssets();
 
-    String levels = levelDefinition.getLevelFileName();
-    if (levels.equals("levels/level1.json")) {
+    String levels = levelInfo.getLevelFileName();
+    if (levels != null) {
+      if (levels.equals("levels/level1.json")) {
+        displayBackground("backgrounds/background_level1.jpg");
+      } else if (levels.equals("levels/level2.json")) {
+        displayBackground("backgrounds/background_level2.jpg");
+      } else if (levels.equals("levels/level3.json")) {
+        displayBackground("backgrounds/background_level3.png");
+      } else if (levels.equals("levels/level4.json")) {
+        displayBackground("backgrounds/background_level4.png");
+      } else {
+        displayBackground("backgrounds/background_level1.jpg");
+      }
+    } else {
       displayBackground("backgrounds/background_level1.jpg");
-    } else if (levels.equals("levels/level2.json")) {
-      displayBackground("backgrounds/background_level2.jpg");
-    } else if (levels.equals("levels/level3.json")) {
-      displayBackground("backgrounds/background_level3.png");
-    } else if (levels.equals("levels/level4.json")) {
-      displayBackground("backgrounds/background_level4.png");
     }
+
     spawnTerrain();
     spawnLevelFromFile();
     mapInteractables();
@@ -137,7 +142,6 @@ public class LevelGameArea extends GameArea {
     init();
     displayUI();
     player = spawnPlayer();
-    //spawnLevelFromFile();
     spawnTheVoid();
 
     int statusPosX = STATUSEFFECT_SPAWN.x;
@@ -148,21 +152,7 @@ public class LevelGameArea extends GameArea {
     spawnStatusEffect(StatusEffect.SLOW, statusPosX+30, statusPosY);
     spawnStatusEffect(StatusEffect.STUCK, statusPosX+40, statusPosY);
 
-
-    String level = levelDefinition.getLevelFileName();
-    if (level.equals("levels/level1.json")) {
-      playTheMusic("game_level_1");
-    } else if (level.equals("levels/level2.json")) {
-      playTheMusic("level_2");
-    } else if (level.equals("levels/level3.json")) {
-      playTheMusic("level_3");
-    } else if (level.equals("levels/level4.json")) {
-      playTheMusic("level_1_2"); //replace with level 4 music when it's created
-    }
-
-    //spawnPlatform(8, 21, 5);
-    //spawnDoor(9, 23, 5);
-
+    playTheMusic(levelInfo.getMusicPath());
   }
 
   public Entity getPlayer() {
@@ -171,7 +161,7 @@ public class LevelGameArea extends GameArea {
 
   private void displayUI() {
     Entity ui = new Entity();
-    ui.addComponent(new GameAreaDisplay("Box Forest"));
+    ui.addComponent(new GameAreaDisplay(levelInfo.getName()));
     spawnEntity(ui);
     loading = false;
   }
@@ -412,7 +402,7 @@ public class LevelGameArea extends GameArea {
     Json json = new Json();
     json.setOutputType(JsonWriter.OutputType.json);
 
-    FileHandle file = Gdx.files.local(levelDefinition.getLevelFileName());
+    FileHandle file = Gdx.files.local(levelInfo.getLevelFileName());
     assert file != null;
 
     // Create a new LevelFile object
@@ -455,12 +445,7 @@ public class LevelGameArea extends GameArea {
   }
 
   private void loadLevelFile() {
-    Json json = new Json();
-
-    FileHandle file = Gdx.files.local(levelDefinition.getLevelFileName());
-    assert file != null;
-
-    levelFile = json.fromJson(LevelFile.class, file);
+    levelFile = levelInfo.readLevelFile();
     ServiceLocator.registerCurrentTexture(levelFile.levelTexture);
   }
 
@@ -670,11 +655,9 @@ public class LevelGameArea extends GameArea {
     this.unloadAssets();
   }
 
-  public String getLevelDefinition() {
-    return this.levelDefinition.name();
+  public LevelInfo getLevelInfo() {
+    return this.levelInfo;
   }
-
-
 }
 
 
