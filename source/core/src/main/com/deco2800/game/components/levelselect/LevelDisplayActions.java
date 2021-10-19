@@ -2,6 +2,7 @@ package com.deco2800.game.components.levelselect;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.leveleditor.EditorUIComponent;
 import com.deco2800.game.components.levelselect.LevelDisplayActions;
 import com.deco2800.game.levels.LevelDefinition;
 import org.slf4j.Logger;
@@ -24,6 +25,7 @@ public class LevelDisplayActions extends Component {
         entity.getEvents().addListener("exit", this::onExit);
         entity.getEvents().addListener("start", this::startGame);
         entity.getEvents().addListener("levelEditor", this::startLevelEditor);
+        entity.getEvents().addListener("loadLevel", this::onLoadLevel);
     }
 
     /**
@@ -31,8 +33,8 @@ public class LevelDisplayActions extends Component {
      */
     private void startGame(LevelDefinition levelDefinition) {
         logger.info("Start game level: " + levelDefinition);
-        game.setLevel(GdxGame.ScreenType.MAIN_GAME, levelDefinition);
-        previousLevel.updatePreviousLevel(levelDefinition);
+        game.setLevel(GdxGame.ScreenType.MAIN_GAME, levelDefinition.getLevelInfo());
+        previousLevel.updatePreviousLevel(levelDefinition.getLevelInfo());
     }
 
     /**
@@ -40,7 +42,7 @@ public class LevelDisplayActions extends Component {
      */
     private void startLevelEditor(LevelDefinition levelDefinition) {
         logger.info("Level editor for level level: " + levelDefinition);
-        game.setLevel(GdxGame.ScreenType.LEVEL_EDITOR, levelDefinition);
+        game.setLevel(GdxGame.ScreenType.LEVEL_EDITOR, levelDefinition.getLevelInfo());
     }
 
     /**
@@ -49,5 +51,9 @@ public class LevelDisplayActions extends Component {
     private void onExit() {
         logger.info("Exiting to main game screen");
         game.setScreen(GdxGame.ScreenType.MAIN_MENU);
+    }
+
+    private void onLoadLevel() {
+        new EditorUIComponent(game).generateSavePopup(true, true);
     }
 }

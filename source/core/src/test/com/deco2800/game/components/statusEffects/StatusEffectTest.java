@@ -48,7 +48,7 @@ public class StatusEffectTest {
 
     @BeforeEach
     public void initialiseClasses() {
-        playerActions = new PlayerActions("example_level_string");
+        playerActions = new PlayerActions();
         combatStatsComponent = new CombatStatsComponent(1, 0);
         SETC = new StatusEffectTargetComponent() {
             private StatusEffect currentStatusEffect = null;

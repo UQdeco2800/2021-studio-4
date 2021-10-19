@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.components.InsertImageButton;
 import com.deco2800.game.levels.LevelDefinition;
+import com.deco2800.game.levels.LevelInfo;
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.ui.UIComponent;
@@ -34,7 +35,7 @@ public class ScoreDisplay extends UIComponent {
     private Label scoreLabel; // Shows the score.
     private Label levelLabel; // Shows the current level.
     private Label congratsLabel; // Shows the congratulations text.
-    private LevelDefinition levelDefinition;
+    private LevelInfo levelInfo;
     private boolean newBest;
     private int newScore; // Will need to be set using GameTime
     private int completionTime; // Will need to be set using GameTime
@@ -43,8 +44,8 @@ public class ScoreDisplay extends UIComponent {
     private ArrayList<Integer> levels = new ArrayList<>(); // The current Level
     private ArrayList<Integer> highScores = new ArrayList<>();
 
-    public ScoreDisplay(LevelDefinition levelDefinition, int completionTime) {
-        this.levelDefinition = levelDefinition;
+    public ScoreDisplay(LevelInfo levelInfo, int completionTime) {
+        this.levelInfo = levelInfo;
         this.completionTime = completionTime;
         isSuccessful = levelComplete;
         levelComplete = false;
@@ -128,16 +129,16 @@ public class ScoreDisplay extends UIComponent {
         String congratsText = "";
 
         if (isSuccessful) {
-            if (levelDefinition != null) {
+            if (levelInfo != null) {
                 if (newBest) {
                     congratsText = "new PB: \n" +
-                            levelDefinition.getName() + ": " + newScore + "!";
+                      levelInfo.getName() + ": " + newScore + "!";
                     sjLevels.add("Previous Scores");
                     sjScores.add(""); // Does a new line for scores string
                     newBest = false;
                 } else {
                     congratsText = "most recent score: \n" +
-                            levelDefinition.getName() + ": " + newScore;
+                      levelInfo.getName() + ": " + newScore;
                     sjLevels.add("High Scores");
                     sjScores.add(""); // Does a new line for scores string
                 }
@@ -215,8 +216,8 @@ public class ScoreDisplay extends UIComponent {
      * @return the level as an integer
      */
     private int selectLevel() {
-        if (levelDefinition != null) {
-            switch (levelDefinition.getName()) {
+        if (levelInfo != null) {
+            switch (levelInfo.getName()) {
                 case ("Level 1"):
                     highScore = highScores.get(0);
                     return 1;
