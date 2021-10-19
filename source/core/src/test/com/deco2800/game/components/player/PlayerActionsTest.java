@@ -505,6 +505,15 @@ public class PlayerActionsTest {
     }
 
     @Test
+    void checkPlayerIsAlive() {
+        short playerLayer = (1 << 1);
+        Entity entity = createPlayer(playerLayer);
+
+        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
+        assertEquals(false, playerActions.getPlayerHasDied());
+    }
+
+    @Test
     void checkPlayerCantMoveWhenPlayerCanMoveIsFalse() {
         short playerLayer = (1 << 1);
         Entity entity = createPlayer(playerLayer);
