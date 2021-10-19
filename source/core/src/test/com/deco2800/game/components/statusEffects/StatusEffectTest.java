@@ -1,9 +1,5 @@
 package com.deco2800.game.components.statusEffects;
 
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.TimeUtils;
-import com.deco2800.game.components.CameraComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.npc.TheVoidController;
 import com.deco2800.game.components.player.PlayerActions;
@@ -11,18 +7,11 @@ import com.deco2800.game.components.statuseffects.StatusEffectTargetComponent;
 import com.deco2800.game.effects.StatusEffect;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.extensions.GameExtension;
-import com.deco2800.game.services.GameTime;
-import com.deco2800.game.services.ServiceLocator;
-import org.junit.internal.runners.model.EachTestNotifier;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
-import java.util.*;
-import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,7 +23,6 @@ public class StatusEffectTest {
     private CombatStatsComponent combatStatsComponent;
     private PlayerActions playerActions;
     private StatusEffectTargetComponent SETC;
-    private static TheVoidController theVoid;
 
     private float expected;
     private float result;
@@ -52,13 +40,10 @@ public class StatusEffectTest {
         assertTrue(expected == result);
     }
 
-    ;
-
     @BeforeEach
     public void mockClasses() {
         /* Mocking classes */
         player = Mockito.mock(Entity.class);
-        theVoid = Mockito.mock(TheVoidController.class);
     }
 
     @BeforeEach
@@ -99,7 +84,7 @@ public class StatusEffectTest {
                         currentStatusEffectResetTask = stuckInMud();
                         break;
                     case TIME_STOP:
-                        currentStatusEffectResetTask = theVoid.pauseVoid();
+                        currentStatusEffectResetTask = TheVoidController.pauseVoid();
                         break;
                 }
             }
@@ -191,7 +176,6 @@ public class StatusEffectTest {
         SETC = null;
         playerActions = null;
         combatStatsComponent = null;
-        theVoid = null;
         player = null;
     }
 
@@ -347,17 +331,5 @@ public class StatusEffectTest {
         verify(player, times(6 + 4 + 3)).getComponent(PlayerActions.class);
     }
 }
-
-
-//    @Test
-//    public void testTimeStopBehaviour() {
-//        System.err.println("5");
-//        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
-//        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
-//
-//        /* apply time stop buff */
-//        SETC.applyStatusEffect(StatusEffect.TIME_STOP);
-//        verify(theVoid).pauseVoid();
-//    }
 
 
