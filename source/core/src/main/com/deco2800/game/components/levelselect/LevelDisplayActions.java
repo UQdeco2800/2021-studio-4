@@ -3,6 +3,7 @@ package com.deco2800.game.components.levelselect;
 import com.badlogic.gdx.Screen;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.leveleditor.EditorUIComponent;
 import com.deco2800.game.components.levelselect.LevelDisplayActions;
 import com.deco2800.game.levels.LevelDefinition;
 import com.deco2800.game.screens.LoadingScreen;
@@ -32,6 +33,7 @@ public class LevelDisplayActions extends Component {
         entity.getEvents().addListener("exit", this::onExit);
         entity.getEvents().addListener("start", this::startGame);
         entity.getEvents().addListener("levelEditor", this::startLevelEditor);
+        entity.getEvents().addListener("loadLevel", this::onLoadLevel);
     }
     private static void addGameScreen(LevelDefinition levelDefinition) {
 
@@ -43,49 +45,18 @@ public class LevelDisplayActions extends Component {
     /**
      * Starts the game with the selected level (if applicable)
      */
-   private void startGame(LevelDefinition levelDefinition) {
-       game.setLevel(GdxGame.ScreenType.MAIN_GAME,  levelDefinition);
-       previousLevel.updatePreviousLevel(  levelDefinition);
-       // game.setScreen(GdxGame.ScreenType.LOADING);
-       // Screen testscreen = new LoadingScreen(game);
-       // logger.info(game.getScreen().getClass().toString());
-       // logger.info(testscreen.getClass().toString());
-      //  try {
-      //  Thread.sleep(10000);
-      //  } catch (InterruptedException e) {
-        //    e.printStackTrace();
-      //  }
-       // if (!game.getScreen().getClass().equals(testscreen.getClass())) {
-        //        logger.info("IT WORKS! BY GEORGE WE DID IT! ");
-                  //game.setLevel(GdxGame.ScreenType.MAIN_GAME, levelDefinition);
-                    //previousLevel.updatePreviousLevel(levelDefinition);
-         //       addGameScreen(levelDefinition);
-          //     final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-          //    executorService.scheduleAtFixedRate(LevelDisplayActions::addGameScreen, 0, 1, TimeUnit.SECONDS);
-
-              // final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-              // executorService.scheduleAtFixedRate(LevelDisplayActions::addGameScreen, 0, 1, TimeUnit.SECONDS);
-          //  ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(1);
-          //  exec.schedule(() -> addGameScreen(levelDefinition), 5, TimeUnit.SECONDS);
-        }
-
-
-   // }
-       // game.setLevel(GdxGame.ScreenType.MAIN_GAME,  levelDefinition);
-       // previousLevel.updatePreviousLevel(levelDefinition);*/
-
-    //}
-
-
-    //
-
+    private void startGame(LevelDefinition levelDefinition) {
+        logger.info("Start game level: " + levelDefinition);
+        game.setLevel(GdxGame.ScreenType.MAIN_GAME, levelDefinition.getLevelInfo());
+        previousLevel.updatePreviousLevel(levelDefinition.getLevelInfo());
+    }
 
     /**
      * Starts the game with the selected level (if applicable)
      */
     private void startLevelEditor(LevelDefinition levelDefinition) {
         logger.info("Level editor for level level: " + levelDefinition);
-        game.setLevel(GdxGame.ScreenType.LEVEL_EDITOR, levelDefinition);
+        game.setLevel(GdxGame.ScreenType.LEVEL_EDITOR, levelDefinition.getLevelInfo());
     }
 
     /**
@@ -95,6 +66,10 @@ public class LevelDisplayActions extends Component {
         logger.info("Exiting to main game screen");
         //
         game.setScreen(GdxGame.ScreenType.MAIN_MENU);
+    }
+
+    private void onLoadLevel() {
+        new EditorUIComponent(game).generateSavePopup(true, true);
     }
 }
 

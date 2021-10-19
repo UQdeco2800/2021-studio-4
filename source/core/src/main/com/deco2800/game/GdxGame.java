@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.deco2800.game.components.loading.LoadingScreenDisplay;
 import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.levels.LevelDefinition;
+import com.deco2800.game.levels.LevelInfo;
 import com.deco2800.game.screens.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ import static com.deco2800.game.screens.MainGameScreen.timeScore;
  */
 public class GdxGame extends Game {
   private static final Logger logger = LoggerFactory.getLogger(GdxGame.class);
-  private LevelDefinition levelDefinition;
+  private LevelInfo levelInfo;
 
   @Override
   public void create() {
@@ -42,8 +43,8 @@ public class GdxGame extends Game {
     UserSettings.applySettings(settings);
   }
 
-  public void setLevel(ScreenType screenType, LevelDefinition levelDefinition) {
-    this.levelDefinition = levelDefinition;
+  public void setLevel(ScreenType screenType, LevelInfo levelInfo) {
+    this.levelInfo = levelInfo;
     logger.info("Setting game screen to {}", screenType);
     Screen currentScreen = getScreen();
     if (currentScreen != null) {
@@ -52,10 +53,10 @@ public class GdxGame extends Game {
 
     switch (screenType) {
       case MAIN_GAME:
-        setScreen(new MainGameScreen(this, levelDefinition));
+        setScreen(new MainGameScreen(this, levelInfo));
         break;
       case LEVEL_EDITOR:
-        setScreen(new LevelEditorScreen(this, levelDefinition));
+        setScreen(new LevelEditorScreen(this, levelInfo));
         break;
       case LOADING:
         setScreen(new LoadingScreen(this));
@@ -105,7 +106,7 @@ public class GdxGame extends Game {
       case DEATH_SCREEN:
         return new DeathScreen(this);
       case SCORE_SCREEN:
-        return new ScoreScreen(this, levelDefinition, getCompletionTime());
+        return new ScoreScreen(this, levelInfo, getCompletionTime());
       case PAUSE:
         return new PauseScreen(this);
       case LOADING:
