@@ -58,10 +58,10 @@ public class LevelGameArea extends GameArea {
     "spawn-animations/spawn_portal.png",
     "spawn-animations/levelOneSpawn.png",
     "spawn-animations/spawnAnimationOne.png",
-    "backgrounds/background_level1_expanded8.png",
-    "backgrounds/background_level2_expanded8.png",
+    "backgrounds/background_level1.png",
+    "backgrounds/background_level2.png",
     "backgrounds/background_level3.png",
-    "backgrounds/background_level4_expanded8.png"
+    "backgrounds/background_level4.png"
   };
 
   private static final String[] gameTextureAtlases = {
@@ -115,13 +115,13 @@ public class LevelGameArea extends GameArea {
 
     String levels = levelDefinition.getLevelFileName();
     if (levels.equals("levels/level1.json")) {
-      displayBackground("backgrounds/background_level1_expanded8.png");
+      displayBackground("backgrounds/background_level1.png");
     } else if (levels.equals("levels/level2.json")) {
-      displayBackground("backgrounds/background_level2_expanded8.png");
+      displayBackground("backgrounds/background_level2.png");
     } else if (levels.equals("levels/level3.json")) {
       displayBackground("backgrounds/background_level3.png");
     } else if (levels.equals("levels/level4.json")) {
-      displayBackground("backgrounds/background_level4_expanded8.png");
+      displayBackground("backgrounds/background_level4.png");
     }
     spawnTerrain();
     spawnLevelFromFile();
