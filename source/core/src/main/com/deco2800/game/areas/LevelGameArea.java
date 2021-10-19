@@ -5,7 +5,6 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.deco2800.game.areas.terrain.TerrainFactory;
@@ -498,8 +497,6 @@ public class LevelGameArea extends GameArea {
    * with player as its parameter. The void's vertical placement is determined by 1/2 of
    * the maps height and the horizontal placement is chosen to spawn the void to the far
    * left of the screen.
-   *
-   * @return void
    */
   private void spawnTheVoid() {
     int startPosY = PLAYER_SPAWN.y;
@@ -529,7 +526,7 @@ public class LevelGameArea extends GameArea {
   private void playTheMusic(String musicPath) {
     logger.debug("Playing game area music");
     MusicServiceDirectory dict = new  MusicServiceDirectory();
-    MusicService gameMusic = null;
+    MusicService gameMusic;
     switch (musicPath) {
       case "click":
         gameMusic = new MusicService(dict.click);
