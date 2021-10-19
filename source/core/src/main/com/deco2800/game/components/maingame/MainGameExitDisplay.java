@@ -1,6 +1,5 @@
 package com.deco2800.game.components.maingame;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -77,11 +76,6 @@ public class MainGameExitDisplay extends UIComponent {
           entity.getEvents().trigger("retry");
         }
       });
-  }
-
-  public void addRetryExitOnPause() {
-    TextButton exitBtn = new TextButton("Exit", skin);
-
   }
 
   @Override

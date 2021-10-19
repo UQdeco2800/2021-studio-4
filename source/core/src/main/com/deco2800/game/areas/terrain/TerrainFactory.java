@@ -17,8 +17,6 @@ import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.services.ServiceLocator;
 
-import java.util.ArrayList;
-
 /** Factory for creating game terrains. */
 public class TerrainFactory {
   private static final TerrainOrientation ORIENTATION = TerrainOrientation.ORTHOGONAL;
@@ -82,7 +80,6 @@ public class TerrainFactory {
           // to this cell, and reset our variables
           if (nextCell == null) {
             // Create a rectangle at the location of the tile
-            int twidth = mapTileLayer.getTileWidth(), theight =  mapTileLayer.getTileHeight();
             Rectangle rectangle = new Rectangle(headX * TILE_SIZE, headY * TILE_SIZE,  cellCount * TILE_SIZE,  TILE_SIZE);
 
             // Create a body for this map object

@@ -3,14 +3,11 @@ package com.deco2800.game.components.statuseffects;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.effects.StatusEffect;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
-
-import java.util.Timer;
 
 
 public class StatusEffectUIComponent extends Component {

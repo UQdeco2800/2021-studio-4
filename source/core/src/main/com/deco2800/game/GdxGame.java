@@ -1,16 +1,24 @@
 package com.deco2800.game;
 
+import static com.badlogic.gdx.Gdx.app;
+import static com.deco2800.game.screens.MainGameScreen.timeScore;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.levels.LevelDefinition;
-import com.deco2800.game.screens.*;
+import com.deco2800.game.screens.DeathScreen;
+import com.deco2800.game.screens.LevelEditorScreen;
+import com.deco2800.game.screens.LevelSelectScreen;
+import com.deco2800.game.screens.MainGameScreen;
+import com.deco2800.game.screens.MainMenuScreen;
+import com.deco2800.game.screens.PauseScreen;
+import com.deco2800.game.screens.ScoreScreen;
+import com.deco2800.game.screens.SettingsScreen;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static com.badlogic.gdx.Gdx.app;
-import static com.deco2800.game.screens.MainGameScreen.timeScore;
 
 /**
  * Entry point of the non-platform-specific game logic. Controls which screen is currently running.
@@ -55,6 +63,8 @@ public class GdxGame extends Game {
         break;
       case LEVEL_EDITOR:
         setScreen(new LevelEditorScreen(this, levelDefinition));
+        break;
+      default:
         break;
     }
   }

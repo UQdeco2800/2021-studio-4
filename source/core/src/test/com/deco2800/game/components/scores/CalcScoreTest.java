@@ -71,8 +71,8 @@ public class CalcScoreTest {
         CalcScore calcScore = new CalcScore();
 
         try {
-            int time1 = calcScore.calculateScore(-5);
-            int time2 = calcScore.calculateScore(-40);
+            calcScore.calculateScore(-5);
+            calcScore.calculateScore(-40);
 
             Assert.fail();
         } catch (IllegalArgumentException e) {

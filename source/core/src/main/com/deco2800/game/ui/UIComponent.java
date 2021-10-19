@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.deco2800.game.rendering.RenderComponent;
-import com.deco2800.game.rendering.Renderable;
 import com.deco2800.game.services.ServiceLocator;
 
 /**

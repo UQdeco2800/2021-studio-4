@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainTile;
@@ -26,7 +25,6 @@ import com.deco2800.game.services.*;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.deco2800.game.leveleditor.ObstacleToolComponent;
 import java.util.*;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
@@ -39,7 +37,6 @@ public class LevelGameArea extends GameArea {
   public static ArrayList<String> buffers = new ArrayList<>();
   public static ArrayList<String> deBuffers = new ArrayList<>();
   private LevelFile levelFile;
-  private Random random = new Random();
 
   public Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables = new HashMap<>();
   public List<ObstacleEntity> interactableEntities = new ArrayList<>();
@@ -465,10 +462,6 @@ public class LevelGameArea extends GameArea {
 
     // Generate tile bodies
     TerrainFactory.generateBodies(terrain.getMap());
-  }
-
-
-  private void spawnObstacle(ObstacleToolComponent.Obstacle selectedObstacle, int x, int y, int size) {
   }
 
   private ObstacleEntity spawnObstacle(ObstacleDefinition selectedObstacle, int x, int y, int size) {
