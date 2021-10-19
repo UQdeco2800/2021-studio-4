@@ -83,7 +83,7 @@ public class LevelGameArea extends GameArea {
     gameSong.enemy_collision,gameSong.enemy_death, gameSong.obstacle_boost, gameSong.obstacle_button,
     gameSong.player_collision, gameSong.player_power_up, gameSong.void_death, gameSong.void_noise, gameSong.game_level_1_option2,
   gameSong.ending_menu, gameSong.game_level_2, gameSong.main_menu, gameSong.death_noise_2,
-          gameSong.game_level_3};
+          gameSong.game_level_3, gameSong.game_level_4};
 
 
 
@@ -156,7 +156,7 @@ public class LevelGameArea extends GameArea {
     } else if (level.equals("levels/level3.json")) {
       playTheMusic("level_3");
     } else if (level.equals("levels/level4.json")) {
-      playTheMusic("level_1_2"); //replace with level 4 music when it's created
+      playTheMusic("level_4");
     }
 
     //spawnPlatform(8, 21, 5);
@@ -572,8 +572,8 @@ public class LevelGameArea extends GameArea {
       case "ending_menu":
         gameMusic = new MusicService(dict.ending_menu);
         break;
-      case "level_1_2":
-        gameMusic = new MusicService(dict.game_level_1_option2);
+      case "level_4":
+        gameMusic = new MusicService(dict.game_level_4);
         break;
       case "level_2":
         gameMusic = new MusicService(dict.game_level_2);
@@ -590,8 +590,7 @@ public class LevelGameArea extends GameArea {
       default:
         gameMusic = new MusicService(dict.game_level_1);//To make sure gameMusic is never null
     }
-      //gameMusic.playMusic();
-    gameMusic.playSong(true, 0.2f);
+    gameMusic.playSong(true, 0.4f);
 
   }
 

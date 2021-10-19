@@ -20,6 +20,7 @@ public class MusicServiceDirectory {
     public String game_level_2 = "sounds/Level_2.mp3" ;
     public String death_noise_2 = "sounds/NEW DEATH.mp3";
     public String game_level_3 = "sounds/level_3.mp3";
+    public String game_level_4 = "sounds/level_4.mp3";
 
     /**
      *  Empty constructor method for calling
