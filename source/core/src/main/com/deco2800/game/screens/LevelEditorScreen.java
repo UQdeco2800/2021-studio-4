@@ -177,6 +177,17 @@ public class LevelEditorScreen extends ScreenAdapter {
     ServiceLocator.getEntityService().register(hand);
   }
 
+  public void selectStatusEffectHand() {
+    if (hand != null) hand.dispose();
+
+    hand = new Entity();
+    hand
+      .addComponent(new StatusEffectToolComponent(levelGameArea, this, game));
+    hand.scaleHeight(0.5f);
+
+    ServiceLocator.getEntityService().register(hand);
+  }
+
   /**
    * Creates the main game's ui including components for rendering ui elements to the screen and
    * capturing and handling ui input.

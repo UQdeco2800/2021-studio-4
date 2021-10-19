@@ -64,7 +64,7 @@ public class StatusEffectController extends Component {
         if (statusEffectTargetComponent != null) {
             target.getEvents().trigger("StatusEffectTrigger", effect);
         }
-
+        System.out.println(target);
         // Delete effect after being used
         this.dispose();
     }

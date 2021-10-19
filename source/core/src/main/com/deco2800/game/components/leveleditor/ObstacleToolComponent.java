@@ -230,7 +230,7 @@ public class ObstacleToolComponent extends BaseToolComponent {
     }
 
     if (keycode == Input.Keys.TAB) {
-      this.screen.selectLinkingHand();
+      this.screen.selectStatusEffectHand();
     }
 
     if (keycode == Input.Keys.P) {

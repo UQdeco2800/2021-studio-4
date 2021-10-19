@@ -147,13 +147,13 @@ public class LevelGameArea extends GameArea {
     player = spawnPlayer();
     spawnTheVoid();
 
-    int statusPosX = STATUSEFFECT_SPAWN.x;
-    int statusPosY = STATUSEFFECT_SPAWN.y;
-    spawnStatusEffect(StatusEffect.FAST, statusPosX, statusPosY);
-    spawnStatusEffect(StatusEffect.JUMP, statusPosX+10, statusPosY);
-    spawnStatusEffect(StatusEffect.TIME_STOP, statusPosX+20, statusPosY);
-    spawnStatusEffect(StatusEffect.SLOW, statusPosX+30, statusPosY);
-    spawnStatusEffect(StatusEffect.STUCK, statusPosX+40, statusPosY);
+//    int statusPosX = STATUSEFFECT_SPAWN.x;
+//    int statusPosY = STATUSEFFECT_SPAWN.y;
+//    spawnStatusEffect(StatusEffect.FAST, statusPosX, statusPosY);
+//    spawnStatusEffect(StatusEffect.JUMP, statusPosX+10, statusPosY);
+//    spawnStatusEffect(StatusEffect.TIME_STOP, statusPosX+20, statusPosY);
+//    spawnStatusEffect(StatusEffect.SLOW, statusPosX+30, statusPosY);
+//    spawnStatusEffect(StatusEffect.STUCK, statusPosX+40, statusPosY);
 
     playTheMusic(levelInfo.getMusicPath());
   }
@@ -501,6 +501,7 @@ public class LevelGameArea extends GameArea {
 
   @Override
   public void untrackEntity(Entity entity) {
+    this.statusEffects.remove(entity);
     this.obstacleEntities.remove(entity);
     super.untrackEntity(entity);
   }
@@ -567,7 +568,7 @@ public class LevelGameArea extends GameArea {
   /**
    * Spawns a status effect as the given location
    */
-  private Entity spawnStatusEffect(StatusEffect statusEffect, int posX, int posY) {
+  public Entity spawnStatusEffect(StatusEffect statusEffect, int posX, int posY) {
     System.out.println(statusEffect);
     System.out.println(posX);
     System.out.println(posY);
