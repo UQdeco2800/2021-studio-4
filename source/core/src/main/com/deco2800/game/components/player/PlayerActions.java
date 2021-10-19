@@ -71,7 +71,6 @@ public class PlayerActions extends Component {
     physicsComponent = entity.getComponent(PhysicsComponent.class);
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
-    entity.getEvents().addListener("attack", this::attack);
     entity.getEvents().addListener("jump", this::jump);
     entity.getEvents().addListener("togglePlayerJumping", this::togglePlayerJumping);
     entity.getEvents().addListener("slide", this::slide);
@@ -510,14 +509,6 @@ public class PlayerActions extends Component {
           //currentVelocity = new Vector2(-0.2f, -0.2f);
           //updateSpeed();
       }
-  }
-
-  /**
-   * Makes the player attack.
-   */
-  void attack() {
-    Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
-    attackSound.play();
   }
 
   /**
