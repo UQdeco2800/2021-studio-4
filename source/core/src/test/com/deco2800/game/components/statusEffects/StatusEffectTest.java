@@ -274,33 +274,7 @@ public class StatusEffectTest {
         assertStatusEffects(StatusEffect.SLOW, SETC.getCurrentStatusEffect());
     }
 
-
-
-
-
-
-
-    @Test
-    public void testAddStatusEffect() {
-        camera = new CameraComponent();
-        GameTime gameTime = new GameTime();
-        when(serviceLocator.getCamera()).thenReturn(camera);
-        when(serviceLocator.getTimeSource().getTime()).thenReturn(0L);
-        SETC.applyStatusEffect(StatusEffect.FAST);
-        StatusEffect ex = StatusEffect.FAST;
-        StatusEffect re = SETC.getCurrentStatusEffect();
-
-        assertEquals(ex, re);
-        assertNotEquals(StatusEffect.STUCK, re);
-    }
-
-    @Test
-    public void test() {
-        final long startTime;
-        startTime = TimeUtils.millis();
-        System.err.println(startTime);
-    }
-
+    
 //    @BeforeEach
 //    public void initialiseStatusEffectOperationClasses() {
 //        /* Initialise the buff and de-buff classes. Also redefining some methods for mocking purposes */
