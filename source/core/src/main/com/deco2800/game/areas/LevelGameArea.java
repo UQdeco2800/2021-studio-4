@@ -180,20 +180,7 @@ public class LevelGameArea extends GameArea {
     background.addComponent(new BackgroundRenderComponent(imagePath));
     spawnEntity(background);
   }
-
-
-  private void displayLoadingScreen() {
-    ResourceService resourceService = ServiceLocator.getResourceService();
-    String[] loadingTexture = { "images/button_exit.png"}; //Update this to be correct path once implemented
-    resourceService.loadTextures(loadingTexture );
-    while (!resourceService.loadForMillis(10)) {
-      // This could be upgraded to a loading screen
-      logger.info("Loading LoadingScreen texture... {}%", resourceService.getProgress());
-    }
-    Entity loadingScreen = new Entity();
-    loadingScreen.addComponent(new BackgroundRenderComponent("images/button_exit.png")); //update to be correct path
-    spawnEntity(loadingScreen);
-  }
+  
 
   /**
    * Generate the terrain
