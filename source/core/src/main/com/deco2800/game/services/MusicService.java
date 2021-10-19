@@ -9,7 +9,6 @@ import com.badlogic.gdx.audio.Music;
  * however it controls the playing and where the music plays.
  */
 public class MusicService {
-    private static final String musicLocation = "";
     private boolean isMusicPlaying;
     private Music music;
 

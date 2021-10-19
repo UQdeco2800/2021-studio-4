@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
-import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.extensions.GameExtension;
@@ -20,12 +19,7 @@ import org.mockito.Mockito;
 @ExtendWith(GameExtension.class)
 public class StatusEffectTest {
 
-//    private StatusEffectOperation jumpBuff;
-//    private StatusEffectOperation speedBuff;
-//    private StatusEffectOperation stuckInTheMud;
     private Entity player;
-    private CombatStatsComponent combatStatsComponentNotDead;
-    private CombatStatsComponent combatStatsComponentIsDead;
     float expected;
     float result;
     int type;
@@ -68,9 +62,6 @@ public class StatusEffectTest {
     @BeforeEach
     public void initialiseClasses() {
         playerActions = new PlayerActions();
-        /* The health determines whether the unit is dead. 1 = alive, 0 = dead */
-        combatStatsComponentIsDead = new CombatStatsComponent(0,0);
-        combatStatsComponentNotDead = new CombatStatsComponent(1,0);
 
         /* Reset the original speed of the player. This is mathematically done as there is no setter method */
         float speed = playerActions.getSpeed();
