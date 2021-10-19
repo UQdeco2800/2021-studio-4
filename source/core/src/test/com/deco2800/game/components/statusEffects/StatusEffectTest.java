@@ -1,12 +1,13 @@
 package com.deco2800.game.components.statusEffects;
 
 import com.deco2800.game.components.CombatStatsComponent;
-import com.deco2800.game.components.npc.TheVoidController;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.statuseffects.StatusEffectTargetComponent;
 import com.deco2800.game.effects.StatusEffect;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.extensions.GameExtension;
+import com.deco2800.game.services.GameTime;
+import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,8 @@ public class StatusEffectTest {
     private CombatStatsComponent combatStatsComponent;
     private PlayerActions playerActions;
     private StatusEffectTargetComponent SETC;
+    private GameTime gameTime;
+    private Entity entity;
 
     private float expected;
     private float result;
@@ -43,130 +46,18 @@ public class StatusEffectTest {
     @BeforeEach
     public void mockClasses() {
         /* Mocking classes */
+        entity = Mockito.mock(Entity.class);
         player = Mockito.mock(Entity.class);
+        gameTime = Mockito.mock(GameTime.class);
+        ServiceLocator.registerTimeSource(gameTime);
     }
 
     @BeforeEach
     public void initialiseClasses() {
         playerActions = new PlayerActions("example_level_string");
         combatStatsComponent = new CombatStatsComponent(1, 0);
-        SETC = new StatusEffectTargetComponent() {
-            private StatusEffect currentStatusEffect = null;
-            private Long currentStatusEffectStartTime = null;
-            private StatusEffectResetTask currentStatusEffectResetTask = null;
-            private Long runTime = 60000L;
-
-            // Overwriting function to force set the current start time of the status effect.
-            @Override
-            public void applyStatusEffect(StatusEffect statusEffect) {
-                if (currentStatusEffect != null) {
-                    currentStatusEffect = null;
-                    currentStatusEffectStartTime = null;
-                    currentStatusEffectResetTask.run();
-                    currentStatusEffectResetTask = null;
-                }
-
-                currentStatusEffect = statusEffect;
-                /* Changed from using service locator */
-                currentStatusEffectStartTime = 0L;
-
-                switch (statusEffect) {
-                    case BOMB:
-                        break;
-                    case FAST:
-                    case SLOW:
-                        currentStatusEffectResetTask = speedEffect(statusEffect);
-                        break;
-                    case JUMP:
-                        currentStatusEffectResetTask = jumpBoost();
-                        break;
-                    case STUCK:
-                        currentStatusEffectResetTask = stuckInMud();
-                        break;
-                    case TIME_STOP:
-                        currentStatusEffectResetTask = TheVoidController.pauseVoid();
-                        break;
-                }
-            }
-
-            @Override
-            public StatusEffect getCurrentStatusEffect() {
-                return currentStatusEffect;
-            }
-
-            @Override
-            public StatusEffectResetTask speedEffect(StatusEffect speedEffect) {
-                int speedBoost = speedEffect.getMagnitude(); // Must be smaller than 10
-
-                // Changed explicitly to player to avoid null pointer.
-                int statOriginal = (int) player.getComponent(PlayerActions.class).getSpeed();
-
-                int newSpeed;
-                if (speedEffect == StatusEffect.FAST) {
-                    newSpeed = statOriginal - speedBoost;
-                } else {
-                    newSpeed = -1 * (statOriginal - speedBoost);
-                }
-
-                int changedSpeed = player.getComponent(PlayerActions.class).alterSpeed(newSpeed);
-
-                // Alters the speed back to the original setting after a certain time duration.
-                return new StatusEffectResetTask() {
-                    @Override
-                    public void run() {
-                        // Changed to player to avoid null pointer.
-                        player.getComponent(PlayerActions.class).alterSpeed(-changedSpeed);
-                    }
-                };
-            }
-
-            @Override
-            public StatusEffectResetTask jumpBoost() {
-                int jumpBoost = StatusEffect.JUMP.getMagnitude();
-
-                // Changed to player to avoid null pointer.
-                int changedJumpHeight = player.getComponent(PlayerActions.class).alterJumpHeight(jumpBoost);
-
-                // Alters the speed back to the original setting after a certain time duration.
-                return new StatusEffectResetTask() {
-                    @Override
-                    public void run() {
-                        // Changed to player to avoid null pointer.
-                        player.getComponent(PlayerActions.class).alterJumpHeight(-changedJumpHeight);
-                    }
-                };
-            }
-
-            @Override
-            public StatusEffectResetTask stuckInMud() {
-                int currentSpeed = (int) player.getComponent(PlayerActions.class).getSpeed();
-                int newSpeed = currentSpeed * -1;
-
-                // Changed to player to avoid null pointer.
-                player.getComponent(PlayerActions.class).alterSpeed(newSpeed);
-
-                return new StatusEffectResetTask() {
-                    @Override
-                    public void run() {
-                        // Changed to player to avoid null pointer.
-                        player.getComponent(PlayerActions.class).alterSpeed(currentSpeed);
-                    }
-                };
-            }
-
-            @Override
-            public void update() {
-                super.update();
-                /* Hard coded the duration of the status effect has elapsed. The value used was jump boost duration as it is the longest. */
-                if (currentStatusEffect != null && this.runTime >= currentStatusEffect.getDuration() * 1000) {
-                    currentStatusEffect = null;
-                    currentStatusEffectStartTime = null;
-                    currentStatusEffectResetTask.run();
-                    currentStatusEffectResetTask = null;
-                }
-            }
-
-        };
+        SETC = new StatusEffectTargetComponent();
+        SETC.setEntity(player);
     }
 
     @AfterEach
@@ -177,10 +68,12 @@ public class StatusEffectTest {
         playerActions = null;
         combatStatsComponent = null;
         player = null;
+        gameTime = null;
     }
 
     @Test
     public void testApplySpeedBuff() {
+        when(gameTime.getTime()).thenReturn(0L);
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
 
@@ -193,6 +86,7 @@ public class StatusEffectTest {
 
     @Test
     public void testApplyJumpBuff() {
+        when(gameTime.getTime()).thenReturn(0L);
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
         /* Add jump boost */
@@ -203,6 +97,7 @@ public class StatusEffectTest {
 
     @Test
     public void testApplyTimeStop() {
+        when(gameTime.getTime()).thenReturn(0L);
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
 
@@ -214,6 +109,7 @@ public class StatusEffectTest {
 
     @Test
     public void testApplySpeedDebuff() {
+        when(gameTime.getTime()).thenReturn(0L);
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
 
@@ -225,6 +121,7 @@ public class StatusEffectTest {
 
     @Test
     public void testApplyStuckInMud() {
+        when(gameTime.getTime()).thenReturn(0L);
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
 
@@ -236,6 +133,7 @@ public class StatusEffectTest {
 
     @Test
     public void testSpeedBuffStatChange() {
+        when(gameTime.getTime()).thenReturn(0L);
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
 
@@ -250,6 +148,7 @@ public class StatusEffectTest {
 
     @Test
     public void testJumpBuffStatChange() {
+        when(gameTime.getTime()).thenReturn(0L);
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
 
@@ -263,6 +162,8 @@ public class StatusEffectTest {
 
     @Test
     public void testUpdateStatusEffect() {
+        when(gameTime.getTime()).thenReturn(0L);
+        when(gameTime.getTimeSince(0L)).thenReturn(6000L);
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
 
@@ -309,6 +210,8 @@ public class StatusEffectTest {
 
     @Test
     public void testApplyStatusEffectBehaviour() {
+        when(gameTime.getTime()).thenReturn(0L);
+        when(gameTime.getTimeSince(0L)).thenReturn(6000L);
         when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
 
