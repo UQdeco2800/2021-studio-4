@@ -92,48 +92,55 @@ public class LevelDisplay extends UIComponent {
                     }
                 });
 
+        TextButton loadBtn = new TextButton("Load Level File", skin);
+        loadBtn.setColor(Color.ROYAL);
+
+        // Load button event.
+        loadBtn.addListener(
+          new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent changeEvent, Actor actor) {
+                  entity.getEvents().trigger("loadLevel");
+              }
+          });
+
+        table.bottom().right();
+        table.add(loadBtn).padRight(10f).padBottom(10f);
+        table.row();
+
         ArrayList<ImageButton> imageButtons = new ArrayList<>();
 
         // List all the files in the levels folder and create a button for each
         for (LevelDefinition level : LevelDefinition.values()) {
 
-            String pathName = "ui-elements/levels-screen-buttons/";
-            String hoverPathName = "ui-elements/levels-screen-buttons/";
+            String pathName = level.getMenuButtonName();
+            String hoverPathName = level.getMenuButtonHoverName();
             int posX = centreWidth1;
             int posY = centreHeight1;
             int widthX = centreWidth1/4; // Sets buttons dimensions
             int widthY = centreHeight1/3;
             int middleX = posX - widthX/2;
 
-            switch (level.getName()) {
-                case ("Level 1"):
-                    pathName = pathName + "level-1.png";
-                    hoverPathName = hoverPathName + "level-1-hovered.png";
+            switch (level) {
+                case LEVEL_1:
                     posX = middleX;
-                    //posY = posY;
                     break;
-                case ("Level 2"):
-                    pathName = pathName + "level-2.png";
-                    hoverPathName = hoverPathName + "level-2-hovered.png";
+                case LEVEL_2:
                     posX = middleX - widthX;
                     posY = posY - widthY;
                     break;
-                case ("Level 3"):
-                    pathName = pathName + "level-3.png";
-                    hoverPathName = hoverPathName + "level-3-hovered.png";
+                case LEVEL_3:
                     posX = middleX;
                     posY = posY - widthY*2;
                     break;
-                case ("Level 4"):
-                    pathName = pathName + "level-4.png";
-                    hoverPathName = hoverPathName + "level-4-hovered.png";
+                case LEVEL_4:
                     posX = middleX + widthX;
                     posY = posY - widthY;
-                    break;
             }
 
             ImageButton levelButton = insImage.setImage(pathName, hoverPathName, posX, posY, widthX, widthY);
             imageButtons.add(levelButton);
+
 
             levelButton.addListener(
                 new ChangeListener() {
@@ -146,21 +153,20 @@ public class LevelDisplay extends UIComponent {
                 }
             );
 
-            TextButton editorBtn = new TextButton("Edit " + level.getName(), skin);
-            editorBtn.addListener(
-              new ChangeListener() {
-                  @Override
-                  public void changed(ChangeEvent changeEvent, Actor actor) {
-                      logger.debug(level + " button clicked");
-                      entity.getEvents().trigger("levelEditor", level);
-                  }
-              }
-            );
-            editorBtn.setColor(Color.ROYAL);
-
-    //        table.add(startBtn).pad(10f);
-            table.add(editorBtn).padLeft(centreWidth * 1.5f);
-            table.row();
+//            TextButton editorBtn = new TextButton("Edit " + level.getLevelInfo().getName(), skin);
+//            editorBtn.addListener(
+//              new ChangeListener() {
+//                  @Override
+//                  public void changed(ChangeEvent changeEvent, Actor actor) {
+//                      logger.debug(level + " button clicked");
+//                      entity.getEvents().trigger("levelEditor", level);
+//                  }
+//              }
+//            );
+//
+//            editorBtn.setColor(Color.BLACK);
+//            table.add(editorBtn).padLeft(centreWidth * 1.5f).padBottom(30f);
+//            table.row();
         }
 
         /**
@@ -179,6 +185,7 @@ public class LevelDisplay extends UIComponent {
         stage.addActor(table);
         for (ImageButton image : imageButtons) {
             stage.addActor(image);
+
         }
         stage.addActor(exitBtn);
         stage.addActor(titleBtn);

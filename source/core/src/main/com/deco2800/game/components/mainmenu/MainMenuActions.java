@@ -3,6 +3,7 @@ package com.deco2800.game.components.mainmenu;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.levels.LevelDefinition;
+import com.deco2800.game.levels.LevelInfo;
 import com.deco2800.game.services.MusicSingleton;
 import com.deco2800.game.services.MuteManager;
 import org.slf4j.Logger;
@@ -36,7 +37,7 @@ public class MainMenuActions extends Component {
    */
   private void onStart() {
     logger.info("Start game");
-    game.setLevel(GdxGame.ScreenType.MAIN_GAME, LevelDefinition.LEVEL_1);
+    game.setLevel(GdxGame.ScreenType.MAIN_GAME, LevelDefinition.LEVEL_1.getLevelInfo());
   }
 
   /**
@@ -95,6 +96,6 @@ public class MainMenuActions extends Component {
    */
   private void onLevelEditor() {
     logger.info("Launching level editor");
-    game.setLevel(GdxGame.ScreenType.LEVEL_EDITOR, LevelDefinition.LEVEL_1);
+    game.setLevel(GdxGame.ScreenType.LEVEL_EDITOR, new LevelInfo("My Level", "game_level_1"));
   }
 }

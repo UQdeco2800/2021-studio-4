@@ -1,9 +1,10 @@
-package com.deco2800.game.leveleditor;
+package com.deco2800.game.components.leveleditor;
 
 import java.util.List;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.ObstacleFactory;
@@ -23,10 +24,10 @@ public class ObstacleToolComponent extends BaseToolComponent {
   private final LevelEditorScreen screen;
   private EditorUIComponent ui;
 
-  public ObstacleToolComponent(LevelGameArea levelGameArea, LevelEditorScreen screen) {
+  public ObstacleToolComponent(LevelGameArea levelGameArea, LevelEditorScreen screen, GdxGame game) {
     this.levelGameArea = levelGameArea;
     this.screen = screen;
-    this.ui = new EditorUIComponent(levelGameArea);
+    this.ui = new EditorUIComponent(levelGameArea, game);
   }
 
   /**
@@ -71,7 +72,6 @@ public class ObstacleToolComponent extends BaseToolComponent {
 
   /**
    * Spawns the obstacle into the game
-   * @return The obstacle entity
    */
   private void spawnObstacle() {
     Vector2 cellPos = getMousePos();
@@ -226,7 +226,7 @@ public class ObstacleToolComponent extends BaseToolComponent {
     }
 
     if (keycode == Input.Keys.TAB) {
-      this.screen.selectLinkingHand();
+      this.screen.selectStatusEffectHand();
     }
 
     if (keycode == Input.Keys.P) {

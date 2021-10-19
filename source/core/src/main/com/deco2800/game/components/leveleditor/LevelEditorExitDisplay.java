@@ -1,4 +1,4 @@
-package com.deco2800.game.components.maingame;
+package com.deco2800.game.components.leveleditor;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
 /**
  * Displays a button to exit the Main Game screen to the Main Menu screen.
  */
-public class MainGameExitDisplay extends UIComponent {
-  private static final Logger logger = LoggerFactory.getLogger(MainGameExitDisplay.class);
+public class LevelEditorExitDisplay extends UIComponent {
+  private static final Logger logger = LoggerFactory.getLogger(LevelEditorExitDisplay.class);
   private static final float Z_INDEX = 2f;
   private Table table;
 
@@ -28,34 +28,19 @@ public class MainGameExitDisplay extends UIComponent {
     table.top().right();
     table.setFillParent(true);
 
-    // Add pause button to pause game
-    TextButton pauseBtn = new TextButton("Pause", skin);
-
-
     // Add exit button to go back to main menu.
     TextButton exitBtn = new TextButton("Exit", skin);
+    //exitBtn.setColor(Color.ROYAL);
+    // Add load button to load a different level
+    TextButton loadBtn = new TextButton("Load File", skin);
+    TextButton saveBtn = new TextButton("Save File", skin);
 
 
-    // Add retry button to restart level
-    TextButton retryBtn = new TextButton("Retry", skin);
-
-
-
-
-    // Pause button event
-    pauseBtn.addListener(
-      new ChangeListener() {
-        @Override
-        public void changed(ChangeEvent changeEvent, Actor actor) {
-          logger.debug("Pause button clicked");
-          entity.getEvents().trigger("pause");
-        }
-      });
-    table.add(pauseBtn).padTop(10f).padRight(10f);
-    table.row();
     table.add(exitBtn).padTop(10f).padRight(10f);
     table.row();
-    table.add(retryBtn).padTop(10f).padRight(10f);
+    table.add(loadBtn).padTop(10f).padRight(10f);
+    table.row();
+    table.add(saveBtn).padTop(10f).padRight(10f);
     stage.addActor(table);
 
     // Exit button event.
@@ -69,14 +54,25 @@ public class MainGameExitDisplay extends UIComponent {
         }
       });
 
-    // Retry button event.
-    retryBtn.addListener(
+    // Load button event.
+    loadBtn.addListener(
       new ChangeListener() {
         @Override
         public void changed(ChangeEvent changeEvent, Actor actor) {
 
-          logger.debug("Retry button clicked");
-          entity.getEvents().trigger("retry");
+          logger.debug("Load file button clicked");
+          entity.getEvents().trigger("loadFile");
+        }
+      });
+
+    // Save button event.
+    saveBtn.addListener(
+      new ChangeListener() {
+        @Override
+        public void changed(ChangeEvent changeEvent, Actor actor) {
+
+          logger.debug("Save file button clicked");
+          entity.getEvents().trigger("saveFile");
         }
       });
   }

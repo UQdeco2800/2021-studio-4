@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public enum TerrainTileDefinition {
   TILE_FULL_MIDDLE("middlePlatform", false, true),
   TILE_FULL_TOP("platform", true, true),
-    TILE_HALF_TOP("halfTop", true, true),
+  TILE_HALF_TOP("halfTop", true, true),
   TILE_HALF_BOTTOM("halfBottom", true, true);
 
   public static final int TILE_X = 500;
