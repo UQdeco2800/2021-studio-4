@@ -147,10 +147,11 @@ public class LevelDisplay extends UIComponent {
                     posY = posY - widthY;
             }
 
-            ImageButton imageButton = insImage.setImage(pathName, hoverPathName, posX, posY, widthX, widthY);
-            imageButtons.add(imageButton);
+            ImageButton levelButton = insImage.setImage(pathName, hoverPathName, posX, posY, widthX, widthY);
+            imageButtons.add(levelButton);
 
-            imageButton.addListener(
+
+            levelButton.addListener(
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
@@ -171,19 +172,33 @@ public class LevelDisplay extends UIComponent {
                   }
               }
             );
-            editorBtn.setColor(Color.ROYAL);
-
-    //        table.add(startBtn).pad(10f);
-//            table.add(editorBtn).padLeft(centreWidth * 1.5f);
-//            table.row();
+            
+            editorBtn.setColor(Color.BLACK);
+            table.add(editorBtn).padLeft(centreWidth * 1.5f).padBottom(30f);
+            table.row();
         }
+
+        /**
+         * Creates the button texture for the virus Head.
+         */
+        int posX = centreWidth1;
+        int posY = centreHeight1;
+        int widthX = centreWidth1/4;
+        int widthY = centreHeight1/3;
+        posX = posX - widthX/2;
+        posY = posY - widthY;
+        String virusHeadImage = "player/virus_head_front.png";
+        ImageButton virusHeadBtn;
+        virusHeadBtn = insImage.setImage(virusHeadImage, virusHeadImage, posX, posY, widthX, widthY);
 
         stage.addActor(table);
         for (ImageButton image : imageButtons) {
             stage.addActor(image);
+
         }
         stage.addActor(exitBtn);
         stage.addActor(titleBtn);
+        stage.addActor(virusHeadBtn);
     }
 
     @Override

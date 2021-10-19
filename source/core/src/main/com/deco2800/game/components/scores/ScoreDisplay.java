@@ -195,8 +195,8 @@ public class ScoreDisplay extends UIComponent {
         Texture scoreDisplay = new Texture(Gdx.files.internal("ui-elements/scores-title.png"));
         Drawable scoreDisplayDrawable = new TextureRegionDrawable(new TextureRegion(scoreDisplay));
         Image scoreDisplayTitle = new Image(scoreDisplayDrawable);
-        scoreDisplayTitle.setBounds(Gdx.graphics.getWidth()/2 - imageWidth/2,Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/5,
-                imageWidth,Gdx.graphics.getHeight()/6);
+        scoreDisplayTitle.setBounds((float)Gdx.graphics.getWidth()/2 - (float)imageWidth/2,Gdx.graphics.getHeight()-(float)Gdx.graphics.getHeight()/5,
+                imageWidth,(float)Gdx.graphics.getHeight()/6);
 //        Image image1 = new Image(new Texture("images/ScoreTitlePlaceHolder.png"));
         //image1.setBounds(200, 80, 70, 40);
 //        image1.setBounds(400, 200, 700, 200);
