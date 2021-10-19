@@ -162,20 +162,20 @@ public class LevelDisplay extends UIComponent {
                 }
             );
 
-            TextButton editorBtn = new TextButton("Edit " + level.getLevelInfo().getName(), skin);
-            editorBtn.addListener(
-              new ChangeListener() {
-                  @Override
-                  public void changed(ChangeEvent changeEvent, Actor actor) {
-                      logger.debug(level + " button clicked");
-                      entity.getEvents().trigger("levelEditor", level);
-                  }
-              }
-            );
-            
-            editorBtn.setColor(Color.BLACK);
-            table.add(editorBtn).padLeft(centreWidth * 1.5f).padBottom(30f);
-            table.row();
+//            TextButton editorBtn = new TextButton("Edit " + level.getLevelInfo().getName(), skin);
+//            editorBtn.addListener(
+//              new ChangeListener() {
+//                  @Override
+//                  public void changed(ChangeEvent changeEvent, Actor actor) {
+//                      logger.debug(level + " button clicked");
+//                      entity.getEvents().trigger("levelEditor", level);
+//                  }
+//              }
+//            );
+//
+//            editorBtn.setColor(Color.BLACK);
+//            table.add(editorBtn).padLeft(centreWidth * 1.5f).padBottom(30f);
+//            table.row();
         }
 
         /**
