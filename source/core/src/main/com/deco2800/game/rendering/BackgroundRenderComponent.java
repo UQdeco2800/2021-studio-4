@@ -48,7 +48,7 @@ public class BackgroundRenderComponent extends RenderComponent {
     } else if (texturePath.equals("backgrounds/background_level2.png")){
       batch.draw(texture, -3, -2, screenWidth *10f, screenHeight * 2f);
     } else if (texturePath.equals("backgrounds/background_level3.png")) {
-      batch.draw(texture, -3, -2, screenWidth, screenHeight);
+      batch.draw(texture, -3, -3, screenWidth *10f, screenHeight * 2f);
     } else if (texturePath.equals("backgrounds/background_level4.png")) {
       batch.draw(texture, -3, -1, screenWidth * 5f, screenHeight * 1.9f);
     } else {
