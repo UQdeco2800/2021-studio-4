@@ -31,7 +31,7 @@ public class PlayerActionsTest {
 
     @Test
     void shouldWalkLeft() {
-        PlayerActions playerActions = new PlayerActions("some level string");
+        PlayerActions playerActions = new PlayerActions();
         playerActions.setCanPlayerMove(true);
         playerActions.walk(Vector2Utils.LEFT);
 
@@ -41,7 +41,7 @@ public class PlayerActionsTest {
 
     @Test
     void shouldWalkRight() {
-        PlayerActions playerActions = new PlayerActions("some level string");
+        PlayerActions playerActions = new PlayerActions();
         playerActions.setCanPlayerMove(true);
         playerActions.walk(Vector2Utils.RIGHT);
 
@@ -544,7 +544,7 @@ public class PlayerActionsTest {
                         .addComponent(new ColliderComponent())
                         .addComponent(new PhysicsComponent())
                         .addComponent(new HitboxComponent().setLayer(playerLayer))
-                        .addComponent(new PlayerActions("some level string"))
+                        .addComponent(new PlayerActions())
                         .addComponent(animationRenderComponent)
                         .addComponent(new StatusEffectTargetComponent())
                         .addComponent(new StatusEffectUIComponent());

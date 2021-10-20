@@ -27,21 +27,24 @@ import java.util.ArrayList;
 import java.util.StringJoiner;
 import static com.deco2800.game.screens.MainGameScreen.levelComplete;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.StringJoiner;
+
+import static com.deco2800.game.screens.MainGameScreen.levelComplete;
+
 public class ScoreDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(ScoreDisplay.class);
     private static final float Z_INDEX = 2f;
     private Table table;
-    private Label scoreLabel; // Shows the score.
-    private Label levelLabel; // Shows the current level.
-    private Label congratsLabel; // Shows the congratulations text.
-    private LevelDefinition levelDefinition;
+    private final LevelDefinition levelDefinition;
     private boolean newBest;
     private int newScore; // Will need to be set using GameTime
-    private int completionTime; // Will need to be set using GameTime
+    private final int completionTime; // Will need to be set using GameTime
     private int highScore;
-    private boolean isSuccessful;
-    private ArrayList<Integer> levels = new ArrayList<>(); // The current Level
-    private ArrayList<Integer> highScores = new ArrayList<>();
+    private final boolean isSuccessful;
+    private final ArrayList<Integer> levels = new ArrayList<>(); // The current Level
+    private final ArrayList<Integer> highScores = new ArrayList<>();
 
     public ScoreDisplay(LevelDefinition levelDefinition, int completionTime) {
         this.levelDefinition = levelDefinition;
@@ -101,9 +104,6 @@ public class ScoreDisplay extends UIComponent {
         int centreHeight = centreWidth1 - buttonDimensionsHeight/2;
         int height105Percent = (int) Math.round(centreHeight*0.98);
 
-        /**
-         * Creates the button texture for the Exit Button.
-         */
         String exitMainImage = "ui-elements/default_buttons/exit-button.png";
         String exitHoverImage = "ui-elements/hovered-buttons/exit-button-hovered.png";
         ImageButton exitBtn;
@@ -164,9 +164,12 @@ public class ScoreDisplay extends UIComponent {
 
         CharSequence levelText = sjLevels.toString();
         CharSequence scoreText = sjScores.toString();
-        scoreLabel = new Label(scoreText, skin, "large");
-        levelLabel = new Label(levelText, skin, "large");
-        congratsLabel = new Label(congratsText, skin, "large");
+        // Shows the score.
+        Label scoreLabel = new Label(scoreText, skin, "large");
+        // Shows the current level.
+        Label levelLabel = new Label(levelText, skin, "large");
+        // Shows the congratulations text.
+        Label congratsLabel = new Label(congratsText, skin, "large");
         levelLabel.getStyle().fontColor.add(Color.WHITE); // Other colours
                                                           // default to white is
                                                           // this colour is changed?
@@ -174,32 +177,22 @@ public class ScoreDisplay extends UIComponent {
 
         int CenterScoreTextWidth = Math.round(centreWidth1 - scoreLabel.getWidth()/2);
         int CenterLevelTextWidth = Math.round(centreWidth1 - levelLabel.getWidth()/2);
-        int textDimenstionHeight = (int) Math.round(Gdx.graphics.getHeight()*0.1);
-        int textDimenstionWidth = (int) Math.round(Gdx.graphics.getWidth()*0.1);
+        int textDimensionHeight = (int) Math.round(Gdx.graphics.getHeight()*0.1);
+        int textDimensionWidth = (int) Math.round(Gdx.graphics.getWidth()*0.1);
 
-        /**
-         * Sets the position of the label.
-         */
         levelLabel.setBounds((float)(CenterLevelTextWidth - 100),400,
-                textDimenstionWidth,textDimenstionHeight);
+                textDimensionWidth,textDimensionHeight);
         scoreLabel.setBounds((float)(CenterScoreTextWidth + 100),400,
-                textDimenstionWidth,textDimenstionHeight);
+                textDimensionWidth,textDimensionHeight);
         congratsLabel.setBounds((float)(CenterLevelTextWidth - 100), 560,
-                textDimenstionWidth, textDimenstionHeight);
+                textDimensionWidth, textDimensionHeight);
 
         int imageWidth = Gdx.graphics.getWidth()/2;
-        /**
-         * Creates the 'SCOREDISPLAY' title texture.
-         */
         Texture scoreDisplay = new Texture(Gdx.files.internal("ui-elements/scores-title.png"));
         Drawable scoreDisplayDrawable = new TextureRegionDrawable(new TextureRegion(scoreDisplay));
         Image scoreDisplayTitle = new Image(scoreDisplayDrawable);
         scoreDisplayTitle.setBounds((float)Gdx.graphics.getWidth()/2 - (float)imageWidth/2,Gdx.graphics.getHeight()-(float)Gdx.graphics.getHeight()/5,
                 imageWidth,(float)Gdx.graphics.getHeight()/6);
-//        Image image1 = new Image(new Texture("images/ScoreTitlePlaceHolder.png"));
-        //image1.setBounds(200, 80, 70, 40);
-//        image1.setBounds(400, 200, 700, 200);
-//        image1.setSize(50, 50);
 
         stage.addActor(table);
         stage.addActor(exitBtn);
@@ -241,8 +234,6 @@ public class ScoreDisplay extends UIComponent {
      * Play the music
      */
     public void playTheMusic() {
-        //MusicService musicScreen = new MusicService("sounds/MainMenuMusic.mp3");
-        //musicScreen.playMusic();
         MusicServiceDirectory menuSong = new MusicServiceDirectory();
         MusicService menuMusic = new MusicService(menuSong.main_menu);
         menuMusic.playSong(true, 0.2f);
@@ -295,8 +286,7 @@ public class ScoreDisplay extends UIComponent {
                 // Removes NullPointerException
                 assert myScoresReader != null;
                 myScoresReader.close();
-            } catch (IOException | NullPointerException e) {
-                e.printStackTrace();
+            } catch (IOException | NullPointerException ignored) {
             }
         }
     }
@@ -327,8 +317,7 @@ public class ScoreDisplay extends UIComponent {
                 // Removes NullPointerException possibility
                 assert scoresWriter != null;
                 scoresWriter.close();
-            } catch (IOException | NullPointerException e) {
-                e.printStackTrace();
+            } catch (IOException | NullPointerException ignored) {
             }
         }
     }

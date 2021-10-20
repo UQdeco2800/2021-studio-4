@@ -48,7 +48,7 @@ public class StatusEffectTest {
         ServiceLocator.registerTimeSource(gameTime);
 
         /* Initialise other classes */
-        playerActions = new PlayerActions("placeholder-stage-name");
+        playerActions = new PlayerActions();
         combatStatsComponent = new CombatStatsComponent(1, 0);
         SETC = new StatusEffectTargetComponent();
         SETC.setEntity(player);
@@ -130,7 +130,7 @@ public class StatusEffectTest {
 
     @Test
     public void testStuckInTheMudStatChange() {
-        PlayerActions playerStuckInTheMud = new PlayerActions("new-stage");
+        PlayerActions playerStuckInTheMud = new PlayerActions();
         when(gameTime.getTime()).thenReturn(0L);
         when(player.getComponent(PlayerActions.class)).thenReturn(playerStuckInTheMud);
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
@@ -225,11 +225,9 @@ public class StatusEffectTest {
 
         /* Add two status effects then updating */
         SETC.applyStatusEffect(StatusEffect.FAST); // Calls 3 times (1 time to update() on the previous status effect
-                                                   // which is still in effect).
+        // which is still in effect).
         SETC.applyStatusEffect(StatusEffect.JUMP); // Calls 2 times because of update().
         SETC.update(); // Calls once.
         verify(player, times(6 + 4 + 3)).getComponent(PlayerActions.class);
     }
 }
-
-

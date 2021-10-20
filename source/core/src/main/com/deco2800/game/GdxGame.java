@@ -56,6 +56,8 @@ public class GdxGame extends Game {
       case LEVEL_EDITOR:
         setScreen(new LevelEditorScreen(this, levelDefinition));
         break;
+      default:
+        break;
     }
   }
 
@@ -69,8 +71,6 @@ public class GdxGame extends Game {
     if (currentScreen != null) {
       currentScreen.dispose();
     }
-    System.gc();
-    System.runFinalization();
 
     setScreen(newScreen(screenType));
   }
