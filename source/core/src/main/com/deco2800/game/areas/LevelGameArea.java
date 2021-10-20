@@ -118,10 +118,10 @@ public class LevelGameArea extends GameArea {
     String levels = levelDefinition.getLevelFileName();
     switch (levels) {
       case "levels/level1.json":
-        displayBackground("backgrounds/background_level1.jpg");
+        displayBackground("backgrounds/background_level1.png");
         break;
       case "levels/level2.json":
-        displayBackground("backgrounds/background_level2.jpg");
+        displayBackground("backgrounds/background_level2.png");
         break;
       case "levels/level3.json":
         displayBackground("backgrounds/background_level3.png");
