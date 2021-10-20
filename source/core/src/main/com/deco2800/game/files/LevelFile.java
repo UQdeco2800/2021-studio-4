@@ -27,6 +27,8 @@ public class LevelFile {
 
     private JsonValue rawTileData;
 
+    public PositionedTerrainTile(){};
+
     public PositionedTerrainTile(TerrainTile tile, int x, int y) {
       this.tile = tile;
       this.x = x;
