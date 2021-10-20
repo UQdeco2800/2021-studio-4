@@ -1,7 +1,6 @@
 package com.deco2800.game.screens;
 
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
@@ -9,7 +8,6 @@ import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainTileDefinition;
 import com.deco2800.game.components.gamearea.PerformanceDisplay;
-import com.deco2800.game.components.leveleditor.*;
 import com.deco2800.game.components.maingame.MainGameActions;
 import com.deco2800.game.components.maingame.MainGameExitDisplay;
 import com.deco2800.game.entities.Entity;
@@ -18,7 +16,11 @@ import com.deco2800.game.entities.factories.RenderFactory;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.input.InputDecorator;
 import com.deco2800.game.input.InputService;
-import com.deco2800.game.levels.LevelInfo;
+import com.deco2800.game.leveleditor.CameraMoveComponent;
+import com.deco2800.game.leveleditor.LinkingToolComponent;
+import com.deco2800.game.leveleditor.ObstacleToolComponent;
+import com.deco2800.game.leveleditor.TileToolComponent;
+import com.deco2800.game.levels.LevelDefinition;
 import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
@@ -45,15 +47,15 @@ public class LevelEditorScreen extends ScreenAdapter {
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
-  private final LevelInfo levelInfo;
+  private final LevelDefinition levelDefinition;
 
   private LevelGameArea levelGameArea;
 
   private Entity hand;
 
-  public LevelEditorScreen(GdxGame game, LevelInfo levelInfo) {
+  public LevelEditorScreen(GdxGame game, LevelDefinition levelDefinition) {
     this.game = game;
-    this.levelInfo = levelInfo;
+    this.levelDefinition = levelDefinition;
 
     logger.debug("Initialising level editor screen services");
     ServiceLocator.registerTimeSource(new GameTime());
@@ -75,13 +77,12 @@ public class LevelEditorScreen extends ScreenAdapter {
     ServiceLocator.registerCamera(renderer.getCamera());
 
     loadAssets();
+    createUI();
 
     logger.debug("Initialising main game screen entities");
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
-    levelGameArea = new LevelGameArea(terrainFactory, levelInfo);
+    levelGameArea = new LevelGameArea(terrainFactory, levelDefinition);
     levelGameArea.init();
-
-    createUI();
 
     selectTileHand();
   }
@@ -138,15 +139,10 @@ public class LevelEditorScreen extends ScreenAdapter {
   public void selectTileHand() {
     if (hand != null) hand.dispose();
 
-    TerrainTileDefinition terrainTileDefinition = TerrainTileDefinition.TILE_FULL_MIDDLE;
-    TextureAtlas atlas = ServiceLocator.getResourceService()
-      .getAsset(ServiceLocator.getCurrentTexture().getAtlasName(), TextureAtlas.class);
-    terrainTileDefinition.setAtlas(atlas);
-
     hand = new Entity();
     hand
-      .addComponent(new SpriteRenderComponent(terrainTileDefinition.getSprite()))
-      .addComponent(new TileToolComponent(levelGameArea, this, game));
+      .addComponent(new SpriteRenderComponent(TerrainTileDefinition.TILE_FULL_MIDDLE.getSprite()))
+      .addComponent(new TileToolComponent(levelGameArea, this));
     hand.scaleHeight(0.5f);
 
     ServiceLocator.getEntityService().register(hand);
@@ -160,7 +156,7 @@ public class LevelEditorScreen extends ScreenAdapter {
 
     hand = new Entity();
     hand
-      .addComponent(new ObstacleToolComponent(levelGameArea, this, game));
+      .addComponent(new ObstacleToolComponent(levelGameArea, this));
     hand.scaleHeight(0.5f);
 
     ServiceLocator.getEntityService().register(hand);
@@ -171,18 +167,7 @@ public class LevelEditorScreen extends ScreenAdapter {
 
     hand = new Entity();
     hand
-      .addComponent(new LinkingToolComponent(levelGameArea, this, game));
-    hand.scaleHeight(0.5f);
-
-    ServiceLocator.getEntityService().register(hand);
-  }
-
-  public void selectStatusEffectHand() {
-    if (hand != null) hand.dispose();
-
-    hand = new Entity();
-    hand
-      .addComponent(new StatusEffectToolComponent(levelGameArea, this, game));
+      .addComponent(new LinkingToolComponent(levelGameArea, this));
     hand.scaleHeight(0.5f);
 
     ServiceLocator.getEntityService().register(hand);
@@ -201,14 +186,12 @@ public class LevelEditorScreen extends ScreenAdapter {
     Entity ui = new Entity();
     ui.addComponent(new InputDecorator(stage, 10))
         .addComponent(new PerformanceDisplay())
-        .addComponent(new LevelEditorActions(game))
-        .addComponent(new LevelEditorExitDisplay())
+        .addComponent(new MainGameActions(this.game))
+        .addComponent(new MainGameExitDisplay())
         .addComponent(new Terminal())
         .addComponent(inputComponent)
         .addComponent(new CameraMoveComponent())
-        .addComponent(new TerminalDisplay())
-        .addComponent(new EditorUIComponent(levelGameArea, game));
-    ui.scaleHeight(0.5f);
+        .addComponent(new TerminalDisplay());
 
     ServiceLocator.getEntityService().register(ui);
   }

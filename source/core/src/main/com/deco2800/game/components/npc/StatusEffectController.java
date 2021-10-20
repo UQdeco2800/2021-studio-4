@@ -57,7 +57,7 @@ public class StatusEffectController extends Component {
         if (statusEffectTargetComponent != null) {
             target.getEvents().trigger("StatusEffectTrigger", effect);
         }
-        System.out.println(target);
+
         // Delete effect after being used
         this.dispose();
     }
@@ -75,9 +75,5 @@ public class StatusEffectController extends Component {
      */
     void animate(){
         animator.startAnimation(effect.getGroundAnimationName());
-    }
-
-    public StatusEffect getEffect() {
-        return effect;
     }
 }

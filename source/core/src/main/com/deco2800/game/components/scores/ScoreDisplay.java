@@ -25,7 +25,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.components.InsertImageButton;
 import com.deco2800.game.levels.LevelDefinition;
-import com.deco2800.game.levels.LevelInfo;
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.ui.UIComponent;
@@ -40,7 +39,7 @@ public class ScoreDisplay extends UIComponent {
     private Label scoreLabel; // Shows the score.
     private Label levelLabel; // Shows the current level.
     private Label congratsLabel; // Shows the congratulations text.
-    private LevelInfo levelInfo;
+    private LevelDefinition levelDefinition;
     private boolean newBest;
     private int newScore; // Will need to be set using GameTime
     private int completionTime; // Will need to be set using GameTime
@@ -49,8 +48,8 @@ public class ScoreDisplay extends UIComponent {
     private ArrayList<Integer> levels = new ArrayList<>(); // The current Level
     private ArrayList<Integer> highScores = new ArrayList<>();
 
-    public ScoreDisplay(LevelInfo levelInfo, int completionTime) {
-        this.levelInfo = levelInfo;
+    public ScoreDisplay(LevelDefinition levelDefinition, int completionTime) {
+        this.levelDefinition = levelDefinition;
         this.completionTime = completionTime;
         isSuccessful = levelComplete;
         levelComplete = false;
@@ -134,16 +133,16 @@ public class ScoreDisplay extends UIComponent {
         String congratsText = "";
 
         if (isSuccessful) {
-            if (levelInfo != null) {
+            if (levelDefinition != null) {
                 if (newBest) {
                     congratsText = "new PB: \n" +
-                      levelInfo.getName() + ": " + newScore + "!";
+                            levelDefinition.getName() + ": " + newScore + "!";
                     sjLevels.add("Previous Scores");
                     sjScores.add(""); // Does a new line for scores string
                     newBest = false;
                 } else {
                     congratsText = "most recent score: \n" +
-                      levelInfo.getName() + ": " + newScore;
+                            levelDefinition.getName() + ": " + newScore;
                     sjLevels.add("High Scores");
                     sjScores.add(""); // Does a new line for scores string
                 }
@@ -200,8 +199,8 @@ public class ScoreDisplay extends UIComponent {
         Texture scoreDisplay = new Texture(Gdx.files.internal("ui-elements/scores-title.png"));
         Drawable scoreDisplayDrawable = new TextureRegionDrawable(new TextureRegion(scoreDisplay));
         Image scoreDisplayTitle = new Image(scoreDisplayDrawable);
-        scoreDisplayTitle.setBounds((float)Gdx.graphics.getWidth()/2 - (float)imageWidth/2,Gdx.graphics.getHeight()-(float)Gdx.graphics.getHeight()/5,
-                imageWidth,(float)Gdx.graphics.getHeight()/6);
+        scoreDisplayTitle.setBounds(Gdx.graphics.getWidth()/2 - imageWidth/2,Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/5,
+                imageWidth,Gdx.graphics.getHeight()/6);
 //        Image image1 = new Image(new Texture("images/ScoreTitlePlaceHolder.png"));
         //image1.setBounds(200, 80, 70, 40);
 //        image1.setBounds(400, 200, 700, 200);
@@ -221,8 +220,8 @@ public class ScoreDisplay extends UIComponent {
      * @return the level as an integer
      */
     private int selectLevel() {
-        if (levelInfo != null) {
-            switch (levelInfo.getName()) {
+        if (levelDefinition != null) {
+            switch (levelDefinition.getName()) {
                 case ("Level 1"):
                     highScore = highScores.get(0);
                     return 1;
