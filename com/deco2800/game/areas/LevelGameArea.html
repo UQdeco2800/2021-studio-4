@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -150,11 +150,6 @@ extends <a href="GameArea.html" title="class in com.deco2800.game.areas">GameAre
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#obstacleEntities">obstacleEntities</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#statusEffects">statusEffects</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -182,8 +177,8 @@ extends <a href="GameArea.html" title="class in com.deco2800.game.areas">GameAre
 </thead>
 <tbody>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory,com.deco2800.game.levels.LevelInfo)">LevelGameArea</a></span>&#8203;(<a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
-<a href="../levels/LevelInfo.html" title="class in com.deco2800.game.levels">LevelInfo</a>&nbsp;levelInfo)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.areas.terrain.TerrainFactory,com.deco2800.game.levels.LevelDefinition)">LevelGameArea</a></span>&#8203;(<a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
+<a href="../levels/LevelDefinition.html" title="enum in com.deco2800.game.levels">LevelDefinition</a>&nbsp;levelDefinition)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
@@ -230,8 +225,8 @@ int&nbsp;y)</code></th>
 </td>
 </tr>
 <tr class="rowColor" id="i3">
-<td class="colFirst"><code><a href="../levels/LevelInfo.html" title="class in com.deco2800.game.levels">LevelInfo</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLevelInfo()">getLevelInfo</a></span>()</code></th>
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLevelDefinition()">getLevelDefinition</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor" id="i4">
@@ -267,13 +262,6 @@ int&nbsp;y)</code></th>
 </tr>
 <tr class="rowColor" id="i9">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnBridge(int,int,int)">spawnBridge</a></span>&#8203;(int&nbsp;posX,
-int&nbsp;posY,
-int&nbsp;width)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor" id="i10">
-<td class="colFirst"><code><a href="../entities/ObstacleEntity.html" title="class in com.deco2800.game.entities">ObstacleEntity</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnBridge(int,int,int,boolean,boolean)">spawnBridge</a></span>&#8203;(int&nbsp;posX,
 int&nbsp;posY,
 int&nbsp;width,
@@ -281,29 +269,16 @@ boolean&nbsp;centerX,
 boolean&nbsp;centerY)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i11">
+<tr class="altColor" id="i10">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnButton(int,int)">spawnButton</a></span>&#8203;(int&nbsp;posX,
-int&nbsp;posY)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor" id="i12">
-<td class="colFirst"><code><a href="../entities/ObstacleEntity.html" title="class in com.deco2800.game.entities">ObstacleEntity</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnButton(int,int,boolean,boolean)">spawnButton</a></span>&#8203;(int&nbsp;posX,
 int&nbsp;posY,
 boolean&nbsp;centerX,
 boolean&nbsp;centerY)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i13">
+<tr class="rowColor" id="i11">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnDoor(int,int,int)">spawnDoor</a></span>&#8203;(int&nbsp;posX,
-int&nbsp;posY,
-int&nbsp;height)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor" id="i14">
-<td class="colFirst"><code><a href="../entities/ObstacleEntity.html" title="class in com.deco2800.game.entities">ObstacleEntity</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnDoor(int,int,int,boolean,boolean)">spawnDoor</a></span>&#8203;(int&nbsp;posX,
 int&nbsp;posY,
 int&nbsp;height,
@@ -311,16 +286,8 @@ boolean&nbsp;centerX,
 boolean&nbsp;centerY)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i15">
+<tr class="altColor" id="i12">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnJumppad(int,int)">spawnJumppad</a></span>&#8203;(int&nbsp;posX,
-int&nbsp;posY)</code></th>
-<td class="colLast">
-<div class="block">Spawn a new jump pad.</div>
-</td>
-</tr>
-<tr class="altColor" id="i16">
-<td class="colFirst"><code><a href="../entities/ObstacleEntity.html" title="class in com.deco2800.game.entities">ObstacleEntity</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnJumppad(int,int,boolean,boolean)">spawnJumppad</a></span>&#8203;(int&nbsp;posX,
 int&nbsp;posY,
 boolean&nbsp;centerX,
@@ -329,15 +296,8 @@ boolean&nbsp;centerY)</code></th>
 <div class="block">Spawn a new jump pad.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i17">
+<tr class="rowColor" id="i13">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnLevelEndPortal(int,int,int)">spawnLevelEndPortal</a></span>&#8203;(int&nbsp;posX,
-int&nbsp;posY,
-int&nbsp;width)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor" id="i18">
-<td class="colFirst"><code><a href="../entities/ObstacleEntity.html" title="class in com.deco2800.game.entities">ObstacleEntity</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnLevelEndPortal(int,int,int,boolean,boolean)">spawnLevelEndPortal</a></span>&#8203;(int&nbsp;posX,
 int&nbsp;posY,
 int&nbsp;width,
@@ -345,15 +305,8 @@ boolean&nbsp;centerX,
 boolean&nbsp;centerY)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i19">
+<tr class="altColor" id="i14">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnMiddlePlatform(int,int,int)">spawnMiddlePlatform</a></span>&#8203;(int&nbsp;posX,
-int&nbsp;posY,
-int&nbsp;width)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor" id="i20">
-<td class="colFirst"><code><a href="../entities/ObstacleEntity.html" title="class in com.deco2800.game.entities">ObstacleEntity</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnMiddlePlatform(int,int,int,boolean,boolean)">spawnMiddlePlatform</a></span>&#8203;(int&nbsp;posX,
 int&nbsp;posY,
 int&nbsp;width,
@@ -361,15 +314,8 @@ boolean&nbsp;centerX,
 boolean&nbsp;centerY)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i21">
+<tr class="rowColor" id="i15">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnPlatform(int,int,int)">spawnPlatform</a></span>&#8203;(int&nbsp;posX,
-int&nbsp;posY,
-int&nbsp;width)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor" id="i22">
-<td class="colFirst"><code><a href="../entities/ObstacleEntity.html" title="class in com.deco2800.game.entities">ObstacleEntity</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnPlatform(int,int,int,boolean,boolean)">spawnPlatform</a></span>&#8203;(int&nbsp;posX,
 int&nbsp;posY,
 int&nbsp;width,
@@ -377,23 +323,14 @@ boolean&nbsp;centerX,
 boolean&nbsp;centerY)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i23">
-<td class="colFirst"><code><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnStatusEffect(com.deco2800.game.effects.StatusEffect,int,int)">spawnStatusEffect</a></span>&#8203;(<a href="../effects/StatusEffect.html" title="enum in com.deco2800.game.effects">StatusEffect</a>&nbsp;statusEffect,
-int&nbsp;posX,
-int&nbsp;posY)</code></th>
-<td class="colLast">
-<div class="block">Spawns a status effect as the given location</div>
-</td>
-</tr>
-<tr class="altColor" id="i24">
+<tr class="altColor" id="i16">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#untrackEntity(com.deco2800.game.entities.Entity)">untrackEntity</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;entity)</code></th>
 <td class="colLast">
 <div class="block">Remove an entity from the list of entities within the area</div>
 </td>
 </tr>
-<tr class="rowColor" id="i25">
+<tr class="rowColor" id="i17">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#writeAll()">writeAll</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
@@ -433,12 +370,6 @@ int&nbsp;posY)</code></th>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="statusEffects">statusEffects</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.List&lt;<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&gt;</span>&nbsp;<span class="memberName">statusEffects</span></div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
 <h3><a id="buffers">buffers</a></h3>
 <div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">java.util.ArrayList&lt;java.lang.String&gt;</span>&nbsp;<span class="memberName">buffers</span></div>
 </section>
@@ -473,9 +404,9 @@ int&nbsp;posY)</code></th>
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
-<h3><a id="&lt;init&gt;(com.deco2800.game.areas.terrain.TerrainFactory,com.deco2800.game.levels.LevelInfo)">LevelGameArea</a></h3>
+<h3><a id="&lt;init&gt;(com.deco2800.game.areas.terrain.TerrainFactory,com.deco2800.game.levels.LevelDefinition)">LevelGameArea</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">LevelGameArea</span>&#8203;(<span class="arguments"><a href="terrain/TerrainFactory.html" title="class in com.deco2800.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory,
-<a href="../levels/LevelInfo.html" title="class in com.deco2800.game.levels">LevelInfo</a>&nbsp;levelInfo)</span></div>
+<a href="../levels/LevelDefinition.html" title="enum in com.deco2800.game.levels">LevelDefinition</a>&nbsp;levelDefinition)</span></div>
 </section>
 </li>
 </ul>
@@ -529,51 +460,28 @@ int&nbsp;y)</span></div>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="spawnPlatform(int,int,int)">spawnPlatform</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnPlatform</span>&#8203;(<span class="arguments">int&nbsp;posX,
-int&nbsp;posY,
-int&nbsp;width)</span></div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
 <h3><a id="spawnPlatform(int,int,int,boolean,boolean)">spawnPlatform</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../entities/ObstacleEntity.html" title="class in com.deco2800.game.entities">ObstacleEntity</a></span>&nbsp;<span class="memberName">spawnPlatform</span>&#8203;(<span class="arguments">int&nbsp;posX,
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnPlatform</span>&#8203;(<span class="arguments">int&nbsp;posX,
 int&nbsp;posY,
 int&nbsp;width,
 boolean&nbsp;centerX,
 boolean&nbsp;centerY)</span></div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="spawnMiddlePlatform(int,int,int)">spawnMiddlePlatform</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnMiddlePlatform</span>&#8203;(<span class="arguments">int&nbsp;posX,
-int&nbsp;posY,
-int&nbsp;width)</span></div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="spawnMiddlePlatform(int,int,int,boolean,boolean)">spawnMiddlePlatform</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../entities/ObstacleEntity.html" title="class in com.deco2800.game.entities">ObstacleEntity</a></span>&nbsp;<span class="memberName">spawnMiddlePlatform</span>&#8203;(<span class="arguments">int&nbsp;posX,
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnMiddlePlatform</span>&#8203;(<span class="arguments">int&nbsp;posX,
 int&nbsp;posY,
 int&nbsp;width,
 boolean&nbsp;centerX,
 boolean&nbsp;centerY)</span></div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="spawnButton(int,int)">spawnButton</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnButton</span>&#8203;(<span class="arguments">int&nbsp;posX,
-int&nbsp;posY)</span></div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="spawnButton(int,int,boolean,boolean)">spawnButton</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../entities/ObstacleEntity.html" title="class in com.deco2800.game.entities">ObstacleEntity</a></span>&nbsp;<span class="memberName">spawnButton</span>&#8203;(<span class="arguments">int&nbsp;posX,
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnButton</span>&#8203;(<span class="arguments">int&nbsp;posX,
 int&nbsp;posY,
 boolean&nbsp;centerX,
 boolean&nbsp;centerY)</span></div>
@@ -581,16 +489,8 @@ boolean&nbsp;centerY)</span></div>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="spawnBridge(int,int,int)">spawnBridge</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnBridge</span>&#8203;(<span class="arguments">int&nbsp;posX,
-int&nbsp;posY,
-int&nbsp;width)</span></div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
 <h3><a id="spawnBridge(int,int,int,boolean,boolean)">spawnBridge</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../entities/ObstacleEntity.html" title="class in com.deco2800.game.entities">ObstacleEntity</a></span>&nbsp;<span class="memberName">spawnBridge</span>&#8203;(<span class="arguments">int&nbsp;posX,
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnBridge</span>&#8203;(<span class="arguments">int&nbsp;posX,
 int&nbsp;posY,
 int&nbsp;width,
 boolean&nbsp;centerX,
@@ -599,16 +499,8 @@ boolean&nbsp;centerY)</span></div>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="spawnDoor(int,int,int)">spawnDoor</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnDoor</span>&#8203;(<span class="arguments">int&nbsp;posX,
-int&nbsp;posY,
-int&nbsp;height)</span></div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
 <h3><a id="spawnDoor(int,int,int,boolean,boolean)">spawnDoor</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../entities/ObstacleEntity.html" title="class in com.deco2800.game.entities">ObstacleEntity</a></span>&nbsp;<span class="memberName">spawnDoor</span>&#8203;(<span class="arguments">int&nbsp;posX,
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnDoor</span>&#8203;(<span class="arguments">int&nbsp;posX,
 int&nbsp;posY,
 int&nbsp;height,
 boolean&nbsp;centerX,
@@ -617,21 +509,8 @@ boolean&nbsp;centerY)</span></div>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="spawnJumppad(int,int)">spawnJumppad</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnJumppad</span>&#8203;(<span class="arguments">int&nbsp;posX,
-int&nbsp;posY)</span></div>
-<div class="block">Spawn a new jump pad.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>posX</code> - X-position</dd>
-<dd><code>posY</code> - Y-position</dd>
-</dl>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
 <h3><a id="spawnJumppad(int,int,boolean,boolean)">spawnJumppad</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../entities/ObstacleEntity.html" title="class in com.deco2800.game.entities">ObstacleEntity</a></span>&nbsp;<span class="memberName">spawnJumppad</span>&#8203;(<span class="arguments">int&nbsp;posX,
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnJumppad</span>&#8203;(<span class="arguments">int&nbsp;posX,
 int&nbsp;posY,
 boolean&nbsp;centerX,
 boolean&nbsp;centerY)</span></div>
@@ -642,8 +521,6 @@ boolean&nbsp;centerY)</span></div>
 <dd><code>posY</code> - Y-position</dd>
 <dd><code>centerX</code> - boolean center X value</dd>
 <dd><code>centerY</code> - boolean center Y value</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>jump pad</dd>
 </dl>
 </section>
 </li>
@@ -663,16 +540,8 @@ boolean&nbsp;centerY)</span></div>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="spawnLevelEndPortal(int,int,int)">spawnLevelEndPortal</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnLevelEndPortal</span>&#8203;(<span class="arguments">int&nbsp;posX,
-int&nbsp;posY,
-int&nbsp;width)</span></div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
 <h3><a id="spawnLevelEndPortal(int,int,int,boolean,boolean)">spawnLevelEndPortal</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../entities/ObstacleEntity.html" title="class in com.deco2800.game.entities">ObstacleEntity</a></span>&nbsp;<span class="memberName">spawnLevelEndPortal</span>&#8203;(<span class="arguments">int&nbsp;posX,
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnLevelEndPortal</span>&#8203;(<span class="arguments">int&nbsp;posX,
 int&nbsp;posY,
 int&nbsp;width,
 boolean&nbsp;centerX,
@@ -701,15 +570,6 @@ boolean&nbsp;centerY)</span></div>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="spawnStatusEffect(com.deco2800.game.effects.StatusEffect,int,int)">spawnStatusEffect</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="memberName">spawnStatusEffect</span>&#8203;(<span class="arguments"><a href="../effects/StatusEffect.html" title="enum in com.deco2800.game.effects">StatusEffect</a>&nbsp;statusEffect,
-int&nbsp;posX,
-int&nbsp;posY)</span></div>
-<div class="block">Spawns a status effect as the given location</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
 <h3><a id="dispose()">dispose</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">dispose</span>()</div>
 <div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="GameArea.html#dispose()">GameArea</a></code></span></div>
@@ -724,8 +584,8 @@ int&nbsp;posY)</span></div>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="getLevelInfo()">getLevelInfo</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../levels/LevelInfo.html" title="class in com.deco2800.game.levels">LevelInfo</a></span>&nbsp;<span class="memberName">getLevelInfo</span>()</div>
+<h3><a id="getLevelDefinition()">getLevelDefinition</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.lang.String</span>&nbsp;<span class="memberName">getLevelDefinition</span>()</div>
 </section>
 </li>
 </ul>
