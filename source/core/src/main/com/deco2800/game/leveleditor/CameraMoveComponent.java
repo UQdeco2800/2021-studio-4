@@ -1,4 +1,4 @@
-package com.deco2800.game.components.leveleditor;
+package com.deco2800.game.leveleditor;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;

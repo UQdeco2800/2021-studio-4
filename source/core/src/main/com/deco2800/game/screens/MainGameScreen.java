@@ -16,7 +16,6 @@ import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.input.InputDecorator;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.levels.LevelDefinition;
-import com.deco2800.game.levels.LevelInfo;
 import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
@@ -60,7 +59,7 @@ public class MainGameScreen extends ScreenAdapter {
   public static boolean levelComplete = false;
   public GameTime gameTime;
 
-  public MainGameScreen(GdxGame game, LevelInfo levelInfo) {
+  public MainGameScreen(GdxGame game, LevelDefinition levelDefinition) {
     this.game = game;
 //    this.levelDefinition = levelDefinition;
     this.gameTime = new GameTime();
@@ -100,7 +99,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     logger.debug("Initialising main game screen entities");
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
-    levelGameArea = new LevelGameArea(terrainFactory, levelInfo);
+    levelGameArea = new LevelGameArea(terrainFactory, levelDefinition);
     levelGameArea.create();
   }
 

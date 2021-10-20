@@ -1,36 +1,31 @@
 package com.deco2800.game.levels;
 
-/**
- * Contains info relating to the inbuilt levels. Any info not specifically required for the inbuilt levels are stored in
- * the relevant LevelInfo file
- */
 public enum LevelDefinition {
-  LEVEL_1(new LevelInfo("Level 1", "game_level_1","levels/level1.json"), "level-1.png", "level-1-hovered.png"),
-  LEVEL_2(new LevelInfo("Level 2", "level_2","levels/level2.json"), "level-2.png", "level-2-hovered.png"),
-  LEVEL_3(new LevelInfo("Level 3", "level_3","levels/level3.json"), "level-3.png", "level-3-hovered.png"),
-  LEVEL_4(new LevelInfo("Level 4", "level_1_2","levels/level4.json"), "level-4.png", "level-4-hovered.png");
+  LEVEL_1("Level 1","levels/level1.json", "map-spritesheets/level1Textures.atlas"),
+  LEVEL_2("Level 2","levels/level2.json", "map-spritesheets/level2Textures.atlas"),
+  LEVEL_3("Level 3","levels/level3.json", "map-spritesheets/level3Textures.atlas"),
+  LEVEL_4("Level 4","levels/level4.json", "map-spritesheets/level4Textures.atlas");
 
-  public static final String LEVEL_UI_ELEMENT_DIR = "ui-elements/levels-screen-buttons/";
+  private final String name;
+  private final String levelFileName;
+  private final String levelAtlasName;
 
-  private final LevelInfo levelInfo;
-  private final String menuButtonName;
-  private final String menuButtonHoverName;
-
-  LevelDefinition(LevelInfo levelInfo, String menuButtonName, String menuButtonHoverName) {
-    this.levelInfo = levelInfo;
-    this.menuButtonName = menuButtonName;
-    this.menuButtonHoverName = menuButtonHoverName;
+  LevelDefinition(String name, String levelFileName, String levelAtlasName) {
+    this.name = name;
+    this.levelFileName = levelFileName;
+    this.levelAtlasName = levelAtlasName;
   }
 
-  public LevelInfo getLevelInfo() {
-    return levelInfo;
+  public String getName() {
+    return name;
   }
 
-  public String getMenuButtonName() {
-    return LEVEL_UI_ELEMENT_DIR + menuButtonName;
+  public String getLevelAtlasName() {
+    return levelAtlasName;
   }
 
-  public String getMenuButtonHoverName() {
-    return LEVEL_UI_ELEMENT_DIR + menuButtonHoverName;
+  public String getLevelFileName() {
+    return levelFileName;
   }
+
 }

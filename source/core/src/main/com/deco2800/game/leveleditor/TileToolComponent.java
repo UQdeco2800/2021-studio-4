@@ -1,13 +1,15 @@
-package com.deco2800.game.components.leveleditor;
+package com.deco2800.game.leveleditor;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.GdxGame;
+import com.badlogic.gdx.math.Vector3;
 import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.areas.terrain.TerrainTileDefinition;
+import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.rendering.SpriteRenderComponent;
 import com.deco2800.game.screens.LevelEditorScreen;
 import com.deco2800.game.services.ServiceLocator;
@@ -25,10 +27,10 @@ public class TileToolComponent extends BaseToolComponent {
   private boolean placing = false;
   private boolean removing = false;
 
-  public TileToolComponent(LevelGameArea levelGameArea, LevelEditorScreen screen, GdxGame game) {
+  public TileToolComponent(LevelGameArea levelGameArea, LevelEditorScreen screen) {
     this.levelGameArea = levelGameArea;
     this.screen = screen;
-    this.ui = new EditorUIComponent(levelGameArea, game);
+    this.ui = new EditorUIComponent(levelGameArea);
   }
 
   /**

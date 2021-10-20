@@ -1,8 +1,7 @@
-package com.deco2800.game.components.leveleditor;
+package com.deco2800.game.leveleditor;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleEntity;
@@ -26,10 +25,10 @@ public class LinkingToolComponent extends BaseToolComponent {
   private final LevelEditorScreen screen;
   private EditorUIComponent ui;
 
-  public LinkingToolComponent(LevelGameArea levelGameArea, LevelEditorScreen screen, GdxGame game) {
+  public LinkingToolComponent(LevelGameArea levelGameArea, LevelEditorScreen screen) {
     this.levelGameArea = levelGameArea;
     this.screen = screen;
-    this.ui = new EditorUIComponent(levelGameArea, game);
+    this.ui = new EditorUIComponent(levelGameArea);
   }
 
   /**

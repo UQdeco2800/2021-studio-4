@@ -1,15 +1,18 @@
-package com.deco2800.game.components.leveleditor;
+package com.deco2800.game.leveleditor;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.GdxGame;
+import com.badlogic.gdx.math.Vector3;
 import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.ObstacleFactory;
+import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.screens.LevelEditorScreen;
 import com.deco2800.game.services.ServiceLocator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,10 +28,10 @@ public class ObstacleToolComponent extends BaseToolComponent {
   private final LevelEditorScreen screen;
   private EditorUIComponent ui;
 
-  public ObstacleToolComponent(LevelGameArea levelGameArea, LevelEditorScreen screen, GdxGame game) {
+  public ObstacleToolComponent(LevelGameArea levelGameArea, LevelEditorScreen screen) {
     this.levelGameArea = levelGameArea;
     this.screen = screen;
-    this.ui = new EditorUIComponent(levelGameArea, game);
+    this.ui = new EditorUIComponent(levelGameArea);
   }
 
   /**
@@ -230,7 +233,7 @@ public class ObstacleToolComponent extends BaseToolComponent {
     }
 
     if (keycode == Input.Keys.TAB) {
-      this.screen.selectStatusEffectHand();
+      this.screen.selectLinkingHand();
     }
 
     if (keycode == Input.Keys.P) {
