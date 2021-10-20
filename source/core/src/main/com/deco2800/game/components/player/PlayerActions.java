@@ -280,7 +280,7 @@ public class PlayerActions extends Component {
    * the game is ove.
    */
   private void isDeathAnimationCompleted(){
-      if(animator.getCurrentAnimation().equals("death") && animator.isFinished()) {
+      if(animator.getCurrentAnimation() == "death" && animator.isFinished()) {
           this.entity.getComponent(PlayerStatsDisplay.class).playerIsDead();
       }
   }

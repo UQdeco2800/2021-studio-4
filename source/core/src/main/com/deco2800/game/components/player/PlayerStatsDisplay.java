@@ -137,10 +137,10 @@ public class PlayerStatsDisplay extends UIComponent {
     // Seems to be the perfect time to start on
     if (!paused) {
       if (iterator < 3) {
-        initialValue = Math.round((float)timeScore / 1000);
+        initialValue = Math.round(timeScore / 1000);
         iterator++;
       }
-      seconds = Math.round((float)timeScore / 1000) - initialValue;
+      seconds = Math.round(timeScore / 1000) - initialValue;
       if (pauseSet) {
         pauseSet = false;
         timeElapsedWhilePaused += seconds - pausedTime;
