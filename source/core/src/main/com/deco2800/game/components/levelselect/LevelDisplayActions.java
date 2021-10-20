@@ -52,7 +52,7 @@ public class LevelDisplayActions extends Component {
                     //previousLevel.updatePreviousLevel(levelDefinition);
                 addGameScreen(levelDefinition);
                final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-               executorService.scheduleAtFixedRate(LevelDisplayActions::addGameScreen, 0, 1, TimeUnit.SECONDS);
+               //executorService.scheduleAtFixedRate(LevelDisplayActions::addGameScreen, 0, 1, TimeUnit.SECONDS);
 
         }
 
@@ -60,11 +60,10 @@ public class LevelDisplayActions extends Component {
     }
     private static void addGameScreen(LevelDefinition levelDefinition) {
 
-                        game.setLevel(GdxGame.ScreenType.MAIN_GAME,  levelDefinition);
-                        previousLevel.updatePreviousLevel(  levelDefinition);
+        game.setLevel(GdxGame.ScreenType.MAIN_GAME,  levelDefinition);
+        previousLevel.updatePreviousLevel(  levelDefinition);
 
     }
-
 
 
     //

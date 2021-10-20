@@ -180,7 +180,7 @@ public class LevelGameArea extends GameArea {
     background.addComponent(new BackgroundRenderComponent(imagePath));
     spawnEntity(background);
   }
-  
+
 
   /**
    * Generate the terrain

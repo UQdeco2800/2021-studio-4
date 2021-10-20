@@ -5,6 +5,9 @@ import com.deco2800.game.components.Component;
 import com.deco2800.game.components.npc.TheVoidController;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.effects.StatusEffect;
+import com.deco2800.game.services.MusicService;
+import com.deco2800.game.services.MusicServiceDirectory;
+import com.deco2800.game.services.MusicSingleton;
 import com.deco2800.game.services.ServiceLocator;
 
 public class StatusEffectTargetComponent extends Component {
@@ -135,11 +138,15 @@ public class StatusEffectTargetComponent extends Component {
     int newSpeed = currentSpeed * -1;
 
     entity.getComponent(PlayerActions.class).alterSpeed(newSpeed);
-
+    /* Play the music when the player stucks in mud*/
+    MusicSingleton music = MusicSingleton.getInstance();
+    music.playMusicSingleton("sounds/OBSTACLE_Button.mp3", true, 0.7f);
     return new StatusEffectResetTask() {
       @Override
       public void run() {
         entity.getComponent(PlayerActions.class).alterSpeed(currentSpeed);
+        MusicSingleton music = MusicSingleton.getInstance();
+        music.pauseMusicSingleton("sounds/OBSTACLE_Button.mp3");
       }
     };
   }

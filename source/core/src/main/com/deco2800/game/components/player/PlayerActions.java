@@ -197,6 +197,9 @@ public class PlayerActions extends Component {
           if (this.entity.getPosition().y < 2) {
               oneTimeThing = false;
               //start playing sound here
+              MusicServiceDirectory directory = new MusicServiceDirectory();
+              MusicService jumpMusic = new MusicService(directory.enemy_death);
+              jumpMusic.playSong(false, 0.8f);
               System.out.println("dead");
           }
       }
