@@ -108,7 +108,7 @@ public class LoadingScreenDisplay extends UIComponent {
         Sprite sprite = new Sprite(new Texture("ui-elements/loading_screen_background.png"));
         table.setBackground(new SpriteDrawable(sprite));
 
-        loadingText = "Game is loading! Enjoy";
+        //loadingText = "Game is loading! Enjoy";
         Texture texture = new Texture("loading-screen/key-hints.png");
         Image playerControls = new Image(texture);
         table.add(label).bottom().width(100).height(100);;
