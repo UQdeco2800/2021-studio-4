@@ -9,6 +9,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class TitleAnimation extends Image {
 
+    /**
+     * Initialiser
+     * @param texture - the image texture
+     * @param currentWidth - the image width
+     * @param currentHeight - the image height
+     * @param centreWidth - centre of the image width
+     * @param centreHeight - centre of the image height
+     * @param duration - duration of the status effect
+     * @param rotationAmount - amount of rotation to do
+     */
     public TitleAnimation(Texture texture, float currentWidth, float currentHeight,
                           float centreWidth, float centreHeight, float duration, float rotationAmount) {
         super(texture);

@@ -51,7 +51,6 @@ public class TheVoidController extends Component {
 
     /**
      * Creates a number of listeners for events to be triggered in the TheVoidTasks class
-     *
      */
     @Override
     public void create() {
@@ -155,6 +154,8 @@ public class TheVoidController extends Component {
     /**
      * Reduces the void's speed to 0 for 3 seconds
      * Afterward, reverts the speed back to normal
+     *
+     * @return the speed
      */
     public static StatusEffectTargetComponent.StatusEffectResetTask pauseVoid() {
         SPEED = pausedSpeed;

@@ -41,25 +41,6 @@ public class NPCFactory {
   private static final NPCConfigs configs =
       FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
 
-//  private static final List<Entity> entitiesForRemoval = new ArrayList<>();
-//
-//
-//  /**
-//   * Adds the entities schedualed for removal to a list
-//   */
-//  public static void entitiesForRemovalAdd(Entity entity) {
-//    entitiesForRemoval.add(entity);
-//  }
-//
-//  /**
-//   * Adds the entities schedualed for removal to a list
-//   */
-//  public static void RemoveEntities() {
-//    for (Entity entity : entitiesForRemoval) {
-//      entity.dispose();
-//    }
-//  }
-
   /**
    * Creates the void entity
    *
@@ -97,7 +78,7 @@ public class NPCFactory {
 
   /**
    * Creates a statusEffect (PowerUp) entity.
-   *
+   * @param effect the status effect to be created
    * @return entity
    */
   public static Entity createStatusEffect(StatusEffect effect) {
@@ -131,18 +112,6 @@ public class NPCFactory {
 
     return statusEffect;
   }
-
-
-/* Method that is supposed to spawn an entity that would block the player's view of game.
-Shelved because this method cannot spawn entity mid-game.
- */
-/**
-  public static Entity createInterference(Entity target) {
-    Entity interference = new Entity()
-            .addComponent(new TextureRenderComponent("images/lizzy.png"));
-    return interference;
-  }
- */
 
   /**
    * Creates a ghost entity.
@@ -205,7 +174,7 @@ Shelved because this method cannot spawn entity mid-game.
 
   /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
-   *
+   * @param target the entity to use
    * @return entity
    */
   private static Entity createGroundNPC(Entity target) {
@@ -230,7 +199,7 @@ Shelved because this method cannot spawn entity mid-game.
 
   /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
-   *
+   * @param target the entity to use
    * @return entity
    */
   private static Entity createBaseNPC(Entity target) {

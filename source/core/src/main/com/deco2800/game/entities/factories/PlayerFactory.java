@@ -39,6 +39,9 @@ public class PlayerFactory {
 
   /**
    * Create a player entity.
+   *
+   * @param mapInteractables - interactables
+   * @param levelGameArea - game area
    * @return entity
    */
   public static Entity createPlayer(Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables, LevelGameArea levelGameArea) {
@@ -97,10 +100,11 @@ public class PlayerFactory {
     player.getComponent(ColliderComponent.class).setDensity(0.4f);
     player.setScale(1.5f,1f);
     return player;
-
-
   }
 
+  /**
+   * Initialiser
+   */
   private PlayerFactory() {
     throw new IllegalStateException("Instantiating static util class");
   }
