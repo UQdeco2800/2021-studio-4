@@ -3,6 +3,7 @@ package com.deco2800.game.areas.terrain;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.deco2800.game.services.ServiceLocator;
 
 /**
  * Class containing details for generating tiles, including what actions they can perform (ex, whether they can be

@@ -3,6 +3,11 @@ package com.deco2800.game.screens;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
+import javax.swing.Timer;
+
+import com.deco2800.game.areas.LevelGameArea;
+import com.deco2800.game.components.endgame.DeathScreenActions;
+import com.deco2800.game.components.endgame.DeathScreenDisplay;
 import com.deco2800.game.components.levelselect.LevelDisplay;
 import com.deco2800.game.components.levelselect.LevelDisplayActions;
 import com.deco2800.game.components.loading.LoadingScreenDisplay;
@@ -16,9 +21,11 @@ import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 /**

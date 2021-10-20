@@ -10,6 +10,7 @@ import com.deco2800.game.components.endgame.LevelEndComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleDefinition;
 import com.deco2800.game.entities.ObstacleEntity;
+import com.deco2800.game.levels.LevelTexture;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.*;

@@ -1,7 +1,5 @@
 package com.deco2800.game;
 
-import static com.badlogic.gdx.Gdx.app;
-import static com.deco2800.game.screens.MainGameScreen.timeScore;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -11,6 +9,9 @@ import com.deco2800.game.levels.LevelInfo;
 import com.deco2800.game.screens.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static com.badlogic.gdx.Gdx.app;
+import static com.deco2800.game.screens.MainGameScreen.timeScore;
 
 /**
  * Entry point of the non-platform-specific game logic. Controls which screen is currently running.
@@ -55,8 +56,6 @@ public class GdxGame extends Game {
         break;
       case LEVEL_EDITOR:
         setScreen(new LevelEditorScreen(this, levelInfo));
-        break;
-      default:
         break;
     }
   }

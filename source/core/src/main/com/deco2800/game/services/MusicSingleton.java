@@ -10,6 +10,7 @@ import com.badlogic.gdx.audio.Music;
 public class MusicSingleton {
 
     private static MusicSingleton music = null;
+    private boolean is_playing = false;
 
     /** Constructor class of the musicSingleton */
     private MusicSingleton()

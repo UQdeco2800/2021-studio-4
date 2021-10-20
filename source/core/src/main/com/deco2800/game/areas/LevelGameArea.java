@@ -40,6 +40,7 @@ public class LevelGameArea extends GameArea {
   public static ArrayList<String> buffers = new ArrayList<>();
   public static ArrayList<String> deBuffers = new ArrayList<>();
   private LevelFile levelFile;
+  private Random random = new Random();
 
   public Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables = new HashMap<>();
   public List<ObstacleEntity> interactableEntities = new ArrayList<>();
@@ -145,6 +146,14 @@ public class LevelGameArea extends GameArea {
     displayUI();
     player = spawnPlayer();
     spawnTheVoid();
+
+//    int statusPosX = STATUSEFFECT_SPAWN.x;
+//    int statusPosY = STATUSEFFECT_SPAWN.y;
+//    spawnStatusEffect(StatusEffect.FAST, statusPosX, statusPosY);
+//    spawnStatusEffect(StatusEffect.JUMP, statusPosX+10, statusPosY);
+//    spawnStatusEffect(StatusEffect.TIME_STOP, statusPosX+20, statusPosY);
+//    spawnStatusEffect(StatusEffect.SLOW, statusPosX+30, statusPosY);
+//    spawnStatusEffect(StatusEffect.STUCK, statusPosX+40, statusPosY);
 
     playTheMusic(levelInfo.getMusicPath());
   }

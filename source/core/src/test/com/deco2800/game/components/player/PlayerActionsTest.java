@@ -13,6 +13,7 @@ import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
+import com.deco2800.game.components.player.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -106,7 +107,7 @@ public class PlayerActionsTest {
        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
        playerActions.setCanPlayerMove(true);
        playerActions.setIsJumping();
-       assertEquals("JUMPING" , playerActions.getCurrentMovement());
+       assertEquals("Jump" , playerActions.getCurrentMovement());
    }
 
     //test that the setIsSliding() function sets the player's animation to Sliding
@@ -118,7 +119,7 @@ public class PlayerActionsTest {
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
         playerActions.setCanPlayerMove(true);
         playerActions.setIsSliding();
-        assertEquals("SLIDING" , playerActions.getCurrentMovement());
+        assertEquals("Sliding" , playerActions.getCurrentMovement());
     }
 
 
@@ -131,7 +132,7 @@ public class PlayerActionsTest {
        PlayerActions playerActions = entity.getComponent(PlayerActions.class);
        playerActions.setCanPlayerMove(true);
        playerActions.setIsFalling();
-       assertEquals("FALLING" , playerActions.getCurrentMovement());
+       assertEquals("Falling" , playerActions.getCurrentMovement());
    }
 
     //test that the isFalling() function sets canJump to false
@@ -176,7 +177,7 @@ public class PlayerActionsTest {
         playerActions.setCanJump(false);
         playerActions.setIsTesting(true);
         playerActions.jump();
-        assertNotEquals("JUMPING" , playerActions.getCurrentMovement());
+        assertNotEquals("Jump" , playerActions.getCurrentMovement());
     }
 
 
@@ -191,7 +192,7 @@ public class PlayerActionsTest {
         playerActions.setCanPlayerMove(true);
         playerActions.setCanJump(true);
         playerActions.slide();
-        assertEquals("SLIDING" , playerActions.getCurrentMovement());
+        assertEquals("Sliding" , playerActions.getCurrentMovement());
     }
 
     //test that the slide() function does not change the player's movement to
@@ -205,7 +206,7 @@ public class PlayerActionsTest {
         playerActions.setCanPlayerMove(true);
         playerActions.setCanJump(false);
         playerActions.slide();
-        assertNotEquals("SLIDING" , playerActions.getCurrentMovement());
+        assertNotEquals("Sliding" , playerActions.getCurrentMovement());
     }
 
 
@@ -221,7 +222,7 @@ public class PlayerActionsTest {
         playerActions.setCanJump(true);
         //Any direction will do
         playerActions.walk(Vector2Utils.RIGHT);
-        assertEquals("WALKING" , playerActions.getCurrentMovement());
+        assertEquals("Walk" , playerActions.getCurrentMovement());
     }
 
 
@@ -236,7 +237,7 @@ public class PlayerActionsTest {
         playerActions.setCanPlayerMove(true);
         playerActions.setCanJump(false);
         playerActions.walk(Vector2Utils.RIGHT);
-        assertNotEquals("RUNNING" , playerActions.getCurrentMovement());
+        assertNotEquals("Running" , playerActions.getCurrentMovement());
     }
 
     //test that the walk() function sets the player's direction to Right If
@@ -249,7 +250,7 @@ public class PlayerActionsTest {
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
         playerActions.setCanPlayerMove(true);
         playerActions.walk(Vector2Utils.RIGHT);
-        assertEquals("RIGHT" , playerActions.getCurrentDirection());
+        assertEquals("Right" , playerActions.getCurrentDirection());
     }
 
     //test that the walk() function sets the player's direction to Left if
@@ -262,7 +263,7 @@ public class PlayerActionsTest {
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
         playerActions.setCanPlayerMove(true);
         playerActions.walk(Vector2Utils.LEFT);
-        assertEquals("LEFT" , playerActions.getCurrentDirection());
+        assertEquals("Left" , playerActions.getCurrentDirection());
     }
 
 
@@ -282,7 +283,7 @@ public class PlayerActionsTest {
         //they can not jump
         playerActions.setCanJump(false);
         playerActions.checkIfFallingIsDone();
-        assertEquals("FALLING" , playerActions.getCurrentMovement());
+        assertEquals("Falling" , playerActions.getCurrentMovement());
     }
 
 
@@ -302,7 +303,7 @@ public class PlayerActionsTest {
         playerActions.setCanJump(true);
         //keys pressed defaults to zero
         playerActions.checkIfFallingIsDone();
-        assertEquals("IDLE" , playerActions.getCurrentMovement());
+        assertEquals("Idle" , playerActions.getCurrentMovement());
     }
 
 
@@ -324,7 +325,7 @@ public class PlayerActionsTest {
         //sets the players current movement speed to zero
         playerActions.stopWalking();
         playerActions.checkIfFallingIsDone();
-        assertEquals("IDLE" , playerActions.getCurrentMovement());
+        assertEquals("Idle" , playerActions.getCurrentMovement());
     }
 
 
@@ -348,7 +349,7 @@ public class PlayerActionsTest {
         //keys a being pressed
         playerActions.keyWasPressed();
         playerActions.checkIfFallingIsDone();
-        assertEquals("WALKING" , playerActions.getCurrentMovement());
+        assertEquals("Walk" , playerActions.getCurrentMovement());
     }
 
     //Test that the checkIfSlidingFunction() function does not change the player's animation
@@ -365,7 +366,7 @@ public class PlayerActionsTest {
         //they can not jump
         playerActions.setCanJump(false);
         playerActions.checkIfSlidingIsDone();
-        assertEquals("SLIDING" , playerActions.getCurrentMovement());
+        assertEquals("Sliding" , playerActions.getCurrentMovement());
     }
 
     //Test that the checkIfSlidingFunction() function sets the player's animation
@@ -385,7 +386,7 @@ public class PlayerActionsTest {
         //they are not moving
         entity.getComponent(PhysicsComponent.class).getBody().applyForceToCenter(Vector2Utils.RIGHT.scl(0f,0f), true);
         playerActions.checkIfSlidingIsDone();
-        assertEquals("IDLE" , playerActions.getCurrentMovement());
+        assertEquals("Idle" , playerActions.getCurrentMovement());
     }
 
     //Test that the checkIfSlidingFunction() function sets the player's animation
@@ -407,7 +408,7 @@ public class PlayerActionsTest {
         //they are moving slower than 7m/s
         entity.getComponent(PhysicsComponent.class).getBody().setLinearVelocity(6f, 0f);
         playerActions.checkIfSlidingIsDone();
-        assertEquals("WALKING" , playerActions.getCurrentMovement());
+        assertEquals("Walk" , playerActions.getCurrentMovement());
     }
 
     //Test that the checkIfSlidingFunction() function does not change the player's animation
@@ -427,7 +428,7 @@ public class PlayerActionsTest {
         //they are moving faster than 7m/s
         entity.getComponent(PhysicsComponent.class).getBody().setLinearVelocity(8f, 0f);
         playerActions.checkIfSlidingIsDone();
-        assertEquals("SLIDING" , playerActions.getCurrentMovement());
+        assertEquals("Sliding" , playerActions.getCurrentMovement());
     }
 
     /* Test that player can fall out of bounds */
@@ -514,7 +515,7 @@ public class PlayerActionsTest {
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
         playerActions.setCanPlayerMove(false);
         playerActions.jump();
-        assertEquals("IDLERIGHT", playerActions.getAnimation());
+        assertEquals("IdleRight", playerActions.getAnimation());
     }
 
     @Test
