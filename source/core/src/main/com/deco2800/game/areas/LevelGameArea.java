@@ -40,13 +40,13 @@ public class LevelGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(LevelGameArea.class);
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 15);
   private static final GridPoint2 STATUSEFFECT_SPAWN = new GridPoint2(15, 15);
-  public List<ObstacleEntity> obstacleEntities = new ArrayList<>();
-  public static ArrayList<String> buffers = new ArrayList<>();
-  public static ArrayList<String> deBuffers = new ArrayList<>();
+  private static final List<ObstacleEntity> obstacleEntities = new ArrayList<>();
+  protected static final List<String> buffers = new ArrayList<>();
+  protected static final List<String> deBuffers = new ArrayList<>();
   private LevelFile levelFile;
 
-  public Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables = new HashMap<>();
-  public List<ObstacleEntity> interactableEntities = new ArrayList<>();
+  public static final Map<ObstacleEntity, List<ObstacleEntity>> mapInteractableObjects = new HashMap<>();
+  public static final List<ObstacleEntity> interactableEntities = new ArrayList<>();
 
   private static final String[] gameTextures = {
     "backgrounds/game_background.png",
@@ -131,6 +131,8 @@ public class LevelGameArea extends GameArea {
       case "levels/level4.json":
         displayBackground("backgrounds/background_level4.png");
         break;
+      default:
+        break;
     }
     spawnTerrain();
     spawnLevelFromFile();
@@ -169,7 +171,8 @@ public class LevelGameArea extends GameArea {
         break;
       case "levels/level4.json":
         playTheMusic("level_1_2"); //replace with level 4 music when it's created
-
+        break;
+      default:
         break;
     }
 
@@ -336,7 +339,7 @@ public class LevelGameArea extends GameArea {
     assert file != null;
 
     // Create a new LevelFile object
-    LevelFile levelFile = new LevelFile();
+    LevelFile newLevelFile = new LevelFile();
 
     // save the TiledMapTileLayer
     TiledMapTileLayer layer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
@@ -358,18 +361,18 @@ public class LevelGameArea extends GameArea {
       }
     }
 
-    levelFile.terrain = new LevelFile.Terrain();
-    levelFile.terrain.mapLayer = layerData;
+    newLevelFile.terrain = new LevelFile.Terrain();
+    newLevelFile.terrain.mapLayer = layerData;
 
     // Save the obstacles
-    levelFile.obstacles = new LevelFile.Obstacles();
-    levelFile.obstacles.obstacleEntities = this.obstacleEntities;
+    newLevelFile.obstacles = new LevelFile.Obstacles();
+    newLevelFile.obstacles.obstacleEntities = obstacleEntities;
 
     // Save current texture from old level file
-    levelFile.levelTexture = this.levelFile.levelTexture;
+    newLevelFile.levelTexture = this.levelFile.levelTexture;
 
     // save the file
-    file.writeString(json.prettyPrint(levelFile), false);
+    file.writeString(json.prettyPrint(newLevelFile), false);
   }
 
   private void loadLevelFile() {
@@ -404,7 +407,7 @@ public class LevelGameArea extends GameArea {
           }
         }
 
-        mapInteractables.put(obstacleEntity, subInteractables);
+        mapInteractableObjects.put(obstacleEntity, subInteractables);
         }
 
     }
@@ -453,7 +456,7 @@ public class LevelGameArea extends GameArea {
   }
 
   private Entity spawnPlayer() {
-    Entity newPlayer = PlayerFactory.createPlayer(mapInteractables, this);
+    Entity newPlayer = PlayerFactory.createPlayer(mapInteractableObjects, this);
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     return newPlayer;
   }
@@ -493,61 +496,61 @@ public class LevelGameArea extends GameArea {
   private void playTheMusic(String musicPath) {
     logger.debug("Playing game area music");
     MusicServiceDirectory dict = new  MusicServiceDirectory();
-    MusicService gameMusic;
+    MusicService musicInGame;
     switch (musicPath) {
       case "click":
-        gameMusic = new MusicService(dict.click);
+        musicInGame = new MusicService(dict.click);
         logger.debug("Play jump song");
         break;
       case "end_credits":
-        gameMusic = new MusicService(dict.end_credits);
+        musicInGame = new MusicService(dict.end_credits);
         break;
       case "enemy_collision":
-        gameMusic = new MusicService(dict.enemy_collision);
+        musicInGame = new MusicService(dict.enemy_collision);
         break;
       case "enemy_death":
-        gameMusic = new MusicService(dict.enemy_death);
+        musicInGame = new MusicService(dict.enemy_death);
         break;
       case "obstacle_boost":
-        gameMusic = new MusicService(dict.obstacle_boost);
+        musicInGame = new MusicService(dict.obstacle_boost);
         break;
       case "obstacle_button":
-        gameMusic = new MusicService(dict.obstacle_button);
+        musicInGame = new MusicService(dict.obstacle_button);
         break;
       case "player_power_up":
-        gameMusic = new MusicService(dict.player_power_up);
+        musicInGame = new MusicService(dict.player_power_up);
         break;
       case "player_collision":
-        gameMusic = new MusicService(dict.player_collision);
+        musicInGame = new MusicService(dict.player_collision);
         break;
       case "void_death":
-        gameMusic = new MusicService(dict.void_death);
+        musicInGame = new MusicService(dict.void_death);
         break;
       case "void_noise":
-        gameMusic = new MusicService(dict.void_noise);
+        musicInGame = new MusicService(dict.void_noise);
         break;
       case "ending_menu":
-        gameMusic = new MusicService(dict.ending_menu);
+        musicInGame = new MusicService(dict.ending_menu);
         break;
       case "level_1_2":
-        gameMusic = new MusicService(dict.game_level_1_option2);
+        musicInGame = new MusicService(dict.game_level_1_option2);
         break;
       case "level_2":
-        gameMusic = new MusicService(dict.game_level_2);
+        musicInGame = new MusicService(dict.game_level_2);
         break;
       case "main_menu_new":
-        gameMusic = new MusicService(dict.main_menu);
+        musicInGame = new MusicService(dict.main_menu);
         break;
       case "death_noise_2":
-        gameMusic = new MusicService(dict.death_noise_2);
+        musicInGame = new MusicService(dict.death_noise_2);
         break;
       case "level_3":
-        gameMusic = new MusicService(dict.game_level_3);
+        musicInGame = new MusicService(dict.game_level_3);
         break;
       default:
-        gameMusic = new MusicService(dict.game_level_1);//To make sure gameMusic is never null
+        musicInGame = new MusicService(dict.game_level_1);//To make sure musicInGame is never null
     }
-    gameMusic.playSong(true, 0.2f);
+    musicInGame.playSong(true, 0.2f);
 
   }
 
@@ -578,15 +581,12 @@ public class LevelGameArea extends GameArea {
   @Override
   public void dispose() {
     super.dispose();
-    //ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
     this.unloadAssets();
   }
 
   public String getLevelDefinition() {
     return this.levelDefinition.name();
   }
-
-
 }
 
 
