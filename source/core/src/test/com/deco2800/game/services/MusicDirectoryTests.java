@@ -1,5 +1,8 @@
 package com.deco2800.game.services;
-
+import com.deco2800.game.areas.LevelGameArea;
+import com.deco2800.game.areas.terrain.TerrainFactory;
+import com.deco2800.game.components.CameraComponent;
+import com.deco2800.game.levels.LevelDefinition;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 /**
