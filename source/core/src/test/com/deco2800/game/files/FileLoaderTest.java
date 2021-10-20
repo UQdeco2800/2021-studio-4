@@ -3,11 +3,15 @@ package com.deco2800.game.files;
 import com.deco2800.game.extensions.GameExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(GameExtension.class)
 class FileLoaderTest {
+    private static final Logger logger = LoggerFactory.getLogger(FileLoaderTest.class);
+
     @Test
     void loadFromValidFile() {
         TestStats test = FileLoader.readClass(TestStats.class, "test/files/valid.json");

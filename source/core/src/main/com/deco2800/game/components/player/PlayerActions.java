@@ -22,18 +22,18 @@ import com.deco2800.game.utils.math.Vector2Utils;
 public class PlayerActions extends Component {
 //enum consisting of the possible movement of the player
   private enum Movement {
-    RUNNING,
-    IDLE,
-    FALLING,
-    SLIDING,
-    JUMPING,
-    WALKING,
-    SLOWED
+    Running,
+    Idle,
+    Falling,
+    Sliding,
+    Jump,
+    Walk,
+    Slow
   }
   //direction the player is moving
   private enum MovingDirection {
-    LEFT,
-    RIGHT
+    Left,
+    Right
   }
 
 
@@ -90,8 +90,8 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("playerIsDead", this::playerIsDead);
 
 
-    movingDirection = MovingDirection.RIGHT;
-    currentMovement = Movement.IDLE;
+    movingDirection = MovingDirection.Right;
+    currentMovement = Movement.Idle;
     keysPressed = 0;
 
     this.body = physicsComponent.getBody();
@@ -311,11 +311,11 @@ public class PlayerActions extends Component {
     StatusEffect statusEffect = entity.getComponent(StatusEffectTargetComponent.class).getCurrentStatusEffect();
 
     if(statusEffect == StatusEffect.STUCK) {
-      value = Movement.IDLE;
-    } else if(statusEffect == StatusEffect.FAST && value == Movement.WALKING){
-        value = Movement.RUNNING;
-    } else if (statusEffect == StatusEffect.SLOW && value == Movement.WALKING) {
-        value = Movement.SLOWED;
+      value = Movement.Idle;
+    } else if(statusEffect == StatusEffect.FAST && value == Movement.Walk){
+        value = Movement.Running;
+    } else if (statusEffect == StatusEffect.SLOW && value == Movement.Walk) {
+        value = Movement.Slow;
     }
 
 
@@ -363,16 +363,16 @@ public class PlayerActions extends Component {
   void setIsFalling(){
       if (canPlayerMove) {
           playerState = PlayerState.AIR;
-          setMovementAnimation(Movement.FALLING);
+          setMovementAnimation(Movement.Falling);
       }
   }
 
   void setIsJumping(){
-    setMovementAnimation(Movement.JUMPING);
+    setMovementAnimation(Movement.Jump);
   }
 
   void setIsSliding() {
-    setMovementAnimation(Movement.SLIDING);
+    setMovementAnimation(Movement.Sliding);
   }
 
   /**
@@ -380,22 +380,22 @@ public class PlayerActions extends Component {
    * be and sets the player to the correct animation
    */
   void checkIfFallingIsDone(){
-    if((currentMovement == Movement.FALLING || currentMovement == Movement.JUMPING) && canJump && canPlayerMove){
+    if((currentMovement == Movement.Falling || currentMovement == Movement.Jump) && canJump && canPlayerMove){
         if(body.getLinearVelocity().x == 0 || keysPressed == 0){
-          setMovementAnimation(Movement.IDLE);
+          setMovementAnimation(Movement.Idle);
         } else {
-          setMovementAnimation(Movement.WALKING);
+          setMovementAnimation(Movement.Walk);
         }
     }
   }
 
   void checkIfSlidingIsDone() {
-    if (currentMovement == Movement.SLIDING && canJump) {
+    if (currentMovement == Movement.Sliding && canJump) {
         if (body.getLinearVelocity().x == 0) {
-          setMovementAnimation(Movement.IDLE);
+          setMovementAnimation(Movement.Idle);
         } else if (keysPressed > 0 && (body.getLinearVelocity().x < 7 && body.getLinearVelocity().x > 0 ||
                 body.getLinearVelocity().x > -7 && body.getLinearVelocity().x < 7)) {
-          setMovementAnimation(Movement.WALKING);
+          setMovementAnimation(Movement.Walk);
         }
       }
   }
@@ -451,13 +451,13 @@ public class PlayerActions extends Component {
   void walk(Vector2 direction) {
       if (canPlayerMove) {
           if (direction.x == 1.0) {
-              setMovingDirection(MovingDirection.RIGHT);
+              setMovingDirection(MovingDirection.Right);
           } else {
-              setMovingDirection(MovingDirection.LEFT);
+              setMovingDirection(MovingDirection.Left);
           }
 
           if (canJump) {
-              setMovementAnimation(Movement.WALKING);
+              setMovementAnimation(Movement.Walk);
           }
 
           this.walkDirection = direction;
@@ -471,8 +471,8 @@ public class PlayerActions extends Component {
   void stopWalking() {
       if (canPlayerMove) {
           this.walkDirection = Vector2.Zero.cpy();
-          if (currentMovement != Movement.FALLING) {
-              setMovementAnimation(Movement.IDLE);
+          if (currentMovement != Movement.Falling) {
+              setMovementAnimation(Movement.Idle);
           }
 
       }
@@ -484,7 +484,6 @@ public class PlayerActions extends Component {
   void attack() {
     Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
     attackSound.play();
-    return;
   }
 
   /**
