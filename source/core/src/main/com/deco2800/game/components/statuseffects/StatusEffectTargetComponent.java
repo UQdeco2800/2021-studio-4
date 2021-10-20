@@ -34,9 +34,25 @@ public class StatusEffectTargetComponent extends Component {
 
   /**
    * Applies the given status effect to the target. Note: only one status effect will be present at one time.
+   * @param statusEffect The effect to apply
+
+  if (currentStatusEffect != null && ServiceLocator.getTimeSource().getTimeSince(currentStatusEffectStartTime) >= currentStatusEffect.getDuration()*1000) {
+  currentStatusEffect = null;
+  currentStatusEffectStartTime = null;
+  currentStatusEffectResetTask.run();
+  currentStatusEffectResetTask = null;
+  }
+  }
+
+  public StatusEffect getCurrentStatusEffect() {
+  return currentStatusEffect;
+  }
+
+  /**
+   * Applies the given status effect to the target. Note: only one status effect will be present at one time.
    * @param statusEffect The effect
    */
-  public void applyStatusEffect(StatusEffect statusEffect) {
+  private void applyStatusEffect(StatusEffect statusEffect) {
     if (currentStatusEffect != null) {
       currentStatusEffect = null;
       currentStatusEffectStartTime = null;
@@ -70,7 +86,7 @@ public class StatusEffectTargetComponent extends Component {
    * Applies either the StatusEffect.FAST or StatusEffect.SLOW status effects
    * @param speedEffect The effect to apply
    */
-  public StatusEffectResetTask speedEffect(StatusEffect speedEffect) {
+  private StatusEffectResetTask speedEffect(StatusEffect speedEffect) {
     int speedBoost = speedEffect.getMagnitude(); // Must be smaller than 10
 
     int statOriginal = (int) entity.getComponent(PlayerActions.class).getSpeed();
@@ -96,7 +112,7 @@ public class StatusEffectTargetComponent extends Component {
   /**
    * changes the jump height of the player
    */
-  public StatusEffectResetTask jumpBoost() {
+  private StatusEffectResetTask jumpBoost() {
     int jumpBoost = StatusEffect.JUMP.getMagnitude();
 
     int changedJumpHeight = entity.getComponent(PlayerActions.class).alterJumpHeight(jumpBoost);
@@ -113,7 +129,7 @@ public class StatusEffectTargetComponent extends Component {
   /**
    * Traps the player in place (immobilises the player)
    */
-  public StatusEffectResetTask stuckInMud() {
+  private StatusEffectResetTask stuckInMud() {
     int currentSpeed = (int) entity.getComponent(PlayerActions.class).getSpeed();
     int newSpeed = currentSpeed * -1;
 

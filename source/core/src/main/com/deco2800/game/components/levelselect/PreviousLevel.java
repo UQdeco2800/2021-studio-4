@@ -1,9 +1,9 @@
 package com.deco2800.game.components.levelselect;
 
-import com.deco2800.game.levels.LevelInfo;
+import com.deco2800.game.levels.LevelDefinition;
 
 public class PreviousLevel {
-    private static LevelInfo previousLevel; // Represents the most recent level the player has played.
+    private static LevelDefinition previousLevel; // Represents the most recent level the player has played.
 
     public PreviousLevel() {
 
@@ -12,7 +12,7 @@ public class PreviousLevel {
     /**
      * Update the most recent level played.
      */
-    public void updatePreviousLevel(LevelInfo levelPlayed) {
+    public void updatePreviousLevel(LevelDefinition levelPlayed) {
         previousLevel = levelPlayed;
     }
 
@@ -20,7 +20,7 @@ public class PreviousLevel {
      * Gets the previous level.
      * @return previous level.
      */
-    public LevelInfo getPreviousLevel() {
+    public LevelDefinition getPreviousLevel() {
         return previousLevel;
     }
 }
