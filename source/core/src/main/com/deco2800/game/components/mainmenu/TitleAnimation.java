@@ -31,7 +31,7 @@ public class TitleAnimation extends Image {
         rotateImage.setRotation(360f * rotationAmount);
         rotateImage.setDuration(duration);
 
-        ParallelAction pa = new ParallelAction(scaleImage, rotateImage);
-        TitleAnimation.this.addAction(pa);
+        ParallelAction imageActions = new ParallelAction(scaleImage, rotateImage);
+        TitleAnimation.this.addAction(imageActions);
     }
 }
