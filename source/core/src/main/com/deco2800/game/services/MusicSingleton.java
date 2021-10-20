@@ -36,6 +36,7 @@ public class MusicSingleton {
     /**
      * Play this music in the loop.
      * Required: a string that contains the location of the music file.
+     * @param filename the name of the file
      */
     public void playMusicSingleton(String filename) {
         MuteManager mute = MuteManager.getInstance();
@@ -52,6 +53,7 @@ public class MusicSingleton {
     /**
      * Stop this music.
      * Required: a string that contains the location of the music file.
+     * @param filename the name of the file
      */
     public void pauseMusicSingleton(String filename) {
         Music music = ServiceLocator.getResourceService().getAsset(filename, Music.class);
