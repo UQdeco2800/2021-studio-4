@@ -30,6 +30,10 @@ import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 import static com.deco2800.game.components.player.PlayerStatsDisplay.gameOver;
 
 /**

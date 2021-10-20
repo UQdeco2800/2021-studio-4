@@ -1,11 +1,14 @@
 package com.deco2800.game.components.endgame;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.deco2800.game.components.InsertImageButton;
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.MusicServiceDirectory;
@@ -17,6 +20,7 @@ public class DeathScreenDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(DeathScreenDisplay.class);
     private static final float Z_INDEX = 2f;
     private Table table;
+    private Sprite sprite;
 
     @Override
     public void create() {

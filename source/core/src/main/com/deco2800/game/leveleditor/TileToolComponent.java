@@ -1,12 +1,15 @@
 package com.deco2800.game.leveleditor;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.areas.terrain.TerrainTileDefinition;
+import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.rendering.SpriteRenderComponent;
 import com.deco2800.game.screens.LevelEditorScreen;
 import com.deco2800.game.services.ServiceLocator;

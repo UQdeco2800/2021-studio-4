@@ -1,14 +1,19 @@
 package com.deco2800.game.leveleditor;
 
-import java.util.List;
-
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.ObstacleFactory;
+import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.screens.LevelEditorScreen;
 import com.deco2800.game.services.ServiceLocator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Component for editing the obstacles within the map, such as platforms etc
@@ -76,6 +81,8 @@ public class ObstacleToolComponent extends BaseToolComponent {
   private void spawnObstacle() {
     Vector2 cellPos = getMousePos();
     int x = (int)(cellPos.x * 2), y = (int)(cellPos.y * 2);
+
+    GridPoint2 pos = new GridPoint2((int)(cellPos.x * 2), (int)(cellPos.y * 2));
 
     switch (selectedObstacle){
       case PLATFORM:
