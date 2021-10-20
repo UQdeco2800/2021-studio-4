@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -190,17 +190,45 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
 <tbody>
 <tr class="altColor" id="i0">
 <td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#applyStatusEffect(com.deco2800.game.effects.StatusEffect)">applyStatusEffect</a></span>&#8203;(<a href="../../effects/StatusEffect.html" title="enum in com.deco2800.game.effects">StatusEffect</a>&nbsp;statusEffect)</code></th>
+<td class="colLast">
+<div class="block">Applies the given status effect to the target.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i1">
+<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#create()">create</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Called when the entity is created and registered.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i1">
+<tr class="altColor" id="i2">
 <td class="colFirst"><code><a href="../../effects/StatusEffect.html" title="enum in com.deco2800.game.effects">StatusEffect</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCurrentStatusEffect()">getCurrentStatusEffect</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor" id="i2">
+<tr class="rowColor" id="i3">
+<td class="colFirst"><code><a href="StatusEffectTargetComponent.StatusEffectResetTask.html" title="class in com.deco2800.game.components.statuseffects">StatusEffectTargetComponent.StatusEffectResetTask</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#jumpBoost()">jumpBoost</a></span>()</code></th>
+<td class="colLast">
+<div class="block">changes the jump height of the player</div>
+</td>
+</tr>
+<tr class="altColor" id="i4">
+<td class="colFirst"><code><a href="StatusEffectTargetComponent.StatusEffectResetTask.html" title="class in com.deco2800.game.components.statuseffects">StatusEffectTargetComponent.StatusEffectResetTask</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#speedEffect(com.deco2800.game.effects.StatusEffect)">speedEffect</a></span>&#8203;(<a href="../../effects/StatusEffect.html" title="enum in com.deco2800.game.effects">StatusEffect</a>&nbsp;speedEffect)</code></th>
+<td class="colLast">
+<div class="block">Applies either the StatusEffect.FAST or StatusEffect.SLOW status effects</div>
+</td>
+</tr>
+<tr class="rowColor" id="i5">
+<td class="colFirst"><code><a href="StatusEffectTargetComponent.StatusEffectResetTask.html" title="class in com.deco2800.game.components.statuseffects">StatusEffectTargetComponent.StatusEffectResetTask</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stuckInMud()">stuckInMud</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Traps the player in place (immobilises the player)</div>
+</td>
+</tr>
+<tr class="altColor" id="i6">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update()">update</a></span>()</code></th>
 <td class="colLast">
@@ -280,6 +308,42 @@ extends <a href="../Component.html" title="class in com.deco2800.game.components
 <section class="detail">
 <h3><a id="getCurrentStatusEffect()">getCurrentStatusEffect</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../../effects/StatusEffect.html" title="enum in com.deco2800.game.effects">StatusEffect</a></span>&nbsp;<span class="memberName">getCurrentStatusEffect</span>()</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="applyStatusEffect(com.deco2800.game.effects.StatusEffect)">applyStatusEffect</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">applyStatusEffect</span>&#8203;(<span class="arguments"><a href="../../effects/StatusEffect.html" title="enum in com.deco2800.game.effects">StatusEffect</a>&nbsp;statusEffect)</span></div>
+<div class="block">Applies the given status effect to the target. Note: only one status effect will be present at one time.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>statusEffect</code> - The effect</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="speedEffect(com.deco2800.game.effects.StatusEffect)">speedEffect</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="StatusEffectTargetComponent.StatusEffectResetTask.html" title="class in com.deco2800.game.components.statuseffects">StatusEffectTargetComponent.StatusEffectResetTask</a></span>&nbsp;<span class="memberName">speedEffect</span>&#8203;(<span class="arguments"><a href="../../effects/StatusEffect.html" title="enum in com.deco2800.game.effects">StatusEffect</a>&nbsp;speedEffect)</span></div>
+<div class="block">Applies either the StatusEffect.FAST or StatusEffect.SLOW status effects</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>speedEffect</code> - The effect to apply</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="jumpBoost()">jumpBoost</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="StatusEffectTargetComponent.StatusEffectResetTask.html" title="class in com.deco2800.game.components.statuseffects">StatusEffectTargetComponent.StatusEffectResetTask</a></span>&nbsp;<span class="memberName">jumpBoost</span>()</div>
+<div class="block">changes the jump height of the player</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="stuckInMud()">stuckInMud</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="StatusEffectTargetComponent.StatusEffectResetTask.html" title="class in com.deco2800.game.components.statuseffects">StatusEffectTargetComponent.StatusEffectResetTask</a></span>&nbsp;<span class="memberName">stuckInMud</span>()</div>
+<div class="block">Traps the player in place (immobilises the player)</div>
 </section>
 </li>
 </ul>
