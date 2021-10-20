@@ -56,7 +56,7 @@ public class MainMenuDisplay extends UIComponent {
 
     public void playTheMusic() {
         MusicSingleton music = MusicSingleton.getInstance();
-        music.playMusicSingleton("sounds/MainMenuMusic.mp3");
+        music.playMusicSingleton("sounds/MainMenuMusic.mp3", true, 0.2f);
     }
 
     /**
