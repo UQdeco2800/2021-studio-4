@@ -3,6 +3,7 @@ package com.deco2800.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.deco2800.game.components.loading.LoadingScreenDisplay;
 import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.levels.LevelDefinition;
 import com.deco2800.game.screens.*;
@@ -56,6 +57,10 @@ public class GdxGame extends Game {
       case LEVEL_EDITOR:
         setScreen(new LevelEditorScreen(this, levelDefinition));
         break;
+      case LOADING:
+        setScreen(new LoadingScreen(this));
+        break;
+
     }
   }
 
@@ -105,6 +110,8 @@ public class GdxGame extends Game {
         return new ScoreScreen(this, levelDefinition, getCompletionTime());
       case PAUSE:
         return new PauseScreen(this);
+      case LOADING:
+        return new LoadingScreen(this);
       default:
         return null;
     }
@@ -115,7 +122,7 @@ public class GdxGame extends Game {
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, SETTINGS, LOAD_LEVELS, PAUSE, DEATH_SCREEN, SCORE_SCREEN, LEVEL_EDITOR
+    MAIN_MENU, MAIN_GAME, SETTINGS, LOAD_LEVELS, PAUSE, DEATH_SCREEN, SCORE_SCREEN, LEVEL_EDITOR, LOADING
   }
 
   /**

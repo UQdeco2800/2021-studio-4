@@ -64,6 +64,8 @@ public class MainGameScreen extends ScreenAdapter {
   public static boolean levelComplete = false;
   public GameTime gameTime;
 
+
+
   public MainGameScreen(GdxGame game, LevelDefinition levelDefinition) {
     this.game = game;
 //    this.levelDefinition = levelDefinition;
@@ -92,7 +94,7 @@ public class MainGameScreen extends ScreenAdapter {
     /* modified with changes https://www.tabnine.com/code/java/methods/java.util.Timer/schedule */
 
 
-    createUI(false);
+    createUI();
 
 
     logger.debug("Initialising main game screen entities");
@@ -123,6 +125,7 @@ public class MainGameScreen extends ScreenAdapter {
     timeScore = gameTime.getTime(); // Doesn't change the time????
     //timeScore = (int) ((System.currentTimeMillis() - timeStarted) / 1000);
   }
+
 
   public void playerWon() {
     logger.info("Level completed");
@@ -174,7 +177,10 @@ public class MainGameScreen extends ScreenAdapter {
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainGameTextures);
     ServiceLocator.getResourceService().loadAll();
+    while (!resourceService.loadForMillis(10)) {
+      logger.info("LOOOK AT ME! I'M MAKING A LOADING SCREEN");
 
+    }
   }
 
   private void unloadAssets() {
@@ -189,7 +195,7 @@ public class MainGameScreen extends ScreenAdapter {
    * capturing and handling ui input.
    */
 
-  private void createUI(boolean loading)  {
+  private void createUI()  {
     logger.debug("Creating ui");
     Stage stage = ServiceLocator.getRenderService().getStage();
     boolean displayLoading = false;
@@ -204,27 +210,10 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay());*/
 
-    if (loading == true) {
       System.out.println("Yoodole");
       logger.debug("It's loading!");
-      ui.addComponent(new LoadingScreenDisplay());
-      ui2.addComponent(new InputDecorator(stage, 10))
-              .addComponent(new PerformanceDisplay())
-              .addComponent(new MainGameActions(this.game))
-              .addComponent(new MainGameExitDisplay());
-      ServiceLocator.getEntityService().register(ui);
-      ServiceLocator.getEntityService().register(ui2);
-      while (gameTime.getDeltaTime() > 2) {
-        if (gameTime.getDeltaTime() > 2) {
-          createUI(false);
-        }
-      }
-    }
-      if (loading == false) {
-        System.out.println("Yoodole");
-        logger.info("Yo!!!!");
-        logger.debug("YooO!");
-      logger.info("It's not loading!");
+
+
        // ui.dispose();
        // Entity ui2 = new Entity();
         ui3.addComponent(new InputDecorator(stage, 10))
@@ -239,7 +228,7 @@ public class MainGameScreen extends ScreenAdapter {
 
       }
 
-    }
+
   private void createPauseUI(boolean loading) {
     logger.debug("Creating ui");
     Stage stage = ServiceLocator.getRenderService().getStage();

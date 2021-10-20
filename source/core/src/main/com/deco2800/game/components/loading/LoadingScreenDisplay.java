@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Random;
 
 /**
- * A ui component for displaying the Loading Screen
+ * An ui component for displaying the Loading Screen
  */
 public class LoadingScreenDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(LoadingScreenDisplay.class);
