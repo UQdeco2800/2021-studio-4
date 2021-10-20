@@ -40,36 +40,24 @@ public class BackgroundRenderComponent extends RenderComponent {
     Vector3 position = cam.position;
     // Camera lock is removed
     // Get actual viewport width and height, not screen width and height (not always fullscreen)
-    float screenWidth = cam.viewportWidth*3.5f;
-    //float screenHeight = cam.viewportHeight;
-    float screenHeight = cam.viewportHeight*1.3f;
-
-
-    // Draw texture
-    //batch.draw(texture, screenWidth/6, screenHeight/6, screenWidth, screenHeight);
-    //batch.begin();
-    batch.draw(texture, -4, -2, screenWidth * 1.5f, screenHeight * 1.5f);
-    //batch.draw(texture, -screenWidth/10, -screenHeight/10, screenWidth, screenHeight);
-    //batch.end();
-
-
-    /*sprite = new Sprite(texture);
-    sprite.setPosition(Gdx.graphics.getWidth()/2 - texture.getWidth()/2,
-            Gdx.graphics.getHeight()/2 - texture.getHeight()/2);
-    //sprite.setRotation(90f);
-    sprite.setScale(0.3f);//scale down by 30%*/
-
-  /*
-  // The background must follow the camera
-    Camera cam = ServiceLocator.getCamera().getCamera();
-    Vector3 position = cam.position;
-
-    // Get actual viewport width and height, not screen width and height (not always fullscreen)
     float screenWidth = cam.viewportWidth;
     float screenHeight = cam.viewportHeight;
+    /* Adjust the background screen based on the level*/
+    if (texturePath.equals("backgrounds/background_level1.png")) {
+      batch.draw(texture, -3, -1, screenWidth * 14f, screenHeight * 1.9f);
+    } else if (texturePath.equals("backgrounds/background_level2.png")){
+      batch.draw(texture, -3, -2, screenWidth *10f, screenHeight * 2f);
+    } else if (texturePath.equals("backgrounds/background_level3.png")) {
+      batch.draw(texture, -3, -3, screenWidth *10f, screenHeight * 2f);
+    } else if (texturePath.equals("backgrounds/background_level4.png")) {
+      batch.draw(texture, -3, -1, screenWidth * 5f, screenHeight * 1.9f);
+    } else {
+      System.out.println("Not a valid texturePath");
+      //default
+      batch.draw(texture, -3, -2, screenWidth *10f, screenHeight * 2f);
+    }
 
-    // Draw texture
-    batch.draw(texture, position.x-(screenWidth/2), position.y-(screenHeight/2), screenWidth, screenHeight);*/
+
   }
 
 

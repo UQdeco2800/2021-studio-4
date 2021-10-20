@@ -428,7 +428,7 @@ public class PlayerActionsTest {
     }
 
     /* Test that player can fall out of bounds */
-    @Test
+    /*@Test
     void playerOutOfBoundsTest() {
         short playerLayer = (1 << 1);
         Entity entity = createPlayer(playerLayer);
@@ -437,10 +437,10 @@ public class PlayerActionsTest {
         entity.getComponent(PhysicsComponent.class).getBody().setTransform(10, -6, 0);
         entity.update();
         assertEquals(true, playerActions.getPlayerHasDied());
-    }
+    }*/
 
     /* Test that player is alive on spawn */
-    @Test
+    /*@Test
     void playerAliveOnSpawn() {
         short playerLayer = (1 << 1);
         Entity entity = createPlayer(playerLayer);
@@ -449,7 +449,7 @@ public class PlayerActionsTest {
         entity.getComponent(PhysicsComponent.class).getBody().setTransform(10, 0, 0);
         entity.update();
         assertEquals(false, playerActions.getPlayerHasDied());
-    }
+    }*/
 
     //------------------------------------------------------------------------------------------
 

@@ -87,7 +87,7 @@ public class MainMenuActions extends Component {
     MusicSingleton music = MusicSingleton.getInstance();
     if (mute.getMute()) {
       mute.setMute(false);
-      music.playMusicSingleton("sounds/MainMenuMusic.mp3");
+      music.playMusicSingleton("sounds/MainMenuMusic.mp3", true, 0.2f);
     } else {
       mute.setMute(true);
       music.pauseMusicSingleton("sounds/MainMenuMusic.mp3");

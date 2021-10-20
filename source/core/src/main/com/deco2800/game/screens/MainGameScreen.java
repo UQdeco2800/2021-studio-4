@@ -7,6 +7,7 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.loading.LoadingScreenDisplay;
+import com.deco2800.game.components.loading.PauseScreenDisplay;
 import com.deco2800.game.components.maingame.MainGameActions;
 import com.deco2800.game.components.player.KeyboardPlayerInputComponent;
 import com.deco2800.game.entities.Entity;
@@ -51,6 +52,10 @@ public class MainGameScreen extends ScreenAdapter {
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
+  private Entity ui = new Entity();
+  private Entity ui2 = new Entity();
+  private Entity ui3 = new Entity();
+  private PauseScreenDisplay pauseScreenDisplay = new PauseScreenDisplay();
 //  private final LevelDefinition levelDefinition;
   private LevelGameArea levelGameArea;
 
@@ -58,6 +63,8 @@ public class MainGameScreen extends ScreenAdapter {
   public static long timeScore;
   public static boolean levelComplete = false;
   public GameTime gameTime;
+
+
 
   public MainGameScreen(GdxGame game, LevelDefinition levelDefinition) {
     this.game = game;
@@ -85,17 +92,10 @@ public class MainGameScreen extends ScreenAdapter {
 
     loadAssets();
     /* modified with changes https://www.tabnine.com/code/java/methods/java.util.Timer/schedule */
-   /*
-    new java.util.Timer().schedule(
-            new java.util.TimerTask() {
-              @Override
-              public void run() {
-                createUI(false);
-              }
-            },
-            5000
-    );*/
-    createUI(true);
+
+
+    createUI();
+
 
     logger.debug("Initialising main game screen entities");
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
@@ -126,6 +126,7 @@ public class MainGameScreen extends ScreenAdapter {
     //timeScore = (int) ((System.currentTimeMillis() - timeStarted) / 1000);
   }
 
+
   public void playerWon() {
     logger.info("Level completed");
     game.setScreen(GdxGame.ScreenType.SCORE_SCREEN); // Must go to scoreScreen
@@ -145,12 +146,14 @@ public class MainGameScreen extends ScreenAdapter {
 
   @Override
   public void pause() {
+    createPauseUI(true);
     logger.info("Game paused");
     levelGameArea.getPlayer().getComponent(KeyboardPlayerInputComponent.class).pause();
   }
 
   @Override
   public void resume() {
+    createPauseUI(false);
     logger.info("Game resumed");
     levelGameArea.getPlayer().getComponent(KeyboardPlayerInputComponent.class).resume();
   }
@@ -174,7 +177,10 @@ public class MainGameScreen extends ScreenAdapter {
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainGameTextures);
     ServiceLocator.getResourceService().loadAll();
+    while (!resourceService.loadForMillis(10)) {
+      logger.info("LOOOK AT ME! I'M MAKING A LOADING SCREEN");
 
+    }
   }
 
   private void unloadAssets() {
@@ -189,14 +195,12 @@ public class MainGameScreen extends ScreenAdapter {
    * capturing and handling ui input.
    */
 
-  private void createUI(boolean loading)  {
+  private void createUI()  {
     logger.debug("Creating ui");
-
     Stage stage = ServiceLocator.getRenderService().getStage();
     boolean displayLoading = false;
     InputComponent inputComponent =
             ServiceLocator.getInputService().getInputFactory().createForTerminal();
-    Entity ui = new Entity();
 
    /* ui.addComponent(new InputDecorator(stage, 10))
         .addComponent(new PerformanceDisplay())
@@ -206,25 +210,52 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay());*/
 
-    if (loading == false) {
-      ui.addComponent(new LoadingScreenDisplay());
-      ServiceLocator.getEntityService().register(ui);
-    }
-      if (loading == true) {
+      System.out.println("Yoodole");
+      logger.debug("It's loading!");
+
+
        // ui.dispose();
-        Entity ui2 = new Entity();
-        ui2.addComponent(new InputDecorator(stage, 10))
+       // Entity ui2 = new Entity();
+        ui3.addComponent(new InputDecorator(stage, 10))
                 .addComponent(new PerformanceDisplay())
                 .addComponent(new MainGameActions(this.game))
                 .addComponent(new MainGameExitDisplay())
                 .addComponent(new Terminal())
                 .addComponent(inputComponent)
                 .addComponent(new TerminalDisplay());
-        ServiceLocator.getEntityService().register(ui2);
-        //ServiceLocator.getEntityService().unregister(ui);
+        ServiceLocator.getEntityService().register(ui3);
+      //  ui.dispose();
+
       }
 
+
+  private void createPauseUI(boolean loading) {
+    logger.debug("Creating ui");
+    Stage stage = ServiceLocator.getRenderService().getStage();
+    boolean displayLoading = false;
+    InputComponent inputComponent =
+            ServiceLocator.getInputService().getInputFactory().createForTerminal();
+    Entity ui2 = new Entity();
+
+    if (loading == true) {
+      ui.addComponent(pauseScreenDisplay);
+      pauseScreenDisplay.add();
+      ui.create();
+      ServiceLocator.getEntityService().register(ui);
     }
+    if (loading == false) {
+      //ui.dispose();
+      pauseScreenDisplay.remove();
+      ui2.addComponent(new InputDecorator(stage, 10))
+              .addComponent(new PerformanceDisplay())
+              .addComponent(new MainGameActions(this.game))
+              .addComponent(new MainGameExitDisplay())
+              .addComponent(new Terminal())
+              .addComponent(inputComponent)
+              .addComponent(new TerminalDisplay());
+      ServiceLocator.getEntityService().register(ui2);
+    }
+  }
   }
 
 

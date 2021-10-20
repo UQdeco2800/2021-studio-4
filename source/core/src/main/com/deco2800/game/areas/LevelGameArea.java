@@ -56,16 +56,15 @@ public class LevelGameArea extends GameArea {
     "void/void_spritesheet2.png",
     "powerups/Pick_Ups.png",
     "map-textures/portal-door.png",
-    "backgrounds/level1_background.jpg",
     "player/simple_player_animation.png",
     "player/testingrunningsprite.png",
     "spawn-animations/spawn_portal.png",
     "spawn-animations/levelOneSpawn.png",
     "spawn-animations/spawnAnimationOne.png",
-    "backgrounds/background_level1.jpg",
-          "backgrounds/background_level2.jpg",
-          "backgrounds/background_level3.png",
-          "backgrounds/background_level4.png"
+    "backgrounds/background_level1.png",
+    "backgrounds/background_level2.png",
+    "backgrounds/background_level3.png",
+    "backgrounds/background_level4.png"
   };
 
   private static final String[] gameTextureAtlases = {
@@ -87,7 +86,7 @@ public class LevelGameArea extends GameArea {
     gameSong.enemy_collision,gameSong.enemy_death, gameSong.obstacle_boost, gameSong.obstacle_button,
     gameSong.player_collision, gameSong.player_power_up, gameSong.void_death, gameSong.void_noise, gameSong.game_level_1_option2,
   gameSong.ending_menu, gameSong.game_level_2, gameSong.main_menu, gameSong.death_noise_2,
-          gameSong.game_level_3};
+          gameSong.game_level_3, gameSong.game_level_4};
 
 
 
