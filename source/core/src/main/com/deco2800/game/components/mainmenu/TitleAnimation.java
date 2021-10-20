@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 public class TitleAnimation extends Image {
 
     public TitleAnimation(Texture texture, float currentWidth, float currentHeight,
-                          float centreWidth, float centreHeight, float duration) {
+                          float centreWidth, float centreHeight, float duration, float rotationAmount) {
         super(texture);
         // Set origin of the image.
         this.setOrigin(currentWidth/2, currentHeight/2);
@@ -28,7 +28,7 @@ public class TitleAnimation extends Image {
         // the image from the bottom left corner. As a result, when rotating the image is not moving.
 
         RotateToAction rotateImage = new RotateToAction();
-        rotateImage.setRotation(360f * 4f);
+        rotateImage.setRotation(360f * rotationAmount);
         rotateImage.setDuration(duration);
 
         ParallelAction imageActions = new ParallelAction(scaleImage, rotateImage);
