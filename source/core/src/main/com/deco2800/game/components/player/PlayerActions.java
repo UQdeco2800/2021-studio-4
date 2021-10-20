@@ -70,7 +70,6 @@ public class PlayerActions extends Component {
   private boolean canJump = false; // Whether the player can jump
   private boolean oneTimeThing = true;
 
-
   @Override
   public void create() {
     animator = this.entity.getComponent(AnimationRenderComponent.class);
@@ -209,6 +208,8 @@ public class PlayerActions extends Component {
     /**
      * sets the value of spawnAnimation to one of the existing spawn animation, this is done randomly using
      * math.random()
+     *
+     * @return the animation
      */
    public int setSpawnAnimation() {
        int num = new SecureRandom().nextInt();
@@ -288,6 +289,9 @@ public class PlayerActions extends Component {
    * Updates the player's movement speed by adding their desired direction to their vector.
    * This function increases the altered speed
    * speed limit.
+   *
+   * @param newSpeed - the new speed
+   * @return  the new speed
    */
   public int alterSpeed(int newSpeed) {
     // increase or decrease the players movement

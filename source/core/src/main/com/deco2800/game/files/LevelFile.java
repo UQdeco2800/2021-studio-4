@@ -27,8 +27,6 @@ public class LevelFile {
 
     private JsonValue rawTileData;
 
-    public PositionedTerrainTile() {}
-
     public PositionedTerrainTile(TerrainTile tile, int x, int y) {
       this.tile = tile;
       this.x = x;
@@ -55,6 +53,8 @@ public class LevelFile {
     /**
      * This method generates the actual tile object, which must be done separately from loading the file
      * as the file contains the atlas, which is required for loading.
+     *
+     * @param atlas - the atlas
      */
     public void generateTile(TextureAtlas atlas){
       TerrainTileDefinition definition = TerrainTileDefinition.valueOf(rawTileData.getString("def"));

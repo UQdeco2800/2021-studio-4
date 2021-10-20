@@ -11,6 +11,7 @@ public class PreviousLevel {
 
     /**
      * Update the most recent level played.
+     * @param  levelPlayed - the level played
      */
     public void updatePreviousLevel(LevelDefinition levelPlayed) {
         previousLevel = levelPlayed;
