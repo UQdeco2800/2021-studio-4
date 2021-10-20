@@ -20,6 +20,7 @@ public class StatusEffectTest {
 //    private StatusEffectOperation stuckInTheMud;
     private Entity player;
     private CombatStatsComponent combatStatsComponentIsDead;
+    private CombatStatsComponent combatStatsComponentNotDead;
     float expected;
     float result;
     int type;
