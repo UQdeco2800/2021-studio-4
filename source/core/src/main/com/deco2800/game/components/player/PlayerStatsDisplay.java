@@ -1,21 +1,17 @@
 package com.deco2800.game.components.player;
 
+import static com.deco2800.game.screens.MainGameScreen.timeScore;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.components.CombatStatsComponent;
-import com.deco2800.game.services.GameTime;
 import com.deco2800.game.ui.UIComponent;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import static com.deco2800.game.screens.MainGameScreen.timeScore;
 
 /**
  * A ui component for displaying player stats, e.g. health.

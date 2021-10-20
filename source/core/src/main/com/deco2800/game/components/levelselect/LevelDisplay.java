@@ -1,27 +1,20 @@
 package com.deco2800.game.components.levelselect;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.deco2800.game.components.InsertImageButton;
 import com.deco2800.game.components.levelselect.LevelDisplay;
 import com.deco2800.game.levels.LevelDefinition;
-import com.deco2800.game.screens.LevelSelectScreen;
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.MusicServiceDirectory;
-import com.deco2800.game.services.MuteManager;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,9 +23,7 @@ public class LevelDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(LevelDisplay.class);
     private static final float Z_INDEX = 2f;
     private Table table;
-    private Sprite sprite;
     public static boolean loadingScreen = false;
-    //public static boolean selected;
 
     @Override
     public void create() {

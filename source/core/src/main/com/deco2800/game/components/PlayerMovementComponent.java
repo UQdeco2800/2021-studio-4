@@ -1,23 +1,25 @@
 package com.deco2800.game.components;
 
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.components.endgame.LevelEndComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleDefinition;
 import com.deco2800.game.entities.ObstacleEntity;
-import com.deco2800.game.levels.LevelDefinition;
 import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
-import com.deco2800.game.physics.components.*;
+import com.deco2800.game.physics.components.ColliderComponent;
+import com.deco2800.game.physics.components.HitboxComponent;
+import com.deco2800.game.physics.components.InteractableComponent;
+import com.deco2800.game.physics.components.JumpPadComponent;
+import com.deco2800.game.physics.components.JumpableComponent;
+import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.screens.MainGameScreen;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class PlayerMovementComponent extends Component {
     private short targetLayer;

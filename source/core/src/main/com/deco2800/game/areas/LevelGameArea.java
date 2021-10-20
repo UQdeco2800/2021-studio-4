@@ -5,12 +5,10 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainTile;
-import com.deco2800.game.components.npc.StatusEffectController;
 import com.deco2800.game.effects.StatusEffect;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleDefinition;
@@ -19,7 +17,7 @@ import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.files.LevelFile;
-import com.deco2800.game.levels.LevelInfo;
+import com.deco2800.game.levels.LevelDefinition;
 import com.deco2800.game.physics.components.InteractableComponent;
 import com.deco2800.game.physics.components.SubInteractableComponent;
 import com.deco2800.game.rendering.BackgroundRenderComponent;
@@ -27,7 +25,6 @@ import com.deco2800.game.services.*;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.deco2800.game.components.leveleditor.ObstacleToolComponent;
 import java.util.*;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
@@ -36,11 +33,10 @@ public class LevelGameArea extends GameArea {
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 15);
   private static final GridPoint2 STATUSEFFECT_SPAWN = new GridPoint2(15, 15);
   public List<ObstacleEntity> obstacleEntities = new ArrayList<>();
-  public List<Entity> statusEffects = new ArrayList<>();
+  public static ArrayList<TerrainTile> terrainTiles = new ArrayList<>();
   public static ArrayList<String> buffers = new ArrayList<>();
   public static ArrayList<String> deBuffers = new ArrayList<>();
   private LevelFile levelFile;
-  private Random random = new Random();
 
   public Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables = new HashMap<>();
   public List<ObstacleEntity> interactableEntities = new ArrayList<>();
@@ -61,9 +57,9 @@ public class LevelGameArea extends GameArea {
     "spawn-animations/levelOneSpawn.png",
     "spawn-animations/spawnAnimationOne.png",
     "backgrounds/background_level1.jpg",
-    "backgrounds/background_level2.jpg",
-    "backgrounds/background_level3.png",
-    "backgrounds/background_level4.png"
+          "backgrounds/background_level2.jpg",
+          "backgrounds/background_level3.png",
+          "backgrounds/background_level4.png"
   };
 
   private static final String[] gameTextureAtlases = {
@@ -90,13 +86,13 @@ public class LevelGameArea extends GameArea {
 
 
   private final TerrainFactory terrainFactory;
-  private final LevelInfo levelInfo;
+  private final LevelDefinition levelDefinition;
   private static boolean loading = true;
   private Entity player;
 
-  public LevelGameArea(TerrainFactory terrainFactory, LevelInfo levelInfo) {
+  public LevelGameArea(TerrainFactory terrainFactory, LevelDefinition levelDefinition) {
     super();
-    this.levelInfo = levelInfo;
+    this.levelDefinition = levelDefinition;
 
     this.terrainFactory = terrainFactory;
     buffers.add(0, "Buff_Jump");
@@ -115,23 +111,16 @@ public class LevelGameArea extends GameArea {
 
     loadAssets();
 
-    String levels = levelInfo.getLevelFileName();
-    if (levels != null) {
-      if (levels.equals("levels/level1.json")) {
-        displayBackground("backgrounds/background_level1.jpg");
-      } else if (levels.equals("levels/level2.json")) {
-        displayBackground("backgrounds/background_level2.jpg");
-      } else if (levels.equals("levels/level3.json")) {
-        displayBackground("backgrounds/background_level3.png");
-      } else if (levels.equals("levels/level4.json")) {
-        displayBackground("backgrounds/background_level4.png");
-      } else {
-        displayBackground("backgrounds/background_level1.jpg");
-      }
-    } else {
+    String levels = levelDefinition.getLevelFileName();
+    if (levels.equals("levels/level1.json")) {
       displayBackground("backgrounds/background_level1.jpg");
+    } else if (levels.equals("levels/level2.json")) {
+      displayBackground("backgrounds/background_level2.jpg");
+    } else if (levels.equals("levels/level3.json")) {
+      displayBackground("backgrounds/background_level3.png");
+    } else if (levels.equals("levels/level4.json")) {
+      displayBackground("backgrounds/background_level4.png");
     }
-
     spawnTerrain();
     spawnLevelFromFile();
     mapInteractables();
@@ -145,17 +134,32 @@ public class LevelGameArea extends GameArea {
     init();
     displayUI();
     player = spawnPlayer();
+    //spawnLevelFromFile();
     spawnTheVoid();
 
-//    int statusPosX = STATUSEFFECT_SPAWN.x;
-//    int statusPosY = STATUSEFFECT_SPAWN.y;
-//    spawnStatusEffect(StatusEffect.FAST, statusPosX, statusPosY);
-//    spawnStatusEffect(StatusEffect.JUMP, statusPosX+10, statusPosY);
-//    spawnStatusEffect(StatusEffect.TIME_STOP, statusPosX+20, statusPosY);
-//    spawnStatusEffect(StatusEffect.SLOW, statusPosX+30, statusPosY);
-//    spawnStatusEffect(StatusEffect.STUCK, statusPosX+40, statusPosY);
+    int statusPosX = STATUSEFFECT_SPAWN.x;
+    int statusPosY = STATUSEFFECT_SPAWN.y;
+    spawnStatusEffect(StatusEffect.FAST, statusPosX, statusPosY);
+    spawnStatusEffect(StatusEffect.JUMP, statusPosX+10, statusPosY);
+    spawnStatusEffect(StatusEffect.TIME_STOP, statusPosX+20, statusPosY);
+    spawnStatusEffect(StatusEffect.SLOW, statusPosX+30, statusPosY);
+    spawnStatusEffect(StatusEffect.STUCK, statusPosX+40, statusPosY);
 
-    playTheMusic(levelInfo.getMusicPath());
+
+    String level = levelDefinition.getLevelFileName();
+    if (level.equals("levels/level1.json")) {
+      playTheMusic("game_level_1");
+    } else if (level.equals("levels/level2.json")) {
+      playTheMusic("level_2");
+    } else if (level.equals("levels/level3.json")) {
+      playTheMusic("level_3");
+    } else if (level.equals("levels/level4.json")) {
+      playTheMusic("level_1_2"); //replace with level 4 music when it's created
+    }
+
+    //spawnPlatform(8, 21, 5);
+    //spawnDoor(9, 23, 5);
+
   }
 
   public Entity getPlayer() {
@@ -164,7 +168,7 @@ public class LevelGameArea extends GameArea {
 
   private void displayUI() {
     Entity ui = new Entity();
-    ui.addComponent(new GameAreaDisplay("RUNTIME"));
+    ui.addComponent(new GameAreaDisplay("Box Forest"));
     spawnEntity(ui);
     loading = false;
   }
@@ -331,7 +335,7 @@ public class LevelGameArea extends GameArea {
         }
       }
 
-      if (!buttons.isEmpty() && !subInteractables.isEmpty()) {
+      if (buttons.size() > 0 && subInteractables.size() > 0) {
         for (int j = 0; j < buttons.size(); j++) {
           InteractableComponent interactable = buttons.get(j).getComponent(InteractableComponent.class);
           interactable.addSubInteractable(subInteractables.get(j));
@@ -366,20 +370,11 @@ public class LevelGameArea extends GameArea {
     Json json = new Json();
     json.setOutputType(JsonWriter.OutputType.json);
 
-    FileHandle file = Gdx.files.local(levelInfo.getLevelFileName());
+    FileHandle file = Gdx.files.local(levelDefinition.getLevelFileName());
     assert file != null;
 
     // Create a new LevelFile object
     LevelFile levelFile = new LevelFile();
-
-    // Save the status effects
-    for (Entity statusEffect : statusEffects) {
-      LevelFile.StatusEffectInfo statusEffectInfo = new LevelFile.StatusEffectInfo();
-      statusEffectInfo.statusEffect = statusEffect.getComponent(StatusEffectController.class).getEffect();
-      statusEffectInfo.posX = statusEffect.getPosition().x;
-      statusEffectInfo.posY = statusEffect.getPosition().y;
-      levelFile.statusEffects.add(statusEffectInfo);
-    }
 
     // save the TiledMapTileLayer
     TiledMapTileLayer layer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
@@ -416,17 +411,16 @@ public class LevelGameArea extends GameArea {
   }
 
   private void loadLevelFile() {
-    levelFile = levelInfo.readLevelFile();
+    Json json = new Json();
+
+    FileHandle file = Gdx.files.local(levelDefinition.getLevelFileName());
+    assert file != null;
+
+    levelFile = json.fromJson(LevelFile.class, file);
     ServiceLocator.registerCurrentTexture(levelFile.levelTexture);
   }
 
   private void generateAll() {
-    // Spawn the status effects
-    for (LevelFile.StatusEffectInfo statusEffectInfo : levelFile.statusEffects) {
-      Entity effect = spawnStatusEffect(statusEffectInfo.statusEffect, 0, 0);
-      effect.setPosition(statusEffectInfo.posX, statusEffectInfo.posY);
-    }
-
     try {
       for (ObstacleEntity obstacleEntity : levelFile.obstacles.obstacleEntities) {
         ObstacleEntity newObstacle = spawnObstacle(obstacleEntity.getDefinition(), (int) obstacleEntity.getPosition().x,
@@ -438,26 +432,26 @@ public class LevelGameArea extends GameArea {
 
     // Add entities to subInteractables list
     for (ObstacleEntity obstacleEntity : obstacleEntities) {
-      if (obstacleEntity.interactableID != null && levelFile.obstacles.interactablesMap.containsKey(obstacleEntity.interactableID)) {
-        List<Integer> subInteractableIds = levelFile.obstacles.interactablesMap.get(obstacleEntity.interactableID);
-        List<ObstacleEntity> subInteractables = new ArrayList<>();
-        for (ObstacleEntity entity : obstacleEntities) {
-          if (subInteractableIds.contains(entity.interactableID)) {
-            subInteractables.add(entity);
-            break;
+      if (obstacleEntity.interactableID != null) {
+        if (levelFile.obstacles.interactablesMap.containsKey(obstacleEntity.interactableID)) {
+          List<Integer> subInteractableIds = levelFile.obstacles.interactablesMap.get(obstacleEntity.interactableID);
+          List<ObstacleEntity> subInteractables = new ArrayList<>();
+          for (ObstacleEntity entity : obstacleEntities) {
+            if (subInteractableIds.contains(entity.interactableID)) {
+              subInteractables.add(entity);
+              break;
+            }
           }
-        }
 
-        mapInteractables.put(obstacleEntity, subInteractables);
+          mapInteractables.put(obstacleEntity, subInteractables);
         }
-
+      }
     }
-    System.err.println(levelFile.obstacles.interactablesMap);
+    System.out.println(levelFile.obstacles.interactablesMap);
   }
 
   @Override
   public void untrackEntity(Entity entity) {
-    this.statusEffects.remove(entity);
     this.obstacleEntities.remove(entity);
     super.untrackEntity(entity);
   }
@@ -470,11 +464,9 @@ public class LevelGameArea extends GameArea {
     TerrainFactory.generateBodies(terrain.getMap());
   }
 
-
-  private void spawnObstacle(ObstacleToolComponent.Obstacle selectedObstacle, int x, int y, int size) {
-  }
-
   private ObstacleEntity spawnObstacle(ObstacleDefinition selectedObstacle, int x, int y, int size) {
+//    x = x*2;
+//    y = y*2;
 
     switch (selectedObstacle){
       case PLATFORM:
@@ -522,13 +514,13 @@ public class LevelGameArea extends GameArea {
   /**
    * Spawns a status effect as the given location
    */
-  public Entity spawnStatusEffect(StatusEffect statusEffect, int posX, int posY) {
+  private void spawnStatusEffect(StatusEffect statusEffect, int posX, int posY) {
+    System.out.println(statusEffect);
+    System.out.println(posX);
+    System.out.println(posY);
     Entity statusEffectEntity = NPCFactory.createStatusEffect(statusEffect);
     GridPoint2 position = new GridPoint2(posX, posY);
     spawnEntityAt(statusEffectEntity, position, true, true);
-    statusEffects.add(statusEffectEntity);
-
-    return statusEffectEntity;
   }
 
   /**
@@ -592,6 +584,7 @@ public class LevelGameArea extends GameArea {
       default:
         gameMusic = new MusicService(dict.game_level_1);//To make sure gameMusic is never null
     }
+      //gameMusic.playMusic();
     gameMusic.playSong(true, 0.2f);
 
   }
@@ -627,9 +620,11 @@ public class LevelGameArea extends GameArea {
     this.unloadAssets();
   }
 
-  public LevelInfo getLevelInfo() {
-    return this.levelInfo;
+  public String getLevelDefinition() {
+    return this.levelDefinition.name();
   }
+
+
 }
 
 
