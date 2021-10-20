@@ -28,11 +28,13 @@ public class MainMenuDisplay extends UIComponent {
     private TitleAnimation titleAnimation;
     private float duration;
     private ImageButton runtimeTitle;
+    private int rotationAmountItr;
 
     /**
      * used tp switch between button states
      */
     public MainMenuDisplay() {
+        rotationAmountItr = 4;
     }
 
     private static final String[] gameTextures = {
@@ -280,6 +282,9 @@ public class MainMenuDisplay extends UIComponent {
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.info("Launching title Animation");
                         titlesAnimation();
+                        if (rotationAmountItr < 20) {
+                            rotationAmountItr += 2;
+                        }
                     }
                 });
 
@@ -320,7 +325,7 @@ public class MainMenuDisplay extends UIComponent {
 
         titleAnimation = new TitleAnimation(
                 new Texture(imageFile), imageWidth,
-                imageHeight, centreWidth, centreHeight, duration);
+                imageHeight, centreWidth, centreHeight, duration, rotationAmountItr);
 
         //titleAnimationStartTime = ServiceLocator.getTimeSource().getTime();
         titleAnimationStartTime = System.currentTimeMillis();
