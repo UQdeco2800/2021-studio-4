@@ -139,11 +139,6 @@ public class NPCFactory {
     return ghost;
   }
 
-
-
-
-
-
   /**
    * Creates a gorgon gear entity.
    *
