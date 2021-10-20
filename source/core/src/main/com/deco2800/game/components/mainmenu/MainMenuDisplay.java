@@ -305,6 +305,7 @@ public class MainMenuDisplay extends UIComponent {
      */
     private void titlesAnimation() {
         runtimeTitle.remove();
+        // The is a visible size for the image, leaving room for enlargement
         int imageWidth = 100;
         int imageHeight = 100;
         /** This adds the tiny runtime logo */
