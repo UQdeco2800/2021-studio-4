@@ -130,7 +130,6 @@ public class LevelDisplay extends UIComponent {
             ImageButton levelButton = insImage.setImage(pathName, hoverPathName, posX, posY, widthX, widthY);
             imageButtons.add(levelButton);
 
-
             levelButton.addListener(
                 new ChangeListener() {
                     @Override
@@ -172,7 +171,6 @@ public class LevelDisplay extends UIComponent {
         stage.addActor(table);
         for (ImageButton image : imageButtons) {
             stage.addActor(image);
-
         }
         stage.addActor(exitBtn);
         stage.addActor(titleBtn);

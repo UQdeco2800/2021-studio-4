@@ -318,7 +318,7 @@ public class MainMenuDisplay extends UIComponent {
 
         titleAnimation = new TitleAnimation(
                 new Texture(imageFile), imageWidth,
-                imageHeight, centreWidth, centreHeight, duration);
+                imageHeight, centreWidth, centreHeight, duration, rotationAmountItr);
 
         //titleAnimationStartTime = ServiceLocator.getTimeSource().getTime();
         titleAnimationStartTime = System.currentTimeMillis();

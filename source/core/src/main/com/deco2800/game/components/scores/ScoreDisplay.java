@@ -21,17 +21,15 @@ import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.StringJoiner;
-
-import static com.deco2800.game.screens.MainGameScreen.levelComplete;
 
 public class ScoreDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(ScoreDisplay.class);
     private static final float Z_INDEX = 2f;
     private Table table;
     private final LevelDefinition levelDefinition;
+    private Label scoreLabel; // Shows the score.
+    private Label levelLabel; // Shows the current level.
+    private Label congratsLabel; // Shows the congratulations text.
     private boolean newBest;
     private int newScore; // Will need to be set using GameTime
     private final int completionTime; // Will need to be set using GameTime

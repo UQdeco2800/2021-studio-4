@@ -27,20 +27,19 @@ public class PlayerActions extends Component {
 
     //enum consisting of the possible movement of the player
   private enum Movement {
-    Running,
-    Idle,
-    Falling,
-    Sliding,
-    Jump,
-    Walk,
-    Slow
+    RUNNING,
+    IDLE,
+    FALLING,
+    SLIDING,
+    JUMPING,
+    WALKING,
+    SLOWED
   }
   //direction the player is moving
   private enum MovingDirection {
-    Left,
-    Right
+    LEFT,
+    RIGHT
   }
-
 
   private MovingDirection movingDirection;
   private Movement currentMovement;
@@ -54,11 +53,12 @@ public class PlayerActions extends Component {
   private int cameraDelay = 0;
   private boolean isTesting = false;
 
-  private static final Vector2 acceleration = new Vector2(10f, 0f);  // Force of acceleration, in Newtons (kg.m.s^2)
+  private static final Vector2 ACCELERATION = new Vector2(10f, 0f);  // Force of acceleration, in Newtons (kg.m.s^2)
   private static final float NORMAL_FRICTION = 0.1f;                 // Coefficient of friction for normal movement
 
   private PlayerState playerState = PlayerState.STOPPED;        // Movement state of the player, see PlayerState
-    private Vector2 walkDirection = Vector2.Zero.cpy();           // The direction the player is walking in, set by keypress.
+  private PhysicsComponent physicsComponent;
+  private Vector2 walkDirection = Vector2.Zero.cpy();           // The direction the player is walking in, set by keypress.
   private Vector2 previousWalkDirection = Vector2.Zero.cpy();   // The direction the player was moving in last.
 
   private Body body;// The player physics body.
@@ -71,13 +71,10 @@ public class PlayerActions extends Component {
   private boolean oneTimeThing = true;
 
 
-
-
-
   @Override
   public void create() {
     animator = this.entity.getComponent(AnimationRenderComponent.class);
-      PhysicsComponent physicsComponent = entity.getComponent(PhysicsComponent.class);
+    physicsComponent = entity.getComponent(PhysicsComponent.class);
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
@@ -94,8 +91,8 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("playerIsDead", this::playerIsDead);
 
 
-    movingDirection = MovingDirection.Right;
-    currentMovement = Movement.Idle;
+    movingDirection = MovingDirection.RIGHT;
+    currentMovement = Movement.IDLE;
     keysPressed = 0;
 
     this.body = physicsComponent.getBody();
@@ -105,8 +102,6 @@ public class PlayerActions extends Component {
     canPlayerMove = false;
     hasSpawnAnimationFinished = false;
     setSpawnAnimation();
-
-
   }
 
   @Override
@@ -277,12 +272,12 @@ public class PlayerActions extends Component {
   private void updateSpeed() {
     // Scale the walk direction by the acceleration, and apply that as a force
       if(canPlayerMove) {
-          this.body.applyForceToCenter(walkDirection.cpy().scl(acceleration), true);
+          this.body.applyForceToCenter(walkDirection.cpy().scl(ACCELERATION), true);
       }
   }
 
   public float getSpeed() {
-    return acceleration.x;
+    return ACCELERATION.x;
   }
 
   public float getJumpHeight() {
@@ -296,7 +291,7 @@ public class PlayerActions extends Component {
    */
   public int alterSpeed(int newSpeed) {
     // increase or decrease the players movement
-      acceleration.add(newSpeed, 0);
+    ACCELERATION.add(newSpeed, 0);
     return newSpeed;
   }
 
@@ -324,11 +319,11 @@ public class PlayerActions extends Component {
     StatusEffect statusEffect = entity.getComponent(StatusEffectTargetComponent.class).getCurrentStatusEffect();
 
     if(statusEffect == StatusEffect.STUCK) {
-      value = Movement.Idle;
-    } else if(statusEffect == StatusEffect.FAST && value == Movement.Walk){
-        value = Movement.Running;
-    } else if (statusEffect == StatusEffect.SLOW && value == Movement.Walk) {
-        value = Movement.Slow;
+      value = Movement.IDLE;
+    } else if(statusEffect == StatusEffect.FAST && value == Movement.WALKING){
+        value = Movement.RUNNING;
+    } else if (statusEffect == StatusEffect.SLOW && value == Movement.WALKING) {
+        value = Movement.SLOWED;
     }
 
 
@@ -376,16 +371,16 @@ public class PlayerActions extends Component {
   void setIsFalling(){
       if (canPlayerMove) {
           playerState = PlayerState.AIR;
-          setMovementAnimation(Movement.Falling);
+          setMovementAnimation(Movement.FALLING);
       }
   }
 
   void setIsJumping(){
-    setMovementAnimation(Movement.Jump);
+    setMovementAnimation(Movement.JUMPING);
   }
 
   void setIsSliding() {
-    setMovementAnimation(Movement.Sliding);
+    setMovementAnimation(Movement.SLIDING);
   }
 
   /**
@@ -393,22 +388,22 @@ public class PlayerActions extends Component {
    * be and sets the player to the correct animation
    */
   void checkIfFallingIsDone(){
-    if((currentMovement == Movement.Falling || currentMovement == Movement.Jump) && canJump && canPlayerMove){
+    if((currentMovement == Movement.FALLING || currentMovement == Movement.JUMPING) && canJump && canPlayerMove){
         if(body.getLinearVelocity().x == 0 || keysPressed == 0){
-          setMovementAnimation(Movement.Idle);
+          setMovementAnimation(Movement.IDLE);
         } else {
-          setMovementAnimation(Movement.Walk);
+          setMovementAnimation(Movement.WALKING);
         }
     }
   }
 
   void checkIfSlidingIsDone() {
-    if (currentMovement == Movement.Sliding && canJump) {
+    if (currentMovement == Movement.SLIDING && canJump) {
         if (body.getLinearVelocity().x == 0) {
-          setMovementAnimation(Movement.Idle);
+          setMovementAnimation(Movement.IDLE);
         } else if (keysPressed > 0 && (body.getLinearVelocity().x < 7 && body.getLinearVelocity().x > 0 ||
                 body.getLinearVelocity().x > -7 && body.getLinearVelocity().x < 7)) {
-          setMovementAnimation(Movement.Walk);
+          setMovementAnimation(Movement.WALKING);
         }
       }
   }
@@ -464,13 +459,13 @@ public class PlayerActions extends Component {
   void walk(Vector2 direction) {
       if (canPlayerMove) {
           if (direction.x == 1.0) {
-              setMovingDirection(MovingDirection.Right);
+              setMovingDirection(MovingDirection.RIGHT);
           } else {
-              setMovingDirection(MovingDirection.Left);
+              setMovingDirection(MovingDirection.LEFT);
           }
 
           if (canJump) {
-              setMovementAnimation(Movement.Walk);
+              setMovementAnimation(Movement.WALKING);
           }
 
           this.walkDirection = direction;
@@ -484,8 +479,8 @@ public class PlayerActions extends Component {
   void stopWalking() {
       if (canPlayerMove) {
           this.walkDirection = Vector2.Zero.cpy();
-          if (currentMovement != Movement.Falling) {
-              setMovementAnimation(Movement.Idle);
+          if (currentMovement != Movement.FALLING) {
+              setMovementAnimation(Movement.IDLE);
           }
 
       }
@@ -525,7 +520,7 @@ public class PlayerActions extends Component {
     StatusEffect statusEffect = entity.getComponent(StatusEffectTargetComponent.class).getCurrentStatusEffect();
     if(canPlayerMove && !getCurrentMovement().equals("Sliding") && statusEffect != StatusEffect.STUCK) {
         this.playerState = PlayerState.SLIDING;
-        if (canJump) {
+        if (getCanJump()) {
             setIsSliding();
             if (previousWalkDirection.epsilonEquals(Vector2Utils.LEFT)) {
                 body.applyForceToCenter(new Vector2(-300f, 0f), true);
