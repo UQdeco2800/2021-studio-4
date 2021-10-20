@@ -13,7 +13,6 @@ import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
-import com.deco2800.game.components.player.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,7 +30,7 @@ public class PlayerActionsTest {
 
     @Test
     void shouldWalkLeft() {
-        PlayerActions playerActions = new PlayerActions("some level string");
+        PlayerActions playerActions = new PlayerActions();
         playerActions.setCanPlayerMove(true);
         playerActions.walk(Vector2Utils.LEFT);
 
@@ -41,7 +40,7 @@ public class PlayerActionsTest {
 
     @Test
     void shouldWalkRight() {
-        PlayerActions playerActions = new PlayerActions("some level string");
+        PlayerActions playerActions = new PlayerActions();
         playerActions.setCanPlayerMove(true);
         playerActions.walk(Vector2Utils.RIGHT);
 
@@ -544,7 +543,7 @@ public class PlayerActionsTest {
                         .addComponent(new ColliderComponent())
                         .addComponent(new PhysicsComponent())
                         .addComponent(new HitboxComponent().setLayer(playerLayer))
-                        .addComponent(new PlayerActions("some level string"))
+                        .addComponent(new PlayerActions())
                         .addComponent(animationRenderComponent)
                         .addComponent(new StatusEffectTargetComponent())
                         .addComponent(new StatusEffectUIComponent());

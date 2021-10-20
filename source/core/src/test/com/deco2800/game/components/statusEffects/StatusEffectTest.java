@@ -5,12 +5,11 @@ import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.extensions.GameExtension;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import java.util.*;
 import java.util.concurrent.Callable;
-import static org.mockito.Mockito.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(GameExtension.class)
@@ -63,7 +62,7 @@ public class StatusEffectTest {
 
     @BeforeEach
     public void initialiseClasses() {
-        playerActions = new PlayerActions("example_level_string");
+        playerActions = new PlayerActions();
         /* The health determines whether the unit is dead. 1 = alive, 0 = dead */
         combatStatsComponentIsDead = new CombatStatsComponent(0,0);
         combatStatsComponentNotDead = new CombatStatsComponent(1,0);

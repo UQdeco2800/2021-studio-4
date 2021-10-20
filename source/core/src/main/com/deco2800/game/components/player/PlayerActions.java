@@ -12,6 +12,7 @@ import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
+import java.security.SecureRandom;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
@@ -21,13 +22,10 @@ import com.deco2800.game.utils.math.Vector2Utils;
 
 public class PlayerActions extends Component {
 
-    private String gameLevel;
-
-    public PlayerActions(String currentLevel) {
-        this.gameLevel = currentLevel;
+    public PlayerActions() {
     }
 
-//enum consisting of the possible movement of the player
+    //enum consisting of the possible movement of the player
   private enum Movement {
     Running,
     Idle,
@@ -56,20 +54,19 @@ public class PlayerActions extends Component {
   private int cameraDelay = 0;
   private boolean isTesting = false;
 
-  private static Vector2 acceleration = new Vector2(10f, 0f);  // Force of acceleration, in Newtons (kg.m.s^2)
+  private static final Vector2 acceleration = new Vector2(10f, 0f);  // Force of acceleration, in Newtons (kg.m.s^2)
   private static final float NORMAL_FRICTION = 0.1f;                 // Coefficient of friction for normal movement
 
   private PlayerState playerState = PlayerState.STOPPED;        // Movement state of the player, see PlayerState
-  private PhysicsComponent physicsComponent;
-  private Vector2 walkDirection = Vector2.Zero.cpy();           // The direction the player is walking in, set by keypress.
+    private Vector2 walkDirection = Vector2.Zero.cpy();           // The direction the player is walking in, set by keypress.
   private Vector2 previousWalkDirection = Vector2.Zero.cpy();   // The direction the player was moving in last.
 
   private Body body;// The player physics body.
   private int keysPressed; //stores number of keys being pressed that affect the plaer
   AnimationRenderComponent animator;
 
-  private Vector2 jumpSpeed = new Vector2(50f, 400f);
-  private Vector2 jumpPadSpeed = new Vector2(0f, 500f);
+  private final Vector2 jumpSpeed = new Vector2(50f, 400f);
+  private final Vector2 jumpPadSpeed = new Vector2(0f, 500f);
   private boolean canJump = false; // Whether the player can jump
   private boolean oneTimeThing = true;
 
@@ -80,7 +77,7 @@ public class PlayerActions extends Component {
   @Override
   public void create() {
     animator = this.entity.getComponent(AnimationRenderComponent.class);
-    physicsComponent = entity.getComponent(PhysicsComponent.class);
+      PhysicsComponent physicsComponent = entity.getComponent(PhysicsComponent.class);
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
@@ -182,12 +179,16 @@ public class PlayerActions extends Component {
      */
   private void setStartPositionAndScale(){
       this.entity.setScale(1.5f,1f);
-      if(animator.getCurrentAnimation().equals("spawn_level1")) {
-          this.entity.setPosition(entity.getPosition().add(2f, 0f));
-      } else if (animator.getCurrentAnimation().equals("portal_flip")){
-          this.entity.setPosition(entity.getPosition().add(1f,0f));
-      } else if (animator.getCurrentAnimation().equals("spawn_portal")) {
-          this.entity.setPosition(entity.getPosition().add(2.5f,0f));
+      switch (animator.getCurrentAnimation()) {
+          case "spawn_level1":
+              this.entity.setPosition(entity.getPosition().add(2f, 0f));
+              break;
+          case "portal_flip":
+              this.entity.setPosition(entity.getPosition().add(1f, 0f));
+              break;
+          case "spawn_portal":
+              this.entity.setPosition(entity.getPosition().add(2.5f, 0f));
+              break;
       }
   }
 
@@ -196,12 +197,16 @@ public class PlayerActions extends Component {
      * on the animation so that the player's size stay's consistent over the animations
      */
   private void startSpawnAnimation(){
-      if(spawnAnimation.equals("spawn_level1")) {
-          entity.setScale(4f, 4f);
-      } else if (spawnAnimation.equals("portal_flip")){
-          entity.setScale(2.7f,2.7f);
-      } else if (spawnAnimation.equals("spawn_portal")) {
-          entity.setScale(6f,1.5f);
+       switch (spawnAnimation) {
+          case "spawn_level1":
+              entity.setScale(4f, 4f);
+              break;
+          case "portal_flip":
+              entity.setScale(2.7f, 2.7f);
+              break;
+          case "spawn_portal":
+              entity.setScale(6f, 1.5f);
+              break;
       }
       animator.startAnimation(spawnAnimation);
   }
@@ -210,8 +215,9 @@ public class PlayerActions extends Component {
      * sets the value of spawnAnimation to one of the existing spawn animation, this is done randomly using
      * math.random()
      */
-   public int setSpawnAnimation(){
-      int spawnAnimationToUse = 1 + (int) (Math.random() * 3);
+   public int setSpawnAnimation() {
+       int num = new SecureRandom().nextInt();
+      int spawnAnimationToUse = 1 + (num * 3);
       if (spawnAnimationToUse == 1) {
           spawnAnimation = "portal_flip";
       } else if (spawnAnimationToUse == 2){
