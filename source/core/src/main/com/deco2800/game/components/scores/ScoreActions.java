@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 public class ScoreActions extends Component {
     private static final Logger logger = LoggerFactory.getLogger(MainMenuActions.class);
-    private GdxGame game;
+    private final GdxGame game;
 
     public ScoreActions (GdxGame game){
         this.game = game;

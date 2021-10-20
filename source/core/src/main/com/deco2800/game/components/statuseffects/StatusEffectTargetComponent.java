@@ -1,6 +1,5 @@
 package com.deco2800.game.components.statuseffects;
 
-import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.npc.TheVoidController;
 import com.deco2800.game.components.player.PlayerActions;
@@ -21,7 +20,7 @@ public class StatusEffectTargetComponent extends Component {
   public void update() {
     super.update();
 
-    if (currentStatusEffect != null && ServiceLocator.getTimeSource().getTimeSince(currentStatusEffectStartTime) >= currentStatusEffect.getDuration()*1000) {
+    if (currentStatusEffect != null && ServiceLocator.getTimeSource().getTimeSince(currentStatusEffectStartTime) >= currentStatusEffect.getDuration()* 1000L) {
       currentStatusEffect = null;
       currentStatusEffectStartTime = null;
       currentStatusEffectResetTask.run();
@@ -31,22 +30,6 @@ public class StatusEffectTargetComponent extends Component {
 
   public StatusEffect getCurrentStatusEffect() {
     return currentStatusEffect;
-  }
-
-  /**
-   * Applies the given status effect to the target. Note: only one status effect will be present at one time.
-   * @param statusEffect The effect to apply
-
-  if (currentStatusEffect != null && ServiceLocator.getTimeSource().getTimeSince(currentStatusEffectStartTime) >= currentStatusEffect.getDuration()*1000) {
-  currentStatusEffect = null;
-  currentStatusEffectStartTime = null;
-  currentStatusEffectResetTask.run();
-  currentStatusEffectResetTask = null;
-  }
-  }
-
-  public StatusEffect getCurrentStatusEffect() {
-  return currentStatusEffect;
   }
 
   /**

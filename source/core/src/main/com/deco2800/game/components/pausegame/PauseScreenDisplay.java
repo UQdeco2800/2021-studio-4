@@ -1,17 +1,12 @@
 package com.deco2800.game.components.pausegame;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.deco2800.game.components.InsertImageButton;
-import com.deco2800.game.services.MusicService;
-import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +20,6 @@ public class PauseScreenDisplay extends UIComponent {
   public void create() {
     super.create();
     addActors();
-    //playTheMusic();
   }
 
   /**
@@ -85,9 +79,6 @@ public class PauseScreenDisplay extends UIComponent {
     table.row();
     table.add(resumeBtn).pad(30f);
     table.row();
-//    table.add(exitBtn).center().padRight(50).padTop(200); // Places the button in the centre.
-//    table.add(retryBtn).center().padLeft(50).padTop(200); // Places the button in the centre.
-//    table.add(resumeBtn).center().padRight(50).padBottom(200);
     stage.addActor(table);
     //stage.
   }
@@ -95,11 +86,6 @@ public class PauseScreenDisplay extends UIComponent {
   /**
    * Play death music
    */
-//  public void playTheMusic() {
-//    MusicServiceDirectory deathSong = new MusicServiceDirectory();
-//    MusicService music = new MusicService(deathSong.death_noise_2);
-//    music.changeVolume((float)0.8);
-//  }
 
   @Override
   protected void draw(SpriteBatch batch) {

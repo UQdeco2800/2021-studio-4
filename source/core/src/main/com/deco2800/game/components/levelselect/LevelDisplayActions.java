@@ -2,7 +2,6 @@ package com.deco2800.game.components.levelselect;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
-import com.deco2800.game.components.levelselect.LevelDisplayActions;
 import com.deco2800.game.levels.LevelDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +11,8 @@ import org.slf4j.LoggerFactory;
  */
 public class LevelDisplayActions extends Component {
     private static final Logger logger = LoggerFactory.getLogger(LevelDisplayActions.class);
-    private GdxGame game;
-    private PreviousLevel previousLevel = new PreviousLevel();
+    private final GdxGame game;
+    private final PreviousLevel previousLevel = new PreviousLevel();
 
     public LevelDisplayActions(GdxGame game) {
         this.game = game;

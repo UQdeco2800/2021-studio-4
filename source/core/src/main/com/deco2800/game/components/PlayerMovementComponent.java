@@ -1,29 +1,21 @@
 package com.deco2800.game.components;
 
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.components.endgame.LevelEndComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleDefinition;
 import com.deco2800.game.entities.ObstacleEntity;
-import com.deco2800.game.levels.LevelDefinition;
 import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.*;
 import com.deco2800.game.screens.MainGameScreen;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class PlayerMovementComponent extends Component {
-    private short targetLayer;
-    private Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables;
+    private final short targetLayer;
     private HitboxComponent hitboxComponent;
-    private LevelGameArea levelGameArea;
 
     /**
      * Create a component which interacts with entities on collision.
@@ -31,18 +23,6 @@ public class PlayerMovementComponent extends Component {
      */
     public PlayerMovementComponent(short targetLayer) {
         this.targetLayer = targetLayer;
-    }
-
-    /**
-     * Create a component which interacts with entities on collision.
-     * @param targetLayer The physics layer of the target's collider.
-     * @param mapInteractables The list of sub-interactable and interactable mappings.
-     * @param levelGameArea The level game area.
-     */
-    public PlayerMovementComponent(short targetLayer, Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables, LevelGameArea levelGameArea) {
-        this.levelGameArea = levelGameArea;
-        this.targetLayer = targetLayer;
-        this.mapInteractables = mapInteractables;
     }
 
     @Override
@@ -108,9 +88,8 @@ public class PlayerMovementComponent extends Component {
                 // Get the list of mapped sub-interactables
                 ArrayList<ObstacleEntity> mappedSubInts = interactableComponent.getMapped();
 
-                for (int i = 0; i < mappedSubInts.size(); i++) {
-                    ObstacleEntity mapped = mappedSubInts.get(i); // Get current mapped interactable
-
+                // Get current mapped interactable
+                for (ObstacleEntity mapped : mappedSubInts) {
                     if (mapped != null) {
                         ColliderComponent colliderComponent = mapped.getComponent(ColliderComponent.class);
                         HitboxComponent mappedHitboxComponent = mapped.getComponent(HitboxComponent.class);

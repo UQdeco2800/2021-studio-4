@@ -59,11 +59,6 @@ public class TerrainComponent extends RenderComponent {
     return tileSize;
   }
 
-  public GridPoint2 getMapBounds(int layer) {
-    TiledMapTileLayer terrainLayer = (TiledMapTileLayer)tiledMap.getLayers().get(layer);
-    return new GridPoint2(terrainLayer.getWidth(), terrainLayer.getHeight());
-  }
-
   public TiledMap getMap() {
     return tiledMap;
   }

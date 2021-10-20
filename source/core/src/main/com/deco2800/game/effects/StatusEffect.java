@@ -54,10 +54,6 @@ public enum StatusEffect {
     return duration;
   }
 
-  public boolean isDebuff() {
-    return isDebuff;
-  }
-
   public int getMagnitude() {
     return magnitude;
   }

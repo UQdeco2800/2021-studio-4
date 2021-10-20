@@ -3,7 +3,6 @@ package com.deco2800.game.components.settingsmenu;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics.DisplayMode;
 import com.badlogic.gdx.Graphics.Monitor;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,8 +23,6 @@ import com.deco2800.game.ui.UIComponent;
 import com.deco2800.game.utils.StringDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.security.auth.Destroyable;
 
 /**
  * Settings menu display and logic. If you bork the settings, they can be changed manually in
@@ -48,15 +45,11 @@ public class SettingsMenuDisplay extends UIComponent {
   }
 
   public void playTheMusic() {
-      //MusicService musicScreen = new MusicService("sounds/MainMenuMusic.mp3");
-      //musicScreen.playMusic();
     MusicServiceDirectory menuSong = new MusicServiceDirectory();
     MusicService menuMusic = new MusicService(menuSong.main_menu);
     menuMusic.playSong(true, 0.2f);
 
 
-    /*MusicSingleton m = MusicSingleton.getInstance();
-    m.playSingleton("sounds/MainMenuMusic.mp3");*/
   }
 
   @Override

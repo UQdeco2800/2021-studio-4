@@ -1,8 +1,8 @@
 package com.deco2800.game.components.mainmenu;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
-import com.badlogic.gdx.scenes.scene2d.actions.RotateToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ScaleByAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
@@ -34,9 +34,6 @@ public class TitleAnimation extends Image {
         Rotates the runtime logo. Does not work at the moment because the rotation rotates
         the image from the bottom left corner. As a result, when rotating the image is not moving.
         */
-//        RotateToAction rotateImage = new RotateToAction();
-//        rotateImage.setRotation(360f);
-//        rotateImage.setDuration(duration);
 
         /* Uncomment this and the RotateToAction above to activate the rotation effect */
         //ParallelAction pa = new ParallelAction(scaleImage,centreImage, rotateImage);

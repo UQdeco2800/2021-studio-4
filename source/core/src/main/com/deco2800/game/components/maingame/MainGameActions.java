@@ -3,7 +3,6 @@ package com.deco2800.game.components.maingame;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.levelselect.PreviousLevel;
-import com.deco2800.game.components.player.KeyboardPlayerInputComponent;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.components.tasks.TheVoidTasks;
 import org.slf4j.Logger;
@@ -15,8 +14,8 @@ import org.slf4j.LoggerFactory;
  */
 public class MainGameActions extends Component {
   private static final Logger logger = LoggerFactory.getLogger(MainGameActions.class);
-  private GdxGame game;
-  private PreviousLevel previousLevel = new PreviousLevel();
+  private final GdxGame game;
+  private final PreviousLevel previousLevel = new PreviousLevel();
   private boolean paused;
 
   public MainGameActions(GdxGame game) {
@@ -52,10 +51,7 @@ public class MainGameActions extends Component {
     }
     PlayerStatsDisplay.paused = !PlayerStatsDisplay.paused;
     TheVoidTasks.paused = !TheVoidTasks.paused;
-    //KeyboardPlayerInputComponent.paused = !KeyboardPlayerInputComponent.paused;
 
-    //game.setScreen(GdxGame.ScreenType.PAUSE);
-    //game.setPauseScreen();
   }
 
   private void onRestart() {
@@ -64,9 +60,4 @@ public class MainGameActions extends Component {
     TheVoidTasks.paused = false;
     //KeyboardPlayerInputComponent.paused = false;
   }
-//
-//  private void death() {
-//    logger.info("Exiting main game screen");
-//    game.setScreen(GdxGame.ScreenType.DEATH_SCREEN);
-//  }
 }

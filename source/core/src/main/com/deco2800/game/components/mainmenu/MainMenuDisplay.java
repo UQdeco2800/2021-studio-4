@@ -2,16 +2,17 @@ package com.deco2800.game.components.mainmenu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.components.InsertImageButton;
-import com.deco2800.game.services.*;
+import com.deco2800.game.services.MusicSingleton;
+import com.deco2800.game.services.MuteManager;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,15 +36,6 @@ public class MainMenuDisplay extends UIComponent {
     public MainMenuDisplay() {
     }
 
-    private static final String[] gameTextures = {
-            "images/animatedvoid.png",
-            "images/void_spritesheet2.png",
-    };
-
-    private static final String[] gameTextureAtlases = {
-            "images/void.atlas",
-    };
-
     @Override
     public void create() {
         super.create();
@@ -65,9 +57,9 @@ public class MainMenuDisplay extends UIComponent {
 
         table = insImage.setTable("ui-elements/title-screen.png");
 
-        /**
-         * Creates the button size and position based off
-         * of the users computer screen dimensions.
+        /*
+          Creates the button size and position based off
+          of the users computer screen dimensions.
          */
         int centreWidth1 = Gdx.graphics.getWidth() / 2;
         int centreHeight1 = Gdx.graphics.getHeight() / 2;
@@ -90,8 +82,8 @@ public class MainMenuDisplay extends UIComponent {
         int centreTitleHeight = centreHeight1 - titleHeightDimension / 2;
         int titleHeight = (int) Math.round(centreTitleHeight * 1.1);
 
-        /**
-         * Creates the 'RUNTIME' title texture.
+        /*
+          Creates the 'RUNTIME' title texture.
          */
         String titleMainImage = "ui-elements/runtime-title.png";
         String titleHoverImage = "ui-elements/runtime-on-hover.png";
@@ -99,8 +91,8 @@ public class MainMenuDisplay extends UIComponent {
                 titleWidth, titleHeight,
                 titleWidthDimension, titleHeightDimension);
 
-        /**
-         * Creates the button texture for the Start Button.
+        /*
+          Creates the button texture for the Start Button.
          */
         String startMainImage = "ui-elements/default_buttons/start-button.png";
         String startHoverImage = "ui-elements/hovered-buttons/start-button-hovered.png";
@@ -110,8 +102,8 @@ public class MainMenuDisplay extends UIComponent {
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
 
-        /**
-         * Creates the button texture for the Level Selection Button.
+        /*
+          Creates the button texture for the Level Selection Button.
          */
         String levelMainImage = "ui-elements/default_buttons/levels-button.png";
         String levelHoverImage = "ui-elements/hovered-buttons/levels-button-hovered.png";
@@ -120,8 +112,8 @@ public class MainMenuDisplay extends UIComponent {
                 screenRightWithXOffset, centreHeight + heightDifference * 2,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
-        /**
-         * Creates the button texture for the Settings Button.
+        /*
+          Creates the button texture for the Settings Button.
          */
         String settingsMainImage = "ui-elements/default_buttons/settings-button.png";
         String settingsHoverImage = "ui-elements/hovered-buttons/settings-button-hovered.png";
@@ -130,8 +122,8 @@ public class MainMenuDisplay extends UIComponent {
                 screenRightWithXOffset, centreHeight,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
-        /**
-         * Creates the button texture for the Exit Button.
+        /*
+          Creates the button texture for the Exit Button.
          */
         String exitMainImage = "ui-elements/default_buttons/exit-button.png";
         String exitHoverImage = "ui-elements/hovered-buttons/exit-button-hovered.png";
@@ -140,8 +132,8 @@ public class MainMenuDisplay extends UIComponent {
                 screenRight, centreHeight - heightDifference * 3,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
-        /**
-         * Creates the button texture for the Mute Button. Also loads the 'Muted' button.
+        /*
+          Creates the button texture for the Mute Button. Also loads the 'Muted' button.
          */
         Texture muteTexture = new Texture(Gdx
                 .files.internal("ui-elements/default_buttons/mute-button.png"));
@@ -170,8 +162,8 @@ public class MainMenuDisplay extends UIComponent {
         muteBtn.setBounds(screenRight, (float) (centreHeight - heightDifference),
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
-        /**
-         * Creates the button texture for the Leaderboard Button.
+        /*
+          Creates the button texture for the Leaderboard Button.
          */
         String leaderBoardMainImage = "ui-elements/default_buttons/scores-button.png";
         String leaderBoardHoverImage = "ui-elements/hovered-buttons/scores-button-hovered.png";
@@ -180,8 +172,8 @@ public class MainMenuDisplay extends UIComponent {
                 screenRight, centreHeight + heightDifference,
                 buttonDimensionsWidth, buttonDimensionsHeight);
 
-        /**
-         * Creates the button texture for the Leaderboard Button.
+        /*
+          Creates the button texture for the Leaderboard Button.
          */
         String levelEditorImage = "ui-elements/default_buttons/level-editor-button.png";
         String levelEditorHoverImage = "ui-elements/hovered-buttons/level-editor-button-hovered.png";
@@ -271,8 +263,8 @@ public class MainMenuDisplay extends UIComponent {
                     }
                 });
 
-        /**
-         * Sets the animation for when pressed
+        /*
+          Sets the animation for when pressed
          */
         runtimeTitle.addListener(
                 new ChangeListener() {
@@ -302,7 +294,7 @@ public class MainMenuDisplay extends UIComponent {
         runtimeTitle.remove();
         int imageWidth = 100;
         int imageHeight = 100;
-        /** This adds the tiny runtime logo */
+        /* This adds the tiny runtime logo */
         moveAnimationImage(imageWidth, imageHeight);
     }
 
@@ -336,7 +328,7 @@ public class MainMenuDisplay extends UIComponent {
         if (titleAnimationStartTime != null) {
             long timePassed = System.currentTimeMillis() - titleAnimationStartTime;
 
-            if (timePassed / 1000 >= duration) {
+            if (timePassed % 1000 >= duration) {
                 titleAnimation.remove();
                 stage.addActor(runtimeTitle);
             }

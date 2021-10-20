@@ -9,15 +9,16 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.deco2800.game.areas.terrain.TerrainComponent.TerrainOrientation;
 import com.deco2800.game.components.CameraComponent;
 import com.deco2800.game.files.LevelFile;
 import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.services.ServiceLocator;
-
-import java.util.ArrayList;
 
 /** Factory for creating game terrains. */
 public class TerrainFactory {
@@ -37,7 +38,7 @@ public class TerrainFactory {
 
   /**
    * Generates the terraincomponent which will contain the terrain data
-   * @return
+   * @return terrain component that has been generated
    */
   public TerrainComponent createTerrain(LevelFile.TileLayerData layerData, TextureAtlas levelAtlas) {
     GridPoint2 tilePixelSize = new GridPoint2(TerrainTileDefinition.TILE_X, TerrainTileDefinition.TILE_Y);
@@ -82,7 +83,6 @@ public class TerrainFactory {
           // to this cell, and reset our variables
           if (nextCell == null) {
             // Create a rectangle at the location of the tile
-            int twidth = mapTileLayer.getTileWidth(), theight =  mapTileLayer.getTileHeight();
             Rectangle rectangle = new Rectangle(headX * TILE_SIZE, headY * TILE_SIZE,  cellCount * TILE_SIZE,  TILE_SIZE);
 
             // Create a body for this map object
@@ -127,8 +127,8 @@ public class TerrainFactory {
 
   /**
    * Loads in the tiles, places them on the tile layer and returns a tiledmap
-   * @param tileSize
-   * @return
+   * @param tileSize size of tile
+   * @return map with tiles
    */
   private TiledMap loadTiles(GridPoint2 tileSize, LevelFile.TileLayerData layerData, TextureAtlas levelAtlas) {
     TiledMap tiledMap = new TiledMap();

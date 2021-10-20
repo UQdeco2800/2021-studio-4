@@ -1,7 +1,7 @@
 package com.deco2800.game.components.tasks;
+
 import com.deco2800.game.ai.tasks.DefaultTask;
 import com.deco2800.game.ai.tasks.PriorityTask;
-import com.deco2800.game.entities.Entity;
 
 /**
  * Starts the void's animation when the game starts and makes the void constantly move as
@@ -9,19 +9,11 @@ import com.deco2800.game.entities.Entity;
  * TheVoidController class.
  */
 public class StatusEffectTasks extends DefaultTask implements PriorityTask {
-    Entity entity;
 
     /**
      * Initiliser
      */
     public StatusEffectTasks() {}
-
-    /**
-     * Initiliser
-     */
-    public StatusEffectTasks(Entity entity) {
-        this.entity = entity;
-    }
 
     /**
      * Returns a Priority that is always true

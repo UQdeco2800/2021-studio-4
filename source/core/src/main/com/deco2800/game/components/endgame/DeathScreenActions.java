@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
  */
 public class DeathScreenActions extends Component {
     private static final Logger logger = LoggerFactory.getLogger(LevelDisplayActions.class);
-    private GdxGame game;
-    private PreviousLevel previousLevel = new PreviousLevel();
+    private final GdxGame game;
+    private final PreviousLevel previousLevel = new PreviousLevel();
 
     public DeathScreenActions(GdxGame game) {
         this.game = game;

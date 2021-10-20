@@ -14,17 +14,17 @@ import com.deco2800.game.services.ServiceLocator;
  */
 public class EditorUIComponent extends UIComponent {
     private Table rootTable;
-    private Stage stage;
+    private Stage currentStage;
     private LevelGameArea levelGameArea;
     private TextField levelName;
-    
+
     /**
      * The constructor for the UI component
      * @param levelGameArea The area to save
      */
     public EditorUIComponent(LevelGameArea levelGameArea) {
         super();
-        this.stage = ServiceLocator.getRenderService().getStage();
+        this.currentStage = ServiceLocator.getRenderService().getStage();
         this.levelGameArea = levelGameArea;
     }
 
@@ -55,7 +55,7 @@ public class EditorUIComponent extends UIComponent {
         rootTable.row();
         rootTable.add(menuBtns).fillX();
 
-        stage.addActor(rootTable);
+        currentStage.addActor(rootTable);
     }
 
     /**

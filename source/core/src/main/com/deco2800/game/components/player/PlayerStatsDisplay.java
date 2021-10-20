@@ -5,13 +5,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.deco2800.game.components.CombatStatsComponent;
-import com.deco2800.game.services.GameTime;
 import com.deco2800.game.ui.UIComponent;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -23,7 +18,6 @@ import static com.deco2800.game.screens.MainGameScreen.timeScore;
 public class PlayerStatsDisplay extends UIComponent {
   Table table;
 
-  private Label healthLabel;
   private Label timeLabel;
   public static boolean gameOver = false;
   public static boolean paused = false;
@@ -34,6 +28,9 @@ public class PlayerStatsDisplay extends UIComponent {
   private int pausedTime = 0;
   private boolean pauseSet = false;
   int timeElapsedWhilePaused = 0;
+
+  public PlayerStatsDisplay() {
+  }
 
   /**
    * Creates reusable ui styles and adds actors to the stage.
@@ -59,7 +56,6 @@ public class PlayerStatsDisplay extends UIComponent {
     table.padTop(45f);
 
     // Health text
-    int health = entity.getComponent(CombatStatsComponent.class).getHealth();
 
     table.row();
     iterator = 0;
@@ -76,8 +72,6 @@ public class PlayerStatsDisplay extends UIComponent {
 
 
     // Changing the font size of the clock
-    //timeLabel.setFontScaleX(6);
-    //timeLabel.setFontScaleY(9);
     timeLabel.setFontScale(3);
     
 
@@ -90,8 +84,6 @@ public class PlayerStatsDisplay extends UIComponent {
     //timeLabel.setBounds(middleScreen, heightOfTimeText, 200, 200); // Try to increase Font size
     timeLabel.setSize(timeSize, timeSize);
     timeLabel.setPosition(timeMiddleScreen, heightOfTimeText, 0);
-    //timeLabel.setFillParent(true);
-    //System.out.println(timeLabel.setText(100));
 
     TimerTask task = new TimerTask() {
       @Override
@@ -160,7 +152,7 @@ public class PlayerStatsDisplay extends UIComponent {
   @Override
   public void dispose() {
     super.dispose();
-    healthLabel.remove();
     timeLabel.remove();
   }
+
 }

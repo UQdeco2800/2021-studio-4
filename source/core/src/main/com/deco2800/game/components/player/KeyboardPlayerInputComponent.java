@@ -17,8 +17,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
   private boolean paused = false;
 
-  private List<Integer> illegalKeydowns = new ArrayList<>();
-  private List<Integer> keydowns = new ArrayList<>();
+  private final List<Integer> illegalKeydowns = new ArrayList<>();
+  private final List<Integer> keydowns = new ArrayList<>();
 
   public KeyboardPlayerInputComponent() {
     super(5);

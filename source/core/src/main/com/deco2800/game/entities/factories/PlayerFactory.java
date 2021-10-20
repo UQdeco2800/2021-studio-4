@@ -3,7 +3,6 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deco2800.game.ai.tasks.AITaskComponent;
-import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.PlayerMovementComponent;
 import com.deco2800.game.components.player.PlayerActions;
@@ -12,7 +11,6 @@ import com.deco2800.game.components.statuseffects.StatusEffectTargetComponent;
 import com.deco2800.game.components.statuseffects.StatusEffectUIComponent;
 import com.deco2800.game.components.tasks.PlayerChangeAnimationHelper;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.ObstacleEntity;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.input.InputComponent;
@@ -23,9 +21,6 @@ import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Factory to create a player entity.
@@ -41,7 +36,7 @@ public class PlayerFactory {
    * Create a player entity.
    * @return entity
    */
-  public static Entity createPlayer(Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables, LevelGameArea levelGameArea) {
+  public static Entity createPlayer() {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForPlayer();
 
@@ -66,7 +61,7 @@ public class PlayerFactory {
 
     for(String mov : movement) {
       for (String dir : direction) {
-        if (mov.equals("Jump") | mov.equals("Sliding") | mov.equals("Falling")) {
+        if (mov.equals("Jump") || mov.equals("Sliding") || mov.equals("Falling")) {
           animator.addAnimation(mov + dir, 0.03f, Animation.PlayMode.NORMAL);
         } else if (mov.equals("Slow")){
           animator.addAnimation(mov + dir, 0.16f, Animation.PlayMode.LOOP);
@@ -88,7 +83,7 @@ public class PlayerFactory {
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(aiComponent)
-            .addComponent(new PlayerMovementComponent(PhysicsLayer.OBSTACLE, mapInteractables, levelGameArea))
+            .addComponent(new PlayerMovementComponent(PhysicsLayer.OBSTACLE))
             .addComponent(new StatusEffectTargetComponent())
             .addComponent(new StatusEffectUIComponent());
 
