@@ -61,11 +61,7 @@ public class LevelDisplayActions extends Component {
               // final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
               // executorService.scheduleAtFixedRate(LevelDisplayActions::addGameScreen, 0, 1, TimeUnit.SECONDS);
             ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(1);
-            exec.schedule(new Runnable() {
-                public void run() {
-                    addGameScreen(levelDefinition);
-                }
-            }, 5, TimeUnit.SECONDS);
+            exec.schedule(() -> addGameScreen(levelDefinition), 5, TimeUnit.SECONDS);
         }
 
 
