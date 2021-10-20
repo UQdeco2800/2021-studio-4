@@ -28,12 +28,7 @@ import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import java.util.*;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class LevelGameArea extends GameArea {
@@ -181,7 +176,7 @@ public class LevelGameArea extends GameArea {
 
   private void displayUI() {
     Entity ui = new Entity();
-    ui.addComponent(new GameAreaDisplay("RUNTIME"));
+    ui.addComponent(new GameAreaDisplay("Box Forest"));
     spawnEntity(ui);
   }
 
@@ -302,7 +297,7 @@ public class LevelGameArea extends GameArea {
       }
     }
 
-      if (!buttons.isEmpty() && !subInteractables.isEmpty()) {
+      if (buttons.size() > 0 && subInteractables.size() > 0) {
         for (int j = 0; j < buttons.size(); j++) {
           InteractableComponent interactable = buttons.get(j).getComponent(InteractableComponent.class);
           interactable.addSubInteractable(subInteractables.get(j));
@@ -394,21 +389,22 @@ public class LevelGameArea extends GameArea {
 
     // Add entities to subInteractables list
     for (ObstacleEntity obstacleEntity : obstacleEntities) {
-      if (obstacleEntity.interactableID != null && levelFile.obstacles.interactablesMap.containsKey(obstacleEntity.interactableID)) {
-        List<Integer> subInteractableIds = levelFile.obstacles.interactablesMap.get(obstacleEntity.interactableID);
-        List<ObstacleEntity> subInteractables = new ArrayList<>();
-        for (ObstacleEntity entity : obstacleEntities) {
-          if (subInteractableIds.contains(entity.interactableID)) {
-            subInteractables.add(entity);
-            break;
+      if (obstacleEntity.interactableID != null) {
+        if (levelFile.obstacles.interactablesMap.containsKey(obstacleEntity.interactableID)) {
+          List<Integer> subInteractableIds = levelFile.obstacles.interactablesMap.get(obstacleEntity.interactableID);
+          List<ObstacleEntity> subInteractables = new ArrayList<>();
+          for (ObstacleEntity entity : obstacleEntities) {
+            if (subInteractableIds.contains(entity.interactableID)) {
+              subInteractables.add(entity);
+              break;
+            }
           }
-        }
 
-        mapInteractables.put(obstacleEntity, subInteractables);
+          mapInteractables.put(obstacleEntity, subInteractables);
         }
-
+      }
     }
-    System.err.println(levelFile.obstacles.interactablesMap);
+    System.out.println(levelFile.obstacles.interactablesMap);
   }
 
   @Override
@@ -424,8 +420,8 @@ public class LevelGameArea extends GameArea {
     TerrainFactory.generateBodies(terrain.getMap());
   }
 
-
   private void spawnObstacle(ObstacleDefinition selectedObstacle, int x, int y, int size) {
+
 
     switch (selectedObstacle){
       case PLATFORM:
@@ -478,9 +474,9 @@ public class LevelGameArea extends GameArea {
    * Spawns a status effect as the given location
    */
   private void spawnStatusEffect(StatusEffect statusEffect, int posX, int posY) {
-    System.err.println(statusEffect);
-    System.err.println(posX);
-    System.err.println(posY);
+    System.out.println(statusEffect);
+    System.out.println(posX);
+    System.out.println(posY);
     Entity statusEffectEntity = NPCFactory.createStatusEffect(statusEffect);
     GridPoint2 position = new GridPoint2(posX, posY);
     spawnEntityAt(statusEffectEntity, position, true, true);
@@ -547,6 +543,7 @@ public class LevelGameArea extends GameArea {
       default:
         gameMusic = new MusicService(dict.game_level_1);//To make sure gameMusic is never null
     }
+      //gameMusic.playMusic();
     gameMusic.playSong(true, 0.2f);
 
   }

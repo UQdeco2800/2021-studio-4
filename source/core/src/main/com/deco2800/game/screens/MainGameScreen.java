@@ -30,10 +30,6 @@ import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-import java.util.Timer;
-import java.util.TimerTask;
-
 import static com.deco2800.game.components.player.PlayerStatsDisplay.gameOver;
 
 /**
@@ -47,7 +43,7 @@ public class MainGameScreen extends ScreenAdapter {
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
 
   private long start = System.currentTimeMillis();
-  private long end = start + 2 * 1000;
+  private long end = start + 2*1000;
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;

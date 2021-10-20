@@ -1,14 +1,10 @@
 package com.deco2800.game.components.mainmenu;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.levels.LevelDefinition;
-import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.MusicSingleton;
 import com.deco2800.game.services.MuteManager;
-import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,15 +19,6 @@ public class MainMenuActions extends Component {
   public MainMenuActions(GdxGame game) {
     this.game = game;
   }
-
-  private static final String[] gameTextures = {
-          "images/animatedvoid.png",
-          "images/void_spritesheet2.png",
-  };
-
-  private static final String[] gameTextureAtlases = {
-          "images/void.atlas",
-  };
 
   @Override
   public void create() {

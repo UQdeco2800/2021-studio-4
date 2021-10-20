@@ -1,9 +1,17 @@
-package com.deco2800.game.components.statuseffects;
+package com.deco2800.game.components.statusEffects;
 
-import com.deco2800.game.components.CombatStatsComponent;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+import java.util.concurrent.Callable;
+
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.extensions.GameExtension;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -15,12 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(GameExtension.class)
 public class StatusEffectTest {
 
-//    private StatusEffectOperation jumpBuff;
-//    private StatusEffectOperation speedBuff;
-//    private StatusEffectOperation stuckInTheMud;
     private Entity player;
-    private CombatStatsComponent combatStatsComponentNotDead;
-    private CombatStatsComponent combatStatsComponentIsDead;
     float expected;
     float result;
     int type;

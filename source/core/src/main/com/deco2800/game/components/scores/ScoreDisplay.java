@@ -1,5 +1,15 @@
 package com.deco2800.game.components.scores;
 
+import static com.deco2800.game.screens.MainGameScreen.levelComplete;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.StringJoiner;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -18,13 +28,13 @@ import com.deco2800.game.levels.LevelDefinition;
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.ui.UIComponent;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.StringJoiner;
-
 import static com.deco2800.game.screens.MainGameScreen.levelComplete;
 
 public class ScoreDisplay extends UIComponent {
@@ -187,6 +197,7 @@ public class ScoreDisplay extends UIComponent {
         Image scoreDisplayTitle = new Image(scoreDisplayDrawable);
         scoreDisplayTitle.setBounds((float)Gdx.graphics.getWidth()/2 - (float)imageWidth/2,Gdx.graphics.getHeight()-(float)Gdx.graphics.getHeight()/5,
                 imageWidth,(float)Gdx.graphics.getHeight()/6);
+
 
         stage.addActor(table);
         stage.addActor(exitBtn);
