@@ -31,16 +31,13 @@ public class MainGameExitDisplay extends UIComponent {
 
     // Add pause button to pause game
     TextButton pauseBtn = new TextButton("Pause", skin);
-
-
+    //pauseBtn.setColor(Color.ROYAL);
     // Add exit button to go back to main menu.
     TextButton exitBtn = new TextButton("Exit", skin);
-
-
+    //exitBtn.setColor(Color.ROYAL);
     // Add retry button to restart level
     TextButton retryBtn = new TextButton("Retry", skin);
-
-
+    //retryBtn.setColor(Color.ROYAL);
 
 
     // Pause button event

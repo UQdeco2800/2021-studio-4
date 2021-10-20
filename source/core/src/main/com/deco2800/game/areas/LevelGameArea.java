@@ -6,10 +6,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainTile;
+import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.effects.StatusEffect;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.ObstacleDefinition;
@@ -22,27 +22,30 @@ import com.deco2800.game.levels.LevelDefinition;
 import com.deco2800.game.physics.components.InteractableComponent;
 import com.deco2800.game.physics.components.SubInteractableComponent;
 import com.deco2800.game.rendering.BackgroundRenderComponent;
-import com.deco2800.game.services.*;
-import com.deco2800.game.components.gamearea.GameAreaDisplay;
+import com.deco2800.game.services.MusicService;
+import com.deco2800.game.services.MusicServiceDirectory;
+import com.deco2800.game.services.ResourceService;
+import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.deco2800.game.leveleditor.ObstacleToolComponent;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class LevelGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(LevelGameArea.class);
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 15);
   private static final GridPoint2 STATUSEFFECT_SPAWN = new GridPoint2(15, 15);
-  public List<ObstacleEntity> obstacleEntities = new ArrayList<>();
-  public static ArrayList<TerrainTile> terrainTiles = new ArrayList<>();
-  public static ArrayList<String> buffers = new ArrayList<>();
-  public static ArrayList<String> deBuffers = new ArrayList<>();
+  private static final List<ObstacleEntity> obstacleEntities = new ArrayList<>();
+  protected static final List<String> buffers = new ArrayList<>();
+  protected static final List<String> deBuffers = new ArrayList<>();
   private LevelFile levelFile;
-  private Random random = new Random();
 
-  public Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables = new HashMap<>();
-  public List<ObstacleEntity> interactableEntities = new ArrayList<>();
+  public static final Map<ObstacleEntity, List<ObstacleEntity>> mapInteractableObjects = new HashMap<>();
+  public static final List<ObstacleEntity> interactableEntities = new ArrayList<>();
 
   private static final String[] gameTextures = {
     "backgrounds/game_background.png",
@@ -89,7 +92,6 @@ public class LevelGameArea extends GameArea {
 
   private final TerrainFactory terrainFactory;
   private final LevelDefinition levelDefinition;
-  private static boolean loading = true;
   private Entity player;
 
   public LevelGameArea(TerrainFactory terrainFactory, LevelDefinition levelDefinition) {
@@ -114,14 +116,21 @@ public class LevelGameArea extends GameArea {
     loadAssets();
 
     String levels = levelDefinition.getLevelFileName();
-    if (levels.equals("levels/level1.json")) {
-      displayBackground("backgrounds/background_level1.png");
-    } else if (levels.equals("levels/level2.json")) {
-      displayBackground("backgrounds/background_level2.png");
-    } else if (levels.equals("levels/level3.json")) {
-      displayBackground("backgrounds/background_level3.png");
-    } else if (levels.equals("levels/level4.json")) {
-      displayBackground("backgrounds/background_level4.png");
+    switch (levels) {
+      case "levels/level1.json":
+        displayBackground("backgrounds/background_level1.jpg");
+        break;
+      case "levels/level2.json":
+        displayBackground("backgrounds/background_level2.jpg");
+        break;
+      case "levels/level3.json":
+        displayBackground("backgrounds/background_level3.png");
+        break;
+      case "levels/level4.json":
+        displayBackground("backgrounds/background_level4.png");
+        break;
+      default:
+        break;
     }
     spawnTerrain();
     spawnLevelFromFile();
@@ -136,7 +145,6 @@ public class LevelGameArea extends GameArea {
     init();
     displayUI();
     player = spawnPlayer();
-    //spawnLevelFromFile();
     spawnTheVoid();
 
     int statusPosX = STATUSEFFECT_SPAWN.x;
@@ -149,18 +157,22 @@ public class LevelGameArea extends GameArea {
 
 
     String level = levelDefinition.getLevelFileName();
-    if (level.equals("levels/level1.json")) {
-      playTheMusic("game_level_1");
-    } else if (level.equals("levels/level2.json")) {
-      playTheMusic("level_2");
-    } else if (level.equals("levels/level3.json")) {
-      playTheMusic("level_3");
-    } else if (level.equals("levels/level4.json")) {
-      playTheMusic("level_4");
+    switch (level) {
+      case "levels/level1.json":
+        playTheMusic("game_level_1");
+        break;
+      case "levels/level2.json":
+        playTheMusic("level_2");
+        break;
+      case "levels/level3.json":
+        playTheMusic("level_3");
+        break;
+      case "levels/level4.json":
+        playTheMusic("level_1_2"); //replace with level 4 music when it's created
+        break;
+      default:
+        break;
     }
-
-    //spawnPlatform(8, 21, 5);
-    //spawnDoor(9, 23, 5);
 
   }
 
@@ -172,7 +184,6 @@ public class LevelGameArea extends GameArea {
     Entity ui = new Entity();
     ui.addComponent(new GameAreaDisplay("RUNTIME"));
     spawnEntity(ui);
-    loading = false;
   }
 
   private void displayBackground(String imagePath) {
@@ -211,77 +222,48 @@ public class LevelGameArea extends GameArea {
     terrain.invalidateCache();
   }
 
-  public void spawnPlatform(int posX, int posY, int width) {
-    this.spawnPlatform(posX, posY, width, true, true);
-  }
 
-  public ObstacleEntity spawnPlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
+
+  public void spawnPlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
     ObstacleEntity platform = (ObstacleEntity) ObstacleFactory.createPlatform(width);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(platform, position, centerX, centerY);
     obstacleEntities.add(platform);
     platform.setTilePosition(position);
-    return platform;
   }
 
-  public void spawnMiddlePlatform(int posX, int posY, int width) {
-    this.spawnMiddlePlatform(posX, posY, width, true, true);
-  }
 
-  public ObstacleEntity spawnMiddlePlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
+
+  public void spawnMiddlePlatform(int posX, int posY, int width, boolean centerX, boolean centerY) {
     ObstacleEntity platform = (ObstacleEntity) ObstacleFactory.createMiddlePlatform(width);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(platform, position, centerX, centerY);
     obstacleEntities.add(platform);
     platform.setTilePosition(position);
-    return platform;
-  }
-  public void spawnButton(int posX, int posY) {
-    spawnButton(posX, posY, false, true);
   }
 
-  public ObstacleEntity spawnButton(int posX, int posY, boolean centerX, boolean centerY) {
+  public void spawnButton(int posX, int posY, boolean centerX, boolean centerY) {
     ObstacleEntity button = (ObstacleEntity) ObstacleFactory.createButton();
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(button, position, centerX, centerY);
     obstacleEntities.add(button);
     button.setTilePosition(position);
-    return button;
   }
 
-  public void spawnBridge(int posX, int posY, int width) {
-    spawnBridge(posX, posY, width, false, true);
-  }
-
-  public ObstacleEntity spawnBridge(int posX, int posY, int width, boolean centerX, boolean centerY) {
+  public void spawnBridge(int posX, int posY, int width, boolean centerX, boolean centerY) {
     ObstacleEntity bridge = (ObstacleEntity) ObstacleFactory.createBridge(width);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(bridge, position, centerX, centerY);
     obstacleEntities.add(bridge);
     bridge.setTilePosition(position);
-    return bridge;
   }
 
-  public void spawnDoor(int posX, int posY, int height) {
-    spawnDoor(posX, posY, height, false, true);
-  }
-
-  public ObstacleEntity spawnDoor(int posX, int posY, int height, boolean centerX, boolean centerY) {
+  public void spawnDoor(int posX, int posY, int height, boolean centerX, boolean centerY) {
     ObstacleEntity door = (ObstacleEntity) ObstacleFactory.createDoor(height);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(door, position, centerX, centerY);
     obstacleEntities.add(door);
     door.setTilePosition(position);
-    return door;
-  }
-
-  /**
-   * Spawn a new jump pad.
-   * @param posX X-position
-   * @param posY Y-position
-   */
-  public void spawnJumppad(int posX, int posY) {
-    spawnButton(posX, posY, false, true);
   }
 
   /**
@@ -290,15 +272,13 @@ public class LevelGameArea extends GameArea {
    * @param posY Y-position
    * @param centerX boolean center X value
    * @param centerY boolean center Y value
-   * @return jump pad
    */
-  public ObstacleEntity spawnJumppad(int posX, int posY, boolean centerX, boolean centerY) {
+  public void spawnJumppad(int posX, int posY, boolean centerX, boolean centerY) {
     ObstacleEntity jumppad = (ObstacleEntity) ObstacleFactory.createJumpPad();
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(jumppad, position, centerX, centerY);
     obstacleEntities.add(jumppad);
     jumppad.setTilePosition(position);
-    return jumppad;
   }
 
   /**
@@ -312,19 +292,18 @@ public class LevelGameArea extends GameArea {
       //list of all doors and bridges in order of creation
       ArrayList<ObstacleEntity> subInteractables = new ArrayList<>();
 
-      for (int i = 0; i < obstacleEntities.size(); i++) {
-        ObstacleEntity obstacle = obstacleEntities.get(i);
-        InteractableComponent interactable = obstacle.getComponent(InteractableComponent.class); // button
-        SubInteractableComponent subInteractable = obstacle.getComponent(SubInteractableComponent.class); //door or bridge
+    for (ObstacleEntity obstacle : obstacleEntities) {
+      InteractableComponent interactable = obstacle.getComponent(InteractableComponent.class); // button
+      SubInteractableComponent subInteractable = obstacle.getComponent(SubInteractableComponent.class); //door or bridge
 
-        if (subInteractable != null) { // if bridge or door
-          subInteractables.add(obstacle);
-        } else if (interactable != null) { //if button
-          buttons.add(obstacle);
-        }
+      if (subInteractable != null) { // if bridge or door
+        subInteractables.add(obstacle);
+      } else if (interactable != null) { //if button
+        buttons.add(obstacle);
       }
+    }
 
-      if (buttons.size() > 0 && subInteractables.size() > 0) {
+      if (!buttons.isEmpty() && !subInteractables.isEmpty()) {
         for (int j = 0; j < buttons.size(); j++) {
           InteractableComponent interactable = buttons.get(j).getComponent(InteractableComponent.class);
           interactable.addSubInteractable(subInteractables.get(j));
@@ -340,17 +319,12 @@ public class LevelGameArea extends GameArea {
     return null;
   }
 
-  public void spawnLevelEndPortal(int posX, int posY, int width) {
-    spawnLevelEndPortal(posX, posY, width, false, true);
-  }
-
-  public ObstacleEntity spawnLevelEndPortal(int posX, int posY, int width, boolean centerX, boolean centerY) {
+  public void spawnLevelEndPortal(int posX, int posY, int width, boolean centerX, boolean centerY) {
     ObstacleEntity levelEndPortal = (ObstacleEntity) ObstacleFactory.createLevelEndPortal(width);
     GridPoint2 position = new GridPoint2(posX,posY);
     spawnEntityAt(levelEndPortal, position, centerX, centerY);
     obstacleEntities.add(levelEndPortal);
     levelEndPortal.setTilePosition(position);
-    return levelEndPortal;
   }
 
   public void writeAll() {
@@ -363,7 +337,7 @@ public class LevelGameArea extends GameArea {
     assert file != null;
 
     // Create a new LevelFile object
-    LevelFile levelFile = new LevelFile();
+    LevelFile newLevelFile = new LevelFile();
 
     // save the TiledMapTileLayer
     TiledMapTileLayer layer = (TiledMapTileLayer)terrain.getMap().getLayers().get(0);
@@ -385,18 +359,18 @@ public class LevelGameArea extends GameArea {
       }
     }
 
-    levelFile.terrain = new LevelFile.Terrain();
-    levelFile.terrain.mapLayer = layerData;
+    newLevelFile.terrain = new LevelFile.Terrain();
+    newLevelFile.terrain.mapLayer = layerData;
 
     // Save the obstacles
-    levelFile.obstacles = new LevelFile.Obstacles();
-    levelFile.obstacles.obstacleEntities = this.obstacleEntities;
+    newLevelFile.obstacles = new LevelFile.Obstacles();
+    newLevelFile.obstacles.obstacleEntities = obstacleEntities;
 
     // Save current texture from old level file
-    levelFile.levelTexture = this.levelFile.levelTexture;
+    newLevelFile.levelTexture = this.levelFile.levelTexture;
 
     // save the file
-    file.writeString(json.prettyPrint(levelFile), false);
+    file.writeString(json.prettyPrint(newLevelFile), false);
   }
 
   private void loadLevelFile() {
@@ -412,36 +386,34 @@ public class LevelGameArea extends GameArea {
   private void generateAll() {
     try {
       for (ObstacleEntity obstacleEntity : levelFile.obstacles.obstacleEntities) {
-        ObstacleEntity newObstacle = spawnObstacle(obstacleEntity.getDefinition(), (int) obstacleEntity.getPosition().x,
+        spawnObstacle(obstacleEntity.getDefinition(), (int) obstacleEntity.getPosition().x,
                 (int) obstacleEntity.getPosition().y, obstacleEntity.size);
       }
     } catch (NullPointerException e) {
-      e.printStackTrace();
+      logger.debug("context", e);
     }
 
     // Add entities to subInteractables list
     for (ObstacleEntity obstacleEntity : obstacleEntities) {
-      if (obstacleEntity.interactableID != null) {
-        if (levelFile.obstacles.interactablesMap.containsKey(obstacleEntity.interactableID)) {
-          List<Integer> subInteractableIds = levelFile.obstacles.interactablesMap.get(obstacleEntity.interactableID);
-          List<ObstacleEntity> subInteractables = new ArrayList<>();
-          for (ObstacleEntity entity : obstacleEntities) {
-            if (subInteractableIds.contains(entity.interactableID)) {
-              subInteractables.add(entity);
-              break;
-            }
+      if (obstacleEntity.interactableID != null && levelFile.obstacles.interactablesMap.containsKey(obstacleEntity.interactableID)) {
+        List<Integer> subInteractableIds = levelFile.obstacles.interactablesMap.get(obstacleEntity.interactableID);
+        List<ObstacleEntity> subInteractables = new ArrayList<>();
+        for (ObstacleEntity entity : obstacleEntities) {
+          if (subInteractableIds.contains(entity.interactableID)) {
+            subInteractables.add(entity);
+            break;
           }
-
-          mapInteractables.put(obstacleEntity, subInteractables);
         }
-      }
+
+        mapInteractableObjects.put(obstacleEntity, subInteractables);
+        }
+
     }
-    System.out.println(levelFile.obstacles.interactablesMap);
+    System.err.println(levelFile.obstacles.interactablesMap);
   }
 
   @Override
   public void untrackEntity(Entity entity) {
-    this.obstacleEntities.remove(entity);
     super.untrackEntity(entity);
   }
 
@@ -454,35 +426,35 @@ public class LevelGameArea extends GameArea {
   }
 
 
-  private void spawnObstacle(ObstacleToolComponent.Obstacle selectedObstacle, int x, int y, int size) {
-  }
-
-  private ObstacleEntity spawnObstacle(ObstacleDefinition selectedObstacle, int x, int y, int size) {
-//    x = x*2;
-//    y = y*2;
+  private void spawnObstacle(ObstacleDefinition selectedObstacle, int x, int y, int size) {
 
     switch (selectedObstacle){
       case PLATFORM:
-        return spawnPlatform(x, y, size, false, false);
+        spawnPlatform(x, y, size, false, false);
+        return;
       case MIDDLE_PLATFORM:
-        return spawnMiddlePlatform(x, y, size, false, false);
+        spawnMiddlePlatform(x, y, size, false, false);
+        return;
       case DOOR:
-        return spawnDoor(x, y, size, false, false);
+        spawnDoor(x, y, size, false, false);
+        return;
       case BRIDGE:
-        return spawnBridge(x, y, size, false, false);
+        spawnBridge(x, y, size, false, false);
+        return;
       case BUTTON:
-        return spawnButton(x, y, false, false);
+        spawnButton(x, y, false, false);
+        return;
       case LEVEL_END_PORTAL:
-        return spawnLevelEndPortal(x,y,size,false,false);
+        spawnLevelEndPortal(x, y, size, false, false);
+        return;
       case JUMPPAD:
-        return spawnJumppad(x, y, false, false);
+        spawnJumppad(x, y, false, false);
     }
 
-    return null;
   }
 
   private Entity spawnPlayer() {
-    Entity newPlayer = PlayerFactory.createPlayer(mapInteractables, this);
+    Entity newPlayer = PlayerFactory.createPlayer(mapInteractableObjects, this);
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     return newPlayer;
   }
@@ -493,7 +465,6 @@ public class LevelGameArea extends GameArea {
    * the maps height and the horizontal placement is chosen to spawn the void to the far
    * left of the screen.
    *
-   * @return void
    */
   private void spawnTheVoid() {
     int startPosY = PLAYER_SPAWN.y;
@@ -508,9 +479,9 @@ public class LevelGameArea extends GameArea {
    * Spawns a status effect as the given location
    */
   private void spawnStatusEffect(StatusEffect statusEffect, int posX, int posY) {
-    System.out.println(statusEffect);
-    System.out.println(posX);
-    System.out.println(posY);
+    System.err.println(statusEffect);
+    System.err.println(posX);
+    System.err.println(posY);
     Entity statusEffectEntity = NPCFactory.createStatusEffect(statusEffect);
     GridPoint2 position = new GridPoint2(posX, posY);
     spawnEntityAt(statusEffectEntity, position, true, true);
@@ -523,61 +494,61 @@ public class LevelGameArea extends GameArea {
   private void playTheMusic(String musicPath) {
     logger.debug("Playing game area music");
     MusicServiceDirectory dict = new  MusicServiceDirectory();
-    MusicService gameMusic = null;
+    MusicService musicInGame;
     switch (musicPath) {
       case "click":
-        gameMusic = new MusicService(dict.click);
+        musicInGame = new MusicService(dict.click);
         logger.debug("Play jump song");
         break;
       case "end_credits":
-        gameMusic = new MusicService(dict.end_credits);
+        musicInGame = new MusicService(dict.end_credits);
         break;
       case "enemy_collision":
-        gameMusic = new MusicService(dict.enemy_collision);
+        musicInGame = new MusicService(dict.enemy_collision);
         break;
       case "enemy_death":
-        gameMusic = new MusicService(dict.enemy_death);
+        musicInGame = new MusicService(dict.enemy_death);
         break;
       case "obstacle_boost":
-        gameMusic = new MusicService(dict.obstacle_boost);
+        musicInGame = new MusicService(dict.obstacle_boost);
         break;
       case "obstacle_button":
-        gameMusic = new MusicService(dict.obstacle_button);
+        musicInGame = new MusicService(dict.obstacle_button);
         break;
       case "player_power_up":
-        gameMusic = new MusicService(dict.player_power_up);
+        musicInGame = new MusicService(dict.player_power_up);
         break;
       case "player_collision":
-        gameMusic = new MusicService(dict.player_collision);
+        musicInGame = new MusicService(dict.player_collision);
         break;
       case "void_death":
-        gameMusic = new MusicService(dict.void_death);
+        musicInGame = new MusicService(dict.void_death);
         break;
       case "void_noise":
-        gameMusic = new MusicService(dict.void_noise);
+        musicInGame = new MusicService(dict.void_noise);
         break;
       case "ending_menu":
-        gameMusic = new MusicService(dict.ending_menu);
+        musicInGame = new MusicService(dict.ending_menu);
         break;
-      case "level_4":
-        gameMusic = new MusicService(dict.game_level_4);
+      case "level_1_2":
+        musicInGame = new MusicService(dict.game_level_1_option2);
         break;
       case "level_2":
-        gameMusic = new MusicService(dict.game_level_2);
+        musicInGame = new MusicService(dict.game_level_2);
         break;
       case "main_menu_new":
-        gameMusic = new MusicService(dict.main_menu);
+        musicInGame = new MusicService(dict.main_menu);
         break;
       case "death_noise_2":
-        gameMusic = new MusicService(dict.death_noise_2);
+        musicInGame = new MusicService(dict.death_noise_2);
         break;
       case "level_3":
-        gameMusic = new MusicService(dict.game_level_3);
+        musicInGame = new MusicService(dict.game_level_3);
         break;
       default:
-        gameMusic = new MusicService(dict.game_level_1);//To make sure gameMusic is never null
+        musicInGame = new MusicService(dict.game_level_1);//To make sure musicInGame is never null
     }
-    gameMusic.playSong(true, 0.4f);
+    musicInGame.playSong(true, 0.2f);
 
   }
 
@@ -608,15 +579,12 @@ public class LevelGameArea extends GameArea {
   @Override
   public void dispose() {
     super.dispose();
-    //ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
     this.unloadAssets();
   }
 
   public String getLevelDefinition() {
     return this.levelDefinition.name();
   }
-
-
 }
 
 

@@ -13,7 +13,9 @@ public class MusicService {
     private boolean isMusicPlaying;
     private Music music;
 
-    /** Initial constructor class of the music service */
+    /** Initial constructor class of the music service
+     * @param musicLocation Location of the music file
+     */
     public MusicService(String musicLocation) {
         music = ServiceLocator.getResourceService().getAsset(musicLocation, Music.class);
         isMusicPlaying = music.isPlaying();
@@ -42,11 +44,11 @@ public class MusicService {
         return music.getPosition();
     }
 
-
     /**
      * Play this music with the given volume and loop value.
      * If loop is true, the music is played in the loop.
-     * Required: an integer between 0 and 1
+     * @param vol volume, as an integer between 0 and 1
+     * @param loop T/F loop the song?
      */
     public void playSong(boolean loop, float vol) {
         MuteManager mute = MuteManager.getInstance();

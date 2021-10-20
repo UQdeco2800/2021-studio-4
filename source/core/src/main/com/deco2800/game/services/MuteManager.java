@@ -32,6 +32,7 @@ public class MuteManager {
      * Set the mode of this MuteManager to a boolean value.
      * It sets this instance to active/deactivate mode.
      * Required:  a boolean value.
+     * @param muted mute state
      */
     public void setMute (boolean muted) {
             is_muted = muted;

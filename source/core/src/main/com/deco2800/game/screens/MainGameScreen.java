@@ -48,7 +48,7 @@ public class MainGameScreen extends ScreenAdapter {
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
 
   private long start = System.currentTimeMillis();
-  private long end = start + 2 * 1000;
+  private long end = start + 2*1000;
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;

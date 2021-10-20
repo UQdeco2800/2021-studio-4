@@ -39,6 +39,9 @@ public class PlayerFactory {
 
   /**
    * Create a player entity.
+   *
+   * @param mapInteractables - interactables
+   * @param levelGameArea - game area
    * @return entity
    */
   public static Entity createPlayer(Map<ObstacleEntity, List<ObstacleEntity>> mapInteractables, LevelGameArea levelGameArea) {
@@ -83,7 +86,7 @@ public class PlayerFactory {
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
             .addComponent(animator)
-            .addComponent(new PlayerActions(levelGameArea.getLevelDefinition()))
+            .addComponent(new PlayerActions())
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
@@ -95,13 +98,13 @@ public class PlayerFactory {
 
     PhysicsUtils.setScaledCollider(player, 0.8f, 0.7f);
     player.getComponent(ColliderComponent.class).setDensity(0.4f);
-    //player.getComponent(AnimationRenderComponent.class).scaleEntity();
     player.setScale(1.5f,1f);
     return player;
-
-
   }
 
+  /**
+   * Initialiser
+   */
   private PlayerFactory() {
     throw new IllegalStateException("Instantiating static util class");
   }

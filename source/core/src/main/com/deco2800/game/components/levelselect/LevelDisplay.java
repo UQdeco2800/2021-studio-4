@@ -18,7 +18,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.deco2800.game.components.InsertImageButton;
 import com.deco2800.game.components.levelselect.LevelDisplay;
 import com.deco2800.game.levels.LevelDefinition;
-import com.deco2800.game.screens.LevelSelectScreen;
 import com.deco2800.game.services.MusicService;
 import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.services.MuteManager;
@@ -144,7 +143,6 @@ public class LevelDisplay extends UIComponent {
             ImageButton levelButton = insImage.setImage(pathName, hoverPathName, posX, posY, widthX, widthY);
             imageButtons.add(levelButton);
 
-
             levelButton.addListener(
                 new ChangeListener() {
                     @Override
@@ -189,7 +187,6 @@ public class LevelDisplay extends UIComponent {
         stage.addActor(table);
         for (ImageButton image : imageButtons) {
             stage.addActor(image);
-
         }
         stage.addActor(exitBtn);
         stage.addActor(titleBtn);

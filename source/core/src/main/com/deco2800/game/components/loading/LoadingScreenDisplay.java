@@ -2,7 +2,6 @@ package com.deco2800.game.components.loading;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -27,21 +26,16 @@ import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.*;
 import com.deco2800.game.ui.UIComponent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 /**
  * An ui component for displaying the Loading Screen
  */
 public class LoadingScreenDisplay extends UIComponent {
-    private static final Logger logger = LoggerFactory.getLogger(LoadingScreenDisplay.class);
     private static final float Z_INDEX = 2f;
-    private String loadingText;
-    private int loadingPercentage;
-    private String[] terms;
-    Random rand = new Random();
+    private final String[] terms;
+    SecureRandom rand = new SecureRandom();
 
 
     /**
@@ -79,11 +73,7 @@ public class LoadingScreenDisplay extends UIComponent {
         addActors();
        // playTheMusic();
     }
-  /*  public void playTheMusic() {
-        MusicSingleton music = MusicSingleton.getInstance();
-        music.playMusicSingleton("sounds/MainMenuMusic.mp3");
-    }*/
-    public String randomMessage() {
+  public String randomMessage() {
         /* Modified with changes from Stacksoverflow:
         https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-java*/
         int maxaximum = 20;
@@ -103,7 +93,7 @@ public class LoadingScreenDisplay extends UIComponent {
         /* Docs on the stage use: https://www.tabnine.com/code/java/classes/com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle */
         Texture runtimeTitleTexture = new Texture(Gdx.files.internal("ui-elements/runtime-title.png"));
         Drawable runtimeTitleDrawable = new TextureRegionDrawable(new TextureRegion(runtimeTitleTexture));
-        ImageButton runtimeTitle = new ImageButton(runtimeTitleDrawable);
+        new ImageButton(runtimeTitleDrawable);
         String loadingText2 = randomMessage();
         Label label;
         Table table = new Table();
