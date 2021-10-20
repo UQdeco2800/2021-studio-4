@@ -53,7 +53,7 @@ public class StatusEffectTargetComponent extends Component {
    * Applies the given status effect to the target. Note: only one status effect will be present at one time.
    * @param statusEffect The effect
    */
-  private void applyStatusEffect(StatusEffect statusEffect) {
+  public void applyStatusEffect(StatusEffect statusEffect) {
     if (currentStatusEffect != null) {
       currentStatusEffect = null;
       currentStatusEffectStartTime = null;
