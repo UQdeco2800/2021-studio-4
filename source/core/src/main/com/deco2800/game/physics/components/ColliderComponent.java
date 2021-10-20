@@ -39,10 +39,9 @@ public class ColliderComponent extends Component {
    * Set physics as a box with a given size. Box is centered around the entity.
    *
    * @param size size of the box
-   * @return self
    */
-  public ColliderComponent setAsBox(Vector2 size) {
-    return setAsBox(size, entity.getCenterPosition());
+  public void setAsBox(Vector2 size) {
+    setAsBox(size, entity.getCenterPosition());
   }
 
   /**
@@ -51,9 +50,8 @@ public class ColliderComponent extends Component {
    * @param size size of the box
    * @param alignX how to align x relative to entity
    * @param alignY how to align y relative to entity
-   * @return self
    */
-  public ColliderComponent setAsBoxAligned(Vector2 size, AlignX alignX, AlignY alignY) {
+  public void setAsBoxAligned(Vector2 size, AlignX alignX, AlignY alignY) {
     Vector2 position = new Vector2();
     switch (alignX) {
       case LEFT:
@@ -79,7 +77,7 @@ public class ColliderComponent extends Component {
         break;
     }
 
-    return setAsBox(size, position);
+    setAsBox(size, position);
   }
 
   /**
@@ -87,13 +85,11 @@ public class ColliderComponent extends Component {
    *
    * @param size size of the box
    * @param position position of the box center relative to the entity.
-   * @return self
    */
-  public ColliderComponent setAsBox(Vector2 size, Vector2 position) {
+  public void setAsBox(Vector2 size, Vector2 position) {
     PolygonShape bbox = new PolygonShape();
     bbox.setAsBox(size.x / 2, size.y / 2, position, 0f);
     setShape(bbox);
-    return this;
   }
 
   /**
@@ -101,15 +97,13 @@ public class ColliderComponent extends Component {
    * with the ground.
    *
    * @param friction friction, default = 0
-   * @return self
    */
-  public ColliderComponent setFriction(float friction) {
+  public void setFriction(float friction) {
     if (fixture == null) {
       fixtureDef.friction = friction;
     } else {
       fixture.setFriction(friction);
     }
-    return this;
   }
 
   /**
@@ -117,15 +111,13 @@ public class ColliderComponent extends Component {
    * still trigger collision events. See: https://www.iforce2d.net/b2dtut/sensors
    *
    * @param isSensor true if sensor, false if not. default = false.
-   * @return self
    */
-  public ColliderComponent setSensor(boolean isSensor) {
+  public void setSensor(boolean isSensor) {
     if (fixture == null) {
       fixtureDef.isSensor = isSensor;
     } else {
       fixture.setSensor(isSensor);
     }
-    return this;
   }
 
   /**
@@ -133,45 +125,39 @@ public class ColliderComponent extends Component {
    *
    * @param density Density and size of the physics component determine the object's mass. default =
    *     0
-   * @return self
    */
-  public ColliderComponent setDensity(float density) {
+  public void setDensity(float density) {
     if (fixture == null) {
       fixtureDef.density = density;
     } else {
       fixture.setDensity(density);
     }
-    return this;
   }
 
   /**
    * Set restitution
    *
    * @param restitution restitution is the 'bounciness' of an object, default = 0
-   * @return self
    */
-  public ColliderComponent setRestitution(float restitution) {
+  public void setRestitution(float restitution) {
     if (fixture == null) {
       fixtureDef.restitution = restitution;
     } else {
       fixture.setRestitution(restitution);
     }
-    return this;
   }
 
   /**
    * Set shape
    *
    * @param shape shape, default = bounding box the same size as the entity
-   * @return self
    */
-  public ColliderComponent setShape(Shape shape) {
+  public void setShape(Shape shape) {
     if (fixture == null) {
       fixtureDef.shape = shape;
     } else {
       logger.error("{} Cannot set Collider shape after create(), ignoring.", this);
     }
-    return this;
   }
 
   /** @return Physics fixture of this collider. Null before created() */

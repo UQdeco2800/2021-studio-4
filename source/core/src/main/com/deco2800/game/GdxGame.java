@@ -75,11 +75,6 @@ public class GdxGame extends Game {
     setScreen(newScreen(screenType));
   }
 
-  public void setPauseScreen() {
-    logger.info("Setting up pause screen");
-    setScreen(newScreen(ScreenType.PAUSE));
-  }
-
   @Override
   public void dispose() {
     logger.debug("Disposing of current screen");

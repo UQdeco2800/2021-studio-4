@@ -6,8 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.LevelGameArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
+import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import com.deco2800.game.components.loading.LoadingScreenDisplay;
 import com.deco2800.game.components.maingame.MainGameActions;
+import com.deco2800.game.components.maingame.MainGameExitDisplay;
 import com.deco2800.game.components.player.KeyboardPlayerInputComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -25,14 +27,8 @@ import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.terminal.Terminal;
 import com.deco2800.game.ui.terminal.TerminalDisplay;
-import com.deco2800.game.components.maingame.MainGameExitDisplay;
-import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 import static com.deco2800.game.components.player.PlayerStatsDisplay.gameOver;
 
@@ -46,22 +42,17 @@ public class MainGameScreen extends ScreenAdapter {
   private static final String[] mainGameTextures = {"images/heart.png"};
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
 
-  private long start = System.currentTimeMillis();
-  private long end = start + 2 * 1000;
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
-//  private final LevelDefinition levelDefinition;
-  private LevelGameArea levelGameArea;
+  private final LevelGameArea levelGameArea;
 
-  //private final long timeStarted = System.currentTimeMillis();
   public static long timeScore;
   public static boolean levelComplete = false;
   public GameTime gameTime;
 
   public MainGameScreen(GdxGame game, LevelDefinition levelDefinition) {
     this.game = game;
-//    this.levelDefinition = levelDefinition;
     this.gameTime = new GameTime();
 
     logger.debug("Initialising main game screen services");
@@ -85,16 +76,6 @@ public class MainGameScreen extends ScreenAdapter {
 
     loadAssets();
     /* modified with changes https://www.tabnine.com/code/java/methods/java.util.Timer/schedule */
-   /*
-    new java.util.Timer().schedule(
-            new java.util.TimerTask() {
-              @Override
-              public void run() {
-                createUI(false);
-              }
-            },
-            5000
-    );*/
     createUI(true);
 
     logger.debug("Initialising main game screen entities");
@@ -193,24 +174,15 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Creating ui");
 
     Stage stage = ServiceLocator.getRenderService().getStage();
-    boolean displayLoading = false;
     InputComponent inputComponent =
             ServiceLocator.getInputService().getInputFactory().createForTerminal();
     Entity ui = new Entity();
 
-   /* ui.addComponent(new InputDecorator(stage, 10))
-        .addComponent(new PerformanceDisplay())
-        .addComponent(new MainGameActions(this.game))
-        .addComponent(new MainGameExitDisplay())
-        .addComponent(new Terminal())
-        .addComponent(inputComponent)
-        .addComponent(new TerminalDisplay());*/
-
-    if (loading == false) {
+    if (!loading) {
       ui.addComponent(new LoadingScreenDisplay());
       ServiceLocator.getEntityService().register(ui);
     }
-      if (loading == true) {
+      if (loading) {
        // ui.dispose();
         Entity ui2 = new Entity();
         ui2.addComponent(new InputDecorator(stage, 10))

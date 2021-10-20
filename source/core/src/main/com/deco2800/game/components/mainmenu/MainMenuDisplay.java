@@ -29,11 +29,13 @@ public class MainMenuDisplay extends UIComponent {
     private TitleAnimation titleAnimation;
     private float duration;
     private ImageButton runtimeTitle;
+    private int rotationAmountItr;
 
     /**
      * used tp switch between button states
      */
     public MainMenuDisplay() {
+        rotationAmountItr = 4;
     }
 
     @Override
@@ -272,6 +274,9 @@ public class MainMenuDisplay extends UIComponent {
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.info("Launching title Animation");
                         titlesAnimation();
+                        if (rotationAmountItr < 20) {
+                            rotationAmountItr += 2;
+                        }
                     }
                 });
 
@@ -292,6 +297,7 @@ public class MainMenuDisplay extends UIComponent {
      */
     private void titlesAnimation() {
         runtimeTitle.remove();
+        // The is a visible size for the image, leaving room for enlargement
         int imageWidth = 100;
         int imageHeight = 100;
         /* This adds the tiny runtime logo */
@@ -307,7 +313,7 @@ public class MainMenuDisplay extends UIComponent {
     private void moveAnimationImage(int imageWidth, int imageHeight) {
         int centreWidth = Gdx.graphics.getWidth() / 2 - imageWidth / 2;
         int centreHeight = Gdx.graphics.getHeight() / 2 - imageHeight / 2;
-        duration = 3.5f; // in seconds
+        duration = 2.5f; // in seconds
         String imageFile = "player/virus_head_front.png";
 
         titleAnimation = new TitleAnimation(
@@ -328,7 +334,7 @@ public class MainMenuDisplay extends UIComponent {
         if (titleAnimationStartTime != null) {
             long timePassed = System.currentTimeMillis() - titleAnimationStartTime;
 
-            if (timePassed % 1000 >= duration) {
+            if (timePassed / 1000 >= (int) duration) {
                 titleAnimation.remove();
                 stage.addActor(runtimeTitle);
             }

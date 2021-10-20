@@ -1,7 +1,6 @@
 package com.deco2800.game.files;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.deco2800.game.areas.terrain.TerrainTile;
@@ -15,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 public class LevelFile {
-  public GridPoint2 playerStartPos;
   public Terrain terrain;
   public Obstacles obstacles;
   public LevelTexture levelTexture = LevelTexture.LEVEL_ONE;
@@ -78,6 +76,6 @@ public class LevelFile {
 
   public static class Obstacles {
     public List<ObstacleEntity> obstacleEntities;
-    public Map<Integer, List<Integer>> interactablesMap = new HashMap<Integer, List<Integer>>();
+    public Map<Integer, List<Integer>> interactablesMap = new HashMap<>();
   }
 }

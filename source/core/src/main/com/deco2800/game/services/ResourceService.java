@@ -83,21 +83,11 @@ public class ResourceService implements Disposable {
   public boolean loadForMillis(int duration) {
     logger.debug("Loading assets for {} ms", duration);
     try {
-      return assetManager.update(duration);
+      return !assetManager.update(duration);
     } catch (Exception e) {
       logger.error(e.getMessage());
     }
-    return assetManager.isFinished();
-  }
-
-  /**
-   * Clears all loaded assets and assets in the preloading queue.
-   *
-   * @see AssetManager#clear()
-   */
-  public void clearAllAssets() {
-    logger.debug("Clearing all assets");
-    assetManager.clear();
+    return !assetManager.isFinished();
   }
 
   /**

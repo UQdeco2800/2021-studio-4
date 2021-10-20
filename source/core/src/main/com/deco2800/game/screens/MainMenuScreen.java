@@ -3,8 +3,6 @@ package com.deco2800.game.screens;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.components.endgame.DeathScreenActions;
-import com.deco2800.game.components.loading.LoadingScreenDisplay;
 import com.deco2800.game.components.mainmenu.MainMenuActions;
 import com.deco2800.game.components.mainmenu.MainMenuDisplay;
 import com.deco2800.game.entities.Entity;
@@ -27,9 +25,6 @@ public class MainMenuScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuScreen.class);
   private final GdxGame game;
   private final Renderer renderer;
-  //private static final String[] mainMenuTextures = {"images/MainMenuImageExample.png"};
-  //private static final String backgroundMusic = "sounds/MainMenuMusic.mp3";
-  //private static final String[] MainMenuMusic = {backgroundMusic};
   private static final MusicServiceDirectory mainMenuSong = new MusicServiceDirectory();
   private static final String[] MainMenuMusic = {mainMenuSong.main_menu};
 
@@ -90,7 +85,7 @@ public class MainMenuScreen extends ScreenAdapter {
     ServiceLocator.getResourceService().loadAll();
     resourceService.loadMusic(MainMenuMusic);
 
-    while (!resourceService.loadForMillis(10)) {
+    while (resourceService.loadForMillis(10)) {
       // This could be upgraded to a loading screen
 
       logger.info("Loading... {}% MMM", resourceService.getProgress());

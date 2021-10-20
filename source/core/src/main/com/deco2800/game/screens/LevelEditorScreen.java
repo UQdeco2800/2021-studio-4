@@ -47,15 +47,13 @@ public class LevelEditorScreen extends ScreenAdapter {
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
-  private final LevelDefinition levelDefinition;
 
-  private LevelGameArea levelGameArea;
+  private final LevelGameArea levelGameArea;
 
   private Entity hand;
 
   public LevelEditorScreen(GdxGame game, LevelDefinition levelDefinition) {
     this.game = game;
-    this.levelDefinition = levelDefinition;
 
     logger.debug("Initialising level editor screen services");
     ServiceLocator.registerTimeSource(new GameTime());

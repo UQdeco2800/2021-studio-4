@@ -3,36 +3,14 @@ package com.deco2800.game.rendering;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.services.ServiceLocator;
 
 /** Render a static texture. */
 public class SpriteRenderComponent extends RenderComponent {
   private Sprite sprite;
 
-  /**
-   * @param spritePath internal path of sprite to render. Will be scaled to the entity's
-   *     scale.
-   */
-  public SpriteRenderComponent(String spritePath) {
-    this(ServiceLocator.getResourceService().getAsset(spritePath, Sprite.class));
-  }
-
   /** @param sprite Sprite to render. Will be scaled to the entity's scale. */
   public SpriteRenderComponent(Sprite sprite) {
     this.sprite = sprite;
-  }
-
-  /** Scale the entity to a width of 1 and a height matching the texture's ratio */
-  public void scaleEntity() {
-    entity.setScale(1f, sprite.getHeight() / sprite.getWidth());
-  }
-
-  /**
-   * Rotate the sprite by a set number of degrees
-   * @param degrees degrees to rotate
-   */
-  public void setRotation(float degrees) {
-    sprite.setRotation(degrees);
   }
 
   /**

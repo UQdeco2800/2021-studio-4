@@ -52,8 +52,8 @@ public abstract class InputComponent extends Component
     ServiceLocator.getInputService().unregister(this);
   }
 
-  /**
-   * Below methods are for supporting keyboard and touch.
+  /*
+    Below methods are for supporting keyboard and touch.
    */
 
   /** @see InputProcessor#keyDown(int) */
@@ -104,8 +104,8 @@ public abstract class InputComponent extends Component
     return false;
   }
 
-  /**
-   * Below methods are for supporting touch gestures.
+  /*
+    Below methods are for supporting touch gestures.
    */
 
   /** @see GestureDetector.GestureListener#fling(float, float, int) */

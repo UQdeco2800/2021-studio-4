@@ -3,7 +3,6 @@ package com.deco2800.game.screens;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.components.loading.LoadingScreenDisplay;
 import com.deco2800.game.components.settingsmenu.SettingsMenuDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -96,7 +95,7 @@ public class SettingsScreen extends ScreenAdapter {
     ServiceLocator.getResourceService().loadAll();
     resourceService.loadMusic(MainMenuMusic);
 
-    while (!resourceService.loadForMillis(10)) {
+    while (resourceService.loadForMillis(10)) {
       // This could be upgraded to a loading screen
       logger.info("Loading... {}%", resourceService.getProgress());
     }

@@ -141,16 +141,6 @@ public class Entity {
   }
 
   /**
-   * Set the entity's width and scale the height to maintain aspect ratio.
-   *
-   * @param x width in metres
-   */
-  public void scaleWidth(float x) {
-    this.scale.y = this.scale.y / this.scale.x * x;
-    this.scale.x = x;
-  }
-
-  /**
    * Set the entity's height and scale the width to maintain aspect ratio.
    *
    * @param y height in metres

@@ -57,7 +57,7 @@ class ResourceServiceTest {
     ResourceService resourceService = new ResourceService(assetManager);
 
     resourceService.loadTextures(textures);
-    while (!resourceService.loadForMillis(1)) {
+    while (resourceService.loadForMillis(1)) {
     }
 
     verify(assetManager).load(texture1, Texture.class);

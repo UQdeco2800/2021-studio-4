@@ -82,7 +82,7 @@ public class DeathScreen extends ScreenAdapter {
         ServiceLocator.getResourceService().loadAll();
         resourceService.loadMusic(DeathMusic);
 
-        while (!resourceService.loadForMillis(10)) {
+        while (resourceService.loadForMillis(10)) {
             // This could be upgraded to a loading screen
             logger.info("Loading... {}%", resourceService.getProgress());
         }

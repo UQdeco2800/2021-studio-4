@@ -12,7 +12,6 @@ import com.deco2800.game.input.InputDecorator;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
-import com.deco2800.game.services.MusicServiceDirectory;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
@@ -79,7 +78,7 @@ public class PauseScreen extends ScreenAdapter {
     resourceService.loadTextures(PauseScreenTextures);
     ServiceLocator.getResourceService().loadAll();
 
-    while (!resourceService.loadForMillis(10)) {
+    while (resourceService.loadForMillis(10)) {
       // This could be upgraded to a loading screen
       logger.info("Loading... {}%", resourceService.getProgress());
     }

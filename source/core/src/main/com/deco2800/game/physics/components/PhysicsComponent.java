@@ -48,11 +48,9 @@ public class PhysicsComponent extends Component {
    * Set body type
    *
    * @param bodyType body type, default = dynamic
-   * @return self
    */
-  public PhysicsComponent setBodyType(BodyType bodyType) {
+  public void setBodyType(BodyType bodyType) {
     body.setType(bodyType);
-    return this;
   }
 
   /**
