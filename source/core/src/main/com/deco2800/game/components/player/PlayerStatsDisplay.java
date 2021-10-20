@@ -6,12 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.components.CombatStatsComponent;
-import com.deco2800.game.services.GameTime;
 import com.deco2800.game.ui.UIComponent;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -141,10 +137,10 @@ public class PlayerStatsDisplay extends UIComponent {
     // Seems to be the perfect time to start on
     if (!paused) {
       if (iterator < 3) {
-        initialValue = Math.round(timeScore / 1000);
+        initialValue = Math.round((float)timeScore / 1000);
         iterator++;
       }
-      seconds = Math.round(timeScore / 1000) - initialValue;
+      seconds = Math.round((float)timeScore / 1000) - initialValue;
       if (pauseSet) {
         pauseSet = false;
         timeElapsedWhilePaused += seconds - pausedTime;

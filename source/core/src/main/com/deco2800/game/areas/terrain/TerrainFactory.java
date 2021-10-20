@@ -9,15 +9,16 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.deco2800.game.areas.terrain.TerrainComponent.TerrainOrientation;
 import com.deco2800.game.components.CameraComponent;
 import com.deco2800.game.files.LevelFile;
 import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.services.ServiceLocator;
-
-import java.util.ArrayList;
 
 /** Factory for creating game terrains. */
 public class TerrainFactory {
@@ -36,8 +37,10 @@ public class TerrainFactory {
   }
 
   /**
-   * Generates the terraincomponent which will contain the terrain data
-   * @return
+   * Generates the terrain component which will contain the terrain data
+   * @param levelAtlas the atlas file for the level textures
+   * @param layerData Collision layering(?)
+   * @return the Terrain component that stores level data
    */
   public TerrainComponent createTerrain(LevelFile.TileLayerData layerData, TextureAtlas levelAtlas) {
     GridPoint2 tilePixelSize = new GridPoint2(TerrainTileDefinition.TILE_X, TerrainTileDefinition.TILE_Y);
@@ -128,7 +131,7 @@ public class TerrainFactory {
   /**
    * Loads in the tiles, places them on the tile layer and returns a tiledmap
    * @param tileSize
-   * @return
+   * @return the tilemap
    */
   private TiledMap loadTiles(GridPoint2 tileSize, LevelFile.TileLayerData layerData, TextureAtlas levelAtlas) {
     TiledMap tiledMap = new TiledMap();

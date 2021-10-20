@@ -18,6 +18,7 @@ public class StatusEffectTasks extends DefaultTask implements PriorityTask {
 
     /**
      * Initiliser
+     * @param entity entity
      */
     public StatusEffectTasks(Entity entity) {
         this.entity = entity;
