@@ -1,7 +1,5 @@
 package com.deco2800.game.components.loading;
 
-import java.util.Random;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,9 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.deco2800.game.ui.UIComponent;
+
 import java.security.SecureRandom;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * A ui component for displaying the Loading Screen

@@ -1,5 +1,6 @@
 package com.deco2800.game.components.maingame;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -30,13 +31,16 @@ public class MainGameExitDisplay extends UIComponent {
 
     // Add pause button to pause game
     TextButton pauseBtn = new TextButton("Pause", skin);
-    //pauseBtn.setColor(Color.ROYAL);
+
+
     // Add exit button to go back to main menu.
     TextButton exitBtn = new TextButton("Exit", skin);
-    //exitBtn.setColor(Color.ROYAL);
+
+
     // Add retry button to restart level
     TextButton retryBtn = new TextButton("Retry", skin);
-    //retryBtn.setColor(Color.ROYAL);
+
+
 
 
     // Pause button event
@@ -76,6 +80,11 @@ public class MainGameExitDisplay extends UIComponent {
           entity.getEvents().trigger("retry");
         }
       });
+  }
+
+  public void addRetryExitOnPause() {
+    TextButton exitBtn = new TextButton("Exit", skin);
+
   }
 
   @Override
