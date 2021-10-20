@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -32,12 +33,18 @@ public class LevelDisplayActions extends Component {
         entity.getEvents().addListener("start", this::startGame);
         entity.getEvents().addListener("levelEditor", this::startLevelEditor);
     }
+    private static void addGameScreen(LevelDefinition levelDefinition) {
+
+        game.setLevel(GdxGame.ScreenType.MAIN_GAME,  levelDefinition);
+        previousLevel.updatePreviousLevel(  levelDefinition);
+
+    }
 
     /**
      * Starts the game with the selected level (if applicable)
      */
-    private void startGame(LevelDefinition levelDefinition) {
-        game.setScreen(GdxGame.ScreenType.LOADING);
+   private void startGame(LevelDefinition levelDefinition) {
+       /* game.setScreen(GdxGame.ScreenType.LOADING);
         Screen testscreen = new LoadingScreen(game);
         logger.info(game.getScreen().getClass().toString());
         logger.info(testscreen.getClass().toString());
@@ -46,22 +53,24 @@ public class LevelDisplayActions extends Component {
       //  } catch (InterruptedException e) {
         //    e.printStackTrace();
       //  }
-        if (game.getScreen().getClass().equals(testscreen.getClass())) {
+        if (!game.getScreen().getClass().equals(testscreen.getClass())) {
                 logger.info("IT WORKS! BY GEORGE WE DID IT! ");
                     //game.setLevel(GdxGame.ScreenType.MAIN_GAME, levelDefinition);
                     //previousLevel.updatePreviousLevel(levelDefinition);
                 addGameScreen(levelDefinition);
                final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-               //executorService.scheduleAtFixedRate(LevelDisplayActions::addGameScreen, 0, 1, TimeUnit.SECONDS);
+              executorService.scheduleAtFixedRate(LevelDisplayActions::addGameScreen, 0, 1, TimeUnit.SECONDS);
 
+              // final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+              // executorService.scheduleAtFixedRate(LevelDisplayActions::addGameScreen, 0, 1, TimeUnit.SECONDS);
+            ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(1);
+            exec.schedule(() -> addGameScreen(levelDefinition), 5, TimeUnit.SECONDS);
         }
 
 
     }
-    private static void addGameScreen(LevelDefinition levelDefinition) {
-
         game.setLevel(GdxGame.ScreenType.MAIN_GAME,  levelDefinition);
-        previousLevel.updatePreviousLevel(  levelDefinition);
+        previousLevel.updatePreviousLevel(levelDefinition);*/
 
     }
 
