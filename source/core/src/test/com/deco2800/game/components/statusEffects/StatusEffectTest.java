@@ -1,5 +1,6 @@
 package com.deco2800.game.components.statusEffects;
 
+import com.badlogic.gdx.audio.Music;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.statuseffects.StatusEffectTargetComponent;
@@ -7,6 +8,7 @@ import com.deco2800.game.effects.StatusEffect;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.services.GameTime;
+import com.deco2800.game.services.MusicSingleton;
 import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,6 +26,7 @@ public class StatusEffectTest {
     private StatusEffectTargetComponent SETC;
     private GameTime gameTime;
     private PlayerActions playerActions;
+    private MusicSingleton music;
 
     private float expected;
     private float result;
@@ -45,6 +48,7 @@ public class StatusEffectTest {
         /* Mocking classes */
         player = Mockito.mock(Entity.class);
         gameTime = Mockito.mock(GameTime.class);
+        music = Mockito.mock(MusicSingleton.class);
         ServiceLocator.registerTimeSource(gameTime);
 
         /* Initialise other classes */
@@ -102,17 +106,20 @@ public class StatusEffectTest {
         assertStatusEffects(StatusEffect.SLOW, SETC.getCurrentStatusEffect());
     }
 
- //   @Test
-   // public void testApplyStuckInMud() {
-   //     when(gameTime.getTime()).thenReturn(0L);
-   //     when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
-   //     when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
-
-        /* Add time stop buff */
-   //     SETC.applyStatusEffect(StatusEffect.STUCK);
-   //     verify(player, times(2)).getComponent(PlayerActions.class);
-   //     assertStatusEffects(StatusEffect.STUCK, SETC.getCurrentStatusEffect());
-   // }
+//    @Test
+//    public void testApplyStuckInMud() {
+//        when(gameTime.getTime()).thenReturn(0L);
+//        when(player.getComponent(PlayerActions.class)).thenReturn(playerActions);
+//        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
+//        /* Note, the music returned is null because it is a mock class */
+//        //when(music.getInstance()).thenReturn(null);
+//        //doNothing().when(music).playMusicSingleton("some-sound-file.mp3",true,0f);
+//
+//        /* Add time stop buff */
+//        SETC.applyStatusEffect(StatusEffect.STUCK);
+//        verify(player, times(2)).getComponent(PlayerActions.class);
+//        assertStatusEffects(StatusEffect.STUCK, SETC.getCurrentStatusEffect());
+//    }
 
     @Test
     public void testJumpBuffStatChange() {
@@ -128,20 +135,20 @@ public class StatusEffectTest {
         assertTestCase(expected, result);
     }
 
-   /* @Test
-    public void testStuckInTheMudStatChange() {
-        PlayerActions playerStuckInTheMud = new PlayerActions();
-        when(gameTime.getTime()).thenReturn(0L);
-        when(player.getComponent(PlayerActions.class)).thenReturn(playerStuckInTheMud);
-        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
-
-        /* apply jump buff */
-      //  SETC.applyStatusEffect(StatusEffect.STUCK);
-      //  result = playerStuckInTheMud.getSpeed();
-      //  expected = 0f;
-      //  verify(player, times(2)).getComponent(PlayerActions.class);
-    //    assertTestCase(expected, result);
-  //  }
+//    @Test
+//    public void testStuckInTheMudStatChange() {
+//        PlayerActions playerStuckInTheMud = new PlayerActions();
+//        when(gameTime.getTime()).thenReturn(0L);
+//        when(player.getComponent(PlayerActions.class)).thenReturn(playerStuckInTheMud);
+//        when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
+//
+//        /* apply jump buff */
+//        SETC.applyStatusEffect(StatusEffect.STUCK);
+//        result = playerStuckInTheMud.getSpeed();
+//        expected = 0f;
+//        verify(player, times(2)).getComponent(PlayerActions.class);
+//        assertTestCase(expected, result);
+//    }
 
     @Test
     public void testSpeedDebuffStatChange() {
@@ -157,7 +164,7 @@ public class StatusEffectTest {
         assertTestCase(expected, result);
     }
 
-   /* @Test
+    @Test
     public void testUpdateStatusEffect() {
         when(gameTime.getTime()).thenReturn(0L);
         when(gameTime.getTimeSince(0L)).thenReturn(6000L);
@@ -165,45 +172,45 @@ public class StatusEffectTest {
         when(player.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
 
         /* Test speed buff */
-      //  SETC.applyStatusEffect(StatusEffect.FAST);
-        // Check that the status effect has been added.
-       // assertStatusEffects(StatusEffect.FAST, SETC.getCurrentStatusEffect());
-       // Remove the status effect.
-       // SETC.update();
-       // assertStatusEffects(null, SETC.getCurrentStatusEffect());
+        SETC.applyStatusEffect(StatusEffect.FAST);
+        /* Check that the status effect has been added */
+        assertStatusEffects(StatusEffect.FAST, SETC.getCurrentStatusEffect());
+        /* Remove the status effect */
+        SETC.update();
+        assertStatusEffects(null, SETC.getCurrentStatusEffect());
 
         /* Test jump buff */
-      //  SETC.applyStatusEffect(StatusEffect.JUMP);
-        // Check that the status effect has been added.
-      //  assertStatusEffects(StatusEffect.JUMP, SETC.getCurrentStatusEffect());
-        // Remove the status effect.
-      //  SETC.update();
-      //  assertStatusEffects(null, SETC.getCurrentStatusEffect());
+        SETC.applyStatusEffect(StatusEffect.JUMP);
+        /* Check that the status effect has been added */
+        assertStatusEffects(StatusEffect.JUMP, SETC.getCurrentStatusEffect());
+        /* Remove the status effect */
+        SETC.update();
+        assertStatusEffects(null, SETC.getCurrentStatusEffect());
 
         /* Test time stop */
-       // SETC.applyStatusEffect(StatusEffect.TIME_STOP);
-        // Check that the status effect has been added.
-      //  assertStatusEffects(StatusEffect.TIME_STOP, SETC.getCurrentStatusEffect());
-        // Remove the status effect.
-       // SETC.update();
+        SETC.applyStatusEffect(StatusEffect.TIME_STOP);
+        /* Check that the status effect has been added */
+        assertStatusEffects(StatusEffect.TIME_STOP, SETC.getCurrentStatusEffect());
+        /* Remove the status effect */
+        SETC.update();
        /* assertStatusEffects(null, SETC.getCurrentStatusEffect());
 
         /* Test speed debuff*/
-       // SETC.applyStatusEffect(StatusEffect.SLOW);
-        // Check that the status effect has been added.
-      //  assertStatusEffects(StatusEffect.SLOW, SETC.getCurrentStatusEffect());
-        // Remove the status effect.
-      //  SETC.update();
-      //  assertStatusEffects(null, SETC.getCurrentStatusEffect());
+        SETC.applyStatusEffect(StatusEffect.SLOW);
+        /* Check that the status effect has been added */
+        assertStatusEffects(StatusEffect.SLOW, SETC.getCurrentStatusEffect());
+        /* Remove the status effect */
+        SETC.update();
+        assertStatusEffects(null, SETC.getCurrentStatusEffect());
 
         /* Test stuck in the mud debuff */
-       // SETC.applyStatusEffect(StatusEffect.STUCK);
-        // Check that the status effect has been added.
-       // assertStatusEffects(StatusEffect.STUCK, SETC.getCurrentStatusEffect());
-        // Remove the status effect.
-       // SETC.update();
-       // assertStatusEffects(null, SETC.getCurrentStatusEffect());
-    //}
+//        SETC.applyStatusEffect(StatusEffect.STUCK);
+//        /* Check that the status effect has been added */
+//        assertStatusEffects(StatusEffect.STUCK, SETC.getCurrentStatusEffect());
+//        /* Remove the status effect */
+//        SETC.update();
+//        assertStatusEffects(null, SETC.getCurrentStatusEffect());
+    }
 
     @Test
     public void testApplyStatusEffectBehaviour() {
