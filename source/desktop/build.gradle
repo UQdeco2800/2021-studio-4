@@ -14,33 +14,33 @@ task run(dependsOn: classes, type: JavaExec) {
 
     /** If you use windows, please comment out the MAC one instead of deleting it. */
     // Windows jvmArgs.
-    jvmArgs = ["-Djava.util.logging.config.file=../../logging.properties", "-Xmx2G"]
+    //jvmArgs = ["-Djava.util.logging.config.file=../../logging.properties", "-Xmx2G"]
 
     // MAC jvmArgs.
-    //jvmArgs = ["-Djava.util.logging.config.file=../../logging.properties", "-Xmx2G", "-XstartOnFirstThread"]
+    jvmArgs = ["-Djava.util.logging.config.file=../../logging.properties", "-Xmx2G", "-XstartOnFirstThread"]
 
-   
 
-task debug(dependsOn: classes, type: JavaExec) {
-    main = project.mainClassName
-    classpath = sourceSets.main.runtimeClasspath
-    standardInput = System.in
-    workingDir = project.assetsDir
-    ignoreExitValue = true
-    debug = true
-}
-
-task dist(type: Jar) {
-    manifest {
-        attributes 'Main-Class': project.mainClassName
+    task debug(dependsOn: classes, type: JavaExec) {
+        main = project.mainClassName
+        classpath = sourceSets.main.runtimeClasspath
+        standardInput = System.in
+        workingDir = project.assetsDir
+        ignoreExitValue = true
+        debug = true
     }
-    dependsOn configurations.runtimeClasspath
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+
+    task dist(type: Jar) {
+        manifest {
+            attributes 'Main-Class': project.mainClassName
+        }
+        dependsOn configurations.runtimeClasspath
+        from {
+            configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+        }
+        with jar
     }
-    with jar
+
+    dist.dependsOn classes
+
+    eclipse.project.name = appName + "-desktop"
 }
-
-dist.dependsOn classes
-
-eclipse.project.name = appName + "-desktop"
