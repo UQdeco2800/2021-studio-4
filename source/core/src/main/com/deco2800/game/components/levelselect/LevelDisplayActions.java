@@ -37,8 +37,8 @@ public class LevelDisplayActions extends Component {
     }
     private static void addGameScreen(LevelDefinition levelDefinition) {
 
-        game.setLevel(GdxGame.ScreenType.MAIN_GAME,  levelDefinition);
-        previousLevel.updatePreviousLevel(  levelDefinition);
+        game.setLevel(GdxGame.ScreenType.MAIN_GAME, levelDefinition.getLevelInfo());
+        previousLevel.updatePreviousLevel(levelDefinition.getLevelInfo());
 
     }
 

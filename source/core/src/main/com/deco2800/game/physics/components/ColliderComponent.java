@@ -120,6 +120,7 @@ public class ColliderComponent extends Component {
    * @return self
    */
   public ColliderComponent setSensor(boolean isSensor) {
+//    if (fixture.getBody().)
     if (fixture == null) {
       fixtureDef.isSensor = isSensor;
     } else {

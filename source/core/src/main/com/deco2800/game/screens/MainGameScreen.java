@@ -45,7 +45,7 @@ import static com.deco2800.game.components.player.PlayerStatsDisplay.gameOver;
  */
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
-  private static final String[] mainGameTextures = {"images/heart.png"};
+  private static final String[] mainGameTextures = {};
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
 
   private long start = System.currentTimeMillis();
