@@ -6,8 +6,6 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonValue;
 
 /**
  * Custom terrain tile implementation for tiled map terrain that stores additional properties we
@@ -31,7 +29,7 @@ public class TerrainTile implements TiledMapTile{
 
   public TerrainTile(TerrainTileDefinition definition, int rotation, boolean flipX, boolean flipY) {
     this.definition = definition;
-    this.sprite = definition.getSprite();
+    sprite = definition.getSprite();
 
     this.rotation = rotation;
     this.flipX = flipX;
@@ -40,6 +38,7 @@ public class TerrainTile implements TiledMapTile{
 
   /**
    * Generate a cell to this TerrainTile's cell definitions. Includes setting texture, rotation and flipX/Y
+   * @return the generated cell
    */
   public Cell generateCell(){
     Cell cell = new Cell();
@@ -80,7 +79,7 @@ public class TerrainTile implements TiledMapTile{
 
   @Override
   public TextureRegion getTextureRegion() {
-    return sprite;
+    return getSprite();
   }
 
   @Override

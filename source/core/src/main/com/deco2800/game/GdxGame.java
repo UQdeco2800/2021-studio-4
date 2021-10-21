@@ -56,6 +56,8 @@ public class GdxGame extends Game {
       case LEVEL_EDITOR:
         setScreen(new LevelEditorScreen(this, levelDefinition));
         break;
+      default:
+        break;
     }
   }
 
@@ -69,8 +71,6 @@ public class GdxGame extends Game {
     if (currentScreen != null) {
       currentScreen.dispose();
     }
-    System.gc();
-    System.runFinalization();
 
     setScreen(newScreen(screenType));
   }
@@ -111,7 +111,7 @@ public class GdxGame extends Game {
   }
 
   private int getCompletionTime() {
-    return Math.round(timeScore/1000);
+    return Math.round((float)timeScore/1000);
   }
 
   public enum ScreenType {
