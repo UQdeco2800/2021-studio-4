@@ -21,10 +21,6 @@ import java.security.SecureRandom;
 
 
 public class PlayerActions extends Component {
-
-    public PlayerActions() {
-    }
-
     //enum consisting of the possible movement of the player
     private enum Movement {
         Running,

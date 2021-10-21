@@ -17,6 +17,7 @@ import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.input.InputDecorator;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.levels.LevelDefinition;
+import com.deco2800.game.levels.LevelInfo;
 import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
@@ -44,7 +45,7 @@ import static com.deco2800.game.components.player.PlayerStatsDisplay.gameOver;
  */
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
-  private static final String[] mainGameTextures = {"images/heart.png"};
+  private static final String[] mainGameTextures = {};
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
 
   private long start = System.currentTimeMillis();
@@ -64,9 +65,7 @@ public class MainGameScreen extends ScreenAdapter {
   public static boolean levelComplete = false;
   public GameTime gameTime;
 
-
-
-  public MainGameScreen(GdxGame game, LevelDefinition levelDefinition) {
+  public MainGameScreen(GdxGame game, LevelInfo levelInfo) {
     this.game = game;
 //    this.levelDefinition = levelDefinition;
     this.gameTime = new GameTime();
@@ -99,7 +98,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     logger.debug("Initialising main game screen entities");
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
-    levelGameArea = new LevelGameArea(terrainFactory, levelDefinition);
+    levelGameArea = new LevelGameArea(terrainFactory, levelInfo);
     levelGameArea.create();
   }
 

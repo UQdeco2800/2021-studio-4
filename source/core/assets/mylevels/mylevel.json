@@ -1,0 +1,10 @@
+{
+"terrain": {
+	"mapLayer": {
+		"width": 1000
+	}
+},
+"obstacles": {
+	"obstacleEntities": []
+}
+}

@@ -64,7 +64,7 @@ public class StatusEffectController extends Component {
         if (statusEffectTargetComponent != null) {
             target.getEvents().trigger("StatusEffectTrigger", effect);
         }
-
+        System.out.println(target);
         // Delete effect after being used
         this.dispose();
     }
@@ -72,9 +72,11 @@ public class StatusEffectController extends Component {
     @Override
     public void dispose() {
         super.dispose();
-        entity.getComponent(ColliderComponent.class).setSensor(true);
-        entity.setScale(-0.01f, -0.01f); // Makes it invisible. However still has origin sized collision box
-        used = true;
+        if (!used) {
+            entity.getComponent(ColliderComponent.class).setSensor(true);
+            entity.setScale(-0.01f, -0.01f); // Makes it invisible. However still has origin sized collision box
+            used = true;
+        }
     }
 
     /**
@@ -82,5 +84,9 @@ public class StatusEffectController extends Component {
      */
     void animate(){
         animator.startAnimation(effect.getGroundAnimationName());
+    }
+
+    public StatusEffect getEffect() {
+        return effect;
     }
 }
