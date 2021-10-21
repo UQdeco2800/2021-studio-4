@@ -42,15 +42,15 @@ com.badlogic.gdx.graphics.Color: {
 		a: 1
 	}
 	pressed: {
-		r: 0.2529412
-		g: 0.6
-		b: 0.33313715
+		r: 0.007
+		g: 0.48
+		b: 0.517
 		a: 1
 	}
 	selection: {
-		r: 0.22745098
-		g: 0.59607846
-		b: 0.85882354
+		r: 0.007
+		g: 0.48
+		b: 0.517
 		a: 1
 	}
 	white: {
