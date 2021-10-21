@@ -114,6 +114,48 @@ public class NPCFactory {
   }
 
   /**
+   * Creates a statusEffect (PowerUp) entity for the purposes of the level editor
+   *
+   * @return entity
+   */
+  public static Entity createMockStatusEffect(StatusEffect effect) {
+    AITaskComponent aiComponent =
+      new AITaskComponent()
+        .addTask(new StatusEffectTasks());
+
+    AnimationRenderComponent animator =
+      new AnimationRenderComponent(
+        ServiceLocator.getResourceService()
+          .getAsset(effect.getGroundAnimationAtlas(), TextureAtlas.class));
+    animator.addAnimation(effect.getGroundAnimationName(), 0.1f, Animation.PlayMode.LOOP);
+
+    Entity statusEffect = new Entity();
+    statusEffect
+      .addComponent(new PhysicsComponent())
+      .addComponent(aiComponent)
+      .addComponent(animator);
+
+    statusEffect.setScale(0.5f,0.5f);
+    statusEffect.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
+
+    animator.startAnimation(effect.getGroundAnimationName());
+
+    return statusEffect;
+  }
+
+
+/* Method that is supposed to spawn an entity that would block the player's view of game.
+Shelved because this method cannot spawn entity mid-game.
+ */
+/**
+  public static Entity createInterference(Entity target) {
+    Entity interference = new Entity()
+            .addComponent(new TextureRenderComponent("images/lizzy.png"));
+    return interference;
+  }
+ */
+
+  /**
    * Creates a ghost entity.
    *
    * @param target entity to chase

@@ -3,8 +3,6 @@ package com.deco2800.game.screens;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.components.endgame.DeathScreenActions;
-import com.deco2800.game.components.loading.LoadingScreenDisplay;
 import com.deco2800.game.components.scores.ScoreActions;
 import com.deco2800.game.components.scores.ScoreDisplay;
 import com.deco2800.game.entities.Entity;
@@ -12,7 +10,7 @@ import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
 import com.deco2800.game.input.InputDecorator;
 import com.deco2800.game.input.InputService;
-import com.deco2800.game.levels.LevelDefinition;
+import com.deco2800.game.levels.LevelInfo;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.services.MusicServiceDirectory;
@@ -28,12 +26,12 @@ public class ScoreScreen extends ScreenAdapter {
     private static final String[] scoreScreenTextures = {"ui-elements/title_screen_clean.png"};
     private static final MusicServiceDirectory mainMenuSong = new MusicServiceDirectory();
     private static final String[] MainMenuMusic = {mainMenuSong.main_menu};
-    private LevelDefinition levelDefinition;
+    private LevelInfo levelInfo;
     private int completionTime;
 
-    public ScoreScreen (GdxGame game, LevelDefinition levelDefinition, int completionTime) {
+    public ScoreScreen (GdxGame game, LevelInfo levelInfo, int completionTime) {
         this.game = game;
-        this.levelDefinition = levelDefinition;
+        this.levelInfo = levelInfo;
         this.completionTime = completionTime;
         logger.debug("Initialising score screen");
         ServiceLocator.registerInputService(new InputService());
@@ -107,7 +105,7 @@ public class ScoreScreen extends ScreenAdapter {
         logger.debug("Creating ui");
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
-        ui.addComponent(new ScoreDisplay(levelDefinition, completionTime))
+        ui.addComponent(new ScoreDisplay(levelInfo, completionTime))
                 .addComponent(new InputDecorator(stage, 10))
                 .addComponent(new ScoreActions(game));
         ServiceLocator.getEntityService().register(ui);
